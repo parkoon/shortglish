@@ -4,7 +4,7 @@ type SubtitleProgressBarProps = {
 }
 
 export const SubtitleProgressBar = ({ current, total }: SubtitleProgressBarProps) => {
-  const progress = total > 0 ? ((current + 1) / total) * 100 : 0
+  const progress = total > 0 ? (current / total) * 100 : 0
 
   return (
     <div className="relative h-1 w-full bg-gray-200">
