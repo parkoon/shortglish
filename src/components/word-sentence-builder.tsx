@@ -25,18 +25,17 @@ export const WordSentenceBuilder = ({
   onComplete,
   isCompleted = false,
 }: WordSentenceBuilderProps) => {
-  const { words, selectedWords, wrongWordIndices, availableWords, wordAttempts, handleWordClick } =
-    useWordGame({
-      sentence,
-      onComplete,
-      isCompleted,
-    })
+  const { words, selectedWords, wrongWordIndices, availableWords, handleWordClick } = useWordGame({
+    sentence,
+    onComplete,
+    isCompleted,
+  })
 
   return (
     <div className="space-y-8">
       {/* 단어 슬롯 영역 */}
       <div className="space-y-4">
-        <WordSlots words={words} selectedWords={selectedWords} wordAttempts={wordAttempts} />
+        <WordSlots words={words} selectedWords={selectedWords} />
         <span className="text-gray-600">{translation}</span>
       </div>
 
@@ -46,7 +45,7 @@ export const WordSentenceBuilder = ({
           {availableWords.map(item => {
             const isWrong = wrongWordIndices.has(item.shuffledIndex)
             // 중복 단어를 고려해 originalIndex로 선택 여부 확인
-            const isSelected = words[item.originalIndex] === selectedWords[item.originalIndex]
+            const isSelected = selectedWords[item.originalIndex]?.word === words[item.originalIndex]
 
             return (
               <WordButton

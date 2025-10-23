@@ -14,13 +14,17 @@ type WordWithIndex = {
   shuffledIndex: number
 }
 
+type SelectedWordInfo = {
+  word: string
+  attempts: number // 1 = 한번에, 2+ = 틀렸다가
+}
+
 type UseWordGameReturn = {
   words: string[]
-  selectedWords: string[]
+  selectedWords: SelectedWordInfo[]
   wrongWordIndices: Set<number>
   availableWords: WordWithIndex[]
   isCompleted: boolean
-  wordAttempts: number[] // 각 위치별 시도 횟수
   handleWordClick: (shuffledIndex: number) => void
 }
 
@@ -52,21 +56,14 @@ export const useWordGame = ({
     return shuffled.map((obj, idx) => ({ ...obj, shuffledIndex: idx }))
   })
 
-  // 이미 완성된 자막이면 모든 단어를 선택된 상태로 초기화
-  const [selectedIndices, setSelectedIndices] = useState<number[]>(() =>
-    isCompleted ? words.map((_, idx) => idx) : [],
+  // 선택된 단어 정보 (단어 + 시도 횟수)
+  const [selectedWords, setSelectedWords] = useState<SelectedWordInfo[]>(() =>
+    isCompleted ? words.map(word => ({ word, attempts: 1 })) : [],
   )
   const [wrongWordIndices, setWrongWordIndices] = useState<Set<number>>(new Set())
-  // 각 위치별 시도 횟수 추적 (0: 시도 전, 1: 한 번에 맞춤, 2+: 틀렸다가 맞춤)
-  const [wordAttempts, setWordAttempts] = useState<number[]>(() =>
-    isCompleted ? words.map(() => 1) : words.map(() => 0),
-  )
 
-  const currentPosition = selectedIndices.length
-  const isGameCompleted = selectedIndices.length === words.length
-
-  // 선택된 단어들을 순서대로
-  const selectedWords = selectedIndices.map(idx => words[idx])
+  const currentPosition = selectedWords.length
+  const isGameCompleted = selectedWords.length === words.length
 
   // 모든 단어를 그대로 유지 (선택된 단어는 회색 영역으로 표시)
   const availableWords = wordsWithIndices
@@ -80,18 +77,16 @@ export const useWordGame = ({
 
     // 정답인 경우
     if (clickedWord.word === expectedWord && clickedWord.originalIndex === expectedIndex) {
-      setSelectedIndices(prev => [...prev, clickedWord.originalIndex])
+      // 틀린 적이 있으면 시도 횟수 증가, 없으면 1로 설정
+      const attempts = wrongWordIndices.size > 0 ? wrongWordIndices.size + 1 : 1
 
-      // 시도 횟수 기록
-      setWordAttempts(prev => {
-        const newAttempts = [...prev]
-        // 틀린 적이 있으면 시도 횟수 증가, 없으면 1로 설정
-        const hadWrongAttempts = wrongWordIndices.size > 0
-        newAttempts[expectedIndex] = hadWrongAttempts
-          ? prev[expectedIndex] + wrongWordIndices.size + 1
-          : 1
-        return newAttempts
-      })
+      setSelectedWords(prev => [
+        ...prev,
+        {
+          word: clickedWord.word,
+          attempts,
+        },
+      ])
 
       // 정답을 맞추면 틀린 단어들의 취소선을 풀어줌 (다시 시도 가능)
       setWrongWordIndices(new Set())
@@ -115,7 +110,6 @@ export const useWordGame = ({
     wrongWordIndices,
     availableWords,
     isCompleted: isGameCompleted,
-    wordAttempts,
     handleWordClick,
   }
 }
