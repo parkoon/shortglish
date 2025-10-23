@@ -161,6 +161,12 @@ const VideoPage = () => {
   const isCurrentSubtitleCompleted =
     !currentDialogue || !videoId ? true : isCompleted(videoId, currentDialogue.index)
 
+  // 이전 자막이 있는지 확인
+  const currentIndex = currentDialogue
+    ? subtitles.findIndex(d => d.index === currentDialogue.index)
+    : -1
+  const canGoPrevious = currentIndex > 0
+
   if (!videoId) {
     return <div className="p-4">비디오를 찾을 수 없습니다.</div>
   }
@@ -204,6 +210,7 @@ const VideoPage = () => {
         onNext={handleNext}
         canRepeat={!!currentDialogue}
         canNext={isCurrentSubtitleCompleted}
+        canPrevious={canGoPrevious}
       />
     </PageLayout>
   )
