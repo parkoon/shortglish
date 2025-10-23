@@ -40,11 +40,19 @@ export const VideoController = forwardRef<VideoControllerRef, VideoControllerPro
               <IconPlayerSkipBackFilled />
             </button>
 
-            <motion.button
+            <button
               onClick={onRepeat}
               className={cn('p-2', !canRepeat && 'opacity-50 pointer-events-none')}
+            >
+              <IconRepeat />
+            </button>
+
+            <motion.button
+              onClick={onNext}
+              disabled={!canNext}
+              className={cn('p-2', !canNext && 'opacity-50 cursor-not-allowed')}
               animate={
-                isBlinking
+                isBlinking && canNext
                   ? {
                       color: ['#000', primaryColor, '#000'],
                     }
@@ -53,7 +61,7 @@ export const VideoController = forwardRef<VideoControllerRef, VideoControllerPro
                     }
               }
               transition={
-                isBlinking
+                isBlinking && canNext
                   ? {
                       duration: 1,
                       repeat: Infinity,
@@ -62,16 +70,8 @@ export const VideoController = forwardRef<VideoControllerRef, VideoControllerPro
                   : { duration: 0.2 }
               }
             >
-              <IconRepeat />
-            </motion.button>
-
-            <button
-              onClick={onNext}
-              disabled={!canNext}
-              className={cn('p-2', !canNext && 'opacity-50 cursor-not-allowed')}
-            >
               <IconPlayerSkipForwardFilled />
-            </button>
+            </motion.button>
           </div>
         </div>
       </div>
