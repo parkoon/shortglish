@@ -12,11 +12,9 @@ import { SubtitleProgressBar } from './_components/subtitle-progress-bar'
 
 const VideoPage = () => {
   const { videoId } = useParams<{ videoId: string }>()
-  const [isRepeatMode, setIsRepeatMode] = useState(false)
   const [subtitles, setSubtitles] = useState<Subtitle[]>([])
   const [isLoadingDialogues, setIsLoadingDialogues] = useState(true)
   const [currentDialogue, setCurrentDialogue] = useState<Subtitle>(subtitles[0])
-  const isRepeatModeRef = useRef(isRepeatMode)
 
   const playerRef = useRef<YouTubePlayerRef>(null)
   const videoControllerRef = useRef<VideoControllerRef>(null)
@@ -24,9 +22,6 @@ const VideoPage = () => {
   const [playerState, setPlayerState] = useState(-1)
 
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
-  // isRepeatMode의 최신 값을 참조하기 위한 ref
-  const hasCommentaryRef = useRef(false)
-  const endTimeRef = useRef(0)
   const currentDialogueRef = useRef(currentDialogue)
 
   // Load dialogues for the current video
@@ -50,37 +45,18 @@ const VideoPage = () => {
     currentDialogueRef.current = currentDialogue
   }, [currentDialogue])
 
-  // 다이얼로그 변경 감지 및 처리
-  const previousDialogueIndexRef = useRef<number | null>(null)
-
-  useEffect(() => {
-    // 최초 렌더링 시에는 이전 index만 저장
-    if (previousDialogueIndexRef.current === null) {
-      previousDialogueIndexRef.current = currentDialogue?.index ?? 0
-      return
-    }
-
-    // 이전 다이얼로그와 현재 다이얼로그가 다른 경우에만 처리
-    if (currentDialogue && previousDialogueIndexRef.current !== currentDialogue.index) {
-      playerRef.current?.pause()
-      console.log(`자막 ${currentDialogue.index + 1}: ${currentDialogue.text}`)
-
-      // 현재 index를 이전 index로 저장
-      previousDialogueIndexRef.current = currentDialogue.index
-    }
-  }, [currentDialogue])
-
   const handleTogglePlay = () => {
     if (playerState === 1) {
+      // 재생 중이면 일시정지
       playerRef.current?.pause()
-
       return
     }
 
-    hasCommentaryRef.current = false
-    endTimeRef.current = 0
-    videoControllerRef.current?.stopBlink()
-
+    // 일시정지 상태에서 재생 버튼 누르면
+    // 현재 다이얼로그의 시작점으로 이동 후 재생
+    if (currentDialogue) {
+      playerRef.current?.seekTo(currentDialogue.startTime)
+    }
     playerRef.current?.play()
   }
 
@@ -116,30 +92,6 @@ const VideoPage = () => {
     }
   }
 
-  const handleToggleRepeat = () => {
-    setIsRepeatMode(prev => {
-      const newValue = !prev
-      // ref도 함께 업데이트
-      isRepeatModeRef.current = newValue
-      return newValue
-    })
-  }
-
-  const handleDialogueEnded = () => {
-    playerRef.current?.pause()
-
-    alert('가이드 종료')
-  }
-
-  const handleRepeatMode = (time: number) => {
-    const endTime = currentDialogue.endTime
-
-    if (time >= endTime) {
-      playerRef.current?.seekTo(currentDialogue.startTime)
-      setCurrentDialogue(currentDialogue)
-    }
-  }
-
   const startTimeTracking = () => {
     if (intervalRef.current) {
       clearInterval(intervalRef.current)
@@ -150,28 +102,21 @@ const VideoPage = () => {
       if (playerRef.current) {
         const time = playerRef.current.getCurrentTime()
 
-        if (isDialogueEnded(time, subtitles)) {
-          handleDialogueEnded()
-          return
-        }
-
-        const isRepeatMode = isRepeatModeRef.current
-
-        if (isRepeatMode) {
-          handleRepeatMode(time)
-          return
-        }
-
-        const 시간에따른다이얼로그 = subtitles.find(d => {
+        // 관심사 1: 현재 시간에 맞는 다이얼로그 찾아서 화면에 표시
+        const foundDialogue = subtitles.find(d => {
           return time >= d.startTime && time < d.endTime
         })
 
-        if (!시간에따른다이얼로그) {
-          return
+        if (foundDialogue) {
+          // setCurrentDialogue(foundDialogue)
         }
 
-        // 현재 다이얼로그와 다를 때만 업데이트
-        setCurrentDialogue(시간에따른다이얼로그)
+        // 관심사 2: 재생 중인 다이얼로그가 끝났는지 체크하여 멈춤
+        const activeDialogue = currentDialogueRef.current
+        if (activeDialogue && time >= activeDialogue.endTime) {
+          playerRef.current.pause()
+          playerRef.current.seekTo(activeDialogue.startTime)
+        }
       }
     }, 100)
   }
@@ -228,19 +173,14 @@ const VideoPage = () => {
       <VideoController
         ref={videoControllerRef}
         isPlaying={playerState === 1}
-        isRepeatMode={isRepeatMode}
+        isRepeatMode={false}
         togglePlay={handleTogglePlay}
         onPrevious={handlePrevious}
         onNext={handleNext}
-        toggleRepeat={handleToggleRepeat}
+        toggleRepeat={() => {}}
       />
     </PageLayout>
   )
-}
-
-const isDialogueEnded = (time: number, subtitles: Subtitle[]) => {
-  const lastDialogue = subtitles[subtitles.length - 1]
-  return time >= lastDialogue.endTime
 }
 
 const getSubtitle = async (videoId: string): Promise<Subtitle[]> => {
