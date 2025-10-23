@@ -14,6 +14,7 @@ type VideoControllerProps = {
   onNext: () => void
   onRepeat: () => void
   canRepeat: boolean
+  canNext?: boolean
 }
 
 export type VideoControllerRef = {
@@ -22,7 +23,7 @@ export type VideoControllerRef = {
 }
 
 export const VideoController = forwardRef<VideoControllerRef, VideoControllerProps>(
-  ({ onRepeat, onPrevious, onNext, canRepeat }, ref) => {
+  ({ onRepeat, onPrevious, onNext, canRepeat, canNext = true }, ref) => {
     const [isBlinking, setIsBlinking] = useState(false)
     const primaryColor = usePrimaryColor()
 
@@ -64,7 +65,11 @@ export const VideoController = forwardRef<VideoControllerRef, VideoControllerPro
               <IconRepeat />
             </motion.button>
 
-            <button onClick={onNext} className="p-2 disabled:opacity-50">
+            <button
+              onClick={onNext}
+              disabled={!canNext}
+              className={cn('p-2', !canNext && 'opacity-50 cursor-not-allowed')}
+            >
               <IconPlayerSkipForwardFilled />
             </button>
           </div>

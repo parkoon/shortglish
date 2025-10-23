@@ -6,6 +6,7 @@ import { VideoController, type VideoControllerRef } from '@/components/video-con
 import { VideoSubtitles } from '@/components/video-subtitles'
 import { YouTubePlayer, type YouTubePlayerRef } from '@/features/video/components/youtube-player'
 import type { Subtitle } from '@/features/video/types'
+import { useSubtitleCompletionStore } from '@/stores/subtitle-completion-store'
 
 import { SubtitleProgressBar } from './_components/subtitle-progress-bar'
 
@@ -14,12 +15,12 @@ const VideoPage = () => {
   const [subtitles, setSubtitles] = useState<Subtitle[]>([])
   const [isLoadingDialogues, setIsLoadingDialogues] = useState(true)
   const [currentDialogue, setCurrentDialogue] = useState<Subtitle | null>(null)
-  console.log('🚀 ~ VideoPage ~ currentDialogue:', currentDialogue)
+  const [canShowBookmark, setCanShowBookmark] = useState(false)
+
+  const { isCompleted } = useSubtitleCompletionStore()
 
   const playerRef = useRef<YouTubePlayerRef>(null)
   const videoControllerRef = useRef<VideoControllerRef>(null)
-
-  const [playerState, setPlayerState] = useState(-1)
 
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const currentDialogueRef = useRef(currentDialogue)
@@ -66,10 +67,14 @@ const VideoPage = () => {
     if (playerRef) {
       setCurrentDialogue(prevDialogue)
       playerRef.current?.seekTo(prevDialogue.startTime)
+      // 이전 자막으로 이동하면 북마크 버튼 숨김
+      setCanShowBookmark(false)
     }
   }
 
   const handleNext = () => {
+    if (!videoId) return
+
     const currentIndex = subtitles.findIndex(d => d.index === currentDialogue?.index)
     const nextIndex = currentIndex + 1
     const nextDialogue = subtitles[nextIndex]
@@ -79,9 +84,16 @@ const VideoPage = () => {
       return
     }
 
+    // 현재 자막이 있고 완성되지 않았으면 이동 불가
+    if (currentDialogue && !isCompleted(videoId, currentDialogue.index)) {
+      return
+    }
+
     if (playerRef) {
       setCurrentDialogue(nextDialogue)
       playerRef.current?.seekTo(nextDialogue.startTime)
+      // 다음 자막으로 이동하면 북마크 버튼 숨김
+      setCanShowBookmark(false)
     }
   }
 
@@ -127,15 +139,22 @@ const VideoPage = () => {
   const handleStateChange = (state: number) => {
     const isPlaying = state === 1
 
-    setPlayerState(state)
-
     if (isPlaying) {
       startTimeTracking()
-
       return
     }
+
     stopTimeTracking()
   }
+
+  const handleSubtitleComplete = () => {
+    // 자막 완성 시 북마크 버튼 활성화
+    setCanShowBookmark(true)
+  }
+
+  // 현재 자막이 완성되었는지 확인
+  const isCurrentSubtitleCompleted =
+    !currentDialogue || !videoId ? true : isCompleted(videoId, currentDialogue.index)
 
   if (!videoId) {
     return <div className="p-4">비디오를 찾을 수 없습니다.</div>
@@ -157,7 +176,16 @@ const VideoPage = () => {
 
       {currentDialogue ? (
         <div className="p-4">
-          <VideoSubtitles data={currentDialogue} />
+          <VideoSubtitles
+            data={currentDialogue}
+            videoId={videoId}
+            onComplete={handleSubtitleComplete}
+          />
+          {canShowBookmark && (
+            <div className="mt-4 text-center text-sm text-green-600">
+              ✨ 문장을 완성했어요! 북마크할 수 있어요.
+            </div>
+          )}
         </div>
       ) : (
         <div className="p-4 text-center text-gray-500">재생할 대사가 없어요~</div>
@@ -169,6 +197,7 @@ const VideoPage = () => {
         onPrevious={handlePrevious}
         onNext={handleNext}
         canRepeat={!!currentDialogue}
+        canNext={isCurrentSubtitleCompleted}
       />
     </PageLayout>
   )
