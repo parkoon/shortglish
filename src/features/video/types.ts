@@ -32,4 +32,5 @@ export type Subtitle = {
   startTime: number
   endTime: number
   text: string
+  translation: string
 }

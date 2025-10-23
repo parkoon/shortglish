@@ -156,7 +156,9 @@ const VideoPage = () => {
       <SubtitleProgressBar current={currentDialogue?.index ?? 0} total={subtitles.length} />
 
       {currentDialogue ? (
-        <VideoSubtitles data={currentDialogue} />
+        <div className="p-4">
+          <VideoSubtitles data={currentDialogue} />
+        </div>
       ) : (
         <div className="p-4 text-center text-gray-500">재생할 대사가 없어요~</div>
       )}

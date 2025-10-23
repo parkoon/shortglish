@@ -1,7 +1,5 @@
 import type { Subtitle } from '@/features/video/types'
 
-import { CommentaryMarkdown } from './commentary-markdown'
-
 type VideoSubtitlesProps = {
   data?: Subtitle
 }
@@ -9,15 +7,9 @@ export const VideoSubtitles = ({ data }: VideoSubtitlesProps) => {
   if (!data) return null
 
   return (
-    <div className="px-4">
-      <div className="">
-        <CommentaryMarkdown content={data.text} />
-        {/* {data.commentary && (
-          <div className="mt-4">
-            <CommentaryMarkdown content={data.commentary} />
-          </div>
-        )} */}
-      </div>
+    <div className="flex flex-col gap-2">
+      <span className="text-gray-900 text-2xl">{data.text}</span>
+      <span className="text-gray-600">{data.translation}</span>
     </div>
   )
 }
