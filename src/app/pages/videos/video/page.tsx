@@ -4,7 +4,6 @@ import { useParams } from 'react-router'
 import { PageLayout } from '@/components/layouts/page-layout'
 import { VideoController, type VideoControllerRef } from '@/components/video-controller'
 import { VideoSubtitles } from '@/components/video-subtitles'
-import { TimerList } from '@/features/video/components/timer-list'
 import { YouTubePlayer, type YouTubePlayerRef } from '@/features/video/components/youtube-player'
 import type { Subtitle } from '@/features/video/types'
 
@@ -14,7 +13,8 @@ const VideoPage = () => {
   const { videoId } = useParams<{ videoId: string }>()
   const [subtitles, setSubtitles] = useState<Subtitle[]>([])
   const [isLoadingDialogues, setIsLoadingDialogues] = useState(true)
-  const [currentDialogue, setCurrentDialogue] = useState<Subtitle>(subtitles[0])
+  const [currentDialogue, setCurrentDialogue] = useState<Subtitle | null>(null)
+  console.log('🚀 ~ VideoPage ~ currentDialogue:', currentDialogue)
 
   const playerRef = useRef<YouTubePlayerRef>(null)
   const videoControllerRef = useRef<VideoControllerRef>(null)
@@ -32,9 +32,7 @@ const VideoPage = () => {
       setIsLoadingDialogues(true)
       const data = await getSubtitle(videoId)
       setSubtitles(data)
-      if (data.length > 0) {
-        setCurrentDialogue(data[0])
-      }
+      // 초기 상태는 null로 유지, interval에서 자동으로 찾음
       setIsLoadingDialogues(false)
     }
 
@@ -45,17 +43,12 @@ const VideoPage = () => {
     currentDialogueRef.current = currentDialogue
   }, [currentDialogue])
 
-  const handleTogglePlay = () => {
-    if (playerState === 1) {
-      // 재생 중이면 일시정지
-      playerRef.current?.pause()
-      return
-    }
-
-    // 일시정지 상태에서 재생 버튼 누르면
-    // 현재 다이얼로그의 시작점으로 이동 후 재생
+  const handleRepeat = () => {
     if (currentDialogue) {
       playerRef.current?.seekTo(currentDialogue.startTime)
+    } else {
+      // 대사가 없으면 0초부터 재생
+      playerRef.current?.seekTo(0)
     }
     playerRef.current?.play()
   }
@@ -99,10 +92,13 @@ const VideoPage = () => {
 
     // 100ms마다 현재 시간 업데이트 (더 부드러운 추적)
     intervalRef.current = setInterval(() => {
-      if (playerRef.current) {
-        const time = playerRef.current.getCurrentTime()
+      if (!playerRef.current) return
 
-        // 관심사 1: 현재 시간에 맞는 다이얼로그 찾아서 화면에 표시
+      const time = playerRef.current.getCurrentTime()
+      const activeDialogue = currentDialogueRef.current
+
+      // 케이스 1: 대사가 없을 때 - 현재 시간에 맞는 대사 찾아서 설정
+      if (!activeDialogue) {
         const foundDialogue = subtitles.find(d => {
           return time >= d.startTime && time < d.endTime
         })
@@ -110,13 +106,13 @@ const VideoPage = () => {
         if (foundDialogue) {
           setCurrentDialogue(foundDialogue)
         }
+        return
+      }
 
-        // 관심사 2: 재생 중인 다이얼로그가 끝났는지 체크하여 멈춤
-        const activeDialogue = currentDialogueRef.current
-        if (activeDialogue && time >= activeDialogue.endTime) {
-          playerRef.current.pause()
-          playerRef.current.seekTo(activeDialogue.startTime)
-        }
+      // 케이스 2: 대사가 있을 때 - 끝났는지만 체크
+      if (time >= activeDialogue.endTime) {
+        playerRef.current.pause()
+        playerRef.current.seekTo(activeDialogue.startTime)
       }
     }, 100)
   }
@@ -158,26 +154,19 @@ const VideoPage = () => {
         initialTime={0}
       />
       <SubtitleProgressBar current={currentDialogue?.index ?? 0} total={subtitles.length} />
-      {/* <MaterialAccordion materials={materials} /> */}
 
-      <div className="p-4">
-        <TimerList
-          onTimerComplete={() => {
-            alert('타이머가 종료되었습니다!')
-          }}
-        />
-      </div>
-
-      {currentDialogue && <VideoSubtitles data={currentDialogue} />}
+      {currentDialogue ? (
+        <VideoSubtitles data={currentDialogue} />
+      ) : (
+        <div className="p-4 text-center text-gray-500">재생할 대사가 없어요~</div>
+      )}
 
       <VideoController
         ref={videoControllerRef}
-        isPlaying={playerState === 1}
-        isRepeatMode={false}
-        togglePlay={handleTogglePlay}
+        onRepeat={handleRepeat}
         onPrevious={handlePrevious}
         onNext={handleNext}
-        toggleRepeat={() => {}}
+        canRepeat={!!currentDialogue}
       />
     </PageLayout>
   )
