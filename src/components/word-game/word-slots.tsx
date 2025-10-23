@@ -38,7 +38,7 @@ export const WordSlots = ({ words, selectedWords, wordAttempts }: WordSlotsProps
               initial={isSelected ? { opacity: 0, y: -10 } : false}
               animate={isSelected ? { opacity: 1, y: 0 } : {}}
               className={cn(
-                'text-2xl font-medium border-b-2 inline-block text-center',
+                'text-2xl font-medium border-b-2 inline-block text-center leading-tight pb-0.5',
                 textColor,
                 isSelected
                   ? attempts === 1
