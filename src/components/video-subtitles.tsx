@@ -29,8 +29,10 @@ export const VideoSubtitles = ({ data, videoId, onComplete }: VideoSubtitlesProp
   }
 
   // 완성 여부와 관계없이 단어 조합 게임 UI를 유지 (완성 시 슬롯만 채워진 상태)
+  // key를 사용해서 sentence가 바뀔 때마다 컴포넌트 완전히 리마운트
   return (
     <WordSentenceBuilder
+      key={`${videoId}-${data.index}`}
       sentence={data.text}
       translation={data.translation}
       onComplete={handleComplete}
