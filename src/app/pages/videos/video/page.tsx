@@ -108,7 +108,7 @@ const VideoPage = () => {
         })
 
         if (foundDialogue) {
-          // setCurrentDialogue(foundDialogue)
+          setCurrentDialogue(foundDialogue)
         }
 
         // 관심사 2: 재생 중인 다이얼로그가 끝났는지 체크하여 멈춤
