@@ -67,8 +67,9 @@ const VideoPage = () => {
     if (playerRef) {
       setCurrentDialogue(prevDialogue)
       playerRef.current?.seekTo(prevDialogue.startTime)
-      // 이전 자막으로 이동하면 북마크 버튼 숨김
+      // 이전 자막으로 이동하면 북마크 버튼 숨김 & 깜빡임 중지
       setCanShowBookmark(false)
+      videoControllerRef.current?.stopBlink()
     }
   }
 
@@ -92,8 +93,10 @@ const VideoPage = () => {
     if (playerRef) {
       setCurrentDialogue(nextDialogue)
       playerRef.current?.seekTo(nextDialogue.startTime)
-      // 다음 자막으로 이동하면 북마크 버튼 숨김
+      playerRef.current?.play()
+      // 다음 자막으로 이동하면 북마크 버튼 숨김 & 깜빡임 중지
       setCanShowBookmark(false)
+      videoControllerRef.current?.stopBlink()
     }
   }
 
@@ -150,6 +153,8 @@ const VideoPage = () => {
   const handleSubtitleComplete = () => {
     // 자막 완성 시 북마크 버튼 활성화
     setCanShowBookmark(true)
+    // Next 버튼 깜빡임 시작
+    videoControllerRef.current?.startBlink()
   }
 
   // 현재 자막이 완성되었는지 확인
@@ -172,6 +177,7 @@ const VideoPage = () => {
         videoId={videoId}
         initialTime={0}
       />
+
       <SubtitleProgressBar current={currentDialogue?.index ?? 0} total={subtitles.length} />
 
       {currentDialogue ? (

@@ -1,5 +1,3 @@
-import { IconShoppingCart } from '@tabler/icons-react'
-
 import { APP_BAR_HEIGHT, MAX_APP_SCREEN_WIDTH } from '@/config/app'
 
 export const MainLayout = ({ children }: { children: React.ReactNode }) => {

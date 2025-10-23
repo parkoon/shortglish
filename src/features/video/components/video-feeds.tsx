@@ -41,7 +41,7 @@ export const VideoCard = ({ video }: VideoCardProps) => {
         </div>
       </div>
 
-      <div className="mt-3 flex flex-col gap-1">
+      <div className="mt-3 flex flex-col gap-1 px-4">
         <h3 className="line-clamp-2 leading-5 font-semibold">{video.title}</h3>
         <div className="flex items-center text-sm text-gray-600">{video.description}</div>
       </div>
