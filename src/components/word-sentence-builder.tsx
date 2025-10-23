@@ -8,6 +8,7 @@ type WordSentenceBuilderProps = {
   isCompleted?: boolean
   translation: string
   onComplete?: () => void
+  onWrong?: () => void
 }
 
 /**
@@ -23,11 +24,13 @@ export const WordSentenceBuilder = ({
   sentence,
   translation,
   onComplete,
+  onWrong,
   isCompleted = false,
 }: WordSentenceBuilderProps) => {
   const { words, selectedWords, wrongWordIndices, availableWords, handleWordClick } = useWordGame({
     sentence,
     onComplete,
+    onWrong,
     isCompleted,
   })
 

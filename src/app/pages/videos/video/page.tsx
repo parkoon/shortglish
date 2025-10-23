@@ -208,6 +208,7 @@ const VideoPage = () => {
             data={currentDialogue}
             videoId={videoId}
             onComplete={handleSubtitleComplete}
+            onWrong={handleRepeat}
           />
           {canShowBookmark && (
             <div className="mt-4 text-center text-sm text-green-600">

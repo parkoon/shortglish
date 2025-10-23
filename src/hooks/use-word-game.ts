@@ -5,6 +5,7 @@ import { shuffleArray, splitSentenceToWords } from '@/utils/sentence'
 type UseWordGameProps = {
   sentence: string
   onComplete?: () => void
+  onWrong?: () => void
   isCompleted?: boolean
 }
 
@@ -40,6 +41,7 @@ type UseWordGameReturn = {
 export const useWordGame = ({
   sentence,
   onComplete,
+  onWrong,
   isCompleted = false,
 }: UseWordGameProps): UseWordGameReturn => {
   const [words] = useState(() => splitSentenceToWords(sentence))
@@ -95,6 +97,11 @@ export const useWordGame = ({
 
     // 오답인 경우
     setWrongWordIndices(prev => new Set(prev).add(shuffledIndex))
+
+    // 오답 콜백 호출
+    if (onWrong) {
+      onWrong()
+    }
   }
 
   // 완성 시 콜백 호출 (이미 완성된 상태로 시작한 경우는 제외)

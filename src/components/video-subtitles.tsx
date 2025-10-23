@@ -7,6 +7,7 @@ type VideoSubtitlesProps = {
   data?: Subtitle
   videoId: string
   onComplete?: () => void
+  onWrong?: () => void
 }
 
 /**
@@ -16,7 +17,7 @@ type VideoSubtitlesProps = {
  * - 단어 조합 게임 표시
  * - 완성 여부와 관계없이 채워진 단어 슬롯 유지
  */
-export const VideoSubtitles = ({ data, videoId, onComplete }: VideoSubtitlesProps) => {
+export const VideoSubtitles = ({ data, videoId, onComplete, onWrong }: VideoSubtitlesProps) => {
   const { isCompleted, markAsCompleted } = useSubtitleCompletionStore()
 
   if (!data) return null
@@ -36,6 +37,7 @@ export const VideoSubtitles = ({ data, videoId, onComplete }: VideoSubtitlesProp
       sentence={data.text}
       translation={data.translation}
       onComplete={handleComplete}
+      onWrong={onWrong}
       isCompleted={completed}
     />
   )
