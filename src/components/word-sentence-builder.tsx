@@ -5,8 +5,9 @@ import { WordSlots } from './word-game/word-slots'
 
 type WordSentenceBuilderProps = {
   sentence: string
-  onComplete?: () => void
   isCompleted?: boolean
+  translation: string
+  onComplete?: () => void
 }
 
 /**
@@ -20,6 +21,7 @@ type WordSentenceBuilderProps = {
  */
 export const WordSentenceBuilder = ({
   sentence,
+  translation,
   onComplete,
   isCompleted = false,
 }: WordSentenceBuilderProps) => {
@@ -33,9 +35,8 @@ export const WordSentenceBuilder = ({
   return (
     <div className="flex flex-col gap-8">
       {/* 단어 슬롯 영역 */}
-      <div className="bg-gray-50 rounded-lg p-6">
-        <WordSlots words={words} selectedWords={selectedWords} wordAttempts={wordAttempts} />
-      </div>
+      <WordSlots words={words} selectedWords={selectedWords} wordAttempts={wordAttempts} />
+      <span className="text-gray-600">{translation}</span>
 
       {/* 단어 버튼 영역 - 완성되면 숨김 */}
       {!isCompleted && (

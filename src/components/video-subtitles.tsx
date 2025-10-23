@@ -33,10 +33,10 @@ export const VideoSubtitles = ({ data, videoId, onComplete }: VideoSubtitlesProp
     <div className="flex flex-col gap-4">
       <WordSentenceBuilder
         sentence={data.text}
+        translation={data.translation}
         onComplete={handleComplete}
         isCompleted={completed}
       />
-      <span className="text-gray-600 text-center">{data.translation}</span>
     </div>
   )
 }

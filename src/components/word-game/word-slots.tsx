@@ -19,7 +19,7 @@ type WordSlotsProps = {
  */
 export const WordSlots = ({ words, selectedWords, wordAttempts }: WordSlotsProps) => {
   return (
-    <div className="flex flex-wrap gap-2 min-h-[100px] items-start">
+    <div className="flex flex-wrap gap-2 items-start">
       {words.map((word, index) => {
         const isSelected = index < selectedWords.length
         const selectedWord = selectedWords[index]
