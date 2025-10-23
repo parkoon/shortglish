@@ -19,11 +19,11 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
             </div>
           </div>
         </div>
-        <div className="h-full">
+        {/* <div className="h-full">
           <button className="h-full px-2">
             <IconShoppingCart />
           </button>
-        </div>
+        </div> */}
       </header>
       <div className="flex-1">{children}</div>
     </div>

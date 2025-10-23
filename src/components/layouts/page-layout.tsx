@@ -32,7 +32,6 @@ export const PageLayout = ({ title, children, right }: PageLayoutProps) => {
         </div>
         <div className="flex items-center">{right}</div>
       </header>
-
       {children}
     </div>
   )

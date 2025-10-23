@@ -4,30 +4,19 @@ import { useParams } from 'react-router'
 import { PageLayout } from '@/components/layouts/page-layout'
 import { VideoController, type VideoControllerRef } from '@/components/video-controller'
 import { VideoSubtitles } from '@/components/video-subtitles'
-import { defaultSubtitles } from '@/data/dialogue'
 import { TimerList } from '@/features/video/components/timer-list'
 import { YouTubePlayer, type YouTubePlayerRef } from '@/features/video/components/youtube-player'
 import type { Subtitle } from '@/features/video/types'
 
-import { type Material, MaterialAccordion } from './_components/material-accordion'
 import { SubtitleProgressBar } from './_components/subtitle-progress-bar'
-
-// 예시 재료 데이터 (추후 API로 대체 가능)
-const mockMaterials: Material[] = [
-  { id: '1', name: '당근', amount: '2개' },
-  { id: '2', name: '버터', amount: '30g' },
-  { id: '3', name: '설탕', amount: '2큰술' },
-  { id: '4', name: '간장', amount: '1큰술' },
-]
 
 const VideoPage = () => {
   const { videoId } = useParams<{ videoId: string }>()
   const [isRepeatMode, setIsRepeatMode] = useState(false)
-  const [subtitles, setSubtitles] = useState<Subtitle[]>(defaultSubtitles)
+  const [subtitles, setSubtitles] = useState<Subtitle[]>([])
   const [isLoadingDialogues, setIsLoadingDialogues] = useState(true)
   const [currentDialogue, setCurrentDialogue] = useState<Subtitle>(subtitles[0])
   const isRepeatModeRef = useRef(isRepeatMode)
-  const [materials, setMaterials] = useState<Material[]>(mockMaterials)
 
   const playerRef = useRef<YouTubePlayerRef>(null)
   const videoControllerRef = useRef<VideoControllerRef>(null)
@@ -140,21 +129,6 @@ const VideoPage = () => {
     playerRef.current?.pause()
 
     alert('가이드 종료')
-
-    // modal.open({
-    //   title: 'Xem xong video rồi!',
-    //   description: 'Bạn có muốn xem thư viện không?',
-    //   okButtonProps: {
-    //     children: 'Có',
-    //   },
-    //   cancelButtonProps: {
-    //     children: 'Không',
-    //   },
-    //   onOk: () => {
-    //     navigate(paths.my.sentences.getHref())
-    //   },
-    //   onCancel: () => {},
-    // })=
   }
 
   const handleRepeatMode = (time: number) => {
@@ -231,7 +205,7 @@ const VideoPage = () => {
   }
 
   return (
-    <PageLayout title="버터 당근 조림">
+    <PageLayout title="">
       <YouTubePlayer
         onStateChange={handleStateChange}
         ref={playerRef}
@@ -239,7 +213,7 @@ const VideoPage = () => {
         initialTime={0}
       />
       <SubtitleProgressBar current={currentDialogue?.index ?? 0} total={subtitles.length} />
-      <MaterialAccordion materials={materials} />
+      {/* <MaterialAccordion materials={materials} /> */}
 
       <div className="p-4">
         <TimerList
@@ -279,7 +253,7 @@ const getSubtitle = async (videoId: string): Promise<Subtitle[]> => {
     return data
   } catch (error) {
     console.error(`Failed to load subtitle for video: ${videoId}`, error)
-    return defaultSubtitles
+    return []
   }
 }
 

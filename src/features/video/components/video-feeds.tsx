@@ -41,12 +41,9 @@ export const VideoCard = ({ video }: VideoCardProps) => {
         </div>
       </div>
 
-      <div className="mt-3 flex items-center gap-2 px-4">
-        <img src={video.channel_thumbnail} alt={video.channel} className="w-10 h-10 rounded-full" />
-        <div className="flex-1">
-          <h3 className="line-clamp-2 leading-5 mb-1.5 font-semibold">{video.title}</h3>
-          <div className="flex items-center gap-1 text-sm text-gray-600">{video.channel}</div>
-        </div>
+      <div className="mt-3 flex flex-col gap-1">
+        <h3 className="line-clamp-2 leading-5 font-semibold">{video.title}</h3>
+        <div className="flex items-center text-sm text-gray-600">{video.description}</div>
       </div>
     </div>
   )
