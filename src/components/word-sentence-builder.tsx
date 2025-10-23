@@ -43,12 +43,15 @@ export const WordSentenceBuilder = ({
         <div className="flex flex-wrap gap-3 justify-center">
           {availableWords.map(item => {
             const isWrong = wrongWordIndices.has(item.shuffledIndex)
+            // 중복 단어를 고려해 originalIndex로 선택 여부 확인
+            const isSelected = words[item.originalIndex] === selectedWords[item.originalIndex]
 
             return (
               <WordButton
                 key={item.shuffledIndex}
                 word={item.word}
                 isWrong={isWrong}
+                isSelected={isSelected}
                 onClick={() => handleWordClick(item.shuffledIndex)}
               />
             )

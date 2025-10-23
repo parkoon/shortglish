@@ -30,13 +30,11 @@ export const VideoSubtitles = ({ data, videoId, onComplete }: VideoSubtitlesProp
 
   // 완성 여부와 관계없이 단어 조합 게임 UI를 유지 (완성 시 슬롯만 채워진 상태)
   return (
-    <div className="flex flex-col gap-4">
-      <WordSentenceBuilder
-        sentence={data.text}
-        translation={data.translation}
-        onComplete={handleComplete}
-        isCompleted={completed}
-      />
-    </div>
+    <WordSentenceBuilder
+      sentence={data.text}
+      translation={data.translation}
+      onComplete={handleComplete}
+      isCompleted={completed}
+    />
   )
 }

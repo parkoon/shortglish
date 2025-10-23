@@ -68,10 +68,8 @@ export const useWordGame = ({
   // 선택된 단어들을 순서대로
   const selectedWords = selectedIndices.map(idx => words[idx])
 
-  // 아직 선택되지 않은 단어들 (틀린 단어는 화면에 남아있음)
-  const availableWords = wordsWithIndices.filter(
-    item => !selectedIndices.includes(item.originalIndex),
-  )
+  // 모든 단어를 그대로 유지 (선택된 단어는 회색 영역으로 표시)
+  const availableWords = wordsWithIndices
 
   const handleWordClick = (shuffledIndex: number) => {
     const clickedWord = wordsWithIndices.find(w => w.shuffledIndex === shuffledIndex)

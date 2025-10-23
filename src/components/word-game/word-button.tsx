@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils'
 type WordButtonProps = {
   word: string
   isWrong: boolean
+  isSelected: boolean
   onClick: () => void
 }
 
@@ -16,8 +17,9 @@ type WordButtonProps = {
  * - 단어 버튼 렌더링
  * - 클릭 이벤트 처리
  * - 오답 시 진동 애니메이션 및 시각적 피드백
+ * - 선택된 단어는 회색 영역으로 표시 (레이아웃 유지)
  */
-export const WordButton = ({ word, isWrong, onClick }: WordButtonProps) => {
+export const WordButton = ({ word, isWrong, isSelected, onClick }: WordButtonProps) => {
   const [shouldAnimate, setShouldAnimate] = useState(false)
 
   // isWrong이 true로 변경될 때 애니메이션 트리거
@@ -28,8 +30,23 @@ export const WordButton = ({ word, isWrong, onClick }: WordButtonProps) => {
   }, [isWrong])
 
   const handleClick = () => {
-    if (isWrong) return
+    if (isWrong || isSelected) return
     onClick()
+  }
+
+  // 선택된 단어는 회색 placeholder로 표시
+  if (isSelected) {
+    return (
+      <div
+        className={cn(
+          'px-4 py-3 text-lg font-medium rounded-lg',
+          'bg-gray-100 border-2 border-gray-200 text-transparent',
+          'shadow-none',
+        )}
+      >
+        {word}
+      </div>
+    )
   }
 
   return (
