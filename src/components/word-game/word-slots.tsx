@@ -1,11 +1,13 @@
-import { motion } from 'framer-motion'
-
 import { cn } from '@/lib/utils'
+
+type SelectedWordInfo = {
+  word: string
+  attempts: number
+}
 
 type WordSlotsProps = {
   words: string[]
-  selectedWords: string[]
-  wordAttempts: number[] // 각 위치별 시도 횟수
+  selectedWords: SelectedWordInfo[]
 }
 
 /**
@@ -17,13 +19,13 @@ type WordSlotsProps = {
  * - 시도 횟수에 따른 색상 구분 (1번=초록, 2번이상=빨강)
  * - 띄어쓰기를 고려한 레이아웃
  */
-export const WordSlots = ({ words, selectedWords, wordAttempts }: WordSlotsProps) => {
+export const WordSlots = ({ words, selectedWords }: WordSlotsProps) => {
   return (
     <div className="flex flex-wrap gap-2 items-start">
       {words.map((word, index) => {
         const isSelected = index < selectedWords.length
-        const selectedWord = selectedWords[index]
-        const attempts = wordAttempts[index]
+        const selectedWordInfo = selectedWords[index]
+        const attempts = selectedWordInfo?.attempts || 0
 
         // 시도 횟수에 따른 색상
         const textColor = isSelected
@@ -33,26 +35,20 @@ export const WordSlots = ({ words, selectedWords, wordAttempts }: WordSlotsProps
           : 'text-transparent'
 
         return (
-          <div key={`slot-${index}`} className="flex items-center">
-            <motion.span
-              initial={isSelected ? { opacity: 0, y: -10 } : false}
-              animate={isSelected ? { opacity: 1, y: 0 } : {}}
-              className={cn(
-                'text-2xl font-medium border-b-2 inline-block text-center leading-tight pb-0.5',
-                textColor,
-                isSelected
-                  ? attempts === 1
-                    ? 'border-green-600'
-                    : 'border-red-500'
-                  : 'border-gray-400',
-              )}
-              style={{
-                width: `${Math.max(word.length * 0.65, 2.5)}rem`,
-              }}
-            >
-              {isSelected ? selectedWord : '\u00A0'}
-            </motion.span>
-          </div>
+          <span
+            key={`slot-${index}`}
+            className={cn(
+              'text-2xl border-b-2 leading-tight px-1',
+              textColor,
+              isSelected
+                ? attempts === 1
+                  ? 'border-green-600'
+                  : 'border-red-500'
+                : 'border-gray-400',
+            )}
+          >
+            {word}
+          </span>
         )
       })}
     </div>
