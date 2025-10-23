@@ -33,10 +33,12 @@ export const WordSentenceBuilder = ({
     })
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="space-y-8">
       {/* 단어 슬롯 영역 */}
-      <WordSlots words={words} selectedWords={selectedWords} wordAttempts={wordAttempts} />
-      <span className="text-gray-600">{translation}</span>
+      <div className="space-y-4">
+        <WordSlots words={words} selectedWords={selectedWords} wordAttempts={wordAttempts} />
+        <span className="text-gray-600">{translation}</span>
+      </div>
 
       {/* 단어 버튼 영역 - 완성되면 숨김 */}
       {!isCompleted && (

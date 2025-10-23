@@ -39,8 +39,8 @@ export const WordButton = ({ word, isWrong, isSelected, onClick }: WordButtonPro
     return (
       <div
         className={cn(
-          'px-4 py-3 text-lg font-medium rounded-lg',
-          'bg-gray-100 border-2 border-gray-200 text-transparent',
+          'px-4 py-1.5 text-lg font-medium rounded',
+          'bg-gray-100 border-1 border-gray-200 text-transparent',
           'shadow-none',
         )}
       >
@@ -54,12 +54,11 @@ export const WordButton = ({ word, isWrong, isSelected, onClick }: WordButtonPro
       onClick={handleClick}
       disabled={isWrong}
       className={cn(
-        'px-4 py-3 text-lg font-medium rounded-lg transition-all',
-        'bg-white border-2 border-gray-300 text-gray-900',
-        'hover:bg-gray-50 active:scale-95',
-        'shadow-sm',
+        'px-4 py-1.5 text-lg font-medium rounded transition-all',
+        'bg-white border-1 border-gray-300 text-gray-900',
+        'shadow-md',
         !isWrong && 'cursor-pointer',
-        isWrong && 'line-through opacity-50 cursor-not-allowed shadow-none',
+        isWrong && 'line-through opacity-50 cursor-not-allowed shadow-none hover:translate-y-0',
       )}
       animate={
         shouldAnimate && isWrong
