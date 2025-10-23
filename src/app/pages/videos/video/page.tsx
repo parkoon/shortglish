@@ -8,6 +8,7 @@ import { YouTubePlayer, type YouTubePlayerRef } from '@/features/video/component
 import type { Subtitle } from '@/features/video/types'
 import { useSubtitleCompletionStore } from '@/stores/subtitle-completion-store'
 
+import { EmptySubtitle } from './_components/empty-subtitle'
 import { SubtitleProgressBar } from './_components/subtitle-progress-bar'
 
 const VideoPage = () => {
@@ -112,11 +113,9 @@ const VideoPage = () => {
       const time = playerRef.current.getCurrentTime()
       const activeDialogue = currentDialogueRef.current
 
-      // 케이스 1: 대사가 없을 때 - 현재 시간에 맞는 대사 찾아서 설정
+      // 케이스 1: 대사가 없을 때 (첫 지점) - 현재 시간에 맞는 대사 찾아서 설정
       if (!activeDialogue) {
-        const foundDialogue = subtitles.find(d => {
-          return time >= d.startTime && time < d.endTime
-        })
+        const foundDialogue = getCurrentDialogue(subtitles, time)
 
         if (foundDialogue) {
           setCurrentDialogue(foundDialogue)
@@ -124,8 +123,21 @@ const VideoPage = () => {
         return
       }
 
+      const isEnded = time >= activeDialogue.endTime
+
+      // 케이스 3: 대사가 없을 때 - 끝났는지만 체크
+      if (isEnded && activeDialogue.text === '') {
+        const foundDialogue = getCurrentDialogue(subtitles, time)
+
+        if (foundDialogue) {
+          setCurrentDialogue(foundDialogue)
+        }
+
+        return
+      }
+
       // 케이스 2: 대사가 있을 때 - 끝났는지만 체크
-      if (time >= activeDialogue.endTime) {
+      if (isEnded) {
         playerRef.current.pause()
         playerRef.current.seekTo(activeDialogue.startTime)
       }
@@ -159,7 +171,9 @@ const VideoPage = () => {
 
   // 현재 자막이 완성되었는지 확인
   const isCurrentSubtitleCompleted =
-    !currentDialogue || !videoId ? true : isCompleted(videoId, currentDialogue.index)
+    !currentDialogue || !videoId
+      ? true
+      : isCompleted(videoId, currentDialogue.index) || currentDialogue.text === ''
 
   // 이전 자막이 있는지 확인
   const currentIndex = currentDialogue
@@ -186,7 +200,9 @@ const VideoPage = () => {
 
       <SubtitleProgressBar current={currentDialogue?.index ?? 0} total={subtitles.length} />
 
-      {currentDialogue ? (
+      {currentDialogue?.text === '' ? (
+        <EmptySubtitle />
+      ) : currentDialogue ? (
         <div className="p-4">
           <VideoSubtitles
             data={currentDialogue}
@@ -228,6 +244,14 @@ const getSubtitle = async (videoId: string): Promise<Subtitle[]> => {
     console.error(`Failed to load subtitle for video: ${videoId}`, error)
     return []
   }
+}
+
+const getCurrentDialogue = (subtitles: Subtitle[], time: number): Subtitle | null => {
+  return (
+    subtitles.find(d => {
+      return time >= d.startTime && time < d.endTime
+    }) ?? null
+  )
 }
 
 export default VideoPage
