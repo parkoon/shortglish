@@ -6,8 +6,8 @@ import { WordSentenceBuilder } from './word-sentence-builder'
 type VideoSubtitlesProps = {
   data?: Subtitle
   videoId: string
-  onComplete?: () => void
-  onWrong?: () => void
+  onComplete: () => void
+  onWrong: () => void
 }
 
 /**

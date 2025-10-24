@@ -4,8 +4,8 @@ import { shuffleArray, splitSentenceToWords } from '@/utils/sentence'
 
 type UseWordGameProps = {
   sentence: string
-  onComplete?: () => void
-  onWrong?: () => void
+  onComplete: () => void
+  onWrong: () => void
   isCompleted?: boolean
 }
 
@@ -90,7 +90,7 @@ export const useWordGame = ({
       setWrongWordIndices(new Set())
 
       // 마지막 단어를 맞췄을 때 바로 onComplete 호출
-      if (currentPosition + 1 === words.length && onComplete) {
+      if (currentPosition + 1 === words.length) {
         onComplete()
       }
 
@@ -101,9 +101,7 @@ export const useWordGame = ({
     setWrongWordIndices(prev => new Set(prev).add(id))
 
     // 오답 콜백 호출
-    if (onWrong) {
-      onWrong()
-    }
+    onWrong()
   }
 
   // sentence가 바뀌면 게임 상태 리셋

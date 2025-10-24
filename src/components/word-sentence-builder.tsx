@@ -7,8 +7,8 @@ type WordSentenceBuilderProps = {
   sentence: string
   isCompleted?: boolean
   translation: string
-  onComplete?: () => void
-  onWrong?: () => void
+  onComplete: () => void
+  onWrong: () => void
 }
 
 /**
