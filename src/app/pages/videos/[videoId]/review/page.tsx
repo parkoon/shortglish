@@ -156,13 +156,11 @@ const VideoPage = () => {
       </div>
 
       {/* Scrollable Dialogue List */}
-      <div className="">
-        <FullDialogue
-          dialogues={subtitles}
-          currentDialogue={currentDialogue}
-          onRepeat={handleDialogueRepeat}
-        />
-      </div>
+      <FullDialogue
+        dialogues={subtitles}
+        currentDialogue={currentDialogue}
+        onRepeat={handleDialogueRepeat}
+      />
 
       {/* <VideoController
         ref={videoControllerRef}
