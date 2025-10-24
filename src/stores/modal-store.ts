@@ -76,13 +76,6 @@ export const useModalStore = create<ModalStore>((set, get) => ({
   },
 
   close: () => {
-    const { config } = get()
-
-    // onCancel 콜백이 있으면 실행
-    if (config.onCancel) {
-      config.onCancel()
-    }
-
     set({
       isOpen: false,
       config: initialConfig,
