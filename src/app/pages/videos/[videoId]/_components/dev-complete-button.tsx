@@ -2,11 +2,17 @@ import type { Subtitle } from '@/features/video/types'
 import { useSubtitleCompletionStore } from '@/stores/subtitle-completion-store'
 import { splitSentenceToWords } from '@/utils/sentence'
 
+type SelectedWordInfo = {
+  word: string
+  attempts: number
+  id: number
+}
+
 interface DevCompleteButtonProps {
   videoId: string
   currentDialogue: Subtitle | null
   isCompleted: boolean
-  onComplete: () => void
+  onComplete: (selectedWords: SelectedWordInfo[]) => void
 }
 
 export const DevCompleteButton = ({
@@ -41,7 +47,7 @@ export const DevCompleteButton = ({
     }))
 
     markAsCompleted(videoId, currentDialogue.index, dummyWords)
-    onComplete()
+    onComplete(dummyWords)
   }
 
   return (

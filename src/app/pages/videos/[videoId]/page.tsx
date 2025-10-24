@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router'
 
 import { PageLayout } from '@/components/layouts/page-layout'
 import { VideoController, type VideoControllerRef } from '@/components/video-controller'
-import { VideoSubtitles } from '@/components/video-subtitles'
+import { WordSentenceBuilder } from '@/components/word-sentence-builder'
 import { paths } from '@/config/paths'
 import {
   YOUTUBE_PLAYER_STATE,
@@ -18,6 +18,12 @@ import { DevCompleteButton } from './_components/dev-complete-button'
 import { EmptySubtitle } from './_components/empty-subtitle'
 import { SubtitleProgressBar } from './_components/subtitle-progress-bar'
 
+type SelectedWordInfo = {
+  word: string
+  attempts: number
+  id: number
+}
+
 const VideoPage = () => {
   const { videoId } = useParams<{ videoId: string }>()
   const navigate = useNavigate()
@@ -26,7 +32,7 @@ const VideoPage = () => {
   const [currentDialogue, setCurrentDialogue] = useState<Subtitle | null>(null)
   const [canShowBookmark, setCanShowBookmark] = useState(false)
 
-  const { isCompleted } = useSubtitleCompletionStore()
+  const { isCompleted, markAsCompleted, getCompletedWords } = useSubtitleCompletionStore()
   const modal = useGlobalModal()
 
   const playerRef = useRef<YouTubePlayerRef>(null)
@@ -171,10 +177,13 @@ const VideoPage = () => {
     stopTimeTracking()
   }
 
-  const handleSubtitleComplete = () => {
-    if (!currentDialogue) {
+  const handleSubtitleComplete = (selectedWords: SelectedWordInfo[]) => {
+    if (!currentDialogue || !videoId) {
       return
     }
+
+    // store에 저장
+    markAsCompleted(videoId, currentDialogue.index, selectedWords)
 
     const nextDialogue = getNextDialogue(subtitles, currentDialogue)
     // 다음 자막이 없으면, 학습 종료
@@ -243,13 +252,16 @@ const VideoPage = () => {
 
       {currentDialogue?.text === '' ? (
         <EmptySubtitle />
-      ) : currentDialogue ? (
+      ) : currentDialogue && videoId ? (
         <div className="p-4">
-          <VideoSubtitles
-            data={currentDialogue}
-            videoId={videoId}
+          <WordSentenceBuilder
+            key={`${videoId}-${currentDialogue.index}`}
+            sentence={currentDialogue.text}
+            translation={currentDialogue.translation}
             onComplete={handleSubtitleComplete}
             onWrong={handleRepeat}
+            isCompleted={isCompleted(videoId, currentDialogue.index)}
+            completedWords={getCompletedWords(videoId, currentDialogue.index)}
           />
           {canShowBookmark && (
             <div className="mt-4 text-center text-sm text-green-600">
