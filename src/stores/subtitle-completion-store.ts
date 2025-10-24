@@ -1,14 +1,25 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
+type SelectedWordInfo = {
+  word: string
+  attempts: number
+  id: number
+}
+
 type CompletionState = {
-  // videoId를 key로, 완성된 subtitle index 배열을 value로 저장
-  completions: Record<string, number[]>
+  // videoId → subtitleIndex → SelectedWordInfo[]
+  completions: Record<string, Record<number, SelectedWordInfo[]>>
 }
 
 type CompletionActions = {
-  markAsCompleted: (videoId: string, subtitleIndex: number) => void
+  markAsCompleted: (
+    videoId: string,
+    subtitleIndex: number,
+    selectedWords: SelectedWordInfo[],
+  ) => void
   isCompleted: (videoId: string, subtitleIndex: number) => boolean
+  getCompletedWords: (videoId: string, subtitleIndex: number) => SelectedWordInfo[] | undefined
   clearVideo: (videoId: string) => void
 }
 
@@ -19,19 +30,21 @@ export const useSubtitleCompletionStore = create<SubtitleCompletionStore>()(
     (set, get) => ({
       completions: {},
 
-      markAsCompleted: (videoId: string, subtitleIndex: number) => {
+      markAsCompleted: (
+        videoId: string,
+        subtitleIndex: number,
+        selectedWords: SelectedWordInfo[],
+      ) => {
         set(state => {
-          const videoCompletions = state.completions[videoId] || []
-
-          // 이미 완성된 경우 중복 방지
-          if (videoCompletions.includes(subtitleIndex)) {
-            return state
-          }
+          const videoCompletions = state.completions[videoId] || {}
 
           return {
             completions: {
               ...state.completions,
-              [videoId]: [...videoCompletions, subtitleIndex],
+              [videoId]: {
+                ...videoCompletions,
+                [subtitleIndex]: selectedWords,
+              },
             },
           }
         })
@@ -39,8 +52,12 @@ export const useSubtitleCompletionStore = create<SubtitleCompletionStore>()(
 
       isCompleted: (videoId: string, subtitleIndex: number) => {
         const state = get()
-        const videoCompletions = state.completions[videoId]
-        return videoCompletions ? videoCompletions.includes(subtitleIndex) : false
+        return !!state.completions[videoId]?.[subtitleIndex]
+      },
+
+      getCompletedWords: (videoId: string, subtitleIndex: number) => {
+        const state = get()
+        return state.completions[videoId]?.[subtitleIndex]
       },
 
       clearVideo: (videoId: string) => {

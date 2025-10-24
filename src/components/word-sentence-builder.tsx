@@ -3,12 +3,19 @@ import { useWordGame } from '@/hooks/use-word-game'
 import { WordButton } from './word-game/word-button'
 import { WordSlots } from './word-game/word-slots'
 
+type SelectedWordInfo = {
+  word: string
+  attempts: number
+  id: number
+}
+
 type WordSentenceBuilderProps = {
   sentence: string
   isCompleted?: boolean
   translation: string
-  onComplete: () => void
+  onComplete: (selectedWords: SelectedWordInfo[]) => void
   onWrong: () => void
+  completedWords?: SelectedWordInfo[]
 }
 
 /**
@@ -26,6 +33,7 @@ export const WordSentenceBuilder = ({
   onComplete,
   onWrong,
   isCompleted = false,
+  completedWords,
 }: WordSentenceBuilderProps) => {
   const { words, selectedWords, wrongWordIndices, wordsWithIndices, handleWordClick } = useWordGame(
     {
@@ -33,6 +41,7 @@ export const WordSentenceBuilder = ({
       onComplete,
       onWrong,
       isCompleted,
+      completedWords,
     },
   )
 

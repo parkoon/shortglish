@@ -4,9 +4,10 @@ import { shuffleArray, splitSentenceToWords } from '@/utils/sentence'
 
 type UseWordGameProps = {
   sentence: string
-  onComplete: () => void
+  onComplete: (selectedWords: SelectedWordInfo[]) => void
   onWrong: () => void
   isCompleted?: boolean
+  completedWords?: SelectedWordInfo[]
 }
 
 type WordWithIndex = {
@@ -44,6 +45,7 @@ export const useWordGame = ({
   onComplete,
   onWrong,
   isCompleted = false,
+  completedWords,
 }: UseWordGameProps): UseWordGameReturn => {
   const words = useMemo(() => splitSentenceToWords(sentence), [sentence])
 
@@ -91,7 +93,15 @@ export const useWordGame = ({
 
       // 마지막 단어를 맞췄을 때 바로 onComplete 호출
       if (currentPosition + 1 === words.length) {
-        onComplete()
+        const finalWords = [
+          ...selectedWords,
+          {
+            word: clickedWord.word,
+            attempts,
+            id: clickedWord.id,
+          },
+        ]
+        onComplete(finalWords)
       }
 
       return
@@ -106,17 +116,9 @@ export const useWordGame = ({
 
   // sentence가 바뀌면 게임 상태 리셋
   useEffect(() => {
-    setSelectedWords(
-      isCompleted
-        ? words.map((word, idx) => ({
-            word,
-            attempts: 1,
-            id: wordsWithIndices.find(w => w.originalIndex === idx)?.id ?? idx,
-          }))
-        : [],
-    )
+    setSelectedWords(completedWords && isCompleted ? completedWords : [])
     setWrongWordIndices(new Set())
-  }, [sentence, words, wordsWithIndices, isCompleted])
+  }, [sentence, completedWords, isCompleted])
 
   return {
     words,

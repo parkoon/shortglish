@@ -1,5 +1,6 @@
 import type { Subtitle } from '@/features/video/types'
 import { useSubtitleCompletionStore } from '@/stores/subtitle-completion-store'
+import { splitSentenceToWords } from '@/utils/sentence'
 
 interface DevCompleteButtonProps {
   videoId: string
@@ -31,7 +32,15 @@ export const DevCompleteButton = ({
       return
     }
 
-    markAsCompleted(videoId, currentDialogue.index)
+    // 더미 완성 데이터 생성 (모든 단어를 1번에 맞춘 것으로)
+    const words = splitSentenceToWords(currentDialogue.text)
+    const dummyWords = words.map((word, idx) => ({
+      word,
+      attempts: 1,
+      id: idx,
+    }))
+
+    markAsCompleted(videoId, currentDialogue.index, dummyWords)
     onComplete()
   }
 

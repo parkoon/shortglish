@@ -3,6 +3,12 @@ import { useSubtitleCompletionStore } from '@/stores/subtitle-completion-store'
 
 import { WordSentenceBuilder } from './word-sentence-builder'
 
+type SelectedWordInfo = {
+  word: string
+  attempts: number
+  id: number
+}
+
 type VideoSubtitlesProps = {
   data?: Subtitle
   videoId: string
@@ -18,14 +24,15 @@ type VideoSubtitlesProps = {
  * - 완성 여부와 관계없이 채워진 단어 슬롯 유지
  */
 export const VideoSubtitles = ({ data, videoId, onComplete, onWrong }: VideoSubtitlesProps) => {
-  const { isCompleted, markAsCompleted } = useSubtitleCompletionStore()
+  const { isCompleted, markAsCompleted, getCompletedWords } = useSubtitleCompletionStore()
 
   if (!data) return null
 
   const completed = isCompleted(videoId, data.index)
+  const completedWords = getCompletedWords(videoId, data.index)
 
-  const handleComplete = () => {
-    markAsCompleted(videoId, data.index)
+  const handleComplete = (selectedWords: SelectedWordInfo[]) => {
+    markAsCompleted(videoId, data.index, selectedWords)
     onComplete?.()
   }
 
@@ -39,6 +46,7 @@ export const VideoSubtitles = ({ data, videoId, onComplete, onWrong }: VideoSubt
       onComplete={handleComplete}
       onWrong={onWrong}
       isCompleted={completed}
+      completedWords={completedWords}
     />
   )
 }
