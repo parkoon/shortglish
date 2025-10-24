@@ -4,7 +4,9 @@ import React from 'react'
 import { MAX_APP_SCREEN_WIDTH } from '@/config/app'
 import { cn } from '@/lib/utils'
 
-import { Button, type ButtonProps } from './button'
+import { Button } from './button'
+
+type ButtonProps = React.ComponentProps<typeof Button>
 
 type ModalProps = {
   title?: string
@@ -38,6 +40,8 @@ export const Modal = ({
   okText = 'Xác nhận',
   cancelText = 'Hủy',
 }: ModalProps) => {
+  const { className: cancelButtonClassName, ...restCancelButtonProps } = cancelButtonProps ?? {}
+  const { className: okButtonClassName, ...restOkButtonProps } = okButtonProps ?? {}
   return (
     <ModalPrimitive.Root open={open} onOpenChange={onOpenChange}>
       <ModalPrimitive.Portal>
@@ -51,14 +55,17 @@ export const Modal = ({
         >
           {title && (
             <ModalPrimitive.Title
-              className={cn('mb-2 text-center text-lg font-bold', classNames?.title)}
+              className={cn('mb-4 text-center text-lg font-bold', classNames?.title)}
             >
               {title}
             </ModalPrimitive.Title>
           )}
           {description && (
             <ModalPrimitive.Description
-              className={cn('mb-5 text-center text-gray-600', classNames?.description)}
+              className={cn(
+                'mb-6 text-center whitespace-pre-line text-gray-600',
+                classNames?.description,
+              )}
             >
               {description}
             </ModalPrimitive.Description>
@@ -66,12 +73,21 @@ export const Modal = ({
 
           <div className="flex gap-2">
             {!hideCancelButton && (
-              <Button variant="outlined" block onClick={onCancel} {...cancelButtonProps}>
+              <Button
+                className={cn('flex-1 font-semibold', cancelButtonClassName)}
+                variant="outline"
+                onClick={onCancel}
+                {...restCancelButtonProps}
+              >
                 {cancelText}
               </Button>
             )}
 
-            <Button variant="primary" block onClick={onOk} {...okButtonProps}>
+            <Button
+              className={cn('flex-1 font-semibold', okButtonClassName)}
+              onClick={onOk}
+              {...restOkButtonProps}
+            >
               {okText}
             </Button>
           </div>
