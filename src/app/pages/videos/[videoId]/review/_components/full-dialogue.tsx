@@ -1,5 +1,6 @@
 import { IconRepeat } from '@tabler/icons-react'
 import { motion } from 'framer-motion'
+import { useEffect, useRef } from 'react'
 
 import type { Subtitle } from '@/features/video/types'
 import { cn } from '@/lib/utils'
@@ -11,11 +12,26 @@ type FullDialogueProps = {
 }
 
 export const FullDialogue = ({ dialogues, currentDialogue, onRepeat }: FullDialogueProps) => {
+  const itemRefs = useRef<(HTMLDivElement | null)[]>([])
   const handleRepeat = (dialogue: Subtitle) => {
     if (onRepeat) {
       onRepeat(dialogue)
     }
   }
+
+  // currentDialogue가 변경될 때 자동 스크롤
+  useEffect(() => {
+    if (currentDialogue) {
+      const index = dialogues.findIndex(d => d.index === currentDialogue.index)
+
+      if (index !== -1 && itemRefs.current[index]) {
+        itemRefs.current[index]?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+        })
+      }
+    }
+  }, [currentDialogue, dialogues])
 
   return (
     <div className="pb-5">
@@ -26,6 +42,11 @@ export const FullDialogue = ({ dialogues, currentDialogue, onRepeat }: FullDialo
         return (
           <motion.div
             key={dialogue.index}
+            ref={(el: HTMLDivElement | null) => {
+              if (el) {
+                itemRefs.current[index] = el
+              }
+            }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.03, duration: 0.3 }}
