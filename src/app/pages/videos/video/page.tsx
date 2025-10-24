@@ -4,17 +4,12 @@ import { useParams } from 'react-router'
 import { PageLayout } from '@/components/layouts/page-layout'
 import { VideoController, type VideoControllerRef } from '@/components/video-controller'
 import { VideoSubtitles } from '@/components/video-subtitles'
-import {
-  YOUTUBE_PLAYER_STATE,
-  YouTubePlayer,
-  type YouTubePlayerRef,
-} from '@/features/video/components/youtube-player'
+import { YouTubePlayer, type YouTubePlayerRef } from '@/features/video/components/youtube-player'
 import type { Subtitle } from '@/features/video/types'
 import { useSubtitleCompletionStore } from '@/stores/subtitle-completion-store'
 
 import { EmptySubtitle } from './_components/empty-subtitle'
 import { SubtitleProgressBar } from './_components/subtitle-progress-bar'
-import { VideoRepeatOverlay } from './_components/video-repeat-overlay'
 
 const VideoPage = () => {
   const { videoId } = useParams<{ videoId: string }>()
@@ -208,9 +203,9 @@ const VideoPage = () => {
           autoPlay
         />
 
-        {playerState === YOUTUBE_PLAYER_STATE.PAUSED && (
+        {/* {playerState === YOUTUBE_PLAYER_STATE.PAUSED && (
           <VideoRepeatOverlay onRepeat={handleRepeat} />
-        )}
+        )} */}
       </div>
 
       <SubtitleProgressBar current={currentDialogue?.index ?? 0} total={subtitles.length} />
