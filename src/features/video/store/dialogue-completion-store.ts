@@ -23,9 +23,9 @@ type CompletionActions = {
   clearVideo: (videoId: string) => void
 }
 
-type SubtitleCompletionStore = CompletionState & CompletionActions
+type DialogueCompletionStore = CompletionState & CompletionActions
 
-export const useSubtitleCompletionStore = create<SubtitleCompletionStore>()(
+export const useDialogueCompletionStore = create<DialogueCompletionStore>()(
   persist(
     (set, get) => ({
       completions: {},
@@ -69,7 +69,7 @@ export const useSubtitleCompletionStore = create<SubtitleCompletionStore>()(
       },
     }),
     {
-      name: 'subtitle-completion-storage',
+      name: 'shortglish.dialogue_completion',
     },
   ),
 )

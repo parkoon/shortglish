@@ -1,5 +1,5 @@
 import type { Subtitle } from '@/features/video/types'
-import { useSubtitleCompletionStore } from '@/stores/subtitle-completion-store'
+import { useDialogueCompletionStore } from '@/features/video/store/dialogue-completion-store'
 import { splitSentenceToWords } from '@/utils/sentence'
 
 type SelectedWordInfo = {
@@ -21,7 +21,7 @@ export const DevCompleteButton = ({
   isCompleted,
   onComplete,
 }: DevCompleteButtonProps) => {
-  const { markAsCompleted } = useSubtitleCompletionStore()
+  const { markAsCompleted } = useDialogueCompletionStore()
 
   // 프로덕션 환경에서는 아예 렌더링하지 않음
   if (process.env.NODE_ENV !== 'development') {

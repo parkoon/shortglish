@@ -10,9 +10,9 @@ import {
   YouTubePlayer,
   type YouTubePlayerRef,
 } from '@/features/video/components/youtube-player'
+import { useDialogueCompletionStore } from '@/features/video/store/dialogue-completion-store'
 import type { Subtitle } from '@/features/video/types'
 import { useGlobalModal } from '@/stores/modal-store'
-import { useSubtitleCompletionStore } from '@/stores/subtitle-completion-store'
 
 import { DevCompleteButton } from './_components/dev-complete-button'
 import { EmptySubtitle } from './_components/empty-subtitle'
@@ -32,7 +32,7 @@ const VideoPage = () => {
   const [currentDialogue, setCurrentDialogue] = useState<Subtitle | null>(null)
   const [canShowBookmark, setCanShowBookmark] = useState(false)
 
-  const { isCompleted, markAsCompleted, getCompletedWords } = useSubtitleCompletionStore()
+  const { isCompleted, markAsCompleted, getCompletedWords } = useDialogueCompletionStore()
   const modal = useGlobalModal()
 
   const playerRef = useRef<YouTubePlayerRef>(null)
