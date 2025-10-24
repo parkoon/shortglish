@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { shuffleArray, splitSentenceToWords } from '@/utils/sentence'
 
@@ -45,10 +45,10 @@ export const useWordGame = ({
   onWrong,
   isCompleted = false,
 }: UseWordGameProps): UseWordGameReturn => {
-  const [words] = useState(() => splitSentenceToWords(sentence))
+  const words = useMemo(() => splitSentenceToWords(sentence), [sentence])
 
   // 각 단어에 원래 인덱스와 고유 ID 부여
-  const [wordsWithIndices] = useState(() => {
+  const wordsWithIndices = useMemo(() => {
     const wordObjs = words.map((word, index) => ({
       word,
       originalIndex: index,
@@ -57,18 +57,10 @@ export const useWordGame = ({
     const shuffled = shuffleArray(wordObjs)
     // 셔플 후 새로운 고유 ID 부여
     return shuffled.map((obj, idx) => ({ ...obj, id: idx }))
-  })
+  }, [words])
 
   // 선택된 단어 정보 (단어 + 시도 횟수)
-  const [selectedWords, setSelectedWords] = useState<SelectedWordInfo[]>(() =>
-    isCompleted
-      ? words.map((word, idx) => ({
-          word,
-          attempts: 1,
-          id: wordsWithIndices.find(w => w.originalIndex === idx)?.id ?? idx,
-        }))
-      : [],
-  )
+  const [selectedWords, setSelectedWords] = useState<SelectedWordInfo[]>([])
   const [wrongWordIndices, setWrongWordIndices] = useState<Set<number>>(new Set())
 
   const currentPosition = selectedWords.length
@@ -78,8 +70,7 @@ export const useWordGame = ({
     const clickedWord = wordsWithIndices.find(w => w.id === id)
     if (!clickedWord) return
 
-    const expectedIndex = currentPosition
-    const expectedWord = words[expectedIndex]
+    const expectedWord = words[currentPosition]
 
     // 정답인 경우
     if (clickedWord.word === expectedWord) {
@@ -97,6 +88,12 @@ export const useWordGame = ({
 
       // 정답을 맞추면 틀린 단어들의 취소선을 풀어줌 (다시 시도 가능)
       setWrongWordIndices(new Set())
+
+      // 마지막 단어를 맞췄을 때 바로 onComplete 호출
+      if (currentPosition + 1 === words.length && onComplete) {
+        onComplete()
+      }
+
       return
     }
 
@@ -109,12 +106,19 @@ export const useWordGame = ({
     }
   }
 
-  // 완성 시 콜백 호출 (이미 완성된 상태로 시작한 경우는 제외)
+  // sentence가 바뀌면 게임 상태 리셋
   useEffect(() => {
-    if (isGameCompleted && onComplete && !isCompleted) {
-      onComplete()
-    }
-  }, [isGameCompleted, onComplete, isCompleted])
+    setSelectedWords(
+      isCompleted
+        ? words.map((word, idx) => ({
+            word,
+            attempts: 1,
+            id: wordsWithIndices.find(w => w.originalIndex === idx)?.id ?? idx,
+          }))
+        : [],
+    )
+    setWrongWordIndices(new Set())
+  }, [sentence, words, wordsWithIndices, isCompleted])
 
   return {
     words,
