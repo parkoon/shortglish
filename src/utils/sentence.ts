@@ -1,4 +1,59 @@
 /**
+ * 단어와 구두점 정보
+ */
+export type WordWithPunctuation = {
+  prefix: string // 앞 구두점
+  word: string // 순수 단어
+  suffix: string // 뒤 구두점
+}
+
+/**
+ * 문장을 단어와 구두점으로 분리합니다.
+ *
+ * @param sentence - 분리할 문장
+ * @returns 단어와 구두점 정보 배열
+ *
+ * @example
+ * parseWordsWithPunctuation('"Hello, world!"')
+ * // [{ prefix: '"', word: "Hello", suffix: "," }, { prefix: "", word: "world", suffix: '!"' }]
+ */
+export const parseWordsWithPunctuation = (sentence: string): WordWithPunctuation[] => {
+  const tokens = sentence.trim().split(/\s+/)
+
+  return tokens.map(token => {
+    // 앞뒤 구두점 추출
+    const match = token.match(/^([,!?;:.~'"-]*)(.+?)([,!?;:.~'"-]*)$/)
+
+    if (match) {
+      return {
+        prefix: match[1],
+        word: match[2],
+        suffix: match[3],
+      }
+    }
+
+    return {
+      prefix: '',
+      word: token,
+      suffix: '',
+    }
+  })
+}
+
+/**
+ * WordWithPunctuation 배열에서 순수 단어만 추출
+ *
+ * @param wordsWithPunctuation - 단어와 구두점 정보 배열
+ * @returns 순수 단어 배열
+ *
+ * @example
+ * extractWords([{ word: "Hello", punctuation: "," }]) // ["Hello"]
+ */
+export const extractWords = (wordsWithPunctuation: WordWithPunctuation[]): string[] => {
+  return wordsWithPunctuation.map(w => w.word)
+}
+
+/**
  * 문장을 단어 배열로 분리합니다.
  * 공백을 기준으로 분리하며, 구두점은 단어에 포함됩니다.
  *
