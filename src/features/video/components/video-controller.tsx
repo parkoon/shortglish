@@ -3,6 +3,7 @@ import {
   IconPlayerSkipBackFilled,
   IconPlayerSkipForwardFilled,
   IconRepeat,
+  IconWand,
 } from '@tabler/icons-react'
 import { motion } from 'framer-motion'
 import { forwardRef, useImperativeHandle, useState } from 'react'
@@ -14,7 +15,7 @@ type VideoControllerProps = {
   onPrevious: () => void
   onNext: () => void
   onRepeat: () => void
-  onHint?: () => void
+  onHint: () => void
   canRepeat: boolean
   canNext?: boolean
   canPrevious?: boolean
@@ -50,18 +51,9 @@ export const VideoController = forwardRef<VideoControllerRef, VideoControllerPro
 
     return (
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-300 max-w-[640px] mx-auto">
-        <div className="relative flex items-center justify-between py-2 px-8 h-[46px]">
+        <div className="relative flex items-center justify-between py-2 px-4 h-[46px]">
           {/* 힌트 버튼 (왼쪽) */}
-          {onHint && (
-            <button
-              onClick={onHint}
-              disabled={!canHint}
-              className={cn('p-2 text-yellow-600', !canHint && 'opacity-50 cursor-not-allowed')}
-              title="힌트"
-            >
-              <IconBulb />
-            </button>
-          )}
+          <div />
 
           <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-4">
             <button
@@ -105,6 +97,15 @@ export const VideoController = forwardRef<VideoControllerRef, VideoControllerPro
               <IconPlayerSkipForwardFilled />
             </motion.button>
           </div>
+
+          <button
+            onClick={onHint}
+            disabled={!canHint}
+            className={cn('p-2 text-amber-400', !canHint && 'opacity-50 cursor-not-allowed')}
+            title="힌트"
+          >
+            <IconWand />
+          </button>
         </div>
       </div>
     )
