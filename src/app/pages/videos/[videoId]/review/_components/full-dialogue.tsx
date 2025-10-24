@@ -8,10 +8,16 @@ import { cn } from '@/lib/utils'
 type FullDialogueProps = {
   dialogues: Subtitle[]
   currentDialogue?: Subtitle | null
+  repeatDialogueIndex?: number | null
   onRepeat?: (dialogue: Subtitle) => void
 }
 
-export const FullDialogue = ({ dialogues, currentDialogue, onRepeat }: FullDialogueProps) => {
+export const FullDialogue = ({
+  dialogues,
+  currentDialogue,
+  repeatDialogueIndex,
+  onRepeat,
+}: FullDialogueProps) => {
   const itemRefs = useRef<(HTMLDivElement | null)[]>([])
   const handleRepeat = (dialogue: Subtitle) => {
     if (onRepeat) {
@@ -37,6 +43,7 @@ export const FullDialogue = ({ dialogues, currentDialogue, onRepeat }: FullDialo
     <div className="pb-5">
       {dialogues.map((dialogue, index) => {
         const isActive = currentDialogue?.index === dialogue.index
+        const isRepeatActive = dialogue.index === repeatDialogueIndex
         const isEmpty = dialogue.text === ''
 
         return (
@@ -91,7 +98,9 @@ export const FullDialogue = ({ dialogues, currentDialogue, onRepeat }: FullDialo
                     className={cn(
                       'flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center',
                       'transition-all duration-200',
-                      isActive ? 'bg-primary text-white shadow-md' : 'bg-gray-100 text-gray-60',
+                      isRepeatActive
+                        ? 'bg-primary text-white shadow-lg ring-2 ring-primary/50'
+                        : 'bg-gray-100 text-gray-600',
                     )}
                   >
                     <IconRepeat size={20} />

@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router'
 
 import { PageLayout } from '@/components/layouts/page-layout'
-import { type VideoControllerRef } from '@/components/video-controller'
 import {
   YOUTUBE_PLAYER_STATE,
   YouTubePlayer,
@@ -17,12 +16,13 @@ const VideoPage = () => {
   const [subtitles, setSubtitles] = useState<Subtitle[]>([])
   const [isLoadingDialogues, setIsLoadingDialogues] = useState(true)
   const [currentDialogue, setCurrentDialogue] = useState<Subtitle | null>(null)
+  const [repeatDialogue, setRepeatDialogue] = useState<Subtitle | null>(null)
 
   const playerRef = useRef<YouTubePlayerRef>(null)
-  const videoControllerRef = useRef<VideoControllerRef>(null)
 
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const currentDialogueRef = useRef(currentDialogue)
+  const repeatDialogueRef = useRef(repeatDialogue)
 
   // Load dialogues for the current video
   useEffect(() => {
@@ -43,15 +43,9 @@ const VideoPage = () => {
     currentDialogueRef.current = currentDialogue
   }, [currentDialogue])
 
-  const handleRepeat = () => {
-    if (currentDialogue) {
-      playerRef.current?.seekTo(currentDialogue.startTime)
-    } else {
-      // 대사가 없으면 0초부터 재생
-      playerRef.current?.seekTo(0)
-    }
-    playerRef.current?.play()
-  }
+  useEffect(() => {
+    repeatDialogueRef.current = repeatDialogue
+  }, [repeatDialogue])
 
   const startTimeTracking = () => {
     if (intervalRef.current) {
@@ -64,6 +58,14 @@ const VideoPage = () => {
 
       const time = playerRef.current.getCurrentTime()
 
+      const isInRepeatMode = repeatDialogueRef.current !== null
+
+      if (isInRepeatMode && time >= repeatDialogueRef.current!.endTime!) {
+        // Loop back to start
+        playerRef.current?.seekTo(repeatDialogueRef.current!.startTime)
+        return
+      }
+
       const 시간에따른다이얼로그 = subtitles.find(d => {
         return time >= d.startTime && time < d.endTime
       })
@@ -72,36 +74,6 @@ const VideoPage = () => {
         return
       }
       setCurrentDialogue(시간에따른다이얼로그)
-      console.log('🚀 ~ startTimeTracking ~ 시간에따른다이얼로그:', 시간에따른다이얼로그)
-
-      // // 케이스 1: 대사가 없을 때 (첫 지점) - 현재 시간에 맞는 대사 찾아서 설정
-      // if (!activeDialogue) {
-      //   const foundDialogue = getCurrentDialogue(subtitles, time)
-
-      //   if (foundDialogue) {
-      //     setCurrentDialogue(foundDialogue)
-      //   }
-      //   return
-      // }
-
-      // const isEnded = time >= activeDialogue.endTime
-
-      // // 케이스 3: 대사가 없을 때 - 끝났는지만 체크
-      // if (isEnded && activeDialogue.text === '') {
-      //   const foundDialogue = getCurrentDialogue(subtitles, time)
-
-      //   if (foundDialogue) {
-      //     setCurrentDialogue(foundDialogue)
-      //   }
-
-      //   return
-      // }
-
-      // // 케이스 2: 대사가 있을 때 - 끝났는지만 체크
-      // if (isEnded) {
-      //   playerRef.current.pause()
-      //   playerRef.current.seekTo(activeDialogue.startTime)
-      // }
     }, 100)
   }
 
@@ -117,6 +89,7 @@ const VideoPage = () => {
 
     if (state === YOUTUBE_PLAYER_STATE.ENDED) {
       alert('비디오 종료')
+      stopTimeTracking()
       return
     }
 
@@ -129,9 +102,13 @@ const VideoPage = () => {
   }
 
   const handleDialogueRepeat = (dialogue: Subtitle) => {
-    console.log(dialogue)
-    // playerRef.current?.seekTo(dialogue.startTime)
-    // playerRef.current?.play()
+    // Toggle: if same dialogue clicked, turn off; otherwise, set to this dialogue
+    setRepeatDialogue(prev => (prev === dialogue ? null : dialogue))
+    setCurrentDialogue(dialogue)
+
+    // Start playback from the dialogue's start
+    playerRef.current?.seekTo(dialogue.startTime)
+    playerRef.current?.play()
   }
 
   if (!videoId) {
@@ -144,7 +121,6 @@ const VideoPage = () => {
 
   return (
     <PageLayout title="">
-      {/* Sticky YouTube Player */}
       <div className="sticky top-[52px] z-50 shadow-sm">
         <YouTubePlayer
           onStateChange={handleStateChange}
@@ -155,22 +131,12 @@ const VideoPage = () => {
         />
       </div>
 
-      {/* Scrollable Dialogue List */}
       <FullDialogue
         dialogues={subtitles}
         currentDialogue={currentDialogue}
+        repeatDialogueIndex={repeatDialogue?.index}
         onRepeat={handleDialogueRepeat}
       />
-
-      {/* <VideoController
-        ref={videoControllerRef}
-        isPlaying={playerState === 1}
-        isRepeatMode={isRepeatMode}
-        togglePlay={handleTogglePlay}
-        onPrevious={handlePrevious}
-        onNext={handleNext}
-        toggleRepeat={handleToggleRepeat}
-      /> */}
     </PageLayout>
   )
 }
