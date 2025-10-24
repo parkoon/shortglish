@@ -46,17 +46,17 @@ export const WordSentenceBuilder = ({
       {!isCompleted && (
         <div className="flex flex-wrap gap-3 justify-center">
           {availableWords.map(item => {
-            const isWrong = wrongWordIndices.has(item.shuffledIndex)
+            const isWrong = wrongWordIndices.has(item.id)
             // 이미 선택한 버튼인지 확인
-            const isSelected = selectedWords.some(sw => sw.shuffledIndex === item.shuffledIndex)
+            const isSelected = selectedWords.some(sw => sw.id === item.id)
 
             return (
               <WordButton
-                key={item.shuffledIndex}
+                key={item.id}
                 word={item.word}
                 isWrong={isWrong}
                 isSelected={isSelected}
-                onClick={() => handleWordClick(item.shuffledIndex)}
+                onClick={() => handleWordClick(item.id)}
               />
             )
           })}

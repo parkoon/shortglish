@@ -12,13 +12,13 @@ type UseWordGameProps = {
 type WordWithIndex = {
   word: string
   originalIndex: number
-  shuffledIndex: number
+  id: number // 버튼의 고유 식별자
 }
 
 type SelectedWordInfo = {
   word: string
   attempts: number // 1 = 한번에 맞춤, 2+ = 틀림
-  shuffledIndex: number // 어떤 버튼을 눌렀는지 추적
+  id: number // 어떤 버튼을 선택했는지 추적
 }
 
 type UseWordGameReturn = {
@@ -27,7 +27,7 @@ type UseWordGameReturn = {
   wrongWordIndices: Set<number>
   availableWords: WordWithIndex[]
   isCompleted: boolean
-  handleWordClick: (shuffledIndex: number) => void
+  handleWordClick: (id: number) => void
 }
 
 /**
@@ -47,16 +47,16 @@ export const useWordGame = ({
 }: UseWordGameProps): UseWordGameReturn => {
   const [words] = useState(() => splitSentenceToWords(sentence))
 
-  // 각 단어에 원래 인덱스 정보를 포함
+  // 각 단어에 원래 인덱스와 고유 ID 부여
   const [wordsWithIndices] = useState(() => {
     const wordObjs = words.map((word, index) => ({
       word,
       originalIndex: index,
-      shuffledIndex: index,
+      id: index,
     }))
     const shuffled = shuffleArray(wordObjs)
-    // shuffledIndex 업데이트
-    return shuffled.map((obj, idx) => ({ ...obj, shuffledIndex: idx }))
+    // 셔플 후 새로운 고유 ID 부여
+    return shuffled.map((obj, idx) => ({ ...obj, id: idx }))
   })
 
   // 선택된 단어 정보 (단어 + 시도 횟수)
@@ -65,7 +65,7 @@ export const useWordGame = ({
       ? words.map((word, idx) => ({
           word,
           attempts: 1,
-          shuffledIndex: wordsWithIndices.find(w => w.originalIndex === idx)?.shuffledIndex ?? idx,
+          id: wordsWithIndices.find(w => w.originalIndex === idx)?.id ?? idx,
         }))
       : [],
   )
@@ -77,8 +77,8 @@ export const useWordGame = ({
   // 모든 단어를 그대로 유지 (선택된 단어는 회색 영역으로 표시)
   const availableWords = wordsWithIndices
 
-  const handleWordClick = (shuffledIndex: number) => {
-    const clickedWord = wordsWithIndices.find(w => w.shuffledIndex === shuffledIndex)
+  const handleWordClick = (id: number) => {
+    const clickedWord = wordsWithIndices.find(w => w.id === id)
     if (!clickedWord) return
 
     const expectedIndex = currentPosition
@@ -94,7 +94,7 @@ export const useWordGame = ({
         {
           word: clickedWord.word,
           attempts,
-          shuffledIndex: clickedWord.shuffledIndex,
+          id: clickedWord.id,
         },
       ])
 
@@ -104,7 +104,7 @@ export const useWordGame = ({
     }
 
     // 오답인 경우
-    setWrongWordIndices(prev => new Set(prev).add(shuffledIndex))
+    setWrongWordIndices(prev => new Set(prev).add(id))
 
     // 오답 콜백 호출
     if (onWrong) {
