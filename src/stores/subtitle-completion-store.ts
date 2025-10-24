@@ -1,8 +1,9 @@
 import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 
 type CompletionState = {
   // videoId를 key로, 완성된 subtitle index 배열을 value로 저장
-  completions: Record<string, Set<number>>
+  completions: Record<string, number[]>
 }
 
 type CompletionActions = {
@@ -13,35 +14,45 @@ type CompletionActions = {
 
 type SubtitleCompletionStore = CompletionState & CompletionActions
 
-export const useSubtitleCompletionStore = create<SubtitleCompletionStore>((set, get) => ({
-  completions: {},
+export const useSubtitleCompletionStore = create<SubtitleCompletionStore>()(
+  persist(
+    (set, get) => ({
+      completions: {},
 
-  markAsCompleted: (videoId: string, subtitleIndex: number) => {
-    set(state => {
-      const videoCompletions = state.completions[videoId] || new Set<number>()
-      const updatedCompletions = new Set(videoCompletions)
-      updatedCompletions.add(subtitleIndex)
+      markAsCompleted: (videoId: string, subtitleIndex: number) => {
+        set(state => {
+          const videoCompletions = state.completions[videoId] || []
 
-      return {
-        completions: {
-          ...state.completions,
-          [videoId]: updatedCompletions,
-        },
-      }
-    })
-  },
+          // 이미 완성된 경우 중복 방지
+          if (videoCompletions.includes(subtitleIndex)) {
+            return state
+          }
 
-  isCompleted: (videoId: string, subtitleIndex: number) => {
-    const state = get()
-    const videoCompletions = state.completions[videoId]
-    return videoCompletions ? videoCompletions.has(subtitleIndex) : false
-  },
+          return {
+            completions: {
+              ...state.completions,
+              [videoId]: [...videoCompletions, subtitleIndex],
+            },
+          }
+        })
+      },
 
-  clearVideo: (videoId: string) => {
-    set(state => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { [videoId]: _, ...rest } = state.completions
-      return { completions: rest }
-    })
-  },
-}))
+      isCompleted: (videoId: string, subtitleIndex: number) => {
+        const state = get()
+        const videoCompletions = state.completions[videoId]
+        return videoCompletions ? videoCompletions.includes(subtitleIndex) : false
+      },
+
+      clearVideo: (videoId: string) => {
+        set(state => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          const { [videoId]: _, ...rest } = state.completions
+          return { completions: rest }
+        })
+      },
+    }),
+    {
+      name: 'subtitle-completion-storage',
+    },
+  ),
+)
