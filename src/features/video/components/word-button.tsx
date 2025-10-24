@@ -7,7 +7,9 @@ type WordButtonProps = {
   word: string
   isWrong: boolean
   isSelected: boolean
+  isHint?: boolean
   onClick: () => void
+  onHintComplete: () => void
 }
 
 /**
@@ -19,7 +21,14 @@ type WordButtonProps = {
  * - 오답 시 진동 애니메이션 및 시각적 피드백
  * - 선택된 단어는 회색 영역으로 표시 (레이아웃 유지)
  */
-export const WordButton = ({ word, isWrong, isSelected, onClick }: WordButtonProps) => {
+export const WordButton = ({
+  word,
+  isWrong,
+  isSelected,
+  isHint = false,
+  onClick,
+  onHintComplete,
+}: WordButtonProps) => {
   const [shouldAnimate, setShouldAnimate] = useState(false)
 
   // isWrong이 true로 변경될 때 애니메이션 트리거
@@ -69,9 +78,27 @@ export const WordButton = ({ word, isWrong, isSelected, onClick }: WordButtonPro
                 ease: 'easeInOut',
               },
             }
-          : {}
+          : isHint
+            ? {
+                y: [0, -20, 0],
+                transition: {
+                  duration: 0.5,
+                  repeat: 4,
+                  repeatDelay: 0.1,
+                  ease: [0.34, 1.56, 0.64, 1],
+                  times: [0, 0.4, 1],
+                },
+              }
+            : {}
       }
-      onAnimationComplete={() => setShouldAnimate(false)}
+      onAnimationComplete={() => {
+        if (shouldAnimate && isWrong) {
+          setShouldAnimate(false)
+        }
+        if (isHint) {
+          onHintComplete()
+        }
+      }}
     >
       {word}
     </motion.button>

@@ -7,7 +7,10 @@ import {
   VideoController,
   type VideoControllerRef,
 } from '@/features/video/components/video-controller'
-import { WordSentenceBuilder } from '@/features/video/components/word-sentence-builder'
+import {
+  WordSentenceBuilder,
+  type WordSentenceBuilderRef,
+} from '@/features/video/components/word-sentence-builder'
 import {
   YOUTUBE_PLAYER_STATE,
   YouTubePlayer,
@@ -40,6 +43,7 @@ const VideoPage = () => {
 
   const playerRef = useRef<YouTubePlayerRef>(null)
   const videoControllerRef = useRef<VideoControllerRef>(null)
+  const wordSentenceBuilderRef = useRef<WordSentenceBuilderRef>(null)
 
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const currentDialogueRef = useRef(currentDialogue)
@@ -119,6 +123,10 @@ const VideoPage = () => {
       setCanShowBookmark(false)
       videoControllerRef.current?.stopBlink()
     }
+  }
+
+  const handleHint = () => {
+    wordSentenceBuilderRef.current?.showHint()
   }
 
   const startTimeTracking = () => {
@@ -258,6 +266,7 @@ const VideoPage = () => {
       ) : currentDialogue && videoId ? (
         <div className="p-4">
           <WordSentenceBuilder
+            ref={wordSentenceBuilderRef}
             key={`${videoId}-${currentDialogue.index}`}
             sentence={currentDialogue.text}
             translation={currentDialogue.translation}
@@ -288,9 +297,11 @@ const VideoPage = () => {
         onRepeat={handleRepeat}
         onPrevious={handlePrevious}
         onNext={handleNext}
+        onHint={handleHint}
         canRepeat={!!currentDialogue}
         canNext={isCurrentSubtitleCompleted}
         canPrevious={canGoPrevious}
+        canHint={!isCurrentSubtitleCompleted}
       />
     </PageLayout>
   )

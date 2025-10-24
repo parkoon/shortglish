@@ -1,4 +1,5 @@
 import {
+  IconBulb,
   IconPlayerSkipBackFilled,
   IconPlayerSkipForwardFilled,
   IconRepeat,
@@ -13,9 +14,11 @@ type VideoControllerProps = {
   onPrevious: () => void
   onNext: () => void
   onRepeat: () => void
+  onHint?: () => void
   canRepeat: boolean
   canNext?: boolean
   canPrevious?: boolean
+  canHint?: boolean
 }
 
 export type VideoControllerRef = {
@@ -24,7 +27,19 @@ export type VideoControllerRef = {
 }
 
 export const VideoController = forwardRef<VideoControllerRef, VideoControllerProps>(
-  ({ onRepeat, onPrevious, onNext, canRepeat, canNext = true, canPrevious = true }, ref) => {
+  (
+    {
+      onRepeat,
+      onPrevious,
+      onNext,
+      onHint,
+      canRepeat,
+      canNext = true,
+      canPrevious = true,
+      canHint = true,
+    },
+    ref,
+  ) => {
     const [isBlinking, setIsBlinking] = useState(false)
     const primaryColor = usePrimaryColor()
 
@@ -36,6 +51,18 @@ export const VideoController = forwardRef<VideoControllerRef, VideoControllerPro
     return (
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-300 max-w-[640px] mx-auto">
         <div className="relative flex items-center justify-between py-2 px-8 h-[46px]">
+          {/* 힌트 버튼 (왼쪽) */}
+          {onHint && (
+            <button
+              onClick={onHint}
+              disabled={!canHint}
+              className={cn('p-2 text-yellow-600', !canHint && 'opacity-50 cursor-not-allowed')}
+              title="힌트"
+            >
+              <IconBulb />
+            </button>
+          )}
+
           <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-4">
             <button
               onClick={onPrevious}
