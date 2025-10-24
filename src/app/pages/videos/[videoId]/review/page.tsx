@@ -144,19 +144,25 @@ const VideoPage = () => {
 
   return (
     <PageLayout title="">
-      <YouTubePlayer
-        onStateChange={handleStateChange}
-        ref={playerRef}
-        videoId={videoId}
-        initialTime={0}
-        autoPlay
-      />
+      {/* Sticky YouTube Player */}
+      <div className="sticky top-[52px] z-50 shadow-sm">
+        <YouTubePlayer
+          onStateChange={handleStateChange}
+          ref={playerRef}
+          videoId={videoId}
+          initialTime={0}
+          autoPlay
+        />
+      </div>
 
-      <FullDialogue
-        dialogues={subtitles}
-        currentDialogue={currentDialogue}
-        onRepeat={handleDialogueRepeat}
-      />
+      {/* Scrollable Dialogue List */}
+      <div className="">
+        <FullDialogue
+          dialogues={subtitles}
+          currentDialogue={currentDialogue}
+          onRepeat={handleDialogueRepeat}
+        />
+      </div>
 
       {/* <VideoController
         ref={videoControllerRef}
