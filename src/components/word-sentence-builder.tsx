@@ -27,12 +27,14 @@ export const WordSentenceBuilder = ({
   onWrong,
   isCompleted = false,
 }: WordSentenceBuilderProps) => {
-  const { words, selectedWords, wrongWordIndices, availableWords, handleWordClick } = useWordGame({
-    sentence,
-    onComplete,
-    onWrong,
-    isCompleted,
-  })
+  const { words, selectedWords, wrongWordIndices, wordsWithIndices, handleWordClick } = useWordGame(
+    {
+      sentence,
+      onComplete,
+      onWrong,
+      isCompleted,
+    },
+  )
 
   return (
     <div className="space-y-8">
@@ -45,7 +47,7 @@ export const WordSentenceBuilder = ({
       {/* 단어 버튼 영역 - 완성되면 숨김 */}
       {!isCompleted && (
         <div className="flex flex-wrap gap-3 justify-center">
-          {availableWords.map(item => {
+          {wordsWithIndices.map(item => {
             const isWrong = wrongWordIndices.has(item.id)
             // 이미 선택한 버튼인지 확인
             const isSelected = selectedWords.some(sw => sw.id === item.id)

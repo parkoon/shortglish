@@ -25,7 +25,7 @@ type UseWordGameReturn = {
   words: string[]
   selectedWords: SelectedWordInfo[]
   wrongWordIndices: Set<number>
-  availableWords: WordWithIndex[]
+  wordsWithIndices: WordWithIndex[]
   isCompleted: boolean
   handleWordClick: (id: number) => void
 }
@@ -74,9 +74,6 @@ export const useWordGame = ({
   const currentPosition = selectedWords.length
   const isGameCompleted = selectedWords.length === words.length
 
-  // 모든 단어를 그대로 유지 (선택된 단어는 회색 영역으로 표시)
-  const availableWords = wordsWithIndices
-
   const handleWordClick = (id: number) => {
     const clickedWord = wordsWithIndices.find(w => w.id === id)
     if (!clickedWord) return
@@ -123,7 +120,7 @@ export const useWordGame = ({
     words,
     selectedWords,
     wrongWordIndices,
-    availableWords,
+    wordsWithIndices,
     isCompleted: isGameCompleted,
     handleWordClick,
   }
