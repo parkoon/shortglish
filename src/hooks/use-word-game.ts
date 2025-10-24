@@ -17,7 +17,8 @@ type WordWithIndex = {
 
 type SelectedWordInfo = {
   word: string
-  attempts: number // 1 = 한번에, 2+ = 틀렸다가
+  attempts: number // 1 = 한번에 맞춤, 2+ = 틀림
+  shuffledIndex: number // 어떤 버튼을 눌렀는지 추적
 }
 
 type UseWordGameReturn = {
@@ -60,7 +61,13 @@ export const useWordGame = ({
 
   // 선택된 단어 정보 (단어 + 시도 횟수)
   const [selectedWords, setSelectedWords] = useState<SelectedWordInfo[]>(() =>
-    isCompleted ? words.map(word => ({ word, attempts: 1 })) : [],
+    isCompleted
+      ? words.map((word, idx) => ({
+          word,
+          attempts: 1,
+          shuffledIndex: wordsWithIndices.find(w => w.originalIndex === idx)?.shuffledIndex ?? idx,
+        }))
+      : [],
   )
   const [wrongWordIndices, setWrongWordIndices] = useState<Set<number>>(new Set())
 
@@ -78,7 +85,7 @@ export const useWordGame = ({
     const expectedWord = words[expectedIndex]
 
     // 정답인 경우
-    if (clickedWord.word === expectedWord && clickedWord.originalIndex === expectedIndex) {
+    if (clickedWord.word === expectedWord) {
       // 틀린 적이 있으면 시도 횟수 증가, 없으면 1로 설정
       const attempts = wrongWordIndices.size > 0 ? wrongWordIndices.size + 1 : 1
 
@@ -87,6 +94,7 @@ export const useWordGame = ({
         {
           word: clickedWord.word,
           attempts,
+          shuffledIndex: clickedWord.shuffledIndex,
         },
       ])
 
