@@ -9,8 +9,19 @@ export const paths = {
       getHref: () => '/bookmarks',
     },
   },
-  video: {
-    path: '/videos/:videoId',
-    getHref: (videoId: string) => `/videos/${videoId}`,
+
+  videos: {
+    root: {
+      path: '/videos',
+      getHref: () => '/videos',
+    },
+    detail: {
+      path: '/videos/:videoId',
+      getHref: (videoId: string) => `/videos/${videoId}`,
+    },
+    review: {
+      path: '/videos/:videoId/review',
+      getHref: (videoId: string) => `/videos/${videoId}/review`,
+    },
   },
 } as const
