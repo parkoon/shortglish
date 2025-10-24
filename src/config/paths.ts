@@ -15,9 +15,9 @@ export const paths = {
       path: '/videos',
       getHref: () => '/videos',
     },
-    complete_sentence: {
-      path: '/videos/:videoId/complete-sentence',
-      getHref: (videoId: string) => `/videos/${videoId}/complete-sentence`,
+    build: {
+      path: '/videos/:videoId/build',
+      getHref: (videoId: string) => `/videos/${videoId}/build`,
     },
     review: {
       path: '/videos/:videoId/review',
