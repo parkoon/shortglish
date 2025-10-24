@@ -20,9 +20,9 @@ import { useDialogueCompletionStore } from '@/features/video/store/dialogue-comp
 import type { Subtitle } from '@/features/video/types'
 import { useGlobalModal } from '@/stores/modal-store'
 
-import { DevCompleteButton } from './_components/dev-complete-button'
-import { EmptySubtitle } from './_components/empty-subtitle'
-import { SubtitleProgressBar } from './_components/subtitle-progress-bar'
+import { DevCompleteButton } from '../_components/dev-complete-button'
+import { EmptySubtitle } from '../_components/empty-subtitle'
+import { SubtitleProgressBar } from '../_components/subtitle-progress-bar'
 
 type SelectedWordInfo = {
   word: string

@@ -1,5 +1,4 @@
 import {
-  IconBulb,
   IconPlayerSkipBackFilled,
   IconPlayerSkipForwardFilled,
   IconRepeat,
