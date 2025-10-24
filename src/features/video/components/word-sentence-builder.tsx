@@ -1,7 +1,7 @@
-import { useWordGame } from '@/hooks/use-word-game'
+import { useWordGame } from '@/features/video/hooks/use-word-game'
 
-import { WordButton } from './word-game/word-button'
-import { WordSlots } from './word-game/word-slots'
+import { WordButton } from './word-button'
+import { WordSlots } from './word-slots'
 
 type SelectedWordInfo = {
   word: string

@@ -2,9 +2,12 @@ import { useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 
 import { PageLayout } from '@/components/layouts/page-layout'
-import { VideoController, type VideoControllerRef } from '@/components/video-controller'
-import { WordSentenceBuilder } from '@/components/word-sentence-builder'
 import { paths } from '@/config/paths'
+import {
+  VideoController,
+  type VideoControllerRef,
+} from '@/features/video/components/video-controller'
+import { WordSentenceBuilder } from '@/features/video/components/word-sentence-builder'
 import {
   YOUTUBE_PLAYER_STATE,
   YouTubePlayer,
