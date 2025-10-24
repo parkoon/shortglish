@@ -1,18 +1,23 @@
 import { useEffect, useRef, useState } from 'react'
-import { useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 
 import { PageLayout } from '@/components/layouts/page-layout'
+import { paths } from '@/config/paths'
 import {
   YOUTUBE_PLAYER_STATE,
   YouTubePlayer,
   type YouTubePlayerRef,
 } from '@/features/video/components/youtube-player'
 import type { Subtitle } from '@/features/video/types'
+import { useGlobalModal } from '@/stores/modal-store'
 
 import { FullDialogue } from './_components/full-dialogue'
 
 const VideoPage = () => {
   const { videoId } = useParams<{ videoId: string }>()
+  const modal = useGlobalModal()
+  const navigate = useNavigate()
+
   const [subtitles, setSubtitles] = useState<Subtitle[]>([])
   const [isLoadingDialogues, setIsLoadingDialogues] = useState(true)
   const [currentDialogue, setCurrentDialogue] = useState<Subtitle | null>(null)
@@ -85,10 +90,21 @@ const VideoPage = () => {
   }
 
   const handleStateChange = (state: number) => {
-    console.log('🚀 ~ handleStateChange ~ state:', state)
-
     if (state === YOUTUBE_PLAYER_STATE.ENDED) {
-      alert('비디오 종료')
+      modal.open({
+        title: '복습 완료',
+        description: '복습을 완료했어요!',
+        okText: '다시보기',
+        cancelText: '홈으로',
+        onCancel: () => {
+          navigate(paths.home.root.getHref())
+        },
+        onOk: () => {
+          playerRef.current?.seekTo(0)
+          playerRef.current?.play()
+          startTimeTracking()
+        },
+      })
       stopTimeTracking()
       return
     }
