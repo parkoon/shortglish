@@ -4,7 +4,7 @@
     "startTime": 0,
     "endTime": 1.5,
     "text": "so when did you first feel famous",
-    "translation": "그래서 처음으로 유명해진 게 언제였어요?"
+    "translation": "처음으로 유명하다고 느낀 게 언제였어요?"
   },
   {
     "index": 2,
@@ -18,27 +18,27 @@
     "startTime": 3.4,
     "endTime": 5,
     "text": "when I went to a Whole Foods",
-    "translation": "전 월드마크스에 가서 파파라치가 다 있었어요."
+    "translation": "홀푸드에 갔을 때"
   },
   {
     "index": 4,
     "startTime": 5,
     "endTime": 6.469,
     "text": "and there were Paparazzi everywhere, and I was like,",
-    "translation": ""
+    "translation": "파파라치가 사방에 있었는데, 저는 이렇게 생각했어요"
   },
   {
     "index": 5,
     "startTime": 6.469,
     "endTime": 8,
     "text": "\"oh my God who are they here for?\"",
-    "translation": "오 제발 그들은 누구를 위해 왔어? 그리고 나는 그렇게 생각했어."
+    "translation": "\"세상에, 누구 때문에 여기 온 거지?\""
   },
   {
     "index": 6,
     "startTime": 8,
     "endTime": 10,
     "text": "and it was me",
-    "translation": "나는 그렇게 생각했어."
+    "translation": "그런데 저였어요"
   }
 ]
