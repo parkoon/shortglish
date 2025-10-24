@@ -61,7 +61,7 @@ const initialConfig: ModalConfig = {
  * }
  * ```
  */
-export const useModalStore = create<ModalStore>((set, get) => ({
+export const useModalStore = create<ModalStore>(set => ({
   isOpen: false,
   config: initialConfig,
 

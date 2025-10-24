@@ -5,11 +5,16 @@ import { PageLayout } from '@/components/layouts/page-layout'
 import { VideoController, type VideoControllerRef } from '@/components/video-controller'
 import { VideoSubtitles } from '@/components/video-subtitles'
 import { paths } from '@/config/paths'
-import { YouTubePlayer, type YouTubePlayerRef } from '@/features/video/components/youtube-player'
+import {
+  YOUTUBE_PLAYER_STATE,
+  YouTubePlayer,
+  type YouTubePlayerRef,
+} from '@/features/video/components/youtube-player'
 import type { Subtitle } from '@/features/video/types'
 import { useGlobalModal } from '@/stores/modal-store'
 import { useSubtitleCompletionStore } from '@/stores/subtitle-completion-store'
 
+import { DevCompleteButton } from './_components/dev-complete-button'
 import { EmptySubtitle } from './_components/empty-subtitle'
 import { SubtitleProgressBar } from './_components/subtitle-progress-bar'
 
@@ -20,7 +25,6 @@ const VideoPage = () => {
   const [isLoadingDialogues, setIsLoadingDialogues] = useState(true)
   const [currentDialogue, setCurrentDialogue] = useState<Subtitle | null>(null)
   const [canShowBookmark, setCanShowBookmark] = useState(false)
-  const [playerState, setPlayerState] = useState<number>(0)
 
   const { isCompleted } = useSubtitleCompletionStore()
   const modal = useGlobalModal()
@@ -85,6 +89,7 @@ const VideoPage = () => {
     const currentIndex = subtitles.findIndex(d => d.index === currentDialogue?.index)
     const nextIndex = currentIndex + 1
     const nextDialogue = subtitles[nextIndex]
+    console.log('🚀 ~ handleNext ~ nextDialogue:', nextDialogue)
 
     // 다음 다이얼로그가 없음
     if (!nextDialogue) {
@@ -98,6 +103,7 @@ const VideoPage = () => {
 
     if (playerRef) {
       setCurrentDialogue(nextDialogue)
+
       playerRef.current?.seekTo(nextDialogue.startTime)
       playerRef.current?.play()
       // 다음 자막으로 이동하면 북마크 버튼 숨김 & 깜빡임 중지
@@ -157,11 +163,7 @@ const VideoPage = () => {
   }
 
   const handleStateChange = (state: number) => {
-    setPlayerState(state)
-    console.log('🚀 ~ handleStateChange ~ state:', state)
-    const isPlaying = state === 1
-
-    if (isPlaying) {
+    if (state === YOUTUBE_PLAYER_STATE.PLAYING) {
       startTimeTracking()
       return
     }
@@ -229,6 +231,7 @@ const VideoPage = () => {
           videoId={videoId}
           initialTime={0}
           autoPlay
+          devMode={process.env.NODE_ENV === 'development'}
         />
 
         {/* {playerState === YOUTUBE_PLAYER_STATE.PAUSED && (
@@ -257,6 +260,13 @@ const VideoPage = () => {
       ) : (
         <div className="p-4 text-center text-gray-500">재생할 대사가 없어요~</div>
       )}
+
+      <DevCompleteButton
+        videoId={videoId}
+        currentDialogue={currentDialogue}
+        isCompleted={isCurrentSubtitleCompleted}
+        onComplete={handleSubtitleComplete}
+      />
 
       <VideoController
         ref={videoControllerRef}

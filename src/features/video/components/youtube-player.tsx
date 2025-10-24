@@ -20,6 +20,7 @@ type YTPlayer = {
 
 type YouTubePlayerProps = {
   videoId: string
+  devMode?: boolean
   initialTime?: number
   autoPlay?: boolean
   disabled?: boolean
@@ -47,7 +48,10 @@ export const YOUTUBE_PLAYER_STATE = {
 } as const
 
 export const YouTubePlayer = forwardRef<YouTubePlayerRef, YouTubePlayerProps>(
-  ({ videoId, initialTime, autoPlay = false, disabled = false, onStateChange }, ref) => {
+  (
+    { videoId, initialTime, autoPlay = false, disabled = false, onStateChange, devMode = false },
+    ref,
+  ) => {
     const [showPlayer, setShowPlayer] = useState(false)
     const [isPlayerReady, setIsPlayerReady] = useState(false)
     const playerRef = useRef<YTPlayer | null>(null)
@@ -76,22 +80,24 @@ export const YouTubePlayer = forwardRef<YouTubePlayerRef, YouTubePlayerProps>(
       const initPlayer = () => {
         if (!containerRef.current) return
 
+        const playerVars = devMode
+          ? {}
+          : ({
+              controls: 0,
+              disablekb: 1,
+              fs: 0,
+              iv_load_policy: 3,
+              rel: 0,
+              autoplay: 1,
+              showinfo: 0,
+              autohide: 1,
+              modestbranding: 1,
+              playsinline: 1,
+            } as const)
+
         playerRef.current = new window.YT.Player(containerRef.current.id, {
           videoId,
-          playerVars: {
-            // 핵심 설정
-            controls: 0, // 컨트롤 바 숨기기
-            disablekb: 1, // 키보드 조작 비활성화
-            fs: 0, // 전체화면 버튼 숨기기
-            iv_load_policy: 3, // 주석 숨기기
-            rel: 0, // 관련 영상 최소화
-            autoplay: 1,
-            showinfo: 0,
-            autohide: 1,
-            modestbranding: 1,
-            playsinline: 1, // 모바일 인라인 재생
-            ...(initialTime && { start: Math.floor(initialTime) }),
-          },
+          playerVars,
           events: {
             onReady: () => {
               // if (autoPlay) {
