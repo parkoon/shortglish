@@ -1,7 +1,8 @@
 import { create } from 'zustand'
 
-import type { ButtonProps } from '@/components/ui/button'
+import type { Button } from '@/components/ui/button'
 
+type ButtonProps = React.ComponentProps<typeof Button>
 export type ModalConfig = {
   title?: string
   description?: string | React.ReactNode
@@ -33,8 +34,8 @@ type ModalStore = ModalState & ModalActions
 const initialConfig: ModalConfig = {
   title: '',
   description: '',
-  okText: 'Xác nhận',
-  cancelText: 'Hủy',
+  okText: '확인',
+  cancelText: '취소',
   hideCancelButton: false,
 }
 
