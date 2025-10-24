@@ -29,11 +29,22 @@ type YouTubePlayerProps = {
 export type YouTubePlayerRef = {
   play: () => void
   pause: () => void
+  mute: () => void
+  unMute: () => void
   getCurrentTime: () => number
   getDuration: () => number
   getPlayerState: () => number
   seekTo: (seconds: number) => void
 }
+
+export const YOUTUBE_PLAYER_STATE = {
+  UNSTARTED: -1, // 시작되지 않음
+  ENDED: 0, // 종료됨
+  PLAYING: 1, // 재생 중
+  PAUSED: 2, // 일시정지
+  BUFFERING: 3, // 버퍼링 중
+  CUED: 5, // 큐에 추가됨
+} as const
 
 export const YouTubePlayer = forwardRef<YouTubePlayerRef, YouTubePlayerProps>(
   ({ videoId, initialTime, autoPlay = false, disabled = false, onStateChange }, ref) => {
@@ -68,24 +79,25 @@ export const YouTubePlayer = forwardRef<YouTubePlayerRef, YouTubePlayerProps>(
         playerRef.current = new window.YT.Player(containerRef.current.id, {
           videoId,
           playerVars: {
-            controls: 0,
-            modestbranding: 1,
-            rel: 0,
+            // 핵심 설정
+            controls: 0, // 컨트롤 바 숨기기
+            disablekb: 1, // 키보드 조작 비활성화
+            fs: 0, // 전체화면 버튼 숨기기
+            iv_load_policy: 3, // 주석 숨기기
+            rel: 0, // 관련 영상 최소화
+            autoplay: 1,
             showinfo: 0,
-            iv_load_policy: 3,
             autohide: 1,
-            playsinline: 1,
-            disablekb: 1,
-            fs: 0,
+            modestbranding: 1,
+            playsinline: 1, // 모바일 인라인 재생
             ...(initialTime && { start: Math.floor(initialTime) }),
           },
           events: {
-            onReady: event => {
-              if (autoPlay) {
-                // Chrome, Safari 등은 사용자 상호작용 없이 소리가 나는 동영상 자동재생을 차단
-                event.target.mute()
-                event.target.playVideo()
-              }
+            onReady: () => {
+              // if (autoPlay) {
+              // Chrome, Safari 등은 사용자 상호작용 없이 소리가 나는 동영상 자동재생을 차단
+              // event.target.playVideo()
+              // }
               setIsPlayerReady(true)
             },
             onStateChange: event => {
@@ -118,6 +130,8 @@ export const YouTubePlayer = forwardRef<YouTubePlayerRef, YouTubePlayerProps>(
       getDuration: () => playerRef.current?.getDuration() || 0,
       getPlayerState: () => playerRef.current?.getPlayerState() || -1,
       seekTo: (seconds: number) => playerRef.current?.seekTo(seconds, true),
+      mute: () => playerRef.current?.mute(),
+      unMute: () => playerRef.current?.unMute(),
     }))
 
     return (

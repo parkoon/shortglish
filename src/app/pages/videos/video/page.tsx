@@ -4,12 +4,17 @@ import { useParams } from 'react-router'
 import { PageLayout } from '@/components/layouts/page-layout'
 import { VideoController, type VideoControllerRef } from '@/components/video-controller'
 import { VideoSubtitles } from '@/components/video-subtitles'
-import { YouTubePlayer, type YouTubePlayerRef } from '@/features/video/components/youtube-player'
+import {
+  YOUTUBE_PLAYER_STATE,
+  YouTubePlayer,
+  type YouTubePlayerRef,
+} from '@/features/video/components/youtube-player'
 import type { Subtitle } from '@/features/video/types'
 import { useSubtitleCompletionStore } from '@/stores/subtitle-completion-store'
 
 import { EmptySubtitle } from './_components/empty-subtitle'
 import { SubtitleProgressBar } from './_components/subtitle-progress-bar'
+import { VideoRepeatOverlay } from './_components/video-repeat-overlay'
 
 const VideoPage = () => {
   const { videoId } = useParams<{ videoId: string }>()
@@ -17,6 +22,7 @@ const VideoPage = () => {
   const [isLoadingDialogues, setIsLoadingDialogues] = useState(true)
   const [currentDialogue, setCurrentDialogue] = useState<Subtitle | null>(null)
   const [canShowBookmark, setCanShowBookmark] = useState(false)
+  const [playerState, setPlayerState] = useState<number>(0)
 
   const { isCompleted } = useSubtitleCompletionStore()
 
@@ -152,6 +158,8 @@ const VideoPage = () => {
   }
 
   const handleStateChange = (state: number) => {
+    setPlayerState(state)
+    console.log('🚀 ~ handleStateChange ~ state:', state)
     const isPlaying = state === 1
 
     if (isPlaying) {
@@ -191,12 +199,19 @@ const VideoPage = () => {
 
   return (
     <PageLayout title="">
-      <YouTubePlayer
-        onStateChange={handleStateChange}
-        ref={playerRef}
-        videoId={videoId}
-        initialTime={0}
-      />
+      <div className="relative">
+        <YouTubePlayer
+          onStateChange={handleStateChange}
+          ref={playerRef}
+          videoId={videoId}
+          initialTime={0}
+          autoPlay
+        />
+
+        {playerState === YOUTUBE_PLAYER_STATE.PAUSED && (
+          <VideoRepeatOverlay onRepeat={handleRepeat} />
+        )}
+      </div>
 
       <SubtitleProgressBar current={currentDialogue?.index ?? 0} total={subtitles.length} />
 
