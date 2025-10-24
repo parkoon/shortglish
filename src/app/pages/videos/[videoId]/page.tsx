@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
-import { useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 
 import { PageLayout } from '@/components/layouts/page-layout'
 import { VideoController, type VideoControllerRef } from '@/components/video-controller'
 import { VideoSubtitles } from '@/components/video-subtitles'
+import { paths } from '@/config/paths'
 import { YouTubePlayer, type YouTubePlayerRef } from '@/features/video/components/youtube-player'
 import type { Subtitle } from '@/features/video/types'
+import { useGlobalModal } from '@/stores/modal-store'
 import { useSubtitleCompletionStore } from '@/stores/subtitle-completion-store'
 
 import { EmptySubtitle } from './_components/empty-subtitle'
@@ -13,6 +15,7 @@ import { SubtitleProgressBar } from './_components/subtitle-progress-bar'
 
 const VideoPage = () => {
   const { videoId } = useParams<{ videoId: string }>()
+  const navigate = useNavigate()
   const [subtitles, setSubtitles] = useState<Subtitle[]>([])
   const [isLoadingDialogues, setIsLoadingDialogues] = useState(true)
   const [currentDialogue, setCurrentDialogue] = useState<Subtitle | null>(null)
@@ -20,6 +23,7 @@ const VideoPage = () => {
   const [playerState, setPlayerState] = useState<number>(0)
 
   const { isCompleted } = useSubtitleCompletionStore()
+  const modal = useGlobalModal()
 
   const playerRef = useRef<YouTubePlayerRef>(null)
   const videoControllerRef = useRef<VideoControllerRef>(null)
@@ -166,6 +170,30 @@ const VideoPage = () => {
   }
 
   const handleSubtitleComplete = () => {
+    if (!currentDialogue) {
+      return
+    }
+
+    const nextDialogue = getNextDialogue(subtitles, currentDialogue)
+    // 다음 자막이 없으면, 학습 종료
+    if (!nextDialogue) {
+      modal.open({
+        title: '학습 완료',
+        description:
+          '모든 문장을 완성했어요!\n지금까지 공부한 내용을 토대로 문장이 잘 들리는지 확인해볼까요?',
+        okText: '복습하기',
+        onOk: () => {
+          // TODO: 복습 페이지 path를 여기에 입력하세요
+          navigate(paths.videos.review.getHref(videoId ?? ''))
+        },
+        onCancel: () => {
+          // 취소하면 그 자리에 머물기 (아무것도 안 함)
+        },
+      })
+
+      return
+    }
+
     // 자막 완성 시 북마크 버튼 활성화
     setCanShowBookmark(true)
     // Next 버튼 깜빡임 시작
@@ -263,6 +291,10 @@ const getCurrentDialogue = (subtitles: Subtitle[], time: number): Subtitle | nul
       return time >= d.startTime && time < d.endTime
     }) ?? null
   )
+}
+
+const getNextDialogue = (subtitles: Subtitle[], currentDialogue: Subtitle): Subtitle | null => {
+  return subtitles.find(d => d.index === currentDialogue.index + 1) ?? null
 }
 
 export default VideoPage
