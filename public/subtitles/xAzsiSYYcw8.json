@@ -4,7 +4,8 @@
     "startTime": 0,
     "endTime": 1.5,
     "text": "so when did you first feel famous",
-    "translation": "처음으로 유명하다고 느낀 게 언제였어요?"
+    "translation": "처음으로 유명하다고 느낀 게 언제였어요?",
+    "blankedWords": ["when", "famous"]
   },
   {
     "index": 2,
@@ -18,7 +19,8 @@
     "startTime": 3.4,
     "endTime": 5,
     "text": "when I went to a Whole Foods",
-    "translation": "홀푸드에 갔을 때"
+    "translation": "홀푸드에 갔을 때",
+    "blankedWords": ["Whole", "Foods"]
   },
   {
     "index": 4,
@@ -32,7 +34,8 @@
     "startTime": 6.469,
     "endTime": 8,
     "text": "\"oh my God who are they here for?\"",
-    "translation": "\"세상에, 누구 때문에 여기 온 거지?\""
+    "translation": "\"세상에, 누구 때문에 여기 온 거지?\"",
+    "blankedWords": ["God"]
   },
   {
     "index": 6,
