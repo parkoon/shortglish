@@ -15,6 +15,10 @@ export const paths = {
       path: '/videos',
       getHref: () => '/videos',
     },
+    entry: {
+      path: '/videos/:videoId',
+      getHref: (videoId: string) => `/videos/${videoId}`,
+    },
     build: {
       path: '/videos/:videoId/build',
       getHref: (videoId: string) => `/videos/${videoId}/build`,

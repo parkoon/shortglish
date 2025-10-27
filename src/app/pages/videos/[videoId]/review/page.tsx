@@ -8,6 +8,7 @@ import {
   YouTubePlayer,
   type YouTubePlayerRef,
 } from '@/features/video/components/youtube-player'
+import { useVideoProgressStore } from '@/features/video/store/video-progress-store'
 import type { Subtitle } from '@/features/video/types'
 import { useGlobalModal } from '@/stores/modal-store'
 
@@ -17,6 +18,7 @@ const VideoPage = () => {
   const { videoId } = useParams<{ videoId: string }>()
   const modal = useGlobalModal()
   const navigate = useNavigate()
+  const { markStepAsCompleted } = useVideoProgressStore()
 
   const [subtitles, setSubtitles] = useState<Subtitle[]>([])
   const [isLoadingDialogues, setIsLoadingDialogues] = useState(true)
@@ -91,9 +93,14 @@ const VideoPage = () => {
 
   const handleStateChange = (state: number) => {
     if (state === YOUTUBE_PLAYER_STATE.ENDED) {
+      // review 단계 완료로 표시
+      if (videoId) {
+        markStepAsCompleted(videoId, 'review')
+      }
+
       modal.open({
-        title: '복습 완료',
-        description: '복습을 완료했어요!',
+        title: '전체 복습 완료',
+        description: '모든 학습 단계를 완료했어요!\n수고하셨습니다!',
         okText: '다시보기',
         cancelText: '홈으로',
         onCancel: () => {

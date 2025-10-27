@@ -6,14 +6,19 @@ import { SubtitleProgressBar } from '@/app/pages/videos/[videoId]/_components/su
 import { PageLayout } from '@/components/layouts/page-layout'
 import { Button } from '@/components/ui/button'
 import { MAX_APP_SCREEN_WIDTH } from '@/config/app'
+import { paths } from '@/config/paths'
 import type { LetterInputsRef } from '@/features/video/components/letter-inputs'
 import { LetterInputs } from '@/features/video/components/letter-inputs'
+import { useVideoProgressStore } from '@/features/video/store/video-progress-store'
+import { useGlobalModal } from '@/stores/modal-store'
 import type { Subtitle } from '@/types/subtitle'
 import { extractBlankedSentence, normalizeText, speakText } from '@/utils/fill'
 
 const FillPage = () => {
   const { videoId } = useParams<{ videoId: string }>()
   const navigate = useNavigate()
+  const modal = useGlobalModal()
+  const { markStepAsCompleted } = useVideoProgressStore()
 
   const [subtitles, setSubtitles] = useState<Subtitle[]>([])
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -132,7 +137,22 @@ const FillPage = () => {
       setResultState('none')
     } else {
       // 모든 문제 완료
-      navigate('/')
+      if (videoId) {
+        markStepAsCompleted(videoId, 'fill')
+      }
+
+      modal.open({
+        title: '빈칸 채우기 완료',
+        description: '모든 빈칸을 채웠어요!\n마지막 단계인 전체 복습으로 이어서 학습할까요?',
+        okText: '다음 단계로',
+        cancelText: '나중에',
+        onOk: () => {
+          navigate(paths.videos.entry.getHref(videoId ?? ''))
+        },
+        onCancel: () => {
+          navigate(paths.home.root.getHref())
+        },
+      })
     }
   }
 

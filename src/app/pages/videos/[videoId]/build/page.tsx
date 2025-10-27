@@ -17,6 +17,7 @@ import {
   type YouTubePlayerRef,
 } from '@/features/video/components/youtube-player'
 import { useDialogueCompletionStore } from '@/features/video/store/dialogue-completion-store'
+import { useVideoProgressStore } from '@/features/video/store/video-progress-store'
 import type { Subtitle } from '@/features/video/types'
 import { useGlobalModal } from '@/stores/modal-store'
 
@@ -39,6 +40,7 @@ const VideoPage = () => {
   const [canShowBookmark, setCanShowBookmark] = useState(false)
 
   const { isCompleted, markAsCompleted, getCompletedWords } = useDialogueCompletionStore()
+  const { markStepAsCompleted } = useVideoProgressStore()
   const modal = useGlobalModal()
 
   const playerRef = useRef<YouTubePlayerRef>(null)
@@ -199,17 +201,19 @@ const VideoPage = () => {
     const nextDialogue = getNextDialogue(subtitles, currentDialogue)
     // 다음 자막이 없으면, 학습 종료
     if (!nextDialogue) {
+      // build 단계 완료로 표시
+      markStepAsCompleted(videoId, 'build')
+
       modal.open({
-        title: '학습 완료',
-        description:
-          '모든 문장을 완성했어요!\n지금까지 공부한 내용을 토대로 문장이 잘 들리는지 확인해볼까요?',
-        okText: '복습하기',
+        title: '단어 조합 완료',
+        description: '모든 문장을 완성했어요!\n다음 단계인 빈칸 채우기로 이어서 학습할까요?',
+        okText: '다음 단계로',
+        cancelText: '나중에',
         onOk: () => {
-          // TODO: 복습 페이지 path를 여기에 입력하세요
-          navigate(paths.videos.review.getHref(videoId ?? ''))
+          navigate(paths.videos.entry.getHref(videoId ?? ''))
         },
         onCancel: () => {
-          // 취소하면 그 자리에 머물기 (아무것도 안 함)
+          navigate(paths.home.root.getHref())
         },
       })
 

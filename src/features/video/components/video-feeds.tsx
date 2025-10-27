@@ -25,7 +25,7 @@ export const VideoCard = ({ video }: VideoCardProps) => {
   const navigate = useNavigate()
 
   const handleClick = () => {
-    navigate(paths.videos.build.getHref(video.id))
+    navigate(paths.videos.entry.getHref(video.id))
   }
 
   return (
