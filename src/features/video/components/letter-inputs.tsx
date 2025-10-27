@@ -86,7 +86,10 @@ export const LetterInputs = forwardRef<LetterInputsRef, LetterInputsProps>(
           if (index === 0) {
             onMoveToPrevWord?.()
           } else {
-            // 같은 단어의 이전 칸으로
+            // 같은 단어의 이전 칸으로 이동하고 그 칸의 값 삭제
+            const newValue = value.split('')
+            newValue[index - 1] = ''
+            onChange(newValue.join(''))
             inputRefs.current[index - 1]?.focus()
           }
         }
@@ -113,7 +116,7 @@ export const LetterInputs = forwardRef<LetterInputsRef, LetterInputsProps>(
               onKeyDown={e => handleKeyDown(index, e)}
               disabled={shouldShowHint && !letterValue}
               className={cn(
-                'w-6 h-8 text-center text-xl font-bold border-b-2 bg-transparent',
+                'w-5 h-8 text-center text-xl font-bold border-b-2 bg-transparent',
                 'focus:outline-none focus:border-blue-500 transition-colors',
                 isWrong && 'border-red-500 text-red-500',
                 !isWrong && 'border-gray-300 text-gray-900',
