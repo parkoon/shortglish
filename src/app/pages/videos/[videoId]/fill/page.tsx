@@ -1,5 +1,5 @@
 import { IconBulb, IconVolume } from '@tabler/icons-react'
-import { useEffect, useRef, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 
 import { SubtitleProgressBar } from '@/app/pages/videos/[videoId]/_components/subtitle-progress-bar'
@@ -9,9 +9,9 @@ import { MAX_APP_SCREEN_WIDTH } from '@/config/app'
 import { paths } from '@/config/paths'
 import type { LetterInputsRef } from '@/features/video/components/letter-inputs'
 import { LetterInputs } from '@/features/video/components/letter-inputs'
+import { useSubtitles } from '@/features/video/hooks/use-subtitles'
 import { useVideoProgressStore } from '@/features/video/store/video-progress-store'
 import { useGlobalModal } from '@/stores/modal-store'
-import type { Subtitle } from '@/types/subtitle'
 import { extractBlankedSentence, normalizeText, speakText } from '@/utils/fill'
 
 const FillPage = () => {
@@ -20,36 +20,21 @@ const FillPage = () => {
   const modal = useGlobalModal()
   const { markStepAsCompleted } = useVideoProgressStore()
 
-  const [subtitles, setSubtitles] = useState<Subtitle[]>([])
+  const { data: allSubtitles, isLoading } = useSubtitles(videoId)
+
+  // blankedWords가 있는 것만 필터링
+  const subtitles = useMemo(
+    () => (allSubtitles || []).filter(sub => sub.blankedWords && sub.blankedWords.length > 0),
+    [allSubtitles],
+  )
+
   const [currentIndex, setCurrentIndex] = useState(0)
   const [userInputs, setUserInputs] = useState<Record<number, string>>({})
   const [showHint, setShowHint] = useState(false)
   const [resultState, setResultState] = useState<'none' | 'success' | 'error'>('none')
-  const [isLoading, setIsLoading] = useState(true)
 
   // 각 빈칸 단어의 ref
   const blankInputRefs = useRef<Record<number, LetterInputsRef | null>>({})
-
-  // 데이터 로드
-  useEffect(() => {
-    const loadSubtitles = async () => {
-      if (!videoId) return
-
-      try {
-        const response = await fetch(`/subtitles/${videoId}.json`)
-        const data: Subtitle[] = await response.json()
-        // blankedWords가 있는 것만 필터링
-        const filtered = data.filter(sub => sub.blankedWords && sub.blankedWords.length > 0)
-        setSubtitles(filtered)
-      } catch (error) {
-        console.error('Failed to load subtitles:', error)
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
-    loadSubtitles()
-  }, [videoId])
 
   if (isLoading) {
     return (

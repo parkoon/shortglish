@@ -1,22 +1,16 @@
 import type { Icon } from '@tabler/icons-react'
 import { IconCheck, IconLock, IconPencil, IconPlayerPlay, IconPuzzle } from '@tabler/icons-react'
-import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 
 import { PageLayout } from '@/components/layouts/page-layout'
 import { Button } from '@/components/ui/button'
 import { MAX_APP_SCREEN_WIDTH } from '@/config/app'
 import { paths } from '@/config/paths'
+import { useVideoDetail } from '@/features/video/hooks/use-video-detail'
 import { useDialogueCompletionStore } from '@/features/video/store/dialogue-completion-store'
 import { useVideoProgressStore } from '@/features/video/store/video-progress-store'
-import { useGlobalModal } from '@/stores/modal-store'
 import { cn } from '@/lib/utils'
-
-type VideoDetail = {
-  title: string
-  description: string
-  thumbnail: string
-}
+import { useGlobalModal } from '@/stores/modal-store'
 
 type StepInfo = {
   number: number
@@ -36,30 +30,10 @@ const EntryPage = () => {
   const navigate = useNavigate()
   const modal = useGlobalModal()
 
-  const [videoDetail, setVideoDetail] = useState<VideoDetail | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
+  const { data: videoDetail, isLoading } = useVideoDetail(videoId)
 
   const { isStepCompleted, canAccessStep, resetVideoProgress } = useVideoProgressStore()
   const { clearVideo } = useDialogueCompletionStore()
-
-  // 비디오 상세 정보 로드
-  useEffect(() => {
-    const loadVideoDetail = async () => {
-      if (!videoId) return
-
-      try {
-        const response = await fetch(`/detail/${videoId}.json`)
-        const data: VideoDetail = await response.json()
-        setVideoDetail(data)
-      } catch (error) {
-        console.error('Failed to load video detail:', error)
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
-    loadVideoDetail()
-  }, [videoId])
 
   if (!videoId) {
     return (

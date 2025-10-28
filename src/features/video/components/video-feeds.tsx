@@ -4,10 +4,28 @@ import { paths } from '@/config/paths'
 import { formatDuration } from '@/lib/utils'
 import { getYouTubeThumbnailUrl } from '@/utils/thumbnail'
 
-import { videos } from '../constants/videos'
+import { useVideos } from '../hooks/use-videos'
 import type { Video } from '../types'
 
 export const VideoFeeds = () => {
+  const { data: videos = [], isLoading } = useVideos()
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <p className="text-gray-500">비디오를 불러오는 중...</p>
+      </div>
+    )
+  }
+
+  if (videos.length === 0) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <p className="text-gray-500">비디오가 없습니다.</p>
+      </div>
+    )
+  }
+
   return (
     <div className="flex flex-col gap-8 pb-6">
       {videos.map(video => (

@@ -33,6 +33,7 @@ export type Subtitle = {
   endTime: number
   text: string
   translation: string
+  blankedWords?: string[]
 }
 
 export type VideoDetail = {

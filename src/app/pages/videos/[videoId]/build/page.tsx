@@ -16,6 +16,7 @@ import {
   YouTubePlayer,
   type YouTubePlayerRef,
 } from '@/features/video/components/youtube-player'
+import { useSubtitles } from '@/features/video/hooks/use-subtitles'
 import { useDialogueCompletionStore } from '@/features/video/store/dialogue-completion-store'
 import { useVideoProgressStore } from '@/features/video/store/video-progress-store'
 import type { Subtitle } from '@/features/video/types'
@@ -34,8 +35,9 @@ type SelectedWordInfo = {
 const VideoPage = () => {
   const { videoId } = useParams<{ videoId: string }>()
   const navigate = useNavigate()
-  const [subtitles, setSubtitles] = useState<Subtitle[]>([])
-  const [isLoadingDialogues, setIsLoadingDialogues] = useState(true)
+
+  const { data: subtitles = [], isLoading: isLoadingDialogues } = useSubtitles(videoId)
+
   const [currentDialogue, setCurrentDialogue] = useState<Subtitle | null>(null)
   const [canShowBookmark, setCanShowBookmark] = useState(false)
 
@@ -49,21 +51,6 @@ const VideoPage = () => {
 
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const currentDialogueRef = useRef(currentDialogue)
-
-  // Load dialogues for the current video
-  useEffect(() => {
-    if (!videoId) return
-
-    const loadDialogues = async () => {
-      setIsLoadingDialogues(true)
-      const data = await getSubtitle(videoId)
-      setSubtitles(data)
-      // 초기 상태는 null로 유지, interval에서 자동으로 찾음
-      setIsLoadingDialogues(false)
-    }
-
-    loadDialogues()
-  }, [videoId])
 
   useEffect(() => {
     currentDialogueRef.current = currentDialogue
@@ -309,20 +296,6 @@ const VideoPage = () => {
       />
     </PageLayout>
   )
-}
-
-const getSubtitle = async (videoId: string): Promise<Subtitle[]> => {
-  try {
-    const response = await fetch(`/subtitles/${videoId}.json`)
-    if (!response.ok) {
-      throw new Error(`Failed to fetch subtitle: ${response.statusText}`)
-    }
-    const data = await response.json()
-    return data
-  } catch (error) {
-    console.error(`Failed to load subtitle for video: ${videoId}`, error)
-    return []
-  }
 }
 
 const getCurrentDialogue = (subtitles: Subtitle[], time: number): Subtitle | null => {
