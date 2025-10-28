@@ -1,25 +1,69 @@
-import { IconBlockquote, IconEdit, IconPlayerPlay } from '@tabler/icons-react'
+import type { Icon } from '@tabler/icons-react'
+import { IconCheck, IconLock, IconPencil, IconPlayerPlay, IconPuzzle } from '@tabler/icons-react'
+import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 
 import { PageLayout } from '@/components/layouts/page-layout'
+import { Button } from '@/components/ui/button'
+import { MAX_APP_SCREEN_WIDTH } from '@/config/app'
 import { paths } from '@/config/paths'
 import { useDialogueCompletionStore } from '@/features/video/store/dialogue-completion-store'
 import { useVideoProgressStore } from '@/features/video/store/video-progress-store'
 import { useGlobalModal } from '@/stores/modal-store'
+import { cn } from '@/lib/utils'
 
-import { StepCard } from './_components/step-card'
+type VideoDetail = {
+  title: string
+  description: string
+  thumbnail: string
+}
+
+type StepInfo = {
+  number: number
+  label: string
+  type: 'build' | 'fill' | 'review'
+  icon: Icon
+}
+
+const STEPS: StepInfo[] = [
+  { number: 1, label: '문장 완성하기', type: 'build', icon: IconPuzzle },
+  { number: 2, label: '빈칸 채우기', type: 'fill', icon: IconPencil },
+  { number: 3, label: '전체 영상 보기', type: 'review', icon: IconPlayerPlay },
+]
 
 const EntryPage = () => {
   const { videoId } = useParams<{ videoId: string }>()
   const navigate = useNavigate()
   const modal = useGlobalModal()
 
-  const { isStepCompleted, canAccessStep, resetStep } = useVideoProgressStore()
+  const [videoDetail, setVideoDetail] = useState<VideoDetail | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
+
+  const { isStepCompleted, canAccessStep, resetVideoProgress } = useVideoProgressStore()
   const { clearVideo } = useDialogueCompletionStore()
+
+  // 비디오 상세 정보 로드
+  useEffect(() => {
+    const loadVideoDetail = async () => {
+      if (!videoId) return
+
+      try {
+        const response = await fetch(`/detail/${videoId}.json`)
+        const data: VideoDetail = await response.json()
+        setVideoDetail(data)
+      } catch (error) {
+        console.error('Failed to load video detail:', error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    loadVideoDetail()
+  }, [videoId])
 
   if (!videoId) {
     return (
-      <PageLayout title="학습하기">
+      <PageLayout title="">
         <div className="flex items-center justify-center h-64">
           <p className="text-gray-500">비디오를 찾을 수 없습니다.</p>
         </div>
@@ -27,140 +71,132 @@ const EntryPage = () => {
     )
   }
 
-  const buildCompleted = isStepCompleted(videoId, 'build')
-  const fillCompleted = isStepCompleted(videoId, 'fill')
-  const reviewCompleted = isStepCompleted(videoId, 'review')
-
-  const canAccessBuild = canAccessStep(videoId, 'build')
-  const canAccessFill = canAccessStep(videoId, 'fill')
-  const canAccessReview = canAccessStep(videoId, 'review')
-
-  const getBuildStatus = () => {
-    if (!canAccessBuild) return 'locked'
-    if (buildCompleted) return 'completed'
-    return 'available'
+  if (isLoading) {
+    return (
+      <PageLayout title="">
+        <div className="flex items-center justify-center h-64">
+          <p className="text-gray-500">로딩 중...</p>
+        </div>
+      </PageLayout>
+    )
   }
 
-  const getFillStatus = () => {
-    if (!canAccessFill) return 'locked'
-    if (fillCompleted) return 'completed'
-    return 'available'
+  // 다음 실행 가능한 스텝 찾기
+  const getNextStep = () => {
+    const buildCompleted = isStepCompleted(videoId, 'build')
+    const fillCompleted = isStepCompleted(videoId, 'fill')
+    const reviewCompleted = isStepCompleted(videoId, 'review')
+
+    if (!buildCompleted && canAccessStep(videoId, 'build')) {
+      return { type: 'build' as const, label: '문장 완성하기' }
+    }
+    if (!fillCompleted && canAccessStep(videoId, 'fill')) {
+      return { type: 'fill' as const, label: '빈칸 채우기' }
+    }
+    if (!reviewCompleted && canAccessStep(videoId, 'review')) {
+      return { type: 'review' as const, label: '전체 복습' }
+    }
+    return { type: 'completed' as const, label: '다시 학습하기' }
   }
 
-  const getReviewStatus = () => {
-    if (!canAccessReview) return 'locked'
-    if (reviewCompleted) return 'completed'
-    return 'available'
-  }
+  const nextStep = getNextStep()
 
-  const handleBuildStart = () => {
-    navigate(paths.videos.build.getHref(videoId))
-  }
+  const handleRestartLearning = () => {
+    if (!videoId) return
 
-  const handleFillStart = () => {
-    navigate(paths.videos.fill.getHref(videoId))
-  }
-
-  const handleReviewStart = () => {
-    navigate(paths.videos.review.getHref(videoId))
-  }
-
-  const handleBuildReset = () => {
     modal.open({
-      title: '처음부터 다시하기',
-      description: '단어 조합 게임의 모든 진행 상황이 초기화됩니다.\n계속하시겠습니까?',
-      okText: '계속',
+      title: '학습을 다시 시작할까요?',
+      description: '모든 학습 진행 상황이 초기화됩니다.\n처음부터 다시 시작하시겠어요?',
+      okText: '다시 시작',
       cancelText: '취소',
       onOk: () => {
-        // build 단계 초기화
-        resetStep(videoId, 'build')
-        // dialogue completion 초기화
+        // 모든 진행 상황 초기화
+        resetVideoProgress(videoId)
         clearVideo(videoId)
-        // build 페이지로 이동
-        navigate(paths.videos.build.getHref(videoId))
       },
     })
   }
 
-  const handleFillReset = () => {
-    modal.open({
-      title: '처음부터 다시하기',
-      description: '빈칸 채우기의 모든 진행 상황이 초기화됩니다.\n계속하시겠습니까?',
-      okText: '계속',
-      cancelText: '취소',
-      onOk: () => {
-        // fill 단계 초기화
-        resetStep(videoId, 'fill')
-        // fill 페이지로 이동
-        navigate(paths.videos.fill.getHref(videoId))
-      },
-    })
-  }
+  const handleButtonClick = () => {
+    if (nextStep.type === 'completed') {
+      handleRestartLearning()
+      return
+    }
 
-  const handleReviewReset = () => {
-    modal.open({
-      title: '처음부터 다시하기',
-      description: '전체 복습을 다시 시작합니다.\n계속하시겠습니까?',
-      okText: '계속',
-      cancelText: '취소',
-      onOk: () => {
-        // review 단계 초기화
-        resetStep(videoId, 'review')
-        // review 페이지로 이동
-        navigate(paths.videos.review.getHref(videoId))
-      },
-    })
+    const pathMap = {
+      build: paths.videos.build,
+      fill: paths.videos.fill,
+      review: paths.videos.review,
+    }
+
+    navigate(pathMap[nextStep.type].getHref(videoId))
   }
 
   return (
-    <PageLayout title="학습 단계">
+    <PageLayout title="">
+      {/* 썸네일 */}
+      <div className="relative">
+        <img
+          src={videoDetail?.thumbnail}
+          alt={videoDetail?.title}
+          className="w-full aspect-video object-cover"
+        />
+      </div>
+
+      {/* 제목 */}
       <div className="px-4 py-6">
-        <div className="mb-6 text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">영어 학습 시작하기</h1>
-          <p className="text-gray-600">3단계로 구성된 학습을 순서대로 완료하세요</p>
-        </div>
+        <h1 className="text-xl font-bold text-gray-900 leading-tight">{videoDetail?.title}</h1>
+        <p className="text-sm text-gray-500 leading-tight">{videoDetail?.description}</p>
+      </div>
 
-        <div className="space-y-4 max-w-2xl mx-auto">
-          {/* Step 1: Build */}
-          <StepCard
-            icon={<IconBlockquote />}
-            title="1. 단어 조합 게임"
-            description="영상의 문장을 단어로 조합하며 학습해요"
-            status={getBuildStatus()}
-            onStart={handleBuildStart}
-            onReset={buildCompleted ? handleBuildReset : undefined}
-          />
+      <div className="pb-32 px-4">
+        <div className="bg-gray-100 rounded-2xl p-4">
+          <div className="space-y-4">
+            {STEPS.map(step => {
+              const isCompleted = isStepCompleted(videoId, step.type)
+              const canAccess = canAccessStep(videoId, step.type)
 
-          {/* Connecting Line */}
-          <div className="flex justify-center">
-            <div className="w-0.5 h-8 bg-gray-300" />
+              const StepIcon = step.icon
+
+              return (
+                <div key={step.number} className="flex items-center gap-2 transition-all">
+                  {/* 아이콘 원형 뱃지 */}
+                  <div className={cn(!isCompleted && !canAccess && ' text-gray-500')}>
+                    {isCompleted ? (
+                      <IconCheck size={20} />
+                    ) : !canAccess ? (
+                      <IconLock size={20} />
+                    ) : (
+                      <StepIcon size={20} />
+                    )}
+                  </div>
+
+                  {/* 단계 레이블 */}
+                  <span
+                    className={cn(
+                      'font-medium flex-1',
+                      isCompleted && 'line-through text-gray-400',
+                      !isCompleted && canAccess && 'text-gray-900',
+                      !isCompleted && !canAccess && 'text-gray-400',
+                    )}
+                  >
+                    {step.label}
+                  </span>
+                </div>
+              )
+            })}
           </div>
-
-          {/* Step 2: Fill */}
-          <StepCard
-            icon={<IconEdit />}
-            title="2. 빈칸 채우기"
-            description="문장의 빈칸을 채우며 스펠링을 익혀요"
-            status={getFillStatus()}
-            onStart={handleFillStart}
-            onReset={fillCompleted ? handleFillReset : undefined}
-          />
-
-          {/* Connecting Line */}
-          <div className="flex justify-center">
-            <div className="w-0.5 h-8 bg-gray-300" />
-          </div>
-
-          {/* Step 3: Review */}
-          <StepCard
-            icon={<IconPlayerPlay />}
-            title="3. 전체 복습"
-            description="배운 내용을 토대로 전체 영상을 복습해요"
-            status={getReviewStatus()}
-            onStart={handleReviewStart}
-            onReset={reviewCompleted ? handleReviewReset : undefined}
-          />
         </div>
+      </div>
+
+      {/* 하단 고정 버튼 */}
+      <div
+        style={{ maxWidth: MAX_APP_SCREEN_WIDTH }}
+        className="fixed bottom-0 left-0 right-0 mx-auto bg-white border-t-1 border-gray-200 p-4"
+      >
+        <Button variant="default" onClick={handleButtonClick} className={cn('w-full')}>
+          {nextStep.label}
+        </Button>
       </div>
     </PageLayout>
   )

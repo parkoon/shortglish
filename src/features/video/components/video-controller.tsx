@@ -100,7 +100,7 @@ export const VideoController = forwardRef<VideoControllerRef, VideoControllerPro
           <button
             onClick={onHint}
             disabled={!canHint}
-            className={cn('p-2 text-amber-400', !canHint && 'opacity-50 cursor-not-allowed')}
+            className={cn('p-2', !canHint && 'opacity-50 cursor-not-allowed')}
             title="힌트"
           >
             <IconWand />

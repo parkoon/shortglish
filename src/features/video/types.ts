@@ -34,3 +34,10 @@ export type Subtitle = {
   text: string
   translation: string
 }
+
+export type VideoDetail = {
+  title: string
+  description: string
+  thumbnail: string
+  subtitles: Subtitle[]
+}

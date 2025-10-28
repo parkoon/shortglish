@@ -147,10 +147,10 @@ const FillPage = () => {
         okText: '다음 단계로',
         cancelText: '나중에',
         onOk: () => {
-          navigate(paths.videos.entry.getHref(videoId ?? ''))
+          navigate(paths.videos.review.getHref(videoId ?? ''))
         },
         onCancel: () => {
-          navigate(paths.home.root.getHref())
+          navigate(paths.videos.entry.getHref(videoId ?? ''))
         },
       })
     }
