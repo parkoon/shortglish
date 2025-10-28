@@ -3,15 +3,19 @@ import { useNavigate, useParams } from 'react-router'
 
 import { PageLayout } from '@/components/layouts/page-layout'
 import { paths } from '@/config/paths'
+import { useDialogueCompletionStore } from '@/features/video/store/dialogue-completion-store'
 import { useVideoProgressStore } from '@/features/video/store/video-progress-store'
+import { useGlobalModal } from '@/stores/modal-store'
 
 import { StepCard } from './_components/step-card'
 
 const EntryPage = () => {
   const { videoId } = useParams<{ videoId: string }>()
   const navigate = useNavigate()
+  const modal = useGlobalModal()
 
-  const { isStepCompleted, canAccessStep } = useVideoProgressStore()
+  const { isStepCompleted, canAccessStep, resetStep } = useVideoProgressStore()
+  const { clearVideo } = useDialogueCompletionStore()
 
   if (!videoId) {
     return (
@@ -61,6 +65,53 @@ const EntryPage = () => {
     navigate(paths.videos.review.getHref(videoId))
   }
 
+  const handleBuildReset = () => {
+    modal.open({
+      title: '처음부터 다시하기',
+      description: '단어 조합 게임의 모든 진행 상황이 초기화됩니다.\n계속하시겠습니까?',
+      okText: '계속',
+      cancelText: '취소',
+      onOk: () => {
+        // build 단계 초기화
+        resetStep(videoId, 'build')
+        // dialogue completion 초기화
+        clearVideo(videoId)
+        // build 페이지로 이동
+        navigate(paths.videos.build.getHref(videoId))
+      },
+    })
+  }
+
+  const handleFillReset = () => {
+    modal.open({
+      title: '처음부터 다시하기',
+      description: '빈칸 채우기의 모든 진행 상황이 초기화됩니다.\n계속하시겠습니까?',
+      okText: '계속',
+      cancelText: '취소',
+      onOk: () => {
+        // fill 단계 초기화
+        resetStep(videoId, 'fill')
+        // fill 페이지로 이동
+        navigate(paths.videos.fill.getHref(videoId))
+      },
+    })
+  }
+
+  const handleReviewReset = () => {
+    modal.open({
+      title: '처음부터 다시하기',
+      description: '전체 복습을 다시 시작합니다.\n계속하시겠습니까?',
+      okText: '계속',
+      cancelText: '취소',
+      onOk: () => {
+        // review 단계 초기화
+        resetStep(videoId, 'review')
+        // review 페이지로 이동
+        navigate(paths.videos.review.getHref(videoId))
+      },
+    })
+  }
+
   return (
     <PageLayout title="학습 단계">
       <div className="px-4 py-6">
@@ -77,6 +128,7 @@ const EntryPage = () => {
             description="영상의 문장을 단어로 조합하며 학습해요"
             status={getBuildStatus()}
             onStart={handleBuildStart}
+            onReset={buildCompleted ? handleBuildReset : undefined}
           />
 
           {/* Connecting Line */}
@@ -91,6 +143,7 @@ const EntryPage = () => {
             description="문장의 빈칸을 채우며 스펠링을 익혀요"
             status={getFillStatus()}
             onStart={handleFillStart}
+            onReset={fillCompleted ? handleFillReset : undefined}
           />
 
           {/* Connecting Line */}
@@ -105,6 +158,7 @@ const EntryPage = () => {
             description="배운 내용을 토대로 전체 영상을 복습해요"
             status={getReviewStatus()}
             onStart={handleReviewStart}
+            onReset={reviewCompleted ? handleReviewReset : undefined}
           />
         </div>
       </div>

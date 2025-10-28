@@ -22,6 +22,7 @@ type ProgressActions = {
   isStepCompleted: (videoId: string, step: StepType) => boolean
   canAccessStep: (videoId: string, step: StepType) => boolean
   resetVideoProgress: (videoId: string) => void
+  resetStep: (videoId: string, step: StepType) => void
   getVideoProgress: (videoId: string) => VideoProgress
 }
 
@@ -91,6 +92,22 @@ export const useVideoProgressStore = create<VideoProgressStore>()(
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const { [videoId]: _, ...rest } = state.progress
           return { progress: rest }
+        })
+      },
+
+      resetStep: (videoId: string, step: StepType) => {
+        set(state => {
+          const videoProgress = state.progress[videoId] || { ...initialVideoProgress }
+
+          return {
+            progress: {
+              ...state.progress,
+              [videoId]: {
+                ...videoProgress,
+                [step]: { isCompleted: false },
+              },
+            },
+          }
         })
       },
 

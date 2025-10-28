@@ -12,9 +12,10 @@ type StepCardProps = {
   description: string
   status: StepStatus
   onStart: () => void
+  onReset?: () => void
 }
 
-export const StepCard = ({ icon, title, description, status, onStart }: StepCardProps) => {
+export const StepCard = ({ icon, title, description, status, onStart, onReset }: StepCardProps) => {
   const isLocked = status === 'locked'
   const isCompleted = status === 'completed'
   const isAvailable = status === 'available'
@@ -65,20 +66,27 @@ export const StepCard = ({ icon, title, description, status, onStart }: StepCard
       </div>
 
       {/* Status Icon or Button */}
-      <div className="flex items-center">
+      <div className="flex items-center gap-2">
         {isLocked && (
           <div className="w-10 h-10 flex items-center justify-center text-gray-400">
             <IconLock size={28} />
           </div>
         )}
         {isCompleted && (
-          <div className="w-10 h-10 flex items-center justify-center text-green-600">
-            <IconCheck size={32} strokeWidth={3} />
-          </div>
+          <>
+            <div className="w-10 h-10 flex items-center justify-center text-green-600">
+              <IconCheck size={32} strokeWidth={3} />
+            </div>
+            {onReset && (
+              <Button onClick={onReset} variant="outline" className="border-green-500 text-green-700">
+                다시하기
+              </Button>
+            )}
+          </>
         )}
-        {isAvailable && (
+        {isAvailable && !isCompleted && (
           <Button onClick={onStart} className="bg-blue-600 hover:bg-blue-700">
-            {isCompleted ? '다시하기' : '시작하기'}
+            시작하기
           </Button>
         )}
       </div>
