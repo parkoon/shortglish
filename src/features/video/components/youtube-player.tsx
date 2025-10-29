@@ -20,7 +20,6 @@ type YTPlayer = {
 
 type YouTubePlayerProps = {
   videoId: string
-  devMode?: boolean
   initialTime?: number
   autoPlay?: boolean
   disabled?: boolean
@@ -48,10 +47,7 @@ export const YOUTUBE_PLAYER_STATE = {
 } as const
 
 export const YouTubePlayer = forwardRef<YouTubePlayerRef, YouTubePlayerProps>(
-  (
-    { videoId, initialTime, autoPlay = false, disabled = false, onStateChange, devMode = false },
-    ref,
-  ) => {
+  ({ videoId, initialTime, autoPlay = false, disabled = false, onStateChange }, ref) => {
     const [showPlayer, setShowPlayer] = useState(false)
     const [isPlayerReady, setIsPlayerReady] = useState(false)
     const playerRef = useRef<YTPlayer | null>(null)
@@ -80,24 +76,20 @@ export const YouTubePlayer = forwardRef<YouTubePlayerRef, YouTubePlayerProps>(
       const initPlayer = () => {
         if (!containerRef.current) return
 
-        const playerVars = devMode
-          ? {}
-          : ({
-              controls: 0,
-              disablekb: 1,
-              fs: 0,
-              iv_load_policy: 3,
-              rel: 0,
-              autoplay: 1,
-              showinfo: 0,
-              autohide: 1,
-              modestbranding: 1,
-              playsinline: 1,
-            } as const)
-
         playerRef.current = new window.YT.Player(containerRef.current.id, {
           videoId,
-          playerVars,
+          playerVars: {
+            controls: 0,
+            disablekb: 1,
+            fs: 0,
+            iv_load_policy: 3,
+            rel: 0,
+            autoplay: 1,
+            showinfo: 0,
+            autohide: 1,
+            modestbranding: 1,
+            // playsinline: 1,
+          },
           events: {
             onReady: () => {
               // if (autoPlay) {

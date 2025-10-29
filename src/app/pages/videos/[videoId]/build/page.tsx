@@ -91,7 +91,6 @@ const VideoPage = () => {
     const currentIndex = subtitles.findIndex(d => d.index === currentDialogue?.index)
     const nextIndex = currentIndex + 1
     const nextDialogue = subtitles[nextIndex]
-    console.log('🚀 ~ handleNext ~ nextDialogue:', nextDialogue)
 
     // 다음 다이얼로그가 없음
     if (!nextDialogue) {
@@ -242,7 +241,6 @@ const VideoPage = () => {
           videoId={videoId}
           initialTime={0}
           autoPlay
-          devMode={process.env.NODE_ENV === 'development'}
         />
 
         {/* {playerState === YOUTUBE_PLAYER_STATE.PAUSED && (
