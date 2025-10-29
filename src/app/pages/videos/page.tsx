@@ -1,12 +1,12 @@
-import { MainLayout } from '@/components/layouts/main-layout'
+import { PageLayout } from '@/components/layouts/page-layout'
 import { VideoFeeds } from '@/features/video/components/video-feeds'
 
 const Home = () => {
   return (
-    <MainLayout>
+    <PageLayout>
       {/* <VideoCategory /> */}
       <VideoFeeds />
-    </MainLayout>
+    </PageLayout>
   )
 }
 

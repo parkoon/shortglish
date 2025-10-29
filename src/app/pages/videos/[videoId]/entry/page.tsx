@@ -37,7 +37,7 @@ const EntryPage = () => {
 
   if (!videoId) {
     return (
-      <PageLayout title="">
+      <PageLayout>
         <div className="flex items-center justify-center h-64">
           <p className="text-gray-500">비디오를 찾을 수 없습니다.</p>
         </div>
@@ -47,7 +47,7 @@ const EntryPage = () => {
 
   if (isLoading) {
     return (
-      <PageLayout title="">
+      <PageLayout>
         <div className="flex items-center justify-center h-64">
           <p className="text-gray-500">로딩 중...</p>
         </div>
@@ -107,7 +107,7 @@ const EntryPage = () => {
   }
 
   return (
-    <PageLayout title="">
+    <PageLayout>
       {/* 썸네일 */}
       <div className="relative">
         <img

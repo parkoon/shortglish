@@ -1,23 +1,12 @@
-import { IconArrowLeft } from '@tabler/icons-react'
-import { useNavigate } from 'react-router'
-
-import { APP_BAR_HEIGHT, MAX_APP_SCREEN_WIDTH } from '@/config/app'
-import { cn } from '@/lib/utils'
+import { MAX_APP_SCREEN_WIDTH } from '@/config/app'
 
 type PageLayoutProps = {
-  title: string
   children: React.ReactNode
-  right?: React.ReactNode
 }
-export const PageLayout = ({ title, children, right }: PageLayoutProps) => {
-  const navigate = useNavigate()
-
+export const PageLayout = ({ children }: PageLayoutProps) => {
   return (
-    <div
-      style={{ maxWidth: MAX_APP_SCREEN_WIDTH }}
-      className="min-h-screen mx-auto flex flex-col items-stretch"
-    >
-      <header
+    <div className="min-h-screen flex flex-col mx-auto" style={{ maxWidth: MAX_APP_SCREEN_WIDTH }}>
+      {/* <header
         className={cn(
           'sticky w-full top-0 left-0 right-0 bg-white z-50 flex items-center justify-between',
           // className,
@@ -31,8 +20,8 @@ export const PageLayout = ({ title, children, right }: PageLayoutProps) => {
           <h2 className="font-semibold">{title}</h2>
         </div>
         <div className="flex items-center">{right}</div>
-      </header>
-      {children}
+      </header> */}
+      <div className="flex-1">{children}</div>
     </div>
   )
 }

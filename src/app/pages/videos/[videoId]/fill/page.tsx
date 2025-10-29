@@ -38,7 +38,7 @@ const FillPage = () => {
 
   if (isLoading) {
     return (
-      <PageLayout title="Fill in the blanks">
+      <PageLayout>
         <div className="flex items-center justify-center h-64">
           <p className="text-gray-500">문제를 불러오는 중...</p>
         </div>
@@ -48,7 +48,7 @@ const FillPage = () => {
 
   if (!videoId || subtitles.length === 0) {
     return (
-      <PageLayout title="Fill in the blanks">
+      <PageLayout>
         <div className="flex items-center justify-center h-64">
           <p className="text-gray-500">문제가 없습니다.</p>
         </div>
@@ -150,7 +150,7 @@ const FillPage = () => {
   }
 
   return (
-    <PageLayout title="">
+    <PageLayout>
       {/* Progress Bar */}
       <SubtitleProgressBar current={currentIndex + 1} total={subtitles.length} />
 
