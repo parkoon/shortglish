@@ -1,12 +1,13 @@
 import {
   IconPlayerSkipBackFilled,
   IconPlayerSkipForwardFilled,
-  IconRepeat,
+  IconReload,
   IconWand,
 } from '@tabler/icons-react'
-import { motion } from 'framer-motion'
 import { forwardRef, useImperativeHandle, useState } from 'react'
 
+import { MotionButton } from '@/components/ui/motion-button'
+import { MAX_APP_SCREEN_WIDTH } from '@/config/app'
 import { usePrimaryColor } from '@/hooks/use-primary-color'
 import { cn } from '@/lib/utils'
 
@@ -49,31 +50,38 @@ export const VideoController = forwardRef<VideoControllerRef, VideoControllerPro
     }))
 
     return (
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-300 max-w-[640px] mx-auto">
-        <div className="relative flex items-center justify-between py-2 px-4 h-[46px]">
+      <div
+        className="fixed bottom-0 left-0 right-0 bg-red mx-auto p-4"
+        style={{ maxWidth: MAX_APP_SCREEN_WIDTH }}
+      >
+        <div className="relative flex items-center justify-between">
           {/* 힌트 버튼 (왼쪽) */}
           <div />
 
-          <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-4">
-            <button
+          <div className="flex items-center gap-4 absolute left-1/2 -translate-x-1/2">
+            <MotionButton
               onClick={onPrevious}
               disabled={!canPrevious}
-              className={cn('p-2', !canPrevious && 'opacity-50 cursor-not-allowed')}
+              className={cn('p-2', !canPrevious && 'opacity-30 cursor-not-allowed')}
             >
               <IconPlayerSkipBackFilled />
-            </button>
+            </MotionButton>
 
-            <button
+            <MotionButton
               onClick={onRepeat}
-              className={cn('p-2', !canRepeat && 'opacity-50 pointer-events-none')}
+              disabled={!canRepeat}
+              className={cn(
+                'p-2 px-5 border bg-white rounded-2xl text-primary',
+                !canRepeat && 'opacity-30 pointer-events-none',
+              )}
             >
-              <IconRepeat />
-            </button>
+              <IconReload />
+            </MotionButton>
 
-            <motion.button
+            <MotionButton
               onClick={onNext}
               disabled={!canNext}
-              className={cn('p-2', !canNext && 'opacity-50 cursor-not-allowed')}
+              className={cn('p-2', !canNext && 'opacity-30 cursor-not-allowed')}
               animate={
                 isBlinking && canNext
                   ? {
@@ -90,21 +98,21 @@ export const VideoController = forwardRef<VideoControllerRef, VideoControllerPro
                       repeat: Infinity,
                       ease: 'easeInOut',
                     }
-                  : { duration: 0.2 }
+                  : { duration: 0.1 }
               }
             >
               <IconPlayerSkipForwardFilled />
-            </motion.button>
+            </MotionButton>
           </div>
 
-          <button
+          <MotionButton
             onClick={onHint}
             disabled={!canHint}
-            className={cn('p-2', !canHint && 'opacity-50 cursor-not-allowed')}
+            className={cn('p-2', !canHint && 'opacity-30 cursor-not-allowed')}
             title="힌트"
           >
             <IconWand />
-          </button>
+          </MotionButton>
         </div>
       </div>
     )
