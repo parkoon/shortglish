@@ -47,7 +47,7 @@ export const YOUTUBE_PLAYER_STATE = {
 } as const
 
 export const YouTubePlayer = forwardRef<YouTubePlayerRef, YouTubePlayerProps>(
-  ({ videoId, initialTime, autoPlay = false, disabled = false, onStateChange }, ref) => {
+  ({ videoId, initialTime = 0, autoPlay = false, disabled = false, onStateChange }, ref) => {
     const [showPlayer, setShowPlayer] = useState(false)
     const [isPlayerReady, setIsPlayerReady] = useState(false)
     const playerRef = useRef<YTPlayer | null>(null)
@@ -88,8 +88,9 @@ export const YouTubePlayer = forwardRef<YouTubePlayerRef, YouTubePlayerProps>(
             showinfo: 0,
             autohide: 1,
             modestbranding: 1,
-            // playsinline: 1,
+            ...(initialTime && { start: Math.floor(initialTime) }),
           },
+
           events: {
             onReady: () => {
               // if (autoPlay) {

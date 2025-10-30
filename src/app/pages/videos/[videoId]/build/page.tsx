@@ -231,15 +231,14 @@ const VideoPage = () => {
   if (isLoadingDialogues) {
     return <div>비디오를 가지고 오는 중입니다.</div>
   }
-
   return (
-    <PageLayout>
+    <PageLayout className="pb-[80px]">
       <div className="relative">
         <YouTubePlayer
           onStateChange={handleStateChange}
           ref={playerRef}
           videoId={videoId}
-          initialTime={0}
+          initialTime={subtitles[0]?.startTime ?? 0}
           autoPlay
         />
 
