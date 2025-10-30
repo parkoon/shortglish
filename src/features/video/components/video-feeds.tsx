@@ -53,6 +53,9 @@ export const VideoCard = ({ video }: VideoCardProps) => {
           src={getYouTubeThumbnailUrl(video.id)}
           alt={video.title}
           className="w-full aspect-video object-cover"
+          onError={e => {
+            e.currentTarget.src = video.thumbnail
+          }}
         />
         <div className="absolute bottom-2 right-2 bg-black/80 text-white text-xs px-1 py-0.5 rounded">
           {formatDuration(video.duration)}
