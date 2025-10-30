@@ -2,9 +2,8 @@ import type { Icon } from '@tabler/icons-react'
 import { IconCheck, IconLock, IconPencil, IconPlayerPlay, IconPuzzle } from '@tabler/icons-react'
 import { useNavigate, useParams } from 'react-router'
 
+import { CTALayout } from '@/components/layouts/cta-layout'
 import { PageLayout } from '@/components/layouts/page-layout'
-import { Button } from '@/components/ui/button'
-import { MAX_APP_SCREEN_WIDTH } from '@/config/app'
 import { paths } from '@/config/paths'
 import { useVideoDetail } from '@/features/video/hooks/use-video-detail'
 import { useDialogueCompletionStore } from '@/features/video/store/dialogue-completion-store'
@@ -107,7 +106,12 @@ const EntryPage = () => {
   }
 
   return (
-    <PageLayout>
+    <CTALayout
+      primaryButtonProps={{
+        onClick: handleButtonClick,
+        children: nextStep.label,
+      }}
+    >
       {/* 썸네일 */}
       <div className="relative">
         <img
@@ -123,7 +127,7 @@ const EntryPage = () => {
         <p className="text-sm text-gray-500 leading-tight">{videoDetail?.description}</p>
       </div>
 
-      <div className="pb-32 px-4">
+      <div className="px-4">
         <div className="bg-gray-100 rounded-2xl p-4">
           <div className="space-y-4">
             {STEPS.map(step => {
@@ -163,16 +167,14 @@ const EntryPage = () => {
         </div>
       </div>
 
-      {/* 하단 고정 버튼 */}
-      <div
-        style={{ maxWidth: MAX_APP_SCREEN_WIDTH }}
-        className="fixed bottom-0 left-0 right-0 mx-auto bg-white border-t-1 border-gray-200 p-4"
-      >
-        <Button variant="default" onClick={handleButtonClick} className={cn('w-full')}>
-          {nextStep.label}
-        </Button>
-      </div>
-    </PageLayout>
+      {/* <TossStepper
+        items={STEPS.map(step => ({
+          number: step.number as 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9,
+          title: step.label,
+          description: 'zz',
+        }))}
+      /> */}
+    </CTALayout>
   )
 }
 
