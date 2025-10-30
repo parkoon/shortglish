@@ -130,7 +130,7 @@ const VideoPage = () => {
 
   return (
     <PageLayout>
-      <div className="sticky top-[52px] z-50 shadow-sm">
+      <div className="sticky top-0 shadow-sm">
         <YouTubePlayer
           onStateChange={handleStateChange}
           ref={playerRef}
