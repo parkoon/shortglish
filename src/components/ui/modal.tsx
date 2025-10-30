@@ -75,7 +75,7 @@ export const Modal = ({
             {!hideCancelButton && (
               <Button
                 className={cn('flex-1 font-semibold', cancelButtonClassName)}
-                variant="outline"
+                variant="secondary"
                 onClick={onCancel}
                 {...restCancelButtonProps}
               >
