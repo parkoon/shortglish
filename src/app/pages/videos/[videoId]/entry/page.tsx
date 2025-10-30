@@ -4,24 +4,40 @@ import { useNavigate, useParams } from 'react-router'
 
 import { CTALayout } from '@/components/layouts/cta-layout'
 import { PageLayout } from '@/components/layouts/page-layout'
+import { Button } from '@/components/ui/button'
+import { TossStepper } from '@/components/ui/stepper'
 import { paths } from '@/config/paths'
 import { useVideoDetail } from '@/features/video/hooks/use-video-detail'
 import { useDialogueCompletionStore } from '@/features/video/store/dialogue-completion-store'
 import { useVideoProgressStore } from '@/features/video/store/video-progress-store'
-import { cn } from '@/lib/utils'
 import { useGlobalModal } from '@/stores/modal-store'
 
 type StepInfo = {
-  number: number
   label: string
   type: 'build' | 'fill' | 'review'
   icon: Icon
+  description: string
 }
 
 const STEPS: StepInfo[] = [
-  { number: 1, label: '문장 완성하기', type: 'build', icon: IconPuzzle },
-  { number: 2, label: '빈칸 채우기', type: 'fill', icon: IconPencil },
-  { number: 3, label: '전체 영상 보기', type: 'review', icon: IconPlayerPlay },
+  {
+    label: '문장 완성하기',
+    type: 'build',
+    icon: IconPuzzle,
+    description: '단어 카드를 조합해 올바른 문장을 만들어요',
+  },
+  {
+    label: '빈칸 채우기',
+    type: 'fill',
+    icon: IconPencil,
+    description: '문장 속 빈칸을 채우며 단어를 완벽하게 익혀요',
+  },
+  {
+    label: '복습하기',
+    type: 'review',
+    icon: IconPlayerPlay,
+    description: '학습한 문장을 복습하며 얼마나 들리는지 확인해요',
+  },
 ]
 
 const EntryPage = () => {
@@ -105,13 +121,10 @@ const EntryPage = () => {
     navigate(pathMap[nextStep.type].getHref(videoId))
   }
 
-  return (
-    <CTALayout
-      primaryButtonProps={{
-        onClick: handleButtonClick,
-        children: nextStep.label,
-      }}
-    >
+  const isAllCompleted = nextStep.type === 'completed'
+
+  const content = (
+    <>
       {/* 썸네일 */}
       <div className="relative">
         <img
@@ -122,60 +135,60 @@ const EntryPage = () => {
       </div>
 
       {/* 제목 */}
-      <div className="px-4 py-6">
+      <div className="px-4 py-6 mb-4">
         <h1 className="text-xl font-bold text-gray-900 leading-tight">{videoDetail?.title}</h1>
         <p className="text-sm text-gray-500 leading-tight">{videoDetail?.description}</p>
       </div>
 
       <div className="px-4">
-        <div className="bg-gray-100 rounded-2xl p-4">
-          <div className="space-y-4">
-            {STEPS.map(step => {
-              const isCompleted = isStepCompleted(videoId, step.type)
-              const canAccess = canAccessStep(videoId, step.type)
+        <TossStepper
+          items={STEPS.map((step, index) => {
+            const isCompleted = isStepCompleted(videoId, step.type)
+            const canAccess = canAccessStep(videoId, step.type)
+            const isInProgress = nextStep.type === step.type && !isCompleted
 
-              const StepIcon = step.icon
-
-              return (
-                <div key={step.number} className="flex items-center gap-2 transition-all">
-                  {/* 아이콘 원형 뱃지 */}
-                  <div className={cn(!isCompleted && !canAccess && ' text-gray-500')}>
-                    {isCompleted ? (
-                      <IconCheck size={20} />
-                    ) : !canAccess ? (
-                      <IconLock size={20} />
-                    ) : (
-                      <StepIcon size={20} />
-                    )}
-                  </div>
-
-                  {/* 단계 레이블 */}
-                  <span
-                    className={cn(
-                      'font-medium flex-1',
-                      isCompleted && 'line-through text-gray-400',
-                      !isCompleted && canAccess && 'text-gray-900',
-                      !isCompleted && !canAccess && 'text-gray-400',
-                    )}
-                  >
-                    {step.label}
-                  </span>
-                </div>
+            // 진행 상태에 따른 아이콘 결정
+            let rightIcon = null
+            if (isCompleted) {
+              rightIcon = <IconCheck className="text-green-600" />
+            } else if (isInProgress) {
+              rightIcon = (
+                <Button size="xs" onClick={handleButtonClick}>
+                  시작하기
+                </Button>
               )
-            })}
-          </div>
-        </div>
-      </div>
+            } else if (!canAccess) {
+              rightIcon = <IconLock className="text-gray-400" />
+            }
 
-      {/* <TossStepper
-        items={STEPS.map(step => ({
-          number: step.number as 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9,
-          title: step.label,
-          description: 'zz',
-        }))}
-      /> */}
-    </CTALayout>
+            return {
+              number: String(index + 1),
+              title: step.label,
+              right: rightIcon,
+              description: step.description,
+            }
+          })}
+        />
+      </div>
+    </>
   )
+
+  if (isAllCompleted) {
+    return (
+      <CTALayout
+        primaryButtonProps={{
+          onClick: handleButtonClick,
+          children: '다시 학습하기',
+        }}
+        ctaDescription="모든 학습을 완료했어요!"
+        ctaShowDelay={0.3}
+      >
+        {content}
+      </CTALayout>
+    )
+  }
+
+  return <PageLayout>{content}</PageLayout>
 }
 
 export default EntryPage
