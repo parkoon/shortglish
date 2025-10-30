@@ -16,9 +16,15 @@ export type WordWithPunctuation = {
  * @example
  * parseWordsWithPunctuation('"Hello, world!"')
  * // [{ prefix: '"', word: "Hello", suffix: "," }, { prefix: "", word: "world", suffix: '!"' }]
+ *
+ * parseWordsWithPunctuation('okay,hold')
+ * // [{ prefix: '', word: 'okay', suffix: ',' }, { prefix: '', word: 'hold', suffix: '' }]
  */
 export const parseWordsWithPunctuation = (sentence: string): WordWithPunctuation[] => {
-  const tokens = sentence.trim().split(/\s+/)
+  // 구두점 뒤에 알파벳이 바로 오는 경우 공백 추가 (예: "okay,hold" -> "okay, hold")
+  const normalized = sentence.replace(/([,!?;:.~'"-])([a-zA-Z])/g, '$1 $2')
+
+  const tokens = normalized.trim().split(/\s+/)
 
   return tokens.map(token => {
     // 앞뒤 구두점 추출
