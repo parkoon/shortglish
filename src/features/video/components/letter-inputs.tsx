@@ -9,7 +9,6 @@ type LetterInputsProps = {
   onWordComplete?: () => void
   onMoveToPrevWord?: () => void
   isWrong?: boolean
-  showHint?: boolean
 }
 
 export type LetterInputsRef = {
@@ -24,13 +23,9 @@ export type LetterInputsRef = {
  * - 단어의 각 글자를 개별 input으로 표시
  * - 자동 포커싱 (한 글자 입력 시 다음 칸으로)
  * - Backspace 시 이전 칸으로 이동
- * - 첫 글자 힌트 표시
  */
 export const LetterInputs = forwardRef<LetterInputsRef, LetterInputsProps>(
-  (
-    { word, value, onChange, onWordComplete, onMoveToPrevWord, isWrong = false, showHint = false },
-    ref,
-  ) => {
+  ({ word, value, onChange, onWordComplete, onMoveToPrevWord, isWrong = false }, ref) => {
     const inputRefs = useRef<(HTMLInputElement | null)[]>([])
     const wordLength = word.length
 
@@ -99,8 +94,6 @@ export const LetterInputs = forwardRef<LetterInputsRef, LetterInputsProps>(
     return (
       <div className="flex gap-1 justify-center">
         {Array.from({ length: wordLength }).map((_, index) => {
-          const isFirstLetter = index === 0
-          const shouldShowHint = showHint && isFirstLetter
           const letterValue = value[index] || ''
 
           return (
@@ -111,16 +104,14 @@ export const LetterInputs = forwardRef<LetterInputsRef, LetterInputsProps>(
               }}
               type="text"
               maxLength={1}
-              value={shouldShowHint && !letterValue ? word[0].toLowerCase() : letterValue}
+              value={letterValue}
               onChange={e => handleInputChange(index, e.target.value)}
               onKeyDown={e => handleKeyDown(index, e)}
-              disabled={shouldShowHint && !letterValue}
               className={cn(
                 'w-5 h-8 text-center text-xl font-bold border-b-2 bg-transparent',
                 'focus:outline-none focus:border-blue-500 transition-colors',
                 isWrong && 'border-red-500 text-red-500',
                 !isWrong && 'border-gray-300 text-gray-900',
-                shouldShowHint && !letterValue && 'text-blue-500 border-blue-500',
               )}
               autoComplete="off"
               autoCapitalize="off"

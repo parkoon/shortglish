@@ -1,11 +1,10 @@
-import { IconBulb, IconVolume } from '@tabler/icons-react'
+import { IconCheck, IconVolume, IconX } from '@tabler/icons-react'
 import { useMemo, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 
-import { SubtitleProgressBar } from '@/app/pages/videos/[videoId]/_components/subtitle-progress-bar'
+import type { CTAStatus } from '@/components/layouts/interactive-cta-layout'
+import { InteractiveCTALayout } from '@/components/layouts/interactive-cta-layout'
 import { PageLayout } from '@/components/layouts/page-layout'
-import { Button } from '@/components/ui/button'
-import { MAX_APP_SCREEN_WIDTH } from '@/config/app'
 import { paths } from '@/config/paths'
 import type { LetterInputsRef } from '@/features/video/components/letter-inputs'
 import { LetterInputs } from '@/features/video/components/letter-inputs'
@@ -30,8 +29,7 @@ const FillPage = () => {
 
   const [currentIndex, setCurrentIndex] = useState(0)
   const [userInputs, setUserInputs] = useState<Record<number, string>>({})
-  const [showHint, setShowHint] = useState(false)
-  const [resultState, setResultState] = useState<'none' | 'success' | 'error'>('none')
+  const [ctaStatus, setCtaStatus] = useState<CTAStatus>('disabled')
 
   // 각 빈칸 단어의 ref
   const blankInputRefs = useRef<Record<number, LetterInputsRef | null>>({})
@@ -63,9 +61,18 @@ const FillPage = () => {
   )
 
   const handleInputChange = (position: number, value: string) => {
-    setUserInputs(prev => ({ ...prev, [position]: value }))
-    setResultState('none')
-    setShowHint(false)
+    setUserInputs(prev => {
+      const newInputs = { ...prev, [position]: value }
+
+      // 모든 빈칸이 채워졌는지 확인
+      const allFilled = blankedPositions.every(pos => {
+        const input = newInputs[pos] || ''
+        return input.length === displayWords[pos].word.length
+      })
+
+      setCtaStatus(allFilled ? 'ready' : 'disabled')
+      return newInputs
+    })
   }
 
   const handleWordComplete = (currentPosition: number) => {
@@ -108,9 +115,9 @@ const FillPage = () => {
     })
 
     if (isCorrect) {
-      setResultState('success')
+      setCtaStatus('success')
     } else {
-      setResultState('error')
+      setCtaStatus('error')
     }
   }
 
@@ -118,8 +125,7 @@ const FillPage = () => {
     if (currentIndex < subtitles.length - 1) {
       setCurrentIndex(prev => prev + 1)
       setUserInputs({})
-      setShowHint(false)
-      setResultState('none')
+      setCtaStatus('disabled')
     } else {
       // 모든 문제 완료
       if (videoId) {
@@ -141,20 +147,86 @@ const FillPage = () => {
     }
   }
 
-  const handleHint = () => {
-    setShowHint(true)
+  const handleRetry = () => {
+    // 틀린 답 초기화
+    setUserInputs({})
+    setCtaStatus('disabled')
+    // 첫 번째 빈칸으로 포커스
+    if (blankedPositions.length > 0) {
+      setTimeout(() => {
+        blankInputRefs.current[blankedPositions[0]]?.focus()
+      }, 100)
+    }
   }
 
   const handleSpeak = () => {
     speakText(currentSubtitle.text)
   }
 
-  return (
-    <PageLayout>
-      {/* Progress Bar */}
-      <SubtitleProgressBar current={currentIndex + 1} total={subtitles.length} />
+  // 현재 문장의 정답
+  const correctAnswer = currentSubtitle.text
 
+  // CTA 상태별 config
+  const getCtaConfig = () => {
+    switch (ctaStatus) {
+      case 'disabled':
+        return {
+          label: '확인',
+        }
+      case 'ready':
+        return {
+          label: '확인',
+          onClick: handleCheck,
+        }
+      case 'success':
+        return {
+          overlayContent: (
+            <div className="flex items-start gap-3">
+              <div className="w-7 h-7 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0">
+                <IconCheck className="text-white" size={20} />
+              </div>
+              <div className="flex-1">
+                <div className="flex items-center justify-between">
+                  <h3 className="font-bold text-green-900 text-lg mb-1">정답이에요!</h3>
+                  <button className="p-2 text-green-900" onClick={handleSpeak}>
+                    <IconVolume />
+                  </button>
+                </div>
+                <p className="text-green-800">{correctAnswer}</p>
+              </div>
+            </div>
+          ),
+          buttonLabel: currentIndex < subtitles.length - 1 ? '계속' : '완료',
+          onNext: handleContinue,
+        }
+      case 'error':
+        return {
+          overlayContent: (
+            <div className="flex items-start gap-3">
+              <div className="w-7 h-7 rounded-full bg-red-500 flex items-center justify-center flex-shrink-0">
+                <IconX className="text-white" size={20} />
+              </div>
+              <div className="flex-1">
+                <h3 className="font-bold text-red-900 text-lg mb-1">아쉬워요!</h3>
+                <div>
+                  <span className="text-sm text-red-700 font-semibold">정답:</span>
+                  <p className="text-red-800">{correctAnswer}</p>
+                </div>
+              </div>
+            </div>
+          ),
+          buttonLabel: '다시 시도',
+          onRetry: handleRetry,
+        }
+    }
+  }
+
+  return (
+    <InteractiveCTALayout status={ctaStatus} config={getCtaConfig()}>
       <div className="px-4 mt-5 mb-8">
+        <span className="text-gray-500">
+          <span className="font-semibold">{currentIndex + 1}</span> / {subtitles.length}
+        </span>
         <h2 className="text-xl font-bold text-gray-900 leading-relaxed">
           {currentSubtitle.translation}
         </h2>
@@ -176,8 +248,7 @@ const FillPage = () => {
                     onChange={value => handleInputChange(index, value)}
                     onWordComplete={() => handleWordComplete(index)}
                     onMoveToPrevWord={() => handleMoveToPrevWord(index)}
-                    isWrong={resultState === 'error'}
-                    showHint={showHint}
+                    isWrong={ctaStatus === 'error'}
                   />
                 </div>
               )
@@ -191,53 +262,7 @@ const FillPage = () => {
           })}
         </div>
       </div>
-
-      {/* 하단 고정 메시지 박스 (듀오링고 스타일) */}
-      <div
-        style={{ maxWidth: MAX_APP_SCREEN_WIDTH }}
-        className="fixed bottom-0 left-0 right-0 mx-auto bg-white border-t-1 border-gray-200 z-50 p-4"
-      >
-        <div className="">
-          {/* 결과 없을 때 - 힌트/TTS 버튼 */}
-          {resultState === 'none' && (
-            <div className="flex items-center justify-between gap-2">
-              <div className="flex gap-2">
-                <Button
-                  className="w-12 h-12"
-                  onClick={handleHint}
-                  disabled={showHint}
-                  variant="outline"
-                >
-                  <IconBulb />
-                </Button>
-                <Button className="w-12 h-12" onClick={handleSpeak} variant="outline">
-                  <IconVolume />
-                </Button>
-              </div>
-
-              {/* CHECK 버튼 */}
-              <Button className="flex-1" onClick={handleCheck}>
-                확인
-              </Button>
-            </div>
-          )}
-
-          {/* 성공 */}
-          {resultState === 'success' && (
-            <Button className="w-full bg-green-600" onClick={handleContinue}>
-              {currentIndex < subtitles.length - 1 ? '이어서 풀기' : '학습 완료'}
-            </Button>
-          )}
-
-          {/* 실패 */}
-          {resultState === 'error' && (
-            <Button className="w-full" onClick={() => setResultState('none')} variant="destructive">
-              다시 시도
-            </Button>
-          )}
-        </div>
-      </div>
-    </PageLayout>
+    </InteractiveCTALayout>
   )
 }
 
