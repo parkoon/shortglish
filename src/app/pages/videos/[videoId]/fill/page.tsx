@@ -71,6 +71,12 @@ const FillPage = () => {
       })
 
       setCtaStatus(allFilled ? 'ready' : 'disabled')
+
+      // 모든 빈칸이 채워지면 키보드 닫기
+      if (allFilled) {
+        ;(document.activeElement as HTMLElement)?.blur()
+      }
+
       return newInputs
     })
   }
