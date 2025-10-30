@@ -32,6 +32,29 @@ const VideoPage = () => {
   const currentDialogueRef = useRef(currentDialogue)
   const repeatDialogueRef = useRef(repeatDialogue)
 
+  const endVideo = () => {
+    if (videoId) {
+      markStepAsCompleted(videoId, 'review')
+    }
+
+    stopTimeTracking()
+    playerRef.current?.pause()
+    modal.open({
+      title: '전체 복습 완료',
+      description: '모든 학습 단계를 완료했어요!\n수고하셨습니다!',
+      okText: '다시보기',
+      cancelText: '홈으로',
+      onCancel: () => {
+        navigate(paths.home.root.getHref())
+      },
+      onOk: () => {
+        playerRef.current?.seekTo(0)
+        playerRef.current?.play()
+        startTimeTracking()
+      },
+    })
+  }
+
   useEffect(() => {
     currentDialogueRef.current = currentDialogue
   }, [currentDialogue])
@@ -51,6 +74,11 @@ const VideoPage = () => {
 
       const time = playerRef.current.getCurrentTime()
 
+      if (isDialogueEnded(time, subtitles)) {
+        endVideo()
+        return
+      }
+
       const isInRepeatMode = repeatDialogueRef.current !== null
 
       if (isInRepeatMode && time >= repeatDialogueRef.current!.endTime!) {
@@ -62,6 +90,8 @@ const VideoPage = () => {
       const 시간에따른다이얼로그 = subtitles.find(d => {
         return time >= d.startTime && time < d.endTime
       })
+
+      console.log(시간에따른다이얼로그)
 
       if (!시간에따른다이얼로그) {
         return
@@ -80,25 +110,7 @@ const VideoPage = () => {
   const handleStateChange = (state: number) => {
     if (state === YOUTUBE_PLAYER_STATE.ENDED) {
       // review 단계 완료로 표시
-      if (videoId) {
-        markStepAsCompleted(videoId, 'review')
-      }
-
-      modal.open({
-        title: '전체 복습 완료',
-        description: '모든 학습 단계를 완료했어요!\n수고하셨습니다!',
-        okText: '다시보기',
-        cancelText: '홈으로',
-        onCancel: () => {
-          navigate(paths.home.root.getHref())
-        },
-        onOk: () => {
-          playerRef.current?.seekTo(0)
-          playerRef.current?.play()
-          startTimeTracking()
-        },
-      })
-      stopTimeTracking()
+      endVideo()
       return
     }
 
@@ -148,6 +160,10 @@ const VideoPage = () => {
       />
     </PageLayout>
   )
+}
+const isDialogueEnded = (time: number, subtitles: Subtitle[]) => {
+  const lastDialogue = subtitles[subtitles.length - 1]
+  return time >= lastDialogue.endTime
 }
 
 export default VideoPage
