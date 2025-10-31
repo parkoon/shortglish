@@ -11,6 +11,7 @@ import {
 import { useSubtitles } from '@/features/video/hooks/use-subtitles'
 import { useVideoProgressStore } from '@/features/video/store/video-progress-store'
 import type { Subtitle } from '@/features/video/types'
+import { analytics } from '@/lib/analytics'
 import { useGlobalModal } from '@/stores/modal-store'
 
 import { FullDialogue } from './_components/full-dialogue'
@@ -32,8 +33,22 @@ const VideoPage = () => {
   const currentDialogueRef = useRef(currentDialogue)
   const repeatDialogueRef = useRef(repeatDialogue)
 
-  const endVideo = () => {
+  // GA 이벤트: Review 모드 진입
+  useEffect(() => {
     if (videoId) {
+      analytics.startReview({
+        video_id: videoId,
+      })
+    }
+  }, [videoId])
+
+  const endVideo = () => {
+    // GA 이벤트: Review 모드 완료
+    if (videoId) {
+      analytics.completeReview({
+        video_id: videoId,
+      })
+
       markStepAsCompleted(videoId, 'review')
     }
 
@@ -48,6 +63,13 @@ const VideoPage = () => {
         navigate(paths.home.root.getHref())
       },
       onOk: () => {
+        // GA 이벤트: Review 다시보기
+        if (videoId) {
+          analytics.reviewRewatch({
+            video_id: videoId,
+          })
+        }
+
         playerRef.current?.seekTo(0)
         playerRef.current?.play()
         startTimeTracking()
@@ -123,6 +145,15 @@ const VideoPage = () => {
   }
 
   const handleDialogueRepeat = (dialogue: Subtitle) => {
+    // GA 이벤트: 자막 반복 재생
+    if (videoId) {
+      analytics.repeatSubtitle({
+        video_id: videoId,
+        subtitle_index: dialogue.index,
+        step_type: 'review',
+      })
+    }
+
     // Toggle: if same dialogue clicked, turn off; otherwise, set to this dialogue
     setRepeatDialogue(prev => (prev === dialogue ? null : dialogue))
     setCurrentDialogue(dialogue)

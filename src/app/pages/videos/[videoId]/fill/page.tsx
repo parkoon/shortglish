@@ -10,6 +10,7 @@ import type { LetterInputsRef } from '@/features/video/components/letter-inputs'
 import { LetterInputs } from '@/features/video/components/letter-inputs'
 import { useSubtitles } from '@/features/video/hooks/use-subtitles'
 import { useVideoProgressStore } from '@/features/video/store/video-progress-store'
+import { analytics } from '@/lib/analytics'
 import { useGlobalModal } from '@/stores/modal-store'
 import { extractBlankedSentence, normalizeText, speakText } from '@/utils/fill'
 
@@ -120,6 +121,16 @@ const FillPage = () => {
       return userInput === correctWord
     })
 
+    // GA 이벤트: 빈칸 채우기 정답 체크
+    if (videoId) {
+      analytics.fillCheckAnswer({
+        video_id: videoId,
+        subtitle_index: currentSubtitle.index,
+        question_number: currentIndex + 1,
+        is_correct: isCorrect,
+      })
+    }
+
     if (isCorrect) {
       setCtaStatus('success')
     } else {
@@ -133,8 +144,13 @@ const FillPage = () => {
       setUserInputs({})
       setCtaStatus('disabled')
     } else {
-      // 모든 문제 완료
+      // GA 이벤트: Fill 모드 전체 완료
       if (videoId) {
+        analytics.completeFillMode({
+          video_id: videoId,
+          total_questions: subtitles.length,
+        })
+
         markStepAsCompleted(videoId, 'fill')
       }
 
@@ -154,6 +170,15 @@ const FillPage = () => {
   }
 
   const handleRetry = () => {
+    // GA 이벤트: 빈칸 채우기 재시도
+    if (videoId) {
+      analytics.fillRetry({
+        video_id: videoId,
+        subtitle_index: currentSubtitle.index,
+        question_number: currentIndex + 1,
+      })
+    }
+
     // 틀린 답 초기화
     setUserInputs({})
     setCtaStatus('disabled')
@@ -166,6 +191,16 @@ const FillPage = () => {
   }
 
   const handleSpeak = () => {
+    // GA 이벤트: TTS 사용
+    if (videoId) {
+      analytics.useTTS({
+        video_id: videoId,
+        subtitle_index: currentSubtitle.index,
+        step_type: 'fill',
+        text_length: currentSubtitle.text.length,
+      })
+    }
+
     speakText(currentSubtitle.text)
   }
 

@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router'
 
 import { paths } from '@/config/paths'
+import { analytics } from '@/lib/analytics'
 import { formatDuration } from '@/lib/utils'
 import { getYouTubeThumbnailUrl } from '@/utils/thumbnail'
 
@@ -43,6 +44,12 @@ export const VideoCard = ({ video }: VideoCardProps) => {
   const navigate = useNavigate()
 
   const handleClick = () => {
+    // GA 이벤트: 비디오 클릭
+    analytics.videoClick({
+      video_id: video.id,
+      video_title: video.title,
+    })
+
     navigate(paths.videos.entry.getHref(video.id))
   }
 

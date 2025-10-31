@@ -20,6 +20,7 @@ import { useSubtitles } from '@/features/video/hooks/use-subtitles'
 import { useDialogueCompletionStore } from '@/features/video/store/dialogue-completion-store'
 import { useVideoProgressStore } from '@/features/video/store/video-progress-store'
 import type { Subtitle } from '@/features/video/types'
+import { analytics } from '@/lib/analytics'
 import { useGlobalModal } from '@/stores/modal-store'
 
 import { DevCompleteButton } from '../_components/dev-complete-button'
@@ -57,6 +58,15 @@ const VideoPage = () => {
   }, [currentDialogue])
 
   const handleRepeat = () => {
+    // GA 이벤트: 반복 버튼 클릭
+    if (videoId && currentDialogue) {
+      analytics.clickRepeat({
+        video_id: videoId,
+        subtitle_index: currentDialogue.index,
+        step_type: 'build',
+      })
+    }
+
     if (currentDialogue) {
       playerRef.current?.seekTo(currentDialogue.startTime)
     } else {
@@ -74,6 +84,15 @@ const VideoPage = () => {
     // 이전 다이얼로그가 없음
     if (!prevDialogue) {
       return
+    }
+
+    // GA 이벤트: 이전 버튼 클릭
+    if (videoId && prevDialogue) {
+      analytics.clickPrevious({
+        video_id: videoId,
+        subtitle_index: prevDialogue.index,
+        step_type: 'build',
+      })
     }
 
     if (playerRef) {
@@ -102,6 +121,15 @@ const VideoPage = () => {
       return
     }
 
+    // GA 이벤트: 다음 버튼 클릭
+    if (videoId && nextDialogue) {
+      analytics.clickNext({
+        video_id: videoId,
+        subtitle_index: nextDialogue.index,
+        step_type: 'build',
+      })
+    }
+
     if (playerRef) {
       setCurrentDialogue(nextDialogue)
 
@@ -114,6 +142,15 @@ const VideoPage = () => {
   }
 
   const handleHint = () => {
+    // GA 이벤트: 힌트 사용
+    if (videoId && currentDialogue) {
+      analytics.useHint({
+        video_id: videoId,
+        subtitle_index: currentDialogue.index,
+        step_type: 'build',
+      })
+    }
+
     wordSentenceBuilderRef.current?.showHint()
   }
 
@@ -181,12 +218,26 @@ const VideoPage = () => {
       return
     }
 
+    // GA 이벤트: 자막 완성
+    const maxAttempts = Math.max(...selectedWords.map(w => w.attempts), 1)
+    analytics.subtitleCompleted({
+      video_id: videoId,
+      subtitle_index: currentDialogue.index,
+      attempts: maxAttempts,
+    })
+
     // store에 저장
     markAsCompleted(videoId, currentDialogue.index, selectedWords)
 
     const nextDialogue = getNextDialogue(subtitles, currentDialogue)
     // 다음 자막이 없으면, 학습 종료
     if (!nextDialogue) {
+      // GA 이벤트: Build 모드 전체 완료
+      analytics.completeBuildMode({
+        video_id: videoId,
+        total_subtitles: subtitles.length,
+      })
+
       // build 단계 완료로 표시
       markStepAsCompleted(videoId, 'build')
 

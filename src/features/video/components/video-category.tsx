@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 
 import { APP_BAR_HEIGHT, MAX_APP_SCREEN_WIDTH } from '@/config/app'
+import { analytics } from '@/lib/analytics'
 import { cn } from '@/lib/utils'
 
 import { VIDEO_CATEGORIES } from '../constants/categories'
@@ -9,6 +10,12 @@ import { useVideoCategoryFilter } from '../hooks/use-video-category-filter'
 export const VideoCategory = () => {
   const { setCategory, isActiveCategory, currentCategory } = useVideoCategoryFilter()
   const activeButtonRef = useRef<HTMLButtonElement>(null)
+
+  const handleCategoryClick = (categoryId: string, categoryLabel: string) => {
+    // GA 이벤트: 카테고리 필터 변경
+    analytics.categoryFilter(categoryId, categoryLabel)
+    setCategory(categoryId)
+  }
 
   useEffect(() => {
     if (activeButtonRef.current) {
@@ -40,7 +47,7 @@ export const VideoCategory = () => {
             <button
               key={category.id}
               ref={isActive ? activeButtonRef : null}
-              onClick={() => setCategory(category.id)}
+              onClick={() => handleCategoryClick(category.id, category.label)}
               className={cn(
                 'px-3 py-1.5 rounded text-sm whitespace-nowrap transition-colors',
                 isActive ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-700',

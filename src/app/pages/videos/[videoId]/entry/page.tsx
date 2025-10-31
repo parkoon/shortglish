@@ -1,5 +1,6 @@
 import type { Icon } from '@tabler/icons-react'
 import { IconCheck, IconLock, IconPencil, IconPlayerPlay, IconPuzzle } from '@tabler/icons-react'
+import { useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router'
 
 import { CTALayout } from '@/components/layouts/cta-layout'
@@ -10,6 +11,7 @@ import { paths } from '@/config/paths'
 import { useVideoDetail } from '@/features/video/hooks/use-video-detail'
 import { useDialogueCompletionStore } from '@/features/video/store/dialogue-completion-store'
 import { useVideoProgressStore } from '@/features/video/store/video-progress-store'
+import { analytics } from '@/lib/analytics'
 import { useGlobalModal } from '@/stores/modal-store'
 
 type StepInfo = {
@@ -49,6 +51,16 @@ const EntryPage = () => {
 
   const { isStepCompleted, canAccessStep, resetVideoProgress } = useVideoProgressStore()
   const { clearVideo } = useDialogueCompletionStore()
+
+  // GA 이벤트: Entry 페이지 진입
+  useEffect(() => {
+    if (videoId && videoDetail) {
+      analytics.viewVideoEntry({
+        video_id: videoId,
+        video_title: videoDetail.title,
+      })
+    }
+  }, [videoId, videoDetail])
 
   if (!videoId) {
     return (
@@ -99,6 +111,12 @@ const EntryPage = () => {
       okText: '다시 시작',
       cancelText: '취소',
       onOk: () => {
+        // GA 이벤트: 학습 재시작
+        analytics.restartLearning({
+          video_id: videoId,
+          video_title: videoDetail?.title,
+        })
+
         // 모든 진행 상황 초기화
         resetVideoProgress(videoId)
         clearVideo(videoId)
@@ -111,6 +129,13 @@ const EntryPage = () => {
       handleRestartLearning()
       return
     }
+
+    // GA 이벤트: 학습 단계 시작
+    analytics.startLearningStep({
+      video_id: videoId,
+      step_type: nextStep.type,
+      video_title: videoDetail?.title,
+    })
 
     const pathMap = {
       build: paths.videos.build,
