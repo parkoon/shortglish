@@ -40,7 +40,6 @@ const VideoPage = () => {
   const { data: subtitles = [], isLoading: isLoadingDialogues } = useSubtitles(videoId)
 
   const [currentDialogue, setCurrentDialogue] = useState<Subtitle | null>(null)
-  const [canShowBookmark, setCanShowBookmark] = useState(false)
 
   const { isCompleted, markAsCompleted, getCompletedWords } = useDialogueCompletionStore()
   const { markStepAsCompleted } = useVideoProgressStore()
@@ -98,8 +97,7 @@ const VideoPage = () => {
     if (playerRef) {
       setCurrentDialogue(prevDialogue)
       playerRef.current?.seekTo(prevDialogue.startTime)
-      // 이전 자막으로 이동하면 북마크 버튼 숨김 & 깜빡임 중지
-      setCanShowBookmark(false)
+      // 이전 자막으로 이동하면 깜빡임 중지
       videoControllerRef.current?.stopBlink()
     }
   }
@@ -116,8 +114,12 @@ const VideoPage = () => {
       return
     }
 
-    // 현재 자막이 있고 완성되지 않았으면 이동 불가
-    if (currentDialogue && !isCompleted(videoId, currentDialogue.index)) {
+    // 현재 자막이 있고 완성되지 않았으면 이동 불가 (단, 빈 자막은 완성된 것으로 간주)
+    if (
+      currentDialogue &&
+      !isCompleted(videoId, currentDialogue.index) &&
+      currentDialogue.text !== ''
+    ) {
       return
     }
 
@@ -135,8 +137,7 @@ const VideoPage = () => {
 
       playerRef.current?.seekTo(nextDialogue.startTime)
       playerRef.current?.play()
-      // 다음 자막으로 이동하면 북마크 버튼 숨김 & 깜빡임 중지
-      setCanShowBookmark(false)
+      // 다음 자막으로 이동하면 깜빡임 중지
       videoControllerRef.current?.stopBlink()
     }
   }
@@ -257,8 +258,6 @@ const VideoPage = () => {
       return
     }
 
-    // 자막 완성 시 북마크 버튼 활성화
-    setCanShowBookmark(true)
     // Next 버튼 깜빡임 시작
     videoControllerRef.current?.startBlink()
   }
@@ -300,9 +299,8 @@ const VideoPage = () => {
 
       <SubtitleProgressBar current={currentDialogue?.index ?? 0} total={subtitles.length} />
 
-      {currentDialogue?.text === '' ? (
-        <EmptySubtitle />
-      ) : currentDialogue && videoId ? (
+      {currentDialogue?.text === '' && <EmptySubtitle />}
+      {currentDialogue && videoId && (
         <div className="p-4">
           <WordSentenceBuilder
             ref={wordSentenceBuilderRef}
@@ -314,14 +312,7 @@ const VideoPage = () => {
             isCompleted={isCompleted(videoId, currentDialogue.index)}
             completedWords={getCompletedWords(videoId, currentDialogue.index)}
           />
-          {canShowBookmark && (
-            <div className="mt-4 text-center text-sm text-green-600">
-              ✨ 문장을 완성했어요! 북마크할 수 있어요.
-            </div>
-          )}
         </div>
-      ) : (
-        <div className="p-4 text-center text-gray-500">재생할 대사가 없어요~</div>
       )}
 
       <DevCompleteButton
