@@ -2,11 +2,10 @@
   "title": "TheOffice | The first Office Prank Ever",
   "description": "Because there are starving people in the world",
   "thumbnail": "https://i.ytimg.com/vi/FiCfEOhIU_I/maxresdefault.jpg",
-
   "subtitles": [
     {
       "index": 1,
-      "startTime": 0,
+      "startTime": 0.0,
       "endTime": 1.24,
       "text": "",
       "translation": ""
@@ -54,8 +53,8 @@
       "index": 7,
       "startTime": 12.27,
       "endTime": 14.13,
-      "text": "that's real professional, Thanks",
-      "translation": "아, 진짜 프로답네요. 고맙습니다",
+      "text": "that's real professional, / Thanks",
+      "translation": "아, 진짜 프로답네요. / 고맙습니다",
       "blankedWords": ["professional"]
     },
     {
@@ -71,7 +70,7 @@
       "startTime": 16.19,
       "endTime": 18.05,
       "text": "it's okay here",
-      "translation": "여긴 괜찮아요,"
+      "translation": "여긴 괜찮아요."
     },
     {
       "index": 10,
@@ -123,7 +122,7 @@
     {
       "index": 16,
       "startTime": 29.07,
-      "endTime": 31.5,
+      "endTime": 31.29,
       "text": "and which I hate and it is a waste of that kind of",
       "translation": "그건 나도 싫고, 그런 낭비는 정말 문제예요.",
       "blankedWords": ["which", "kind"]

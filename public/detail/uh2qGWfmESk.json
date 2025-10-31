@@ -23,7 +23,7 @@
       "index": 3,
       "startTime": 4.11,
       "endTime": 8.04,
-      "text": "I really appreciate it ",
+      "text": "I really appreciate it",
       "translation": "정말 감사해.",
       "blankedWords": ["appreciate"]
     },
@@ -31,7 +31,7 @@
       "index": 4,
       "startTime": 8.04,
       "endTime": 9.19,
-      "text": "my pleasure,of course ",
+      "text": "my pleasure, of course",
       "translation": "별말을 다 해~ 당연하지!",
       "blankedWords": ["pleasure"]
     },
@@ -67,7 +67,7 @@
       "blankedWords": ["should"]
     },
     {
-      "index": 8,
+      "index": 9,
       "startTime": 18.23,
       "endTime": 20.02,
       "text": "alright here we go",
