@@ -1,0 +1,77 @@
+{
+  "title": "Billie Eilish Carpool Karaoke",
+  "description": "James Corden and Billie Eilish hop in the car and head for the carpool lane.",
+  "thumbnail": "https://i.ytimg.com/vi/uh2qGWfmESk/maxresdefault.jpg",
+  "subtitles": [
+    {
+      "index": 1,
+      "startTime": 1.12,
+      "endTime": 4.11,
+      "text": "thank you so much for helping me get to work",
+      "translation": "오늘 출근 도와줘서 진짜 고마워.",
+      "blankedWords": ["helping", "work"]
+    },
+    {
+      "index": 2,
+      "startTime": 6.1,
+      "endTime": 4.11,
+      "text": "the traffic today is terrible",
+      "translation": "오늘 교통 진짜 장난 아니야.",
+      "blankedWords": ["traffic", "terrible"]
+    },
+    {
+      "index": 3,
+      "startTime": 4.11,
+      "endTime": 8.04,
+      "text": "I really appreciate it ",
+      "translation": "정말 감사해.",
+      "blankedWords": ["appreciate"]
+    },
+    {
+      "index": 4,
+      "startTime": 8.04,
+      "endTime": 9.19,
+      "text": "my pleasure,of course ",
+      "translation": "별말을 다 해~ 당연하지!",
+      "blankedWords": ["pleasure"]
+    },
+    {
+      "index": 5,
+      "startTime": 9.19,
+      "endTime": 11.18,
+      "text": "",
+      "translation": ""
+    },
+    {
+      "index": 6,
+      "startTime": 11.18,
+      "endTime": 14.06,
+      "text": "do you mind if we listen to some music",
+      "translation": "음악 좀 틀어도 될까?",
+      "blankedWords": ["mind"]
+    },
+    {
+      "index": 7,
+      "startTime": 14.06,
+      "endTime": 17.15,
+      "text": "that'd be a fun thing to do",
+      "translation": "그거 하면 재밌을 것 같아.",
+      "blankedWords": ["thing"]
+    },
+    {
+      "index": 8,
+      "startTime": 17.15,
+      "endTime": 18.23,
+      "text": "should we do it?",
+      "translation": "우리 해볼까?",
+      "blankedWords": ["should"]
+    },
+    {
+      "index": 8,
+      "startTime": 18.23,
+      "endTime": 20.02,
+      "text": "alright here we go",
+      "translation": "좋아, 가자!"
+    }
+  ]
+}

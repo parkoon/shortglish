@@ -9,41 +9,61 @@ export type WordWithPunctuation = {
 
 /**
  * 문장을 단어와 구두점으로 분리합니다.
+ * 구두점: . ! ? " , /
  *
  * @param sentence - 분리할 문장
  * @returns 단어와 구두점 정보 배열
  *
  * @example
- * parseWordsWithPunctuation('"Hello, world!"')
- * // [{ prefix: '"', word: "Hello", suffix: "," }, { prefix: "", word: "world", suffix: '!"' }]
+ * parseWordsWithPunctuation('"Hello world!"')
+ * // [{ prefix: '"', word: "Hello", suffix: "" }, { prefix: "", word: "world", suffix: '!"' }]
  *
- * parseWordsWithPunctuation('okay,hold')
+ * parseWordsWithPunctuation("that's great!")
+ * // [{ prefix: '', word: "that's", suffix: '' }, { prefix: '', word: 'great', suffix: '!' }]
+ *
+ * parseWordsWithPunctuation("okay, hold")
  * // [{ prefix: '', word: 'okay', suffix: ',' }, { prefix: '', word: 'hold', suffix: '' }]
+ *
+ * parseWordsWithPunctuation("that? / it's")
+ * // [{ prefix: '', word: 'that', suffix: '? /' }, { prefix: '', word: "it's", suffix: '' }]
  */
 export const parseWordsWithPunctuation = (sentence: string): WordWithPunctuation[] => {
-  // 구두점 뒤에 알파벳이 바로 오는 경우 공백 추가 (예: "okay,hold" -> "okay, hold")
-  const normalized = sentence.replace(/([,!?;:.~'"-])([a-zA-Z])/g, '$1 $2')
+  const tokens = sentence.trim().split(/\s+/)
+  const result: WordWithPunctuation[] = []
 
-  const tokens = normalized.trim().split(/\s+/)
-
-  return tokens.map(token => {
-    // 앞뒤 구두점 추출
-    const match = token.match(/^([,!?;:.~'"-]*)(.+?)([,!?;:.~'"-]*)$/)
+  for (const token of tokens) {
+    // 앞뒤 구두점 추출: . ! ? " , / 만
+    const match = token.match(/^([.!?",/]*)(.*?)([.!?",/]*)$/)
 
     if (match) {
-      return {
-        prefix: match[1],
-        word: match[2],
-        suffix: match[3],
-      }
-    }
+      const prefix = match[1]
+      const word = match[2]
+      const suffix = match[3]
 
-    return {
-      prefix: '',
-      word: token,
-      suffix: '',
+      // word가 비어있으면 구두점만 있는 토큰
+      if (word === '') {
+        // 이전 단어의 suffix에 추가 (공백과 함께)
+        if (result.length > 0) {
+          result[result.length - 1].suffix += ' ' + prefix + suffix
+        }
+        continue
+      }
+
+      result.push({
+        prefix,
+        word,
+        suffix,
+      })
+    } else {
+      result.push({
+        prefix: '',
+        word: token,
+        suffix: '',
+      })
     }
-  })
+  }
+
+  return result
 }
 
 /**
@@ -53,7 +73,8 @@ export const parseWordsWithPunctuation = (sentence: string): WordWithPunctuation
  * @returns 순수 단어 배열
  *
  * @example
- * extractWords([{ word: "Hello", punctuation: "," }]) // ["Hello"]
+ * extractWords([{ prefix: '', word: "Hello", suffix: "," }]) // ["Hello"]
+ * extractWords([{ prefix: '', word: "that's", suffix: "" }]) // ["that's"]
  */
 export const extractWords = (wordsWithPunctuation: WordWithPunctuation[]): string[] => {
   return wordsWithPunctuation.map(w => w.word)

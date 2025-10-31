@@ -1,0 +1,132 @@
+{
+  "title": "TheOffice | The first Office Prank Ever",
+  "description": "Because there are starving people in the world",
+  "thumbnail": "https://i.ytimg.com/vi/FiCfEOhIU_I/maxresdefault.jpg",
+
+  "subtitles": [
+    {
+      "index": 1,
+      "startTime": 0,
+      "endTime": 1.24,
+      "text": "",
+      "translation": ""
+    },
+    {
+      "index": 2,
+      "startTime": 1.24,
+      "endTime": 3.29,
+      "text": "damn it damn",
+      "translation": "젠장, 젠장!",
+      "blankedWords": ["damn", "damn"]
+    },
+    {
+      "index": 3,
+      "startTime": 3.29,
+      "endTime": 5.12,
+      "text": "okay, hold on hold on",
+      "translation": "잠깐만, 잠깐만.",
+      "blankedWords": ["hold", "hold"]
+    },
+    {
+      "index": 4,
+      "startTime": 5.12,
+      "endTime": 7.16,
+      "text": "judges in session what is the problem here",
+      "translation": "지금부터 재판 시작하겠습니다 — 무슨 문제죠?!",
+      "blankedWords": ["judges"]
+    },
+    {
+      "index": 5,
+      "startTime": 7.16,
+      "endTime": 9.21,
+      "text": "you put my stuff in jello again.",
+      "translation": "내 물건 또 젤리 안에 넣었잖아요.",
+      "blankedWords": ["stuff"]
+    },
+    {
+      "index": 6,
+      "startTime": 9.21,
+      "endTime": 12.27,
+      "text": "",
+      "translation": ""
+    },
+    {
+      "index": 7,
+      "startTime": 12.27,
+      "endTime": 14.13,
+      "text": "that's real professional, Thanks",
+      "translation": "아, 진짜 프로답네요. 고맙습니다",
+      "blankedWords": ["professional"]
+    },
+    {
+      "index": 8,
+      "startTime": 14.13,
+      "endTime": 16.19,
+      "text": "it's the third time and it wasn't funny the first three times either",
+      "translation": "세 번째예요. 그리고 처음 세 번 다 안 웃겼어요.",
+      "blankedWords": ["wasn’t", "either"]
+    },
+    {
+      "index": 9,
+      "startTime": 16.19,
+      "endTime": 18.05,
+      "text": "it's okay here",
+      "translation": "여긴 괜찮아요,"
+    },
+    {
+      "index": 10,
+      "startTime": 18.05,
+      "endTime": 20.08,
+      "text": "but people sometimes take advantage",
+      "translation": "사람들이 가끔 그걸 이용하죠.",
+      "blankedWords": ["advantage"]
+    },
+    {
+      "index": 11,
+      "startTime": 20.08,
+      "endTime": 21.2,
+      "text": "because it's so relaxed",
+      "translation": "여긴 분위기가 좀 느슨하니까,",
+      "blankedWords": ["relaxed"]
+    },
+    {
+      "index": 12,
+      "startTime": 21.2,
+      "endTime": 23.11,
+      "text": "what is that? / it's my stapler",
+      "translation": "그게 뭐예요? / 내 스테이플러예요.",
+      "blankedWords": ["stapler"]
+    },
+    {
+      "index": 13,
+      "startTime": 23.11,
+      "endTime": 24.05,
+      "text": "",
+      "translation": ""
+    },
+    {
+      "index": 14,
+      "startTime": 24.05,
+      "endTime": 27.03,
+      "text": "do not take it out you have to eat it out of there",
+      "translation": "꺼내면 안 돼요. 젤리째 먹어야 해요.",
+      "blankedWords": ["take", "out"]
+    },
+    {
+      "index": 15,
+      "startTime": 27.03,
+      "endTime": 29.07,
+      "text": "because there are starving people in the world",
+      "translation": "세상엔 굶는 사람도 있다고요!",
+      "blankedWords": ["starving"]
+    },
+    {
+      "index": 16,
+      "startTime": 29.07,
+      "endTime": 31.5,
+      "text": "and which I hate and it is a waste of that kind of",
+      "translation": "그건 나도 싫고, 그런 낭비는 정말 문제예요.",
+      "blankedWords": ["which", "kind"]
+    }
+  ]
+}

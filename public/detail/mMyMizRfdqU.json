@@ -1,0 +1,105 @@
+{
+  "title": "Friends | Chandler",
+  "description": "Could I be wearing any more clothes",
+  "thumbnail": "https://i.ytimg.com/vi/mMyMizRfdqU/maxresdefault.jpg",
+  "subtitles": [
+    {
+      "index": 1,
+      "startTime": 6.01,
+      "endTime": 7.27,
+      "text": "OK buddy boy here it is",
+      "translation": "좋아, 친구야. 자, 여기 있어.",
+      "blankedWords": ["buddy"]
+    },
+    {
+      "index": 2,
+      "startTime": 7.27,
+      "endTime": 8.25,
+      "text": "",
+      "translation": ""
+    },
+    {
+      "index": 3,
+      "startTime": 8.25,
+      "endTime": 12.17,
+      "text": "you hide my clothes I'm wearing everything you own",
+      "translation": "내 옷 숨겼지? 그래서 너 옷 전부 내가 다 입었어.",
+      "blankedWords": ["wearing", "own"]
+    },
+    {
+      "index": 4,
+      "startTime": 12.17,
+      "endTime": 13.16,
+      "text": "",
+      "translation": ""
+    },
+    {
+      "index": 5,
+      "startTime": 13.16,
+      "endTime": 14.29,
+      "text": "oh my God",
+      "translation": "오 마이 갓"
+    },
+    {
+      "index": 6,
+      "startTime": 14.29,
+      "endTime": 16.21,
+      "text": "",
+      "translation": ""
+    },
+    {
+      "index": 7,
+      "startTime": 16.21,
+      "endTime": 20.0,
+      "text": "that is so not the opposite of taking somebody's underwear",
+      "translation": "그게 어떻게 속옷 훔친 거랑 반대야?(오히려 더 이상한 짓이잖아. 라는 의미)",
+      "blankedWords": ["opposite", "somebody’s"]
+    },
+    {
+      "index": 8,
+      "startTime": 20.0,
+      "endTime": 20.21,
+      "text": "",
+      "translation": ""
+    },
+    {
+      "index": 9,
+      "startTime": 20.21,
+      "endTime": 24.19,
+      "text": "look at me I'm Chandler. could I be wearing any more clothes",
+      "translation": "봐봐, 나 챈들러야. 나 지금 옷 더 입을 수 있겠냐고?",
+      "blankedWords": ["could", "wearing"]
+    },
+    {
+      "index": 10,
+      "startTime": 24.19,
+      "endTime": 29.2,
+      "text": "maybe if I wasn't going commando",
+      "translation": "속옷 안 입었으면 좀 더 편했을지도 모르겠네.",
+      "blankedWords": ["wasn’t", "commando"]
+    },
+    {
+      "index": 11,
+      "startTime": 29.2,
+      "endTime": 34.12,
+      "text": "",
+      "translation": ""
+    },
+    {
+      "index": 12,
+      "startTime": 34.12,
+      "endTime": 36.25,
+      "text": "I'll tell you it's hot with all this stuff on I uh",
+      "translation": "이렇게 다 껴입으니까 진짜 덥다",
+      "blankedWords": ["tell", "stuff"]
+    },
+    {
+      "index": 13,
+      "startTime": 36.25,
+      "endTime": 39.12,
+      "text": "I better not do any I don't know lunges",
+      "translation": "음, 뭐랄까, 런지 같은 건 안 하는 게 좋겠네.",
+      "blankedWords": ["better", "lunges"]
+    }
+  ]
+}

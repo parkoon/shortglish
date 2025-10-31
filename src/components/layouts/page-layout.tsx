@@ -1,9 +1,11 @@
 import { MAX_APP_SCREEN_WIDTH } from '@/config/app'
+import { cn } from '@/lib/utils'
 
 type PageLayoutProps = {
   children: React.ReactNode
+  className?: string
 }
-export const PageLayout = ({ children }: PageLayoutProps) => {
+export const PageLayout = ({ children, className }: PageLayoutProps) => {
   return (
     <div className="min-h-screen flex flex-col mx-auto" style={{ maxWidth: MAX_APP_SCREEN_WIDTH }}>
       {/* <header
@@ -21,7 +23,7 @@ export const PageLayout = ({ children }: PageLayoutProps) => {
         </div>
         <div className="flex items-center">{right}</div>
       </header> */}
-      <div className="flex-1">{children}</div>
+      <div className={cn('flex-1', className)}>{children}</div>
     </div>
   )
 }

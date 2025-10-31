@@ -1,0 +1,71 @@
+{
+  "title": "Vlog | @nikiivictoria",
+  "description": "Spend a day with me living in NYC",
+  "thumbnail": "https://i.ytimg.com/vi/eLSk4uxXdvU/maxresdefault.jpg",
+  "subtitles": [
+    {
+      "index": 1,
+      "startTime": 4.15,
+      "endTime": 6.1,
+      "text": "the first thing I try to do every morning is meditate",
+      "translation": "아침에 제일 먼저 하려고 하는 건 명상이야.",
+      "blankedWords": ["try", "meditate"]
+    },
+    {
+      "index": 2,
+      "startTime": 6.1,
+      "endTime": 8.02,
+      "text": "or yoga I made this priority",
+      "translation": "아니면 요가. 요즘은 이걸 우선순위로 두고 있거든.",
+      "blankedWords": ["made", "priority"]
+    },
+    {
+      "index": 3,
+      "startTime": 8.02,
+      "endTime": 9.13,
+      "text": "of course coffee is a priority as well",
+      "translation": "물론 커피도 내겐 아주 중요한 일이야.",
+      "blankedWords": ["priority", "well"]
+    },
+    {
+      "index": 4,
+      "startTime": 9.13,
+      "endTime": 10.17,
+      "text": "you could see I'm a coffee addict",
+      "translation": "보면 알겠지만 나 커피 중독자야.",
+      "blankedWords": ["could", "addict"]
+    },
+    {
+      "index": 5,
+      "startTime": 10.17,
+      "endTime": 11.27,
+      "text": "make breakfast take my vitamins",
+      "translation": "그다음엔 아침 챙겨 먹고, 비타민 먹고",
+      "blankedWords": ["make", "take"]
+    },
+    {
+      "index": 6,
+      "startTime": 11.27,
+      "endTime": 13.09,
+      "text": "and then I start getting ready for the day",
+      "translation": "하루 준비를 시작해.",
+      "blankedWords": ["getting"]
+    },
+    {
+      "index": 7,
+      "startTime": 13.09,
+      "endTime": 15.29,
+      "text": "this morning I had a personal training session at my gym",
+      "translation": "오늘 아침엔 헬스장에서 PT 받는 날이라",
+      "blankedWords": ["had", "at"]
+    },
+    {
+      "index": 8,
+      "startTime": 15.29,
+      "endTime": 17.04,
+      "text": "so I did some very light skincare",
+      "translation": "가볍게 스킨케어만 하고 나갔어.",
+      "blankedWords": ["some", "light"]
+    }
+  ]
+}

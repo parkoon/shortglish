@@ -1,0 +1,45 @@
+{
+  "title": "JENNIE | CHICKEN SHOP DATE",
+  "description": "Amelia meets Jennie for a date in a Chicken Shop.",
+  "thumbnail": "https://i.ytimg.com/vi/ECXAFUmdJkI/maxresdefault.jpg",
+  "subtitles": [
+    {
+      "index": 1,
+      "startTime": 266.867,
+      "endTime": 268.133,
+      "text": "what's your favorite kind of food?",
+      "translation": "너는 어떤 음식 제일 좋아해?",
+      "blankedWords": ["kind"]
+    },
+    {
+      "index": 2,
+      "startTime": 268.133,
+      "endTime": 275.033,
+      "text": "favorite kind of food is when somebody else picks the food and I eat it and it's good",
+      "translation": "내가 고르는 게 아니라 누가 골라준 거 먹었는데 맛있을 때 그게 제일 좋아.",
+      "blankedWords": ["somebody", "picks"]
+    },
+    {
+      "index": 3,
+      "startTime": 275.033,
+      "endTime": 275.267,
+      "text": "",
+      "translation": ""
+    },
+    {
+      "index": 4,
+      "startTime": 275.267,
+      "endTime": 276.8,
+      "text": "oh I really like that",
+      "translation": "아 그거 진짜 좋다"
+    },
+    {
+      "index": 5,
+      "startTime": 276.8,
+      "endTime": 278.3,
+      "text": "that's I'm gonna steal that answer",
+      "translation": "그 답변 나도 써먹어야겠다",
+      "blankedWords": ["gonna", "steal"]
+    }
+  ]
+}
