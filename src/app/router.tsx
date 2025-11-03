@@ -25,7 +25,7 @@ export const createAppRouter = (queryClient: QueryClient) =>
     // },
     {
       path: paths.home.root.path,
-      lazy: () => import('./pages/videos/page').then(convert(queryClient)),
+      lazy: () => import('./pages/home/page').then(convert(queryClient)),
     },
     {
       path: paths.videos.entry.path,

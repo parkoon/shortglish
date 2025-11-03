@@ -11,10 +11,6 @@ export const paths = {
   },
 
   videos: {
-    root: {
-      path: '/videos',
-      getHref: () => '/videos',
-    },
     entry: {
       path: '/videos/:videoId',
       getHref: (videoId: string) => `/videos/${videoId}`,
