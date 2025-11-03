@@ -288,7 +288,7 @@ const FillPage = () => {
 
       {/* 빈칸 입력 영역 */}
       <div className="px-4">
-        <div className="flex flex-wrap gap-1 justify-start items-baseline">
+        <div className="flex flex-wrap gap-2 justify-start items-baseline">
           {displayWords.map((item, index) => {
             if (item.isBlank) {
               return (

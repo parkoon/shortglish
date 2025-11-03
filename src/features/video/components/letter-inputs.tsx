@@ -92,7 +92,7 @@ export const LetterInputs = forwardRef<LetterInputsRef, LetterInputsProps>(
     }
 
     return (
-      <div className="flex gap-1 justify-center">
+      <div className="flex gap-[2px] justify-center">
         {Array.from({ length: wordLength }).map((_, index) => {
           const letterValue = value[index] || ''
 
@@ -108,7 +108,7 @@ export const LetterInputs = forwardRef<LetterInputsRef, LetterInputsProps>(
               onChange={e => handleInputChange(index, e.target.value)}
               onKeyDown={e => handleKeyDown(index, e)}
               className={cn(
-                'w-5 h-8 text-center text-xl font-bold border-b-2 bg-transparent',
+                'w-4 h-8 text-center text-xl font-bold border-b-2 bg-transparent',
                 'focus:outline-none focus:border-blue-500 transition-colors',
                 isWrong && 'border-red-500 text-red-500',
                 !isWrong && 'border-gray-300 text-gray-900',
