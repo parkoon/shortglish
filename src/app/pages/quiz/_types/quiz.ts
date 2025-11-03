@@ -13,7 +13,8 @@ export type QuizExercise = {
  * 오늘의 퀴즈 데이터
  */
 export type TodayQuiz = {
-  date: string
+  date?: string
+  day?: number
   pattern: string
   pattern_korean: string
   exercises: QuizExercise[]
