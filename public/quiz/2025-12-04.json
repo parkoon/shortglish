@@ -1,0 +1,38 @@
+{
+  "date": "2025-12-04",
+  "pattern": "It depends on ~",
+  "pattern_korean": "~에 달려있어",
+  "exercises": [
+    {
+      "text": "It depends on {the} {weather}.",
+      "translation": "날씨에 달려있어.",
+      "options": [
+        "the",
+        "weather",
+        "a",
+        "situation"
+      ]
+    },
+    {
+      "text": "It depends on {how} {you} {look} {at} {it}.",
+      "translation": "어떻게 보느냐에 달려있어.",
+      "options": [
+        "how",
+        "you",
+        "look",
+        "at",
+        "it",
+        "what",
+        "we"
+      ]
+    },
+    {
+      "text": "It depends on {you}.",
+      "translation": "너에게 달려있어.",
+      "options": [
+        "you",
+        "me"
+      ]
+    }
+  ]
+}

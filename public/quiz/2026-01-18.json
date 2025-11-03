@@ -1,0 +1,39 @@
+{
+  "date": "2026-01-18",
+  "pattern": "Sort of ~",
+  "pattern_korean": "어느 정도 ~",
+  "exercises": [
+    {
+      "text": "I'm {sort} {of} {hungry}.",
+      "translation": "좀 배고파.",
+      "options": [
+        "sort",
+        "of",
+        "hungry",
+        "kind",
+        "about"
+      ]
+    },
+    {
+      "text": "It's {sort} {of} {weird}.",
+      "translation": "좀 이상해.",
+      "options": [
+        "sort",
+        "of",
+        "weird",
+        "kind",
+        "about"
+      ]
+    },
+    {
+      "text": "{Sort} {of}.",
+      "translation": "어느 정도.",
+      "options": [
+        "Sort",
+        "of",
+        "Kind",
+        "about"
+      ]
+    }
+  ]
+}

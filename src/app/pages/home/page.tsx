@@ -6,7 +6,7 @@ import { TodayQuizCard } from './_components/today-quiz-card'
 const Home = () => {
   return (
     <PageLayout>
-      <div className="p-4">
+      <div className="px-4 mb-5">
         <TodayQuizCard />
       </div>
       {/* <VideoCategory /> */}

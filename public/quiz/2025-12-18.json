@@ -1,0 +1,46 @@
+{
+  "date": "2025-12-18",
+  "pattern": "Look forward to ~",
+  "pattern_korean": "~을 기대하다",
+  "exercises": [
+    {
+      "text": "I'm {looking} {forward} {to} {the} {weekend}.",
+      "translation": "주말을 기대하고 있어.",
+      "options": [
+        "looking",
+        "forward",
+        "to",
+        "the",
+        "weekend",
+        "waiting",
+        "for"
+      ]
+    },
+    {
+      "text": "We {look} {forward} {to} {hearing} {from} {you}.",
+      "translation": "당신의 소식을 기다리겠습니다.",
+      "options": [
+        "look",
+        "forward",
+        "to",
+        "hearing",
+        "from",
+        "you",
+        "wait",
+        "listening"
+      ]
+    },
+    {
+      "text": "I {look} {forward} {to} {it}.",
+      "translation": "그것을 기대할게.",
+      "options": [
+        "look",
+        "forward",
+        "to",
+        "it",
+        "wait",
+        "for"
+      ]
+    }
+  ]
+}

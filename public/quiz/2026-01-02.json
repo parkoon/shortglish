@@ -1,0 +1,45 @@
+{
+  "date": "2026-01-02",
+  "pattern": "It's a piece of cake",
+  "pattern_korean": "식은 죽 먹기야",
+  "exercises": [
+    {
+      "text": "Don't worry, {it's} {a} {piece} {of} {cake}.",
+      "translation": "걱정 마, 식은 죽 먹기야.",
+      "options": [
+        "it's",
+        "a",
+        "piece",
+        "of",
+        "cake",
+        "that's",
+        "the"
+      ]
+    },
+    {
+      "text": "This test is {a} {piece} {of} {cake}.",
+      "translation": "이 시험은 식은 죽 먹기야.",
+      "options": [
+        "a",
+        "piece",
+        "of",
+        "cake",
+        "the",
+        "bit"
+      ]
+    },
+    {
+      "text": "For him, {it's} {a} {piece} {of} {cake}.",
+      "translation": "그에게는 식은 죽 먹기야.",
+      "options": [
+        "it's",
+        "a",
+        "piece",
+        "of",
+        "cake",
+        "that's",
+        "the"
+      ]
+    }
+  ]
+}

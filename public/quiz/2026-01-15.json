@@ -1,0 +1,38 @@
+{
+  "date": "2026-01-15",
+  "pattern": "Wanna ~?",
+  "pattern_korean": "~하고 싶어?",
+  "exercises": [
+    {
+      "text": "Wanna {grab} {lunch}?",
+      "translation": "점심 먹을래?",
+      "options": [
+        "grab",
+        "lunch",
+        "get",
+        "dinner"
+      ]
+    },
+    {
+      "text": "Wanna {come} {with} {me}?",
+      "translation": "나랑 같이 갈래?",
+      "options": [
+        "come",
+        "with",
+        "me",
+        "go",
+        "to"
+      ]
+    },
+    {
+      "text": "What do you {wanna} {do}?",
+      "translation": "뭐 하고 싶어?",
+      "options": [
+        "wanna",
+        "do",
+        "gonna",
+        "make"
+      ]
+    }
+  ]
+}

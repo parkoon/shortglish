@@ -1,0 +1,43 @@
+{
+  "date": "2025-12-09",
+  "pattern": "Speaking of ~",
+  "pattern_korean": "~에 대해 말하자면",
+  "exercises": [
+    {
+      "text": "Speaking of {which}, {have} {you} {seen} {him}?",
+      "translation": "그 얘기가 나와서 말인데, 그를 봤어?",
+      "options": [
+        "which",
+        "have",
+        "you",
+        "seen",
+        "him",
+        "that",
+        "did"
+      ]
+    },
+    {
+      "text": "Speaking of {food}, {I'm} {starving}.",
+      "translation": "음식 얘기가 나와서 말인데, 나 배고파 죽겠어.",
+      "options": [
+        "food",
+        "I'm",
+        "starving",
+        "lunch",
+        "you're"
+      ]
+    },
+    {
+      "text": "Speaking of {John}, {where} {is} {he}?",
+      "translation": "존 얘기가 나와서 말인데, 그는 어디 있어?",
+      "options": [
+        "John",
+        "where",
+        "is",
+        "he",
+        "Mary",
+        "when"
+      ]
+    }
+  ]
+}

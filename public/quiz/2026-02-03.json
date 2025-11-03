@@ -1,0 +1,48 @@
+{
+  "date": "2026-02-03",
+  "pattern": "So ~ that ...",
+  "pattern_korean": "너무 ~해서 ...",
+  "exercises": [
+    {
+      "text": "I'm {so} {tired} {that} {I} {can't} {move}.",
+      "translation": "너무 피곤해서 움직일 수가 없어.",
+      "options": [
+        "so",
+        "tired",
+        "that",
+        "I",
+        "can't",
+        "move",
+        "very",
+        "you"
+      ]
+    },
+    {
+      "text": "It's {so} {hot} {that} {I} {can't} {sleep}.",
+      "translation": "너무 더워서 잠을 잘 수가 없어.",
+      "options": [
+        "so",
+        "hot",
+        "that",
+        "I",
+        "can't",
+        "sleep",
+        "very",
+        "you"
+      ]
+    },
+    {
+      "text": "She was {so} {happy} {that} {she} {cried}.",
+      "translation": "너무 행복해서 울었어.",
+      "options": [
+        "so",
+        "happy",
+        "that",
+        "she",
+        "cried",
+        "very",
+        "he"
+      ]
+    }
+  ]
+}

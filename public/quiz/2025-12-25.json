@@ -1,0 +1,44 @@
+{
+  "date": "2025-12-25",
+  "pattern": "Go through ~",
+  "pattern_korean": "~을 겪다",
+  "exercises": [
+    {
+      "text": "I {went} {through} {a} {lot}.",
+      "translation": "나는 많은 것을 겪었어.",
+      "options": [
+        "went",
+        "through",
+        "a",
+        "lot",
+        "passed",
+        "by"
+      ]
+    },
+    {
+      "text": "She's {going} {through} {a} {tough} {time}.",
+      "translation": "그녀는 힘든 시기를 겪고 있어.",
+      "options": [
+        "going",
+        "through",
+        "a",
+        "tough",
+        "time",
+        "passing",
+        "by"
+      ]
+    },
+    {
+      "text": "Let's {go} {through} {the} {plan}.",
+      "translation": "계획을 검토해보자.",
+      "options": [
+        "go",
+        "through",
+        "the",
+        "plan",
+        "look",
+        "at"
+      ]
+    }
+  ]
+}

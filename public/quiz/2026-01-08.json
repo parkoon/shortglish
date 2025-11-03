@@ -1,0 +1,41 @@
+{
+  "date": "2026-01-08",
+  "pattern": "It's up to you",
+  "pattern_korean": "너에게 달렸어",
+  "exercises": [
+    {
+      "text": "It's {up} {to} {you}.",
+      "translation": "너에게 달렸어.",
+      "options": [
+        "up",
+        "to",
+        "you",
+        "down",
+        "for"
+      ]
+    },
+    {
+      "text": "The decision is {up} {to} {you}.",
+      "translation": "결정은 너에게 달렸어.",
+      "options": [
+        "up",
+        "to",
+        "you",
+        "down",
+        "for"
+      ]
+    },
+    {
+      "text": "It's {totally} {up} {to} {you}.",
+      "translation": "완전히 너에게 달렸어.",
+      "options": [
+        "totally",
+        "up",
+        "to",
+        "you",
+        "completely",
+        "down"
+      ]
+    }
+  ]
+}

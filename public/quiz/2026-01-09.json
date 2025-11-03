@@ -1,0 +1,40 @@
+{
+  "date": "2026-01-09",
+  "pattern": "I'd like to ~",
+  "pattern_korean": "~하고 싶습니다",
+  "exercises": [
+    {
+      "text": "I'd like to {make} {a} {reservation}.",
+      "translation": "예약을 하고 싶습니다.",
+      "options": [
+        "make",
+        "a",
+        "reservation",
+        "have",
+        "the"
+      ]
+    },
+    {
+      "text": "I'd like to {speak} {with} {the} {manager}.",
+      "translation": "매니저와 이야기하고 싶습니다.",
+      "options": [
+        "speak",
+        "with",
+        "the",
+        "manager",
+        "talk",
+        "to"
+      ]
+    },
+    {
+      "text": "I'd like to {order}, {please}.",
+      "translation": "주문하고 싶습니다.",
+      "options": [
+        "order",
+        "please",
+        "get",
+        "now"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "date": "2025-11-06",
+  "pattern": "I'd rather ~",
+  "pattern_korean": "차라리 ~하겠어",
+  "exercises": [
+    {
+      "text": "I'd rather {stay} {home} {tonight}.",
+      "translation": "오늘 밤에는 차라리 집에 있겠어.",
+      "options": [
+        "stay",
+        "home",
+        "tonight",
+        "be",
+        "house"
+      ]
+    },
+    {
+      "text": "I'd rather {not} {talk} {about} {it}.",
+      "translation": "그것에 대해서는 차라리 말하고 싶지 않아.",
+      "options": [
+        "not",
+        "talk",
+        "about",
+        "it",
+        "never",
+        "speak"
+      ]
+    },
+    {
+      "text": "I'd rather {walk} {than} {drive}.",
+      "translation": "운전하는 것보다는 차라리 걷겠어.",
+      "options": [
+        "walk",
+        "than",
+        "drive",
+        "run",
+        "then"
+      ]
+    }
+  ]
+}

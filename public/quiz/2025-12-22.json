@@ -1,0 +1,42 @@
+{
+  "date": "2025-12-22",
+  "pattern": "Put off ~",
+  "pattern_korean": "~을 미루다",
+  "exercises": [
+    {
+      "text": "Don't {put} {off} {until} {tomorrow}.",
+      "translation": "내일로 미루지 마.",
+      "options": [
+        "put",
+        "off",
+        "until",
+        "tomorrow",
+        "delay",
+        "to"
+      ]
+    },
+    {
+      "text": "I {put} {off} {the} {meeting}.",
+      "translation": "회의를 미뤘어.",
+      "options": [
+        "put",
+        "off",
+        "the",
+        "meeting",
+        "delayed",
+        "a"
+      ]
+    },
+    {
+      "text": "Stop {putting} {it} {off}.",
+      "translation": "그것을 미루는 것을 멈춰.",
+      "options": [
+        "putting",
+        "it",
+        "off",
+        "delaying",
+        "that"
+      ]
+    }
+  ]
+}

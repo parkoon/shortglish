@@ -8,6 +8,10 @@ export const paths = {
   quiz: {
     path: '/quiz',
     getHref: () => '/quiz',
+    detail: {
+      path: '/quiz/:date',
+      getHref: (date: string) => `/quiz/${date}`,
+    },
   },
   videos: {
     entry: {

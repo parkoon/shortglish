@@ -1,0 +1,43 @@
+{
+  "date": "2025-12-19",
+  "pattern": "Run out of ~",
+  "pattern_korean": "~이 떨어지다",
+  "exercises": [
+    {
+      "text": "We {ran} {out} {of} {milk}.",
+      "translation": "우유가 떨어졌어.",
+      "options": [
+        "ran",
+        "out",
+        "of",
+        "milk",
+        "run",
+        "off"
+      ]
+    },
+    {
+      "text": "I'm {running} {out} {of} {time}.",
+      "translation": "시간이 떨어지고 있어.",
+      "options": [
+        "running",
+        "out",
+        "of",
+        "time",
+        "going",
+        "off"
+      ]
+    },
+    {
+      "text": "We're {running} {out} {of} {patience}.",
+      "translation": "인내심이 떨어지고 있어.",
+      "options": [
+        "running",
+        "out",
+        "of",
+        "patience",
+        "going",
+        "off"
+      ]
+    }
+  ]
+}

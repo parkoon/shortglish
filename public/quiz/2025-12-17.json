@@ -1,0 +1,44 @@
+{
+  "date": "2025-12-17",
+  "pattern": "Give up on ~",
+  "pattern_korean": "~을 포기하다",
+  "exercises": [
+    {
+      "text": "Don't {give} {up} {on} {your} {dreams}.",
+      "translation": "꿈을 포기하지 마.",
+      "options": [
+        "give",
+        "up",
+        "on",
+        "your",
+        "dreams",
+        "let",
+        "go"
+      ]
+    },
+    {
+      "text": "I {gave} {up} {on} {him}.",
+      "translation": "나는 그를 포기했어.",
+      "options": [
+        "gave",
+        "up",
+        "on",
+        "him",
+        "let",
+        "go"
+      ]
+    },
+    {
+      "text": "Never {give} {up} {on} {yourself}.",
+      "translation": "자신을 포기하지 마.",
+      "options": [
+        "give",
+        "up",
+        "on",
+        "yourself",
+        "let",
+        "go"
+      ]
+    }
+  ]
+}

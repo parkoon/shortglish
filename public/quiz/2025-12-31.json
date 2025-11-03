@@ -1,0 +1,41 @@
+{
+  "date": "2025-12-31",
+  "pattern": "Turn out ~",
+  "pattern_korean": "~으로 판명되다",
+  "exercises": [
+    {
+      "text": "It {turned} {out} {to} {be} {true}.",
+      "translation": "그것은 사실로 판명됐어.",
+      "options": [
+        "turned",
+        "out",
+        "to",
+        "be",
+        "true",
+        "came",
+        "off"
+      ]
+    },
+    {
+      "text": "Everything {turned} {out} {fine}.",
+      "translation": "모든 것이 잘 됐어.",
+      "options": [
+        "turned",
+        "out",
+        "fine",
+        "came",
+        "off"
+      ]
+    },
+    {
+      "text": "How did it {turn} {out}?",
+      "translation": "어떻게 됐어?",
+      "options": [
+        "turn",
+        "out",
+        "come",
+        "off"
+      ]
+    }
+  ]
+}

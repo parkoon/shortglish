@@ -1,0 +1,38 @@
+{
+  "date": "2026-01-16",
+  "pattern": "Gonna ~",
+  "pattern_korean": "~할 거야",
+  "exercises": [
+    {
+      "text": "I'm {gonna} {be} {late}.",
+      "translation": "늦을 것 같아.",
+      "options": [
+        "gonna",
+        "be",
+        "late",
+        "going",
+        "get"
+      ]
+    },
+    {
+      "text": "What are you {gonna} {do}?",
+      "translation": "뭐 할 거야?",
+      "options": [
+        "gonna",
+        "do",
+        "going",
+        "make"
+      ]
+    },
+    {
+      "text": "It's {gonna} {rain}.",
+      "translation": "비가 올 거야.",
+      "options": [
+        "gonna",
+        "rain",
+        "going",
+        "snow"
+      ]
+    }
+  ]
+}

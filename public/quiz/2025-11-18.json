@@ -1,0 +1,41 @@
+{
+  "date": "2025-11-18",
+  "pattern": "It seems like ~",
+  "pattern_korean": "~인 것 같아",
+  "exercises": [
+    {
+      "text": "It seems like {he's} {not} {coming}.",
+      "translation": "그가 안 올 것 같아.",
+      "options": [
+        "he's",
+        "not",
+        "coming",
+        "she's",
+        "never"
+      ]
+    },
+    {
+      "text": "It seems like {a} {good} {idea}.",
+      "translation": "좋은 생각인 것 같아.",
+      "options": [
+        "a",
+        "good",
+        "idea",
+        "the",
+        "great"
+      ]
+    },
+    {
+      "text": "It seems like {everyone} {is} {busy} {today}.",
+      "translation": "오늘은 모두가 바쁜 것 같아.",
+      "options": [
+        "everyone",
+        "is",
+        "busy",
+        "today",
+        "somebody",
+        "was"
+      ]
+    }
+  ]
+}

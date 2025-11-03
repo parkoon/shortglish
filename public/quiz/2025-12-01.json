@@ -1,0 +1,40 @@
+{
+  "date": "2025-12-01",
+  "pattern": "I wonder if ~",
+  "pattern_korean": "~인지 궁금해",
+  "exercises": [
+    {
+      "text": "I wonder if {she's} {okay}.",
+      "translation": "그녀가 괜찮은지 궁금해.",
+      "options": [
+        "she's",
+        "okay",
+        "he's",
+        "fine"
+      ]
+    },
+    {
+      "text": "I wonder if {it} {will} {rain}.",
+      "translation": "비가 올지 궁금해.",
+      "options": [
+        "it",
+        "will",
+        "rain",
+        "they",
+        "would"
+      ]
+    },
+    {
+      "text": "I wonder if {I} {should} {tell} {him}.",
+      "translation": "그에게 말해야 할지 궁금해.",
+      "options": [
+        "I",
+        "should",
+        "tell",
+        "him",
+        "you",
+        "could"
+      ]
+    }
+  ]
+}

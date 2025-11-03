@@ -1,0 +1,40 @@
+{
+  "date": "2026-01-11",
+  "pattern": "May I ~?",
+  "pattern_korean": "~해도 될까요?",
+  "exercises": [
+    {
+      "text": "May I {come} {in}?",
+      "translation": "들어가도 될까요?",
+      "options": [
+        "come",
+        "in",
+        "go",
+        "inside"
+      ]
+    },
+    {
+      "text": "May I {ask} {you} {a} {question}?",
+      "translation": "질문 하나 해도 될까요?",
+      "options": [
+        "ask",
+        "you",
+        "a",
+        "question",
+        "tell",
+        "the"
+      ]
+    },
+    {
+      "text": "May I {have} {your} {name}?",
+      "translation": "성함을 여쭤봐도 될까요?",
+      "options": [
+        "have",
+        "your",
+        "name",
+        "get",
+        "his"
+      ]
+    }
+  ]
+}

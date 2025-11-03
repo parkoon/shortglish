@@ -1,0 +1,43 @@
+{
+  "date": "2026-02-01",
+  "pattern": "Either ~ or ...",
+  "pattern_korean": "~이거나 ...",
+  "exercises": [
+    {
+      "text": "Either {you} {come} {or} {I} {go}.",
+      "translation": "네가 오거나 내가 가거나.",
+      "options": [
+        "you",
+        "come",
+        "or",
+        "I",
+        "go",
+        "he",
+        "and"
+      ]
+    },
+    {
+      "text": "I'll have {either} {tea} {or} {coffee}.",
+      "translation": "차나 커피를 마실게.",
+      "options": [
+        "either",
+        "tea",
+        "or",
+        "coffee",
+        "neither",
+        "and"
+      ]
+    },
+    {
+      "text": "Either {way}, {I'm} {happy}.",
+      "translation": "어느 쪽이든 나는 행복해.",
+      "options": [
+        "way",
+        "I'm",
+        "happy",
+        "side",
+        "you're"
+      ]
+    }
+  ]
+}

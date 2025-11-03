@@ -1,0 +1,43 @@
+{
+  "date": "2025-11-10",
+  "pattern": "Can you ~?",
+  "pattern_korean": "~해 줄 수 있어?",
+  "exercises": [
+    {
+      "text": "Can you {do} {me} {a} {favor}?",
+      "translation": "부탁 하나 들어줄 수 있어?",
+      "options": [
+        "do",
+        "me",
+        "a",
+        "favor",
+        "make",
+        "the"
+      ]
+    },
+    {
+      "text": "Can you {pass} {me} {the} {salt}?",
+      "translation": "소금 좀 건네줄 수 있어?",
+      "options": [
+        "pass",
+        "me",
+        "the",
+        "salt",
+        "give",
+        "that"
+      ]
+    },
+    {
+      "text": "Can you {give} {me} {a} {hand}?",
+      "translation": "좀 도와줄 수 있어?",
+      "options": [
+        "give",
+        "me",
+        "a",
+        "hand",
+        "lend",
+        "your"
+      ]
+    }
+  ]
+}

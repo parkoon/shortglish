@@ -23,7 +23,7 @@ export const PageLayout = ({ children, className }: PageLayoutProps) => {
         </div>
         <div className="flex items-center">{right}</div>
       </header> */}
-      <div className={cn('flex-1', className)}>{children}</div>
+      <div className={cn('flex-1 pt-4', className)}>{children}</div>
     </div>
   )
 }

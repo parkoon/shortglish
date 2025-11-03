@@ -1,0 +1,41 @@
+{
+  "date": "2025-11-08",
+  "pattern": "I'm thinking of ~",
+  "pattern_korean": "~할까 생각 중이야",
+  "exercises": [
+    {
+      "text": "I'm thinking of {changing} {my} {job}.",
+      "translation": "직장을 바꿀까 생각 중이야.",
+      "options": [
+        "changing",
+        "my",
+        "job",
+        "switching",
+        "the"
+      ]
+    },
+    {
+      "text": "I'm thinking of {going} {abroad} {next} {year}.",
+      "translation": "내년에 해외에 갈까 생각 중이야.",
+      "options": [
+        "going",
+        "abroad",
+        "next",
+        "year",
+        "traveling",
+        "last"
+      ]
+    },
+    {
+      "text": "I'm thinking of {getting} {a} {dog}.",
+      "translation": "강아지를 키울까 생각 중이야.",
+      "options": [
+        "getting",
+        "a",
+        "dog",
+        "having",
+        "the"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "date": "2025-12-14",
+  "pattern": "I'm worried about ~",
+  "pattern_korean": "~에 대해 걱정돼",
+  "exercises": [
+    {
+      "text": "I'm worried about {the} {exam}.",
+      "translation": "시험에 대해 걱정돼.",
+      "options": [
+        "the",
+        "exam",
+        "a",
+        "test"
+      ]
+    },
+    {
+      "text": "I'm worried about {my} {health}.",
+      "translation": "내 건강에 대해 걱정돼.",
+      "options": [
+        "my",
+        "health",
+        "your",
+        "body"
+      ]
+    },
+    {
+      "text": "I'm worried about {what} {might} {happen}.",
+      "translation": "무슨 일이 일어날지 걱정돼.",
+      "options": [
+        "what",
+        "might",
+        "happen",
+        "which",
+        "will"
+      ]
+    }
+  ]
+}

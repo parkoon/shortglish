@@ -1,0 +1,40 @@
+{
+  "date": "2025-12-27",
+  "pattern": "Take care of ~",
+  "pattern_korean": "~을 돌보다",
+  "exercises": [
+    {
+      "text": "Take care of {yourself}.",
+      "translation": "자신을 돌봐.",
+      "options": [
+        "yourself",
+        "himself"
+      ]
+    },
+    {
+      "text": "I'll {take} {care} {of} {it}.",
+      "translation": "내가 처리할게.",
+      "options": [
+        "take",
+        "care",
+        "of",
+        "it",
+        "look",
+        "after"
+      ]
+    },
+    {
+      "text": "Who's {taking} {care} {of} {the} {kids}?",
+      "translation": "누가 아이들을 돌보고 있어?",
+      "options": [
+        "taking",
+        "care",
+        "of",
+        "the",
+        "kids",
+        "looking",
+        "after"
+      ]
+    }
+  ]
+}

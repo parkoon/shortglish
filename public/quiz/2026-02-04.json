@@ -1,0 +1,48 @@
+{
+  "date": "2026-02-04",
+  "pattern": "Such ~ that ...",
+  "pattern_korean": "너무 ~해서 ...",
+  "exercises": [
+    {
+      "text": "It's {such} {a} {beautiful} {day} {that} {I} {want} {to} {go} {out}.",
+      "translation": "너무 좋은 날이어서 나가고 싶어.",
+      "options": [
+        "such",
+        "a",
+        "beautiful",
+        "day",
+        "that",
+        "I",
+        "want",
+        "to",
+        "go",
+        "out",
+        "so",
+        "very"
+      ]
+    },
+    {
+      "text": "He's {such} {a} {nice} {person}.",
+      "translation": "그는 정말 좋은 사람이야.",
+      "options": [
+        "such",
+        "a",
+        "nice",
+        "person",
+        "so",
+        "the"
+      ]
+    },
+    {
+      "text": "It was {such} {a} {surprise}.",
+      "translation": "정말 놀라웠어.",
+      "options": [
+        "such",
+        "a",
+        "surprise",
+        "so",
+        "the"
+      ]
+    }
+  ]
+}

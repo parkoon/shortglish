@@ -1,0 +1,39 @@
+{
+  "date": "2026-01-07",
+  "pattern": "It makes sense",
+  "pattern_korean": "말이 돼",
+  "exercises": [
+    {
+      "text": "That {makes} {sense}.",
+      "translation": "그건 말이 돼.",
+      "options": [
+        "makes",
+        "sense",
+        "has",
+        "meaning"
+      ]
+    },
+    {
+      "text": "Your explanation {makes} {sense} {now}.",
+      "translation": "네 설명이 이제 말이 돼.",
+      "options": [
+        "makes",
+        "sense",
+        "now",
+        "has",
+        "meaning"
+      ]
+    },
+    {
+      "text": "It {doesn't} {make} {sense}.",
+      "translation": "말이 안 돼.",
+      "options": [
+        "doesn't",
+        "make",
+        "sense",
+        "isn't",
+        "have"
+      ]
+    }
+  ]
+}

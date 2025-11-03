@@ -1,0 +1,40 @@
+{
+  "date": "2026-01-12",
+  "pattern": "I appreciate ~",
+  "pattern_korean": "~에 감사드려요",
+  "exercises": [
+    {
+      "text": "I {appreciate} {your} {help}.",
+      "translation": "도움에 감사드려요.",
+      "options": [
+        "appreciate",
+        "your",
+        "help",
+        "thank",
+        "the"
+      ]
+    },
+    {
+      "text": "I {appreciate} {it}.",
+      "translation": "감사합니다.",
+      "options": [
+        "appreciate",
+        "it",
+        "thank",
+        "that"
+      ]
+    },
+    {
+      "text": "I {really} {appreciate} {your} {time}.",
+      "translation": "시간 내주셔서 정말 감사합니다.",
+      "options": [
+        "really",
+        "appreciate",
+        "your",
+        "time",
+        "very",
+        "thank"
+      ]
+    }
+  ]
+}

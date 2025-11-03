@@ -1,0 +1,35 @@
+{
+  "date": "2025-11-21",
+  "pattern": "Thank you for ~",
+  "pattern_korean": "~해줘서 고마워",
+  "exercises": [
+    {
+      "text": "Thank you for {your} {help}.",
+      "translation": "도와줘서 고마워.",
+      "options": [
+        "your",
+        "help",
+        "the",
+        "support"
+      ]
+    },
+    {
+      "text": "Thank you for {coming} {today}.",
+      "translation": "오늘 와줘서 고마워.",
+      "options": [
+        "coming",
+        "today",
+        "visiting",
+        "yesterday"
+      ]
+    },
+    {
+      "text": "Thank you for {understanding}.",
+      "translation": "이해해줘서 고마워.",
+      "options": [
+        "understanding",
+        "knowing"
+      ]
+    }
+  ]
+}

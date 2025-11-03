@@ -1,0 +1,41 @@
+{
+  "date": "2026-01-22",
+  "pattern": "If I were you, ~",
+  "pattern_korean": "내가 너라면 ~",
+  "exercises": [
+    {
+      "text": "If I were you, {I'd} {take} {the} {job}.",
+      "translation": "내가 너라면 그 일자리를 받아들일 거야.",
+      "options": [
+        "I'd",
+        "take",
+        "the",
+        "job",
+        "I'll",
+        "get"
+      ]
+    },
+    {
+      "text": "If I were you, {I} {wouldn't} {do} {that}.",
+      "translation": "내가 너라면 그렇게 하지 않을 거야.",
+      "options": [
+        "I",
+        "wouldn't",
+        "do",
+        "that",
+        "you",
+        "couldn't"
+      ]
+    },
+    {
+      "text": "If I were you, {I'd} {apologize}.",
+      "translation": "내가 너라면 사과할 거야.",
+      "options": [
+        "I'd",
+        "apologize",
+        "I'll",
+        "sorry"
+      ]
+    }
+  ]
+}

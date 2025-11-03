@@ -1,0 +1,44 @@
+{
+  "date": "2025-12-24",
+  "pattern": "Break up with ~",
+  "pattern_korean": "~와 헤어지다",
+  "exercises": [
+    {
+      "text": "She {broke} {up} {with} {her} {boyfriend}.",
+      "translation": "그녀는 남자친구와 헤어졌어.",
+      "options": [
+        "broke",
+        "up",
+        "with",
+        "her",
+        "boyfriend",
+        "split",
+        "from"
+      ]
+    },
+    {
+      "text": "I'm {thinking} {of} {breaking} {up} {with} {him}.",
+      "translation": "그와 헤어질까 생각 중이야.",
+      "options": [
+        "thinking",
+        "of",
+        "breaking",
+        "up",
+        "with",
+        "him",
+        "considering",
+        "splitting"
+      ]
+    },
+    {
+      "text": "Why did they {break} {up}?",
+      "translation": "왜 그들은 헤어졌어?",
+      "options": [
+        "break",
+        "up",
+        "split",
+        "apart"
+      ]
+    }
+  ]
+}

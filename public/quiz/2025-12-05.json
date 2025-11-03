@@ -1,0 +1,41 @@
+{
+  "date": "2025-12-05",
+  "pattern": "In my opinion, ~",
+  "pattern_korean": "내 생각에는 ~",
+  "exercises": [
+    {
+      "text": "In my opinion, {it's} {too} {expensive}.",
+      "translation": "내 생각에는 너무 비싸.",
+      "options": [
+        "it's",
+        "too",
+        "expensive",
+        "that's",
+        "very"
+      ]
+    },
+    {
+      "text": "In my opinion, {he's} {right}.",
+      "translation": "내 생각에는 그가 옳아.",
+      "options": [
+        "he's",
+        "right",
+        "she's",
+        "wrong"
+      ]
+    },
+    {
+      "text": "In my opinion, {this} {is} {the} {best} {option}.",
+      "translation": "내 생각에는 이게 최선의 선택이야.",
+      "options": [
+        "this",
+        "is",
+        "the",
+        "best",
+        "option",
+        "that",
+        "was"
+      ]
+    }
+  ]
+}

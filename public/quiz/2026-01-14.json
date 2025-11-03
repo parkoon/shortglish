@@ -1,0 +1,41 @@
+{
+  "date": "2026-01-14",
+  "pattern": "I regret ~",
+  "pattern_korean": "~을 후회해요",
+  "exercises": [
+    {
+      "text": "I {regret} {not} {studying} {harder}.",
+      "translation": "더 열심히 공부하지 않은 것을 후회해요.",
+      "options": [
+        "regret",
+        "not",
+        "studying",
+        "harder",
+        "sorry",
+        "never"
+      ]
+    },
+    {
+      "text": "I {regret} {saying} {that}.",
+      "translation": "그렇게 말한 것을 후회해요.",
+      "options": [
+        "regret",
+        "saying",
+        "that",
+        "sorry",
+        "telling"
+      ]
+    },
+    {
+      "text": "I {don't} {regret} {it}.",
+      "translation": "후회하지 않아요.",
+      "options": [
+        "don't",
+        "regret",
+        "it",
+        "never",
+        "sorry"
+      ]
+    }
+  ]
+}

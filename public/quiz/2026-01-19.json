@@ -1,0 +1,37 @@
+{
+  "date": "2026-01-19",
+  "pattern": "For sure ~",
+  "pattern_korean": "확실히 ~",
+  "exercises": [
+    {
+      "text": "I'll be there {for} {sure}.",
+      "translation": "확실히 거기 있을 거야.",
+      "options": [
+        "for",
+        "sure",
+        "of",
+        "certain"
+      ]
+    },
+    {
+      "text": "{For} {sure}!",
+      "translation": "물론이지!",
+      "options": [
+        "For",
+        "sure",
+        "Of",
+        "certain"
+      ]
+    },
+    {
+      "text": "He's coming {for} {sure}.",
+      "translation": "그는 확실히 올 거야.",
+      "options": [
+        "for",
+        "sure",
+        "of",
+        "certain"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "date": "2025-11-17",
+  "pattern": "I'm looking forward to ~",
+  "pattern_korean": "~을 기대하고 있어",
+  "exercises": [
+    {
+      "text": "I'm looking forward to {hearing} {from} {you}.",
+      "translation": "너의 소식을 기대하고 있어.",
+      "options": [
+        "hearing",
+        "from",
+        "you",
+        "listening",
+        "to"
+      ]
+    },
+    {
+      "text": "I'm looking forward to {the} {weekend}.",
+      "translation": "주말을 기대하고 있어.",
+      "options": [
+        "the",
+        "weekend",
+        "a",
+        "holiday"
+      ]
+    },
+    {
+      "text": "I'm looking forward to {working} {with} {you}.",
+      "translation": "너와 함께 일하기를 기대하고 있어.",
+      "options": [
+        "working",
+        "with",
+        "you",
+        "doing",
+        "for"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "date": "2026-01-21",
+  "pattern": "Guess what?",
+  "pattern_korean": "있잖아?",
+  "exercises": [
+    {
+      "text": "Guess what? {I} {got} {the} {job}!",
+      "translation": "있잖아? 일자리를 얻었어!",
+      "options": [
+        "I",
+        "got",
+        "the",
+        "job",
+        "you",
+        "have"
+      ]
+    },
+    {
+      "text": "{Guess} {what}?",
+      "translation": "있잖아?",
+      "options": [
+        "Guess",
+        "what",
+        "Know",
+        "which"
+      ]
+    },
+    {
+      "text": "Guess what? {She} {said} {yes}!",
+      "translation": "있잖아? 그녀가 좋다고 했어!",
+      "options": [
+        "She",
+        "said",
+        "yes",
+        "He",
+        "told"
+      ]
+    }
+  ]
+}

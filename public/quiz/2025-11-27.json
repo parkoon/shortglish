@@ -1,0 +1,37 @@
+{
+  "date": "2025-11-27",
+  "pattern": "I'm so ~",
+  "pattern_korean": "너무 ~해",
+  "exercises": [
+    {
+      "text": "I'm so {tired}.",
+      "translation": "너무 피곤해.",
+      "options": [
+        "tired",
+        "sleepy"
+      ]
+    },
+    {
+      "text": "I'm so {excited} {about} {it}.",
+      "translation": "그것에 대해 너무 신나.",
+      "options": [
+        "excited",
+        "about",
+        "it",
+        "happy",
+        "for"
+      ]
+    },
+    {
+      "text": "I'm so {proud} {of} {you}.",
+      "translation": "너를 너무 자랑스러워해.",
+      "options": [
+        "proud",
+        "of",
+        "you",
+        "happy",
+        "with"
+      ]
+    }
+  ]
+}

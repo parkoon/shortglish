@@ -1,0 +1,43 @@
+{
+  "date": "2025-12-26",
+  "pattern": "Figure out ~",
+  "pattern_korean": "~을 알아내다",
+  "exercises": [
+    {
+      "text": "I {figured} {out} {the} {answer}.",
+      "translation": "답을 알아냈어.",
+      "options": [
+        "figured",
+        "out",
+        "the",
+        "answer",
+        "found",
+        "off"
+      ]
+    },
+    {
+      "text": "Can you {figure} {out} {what's} {wrong}?",
+      "translation": "뭐가 문제인지 알아낼 수 있어?",
+      "options": [
+        "figure",
+        "out",
+        "what's",
+        "wrong",
+        "find",
+        "off"
+      ]
+    },
+    {
+      "text": "I {can't} {figure} {him} {out}.",
+      "translation": "그를 이해할 수가 없어.",
+      "options": [
+        "can't",
+        "figure",
+        "him",
+        "out",
+        "couldn't",
+        "find"
+      ]
+    }
+  ]
+}

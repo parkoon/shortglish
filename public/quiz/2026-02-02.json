@@ -1,0 +1,44 @@
+{
+  "date": "2026-02-02",
+  "pattern": "Neither ~ nor ...",
+  "pattern_korean": "~도 ...도 아니야",
+  "exercises": [
+    {
+      "text": "Neither {you} {nor} {I} {can} {do} {it}.",
+      "translation": "너도 나도 그걸 할 수 없어.",
+      "options": [
+        "you",
+        "nor",
+        "I",
+        "can",
+        "do",
+        "it",
+        "he",
+        "or"
+      ]
+    },
+    {
+      "text": "I have {neither} {time} {nor} {money}.",
+      "translation": "시간도 돈도 없어.",
+      "options": [
+        "neither",
+        "time",
+        "nor",
+        "money",
+        "either",
+        "or"
+      ]
+    },
+    {
+      "text": "Neither {here} {nor} {there}.",
+      "translation": "여기도 저기도 아니야.",
+      "options": [
+        "here",
+        "nor",
+        "there",
+        "this",
+        "or"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "date": "2025-11-23",
+  "pattern": "I prefer ~ to ...",
+  "pattern_korean": "...보다 ~를 더 좋아해",
+  "exercises": [
+    {
+      "text": "I prefer {tea} {to} {coffee}.",
+      "translation": "커피보다 차를 더 좋아해.",
+      "options": [
+        "tea",
+        "to",
+        "coffee",
+        "milk",
+        "than"
+      ]
+    },
+    {
+      "text": "I prefer {staying} {home} {to} {going} {out}.",
+      "translation": "나가는 것보다 집에 있는 걸 더 좋아해.",
+      "options": [
+        "staying",
+        "home",
+        "to",
+        "going",
+        "out",
+        "being",
+        "than"
+      ]
+    },
+    {
+      "text": "I prefer {quality} {to} {quantity}.",
+      "translation": "양보다 질을 더 선호해.",
+      "options": [
+        "quality",
+        "to",
+        "quantity",
+        "value",
+        "than"
+      ]
+    }
+  ]
+}

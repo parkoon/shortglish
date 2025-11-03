@@ -1,0 +1,37 @@
+{
+  "date": "2025-11-24",
+  "pattern": "I'm into ~",
+  "pattern_korean": "~에 빠져있어",
+  "exercises": [
+    {
+      "text": "I'm into {Korean} {food} {these} {days}.",
+      "translation": "요즘 한국 음식에 빠져있어.",
+      "options": [
+        "Korean",
+        "food",
+        "these",
+        "days",
+        "Japan",
+        "meal"
+      ]
+    },
+    {
+      "text": "I'm into {reading} {lately}.",
+      "translation": "요즘 독서에 빠져있어.",
+      "options": [
+        "reading",
+        "lately",
+        "writing",
+        "recently"
+      ]
+    },
+    {
+      "text": "I'm into {meditation}.",
+      "translation": "명상에 빠져있어.",
+      "options": [
+        "meditation",
+        "yoga"
+      ]
+    }
+  ]
+}

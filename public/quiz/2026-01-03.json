@@ -1,0 +1,42 @@
+{
+  "date": "2026-01-03",
+  "pattern": "Break the ice",
+  "pattern_korean": "어색한 분위기를 깨다",
+  "exercises": [
+    {
+      "text": "He told a joke to {break} {the} {ice}.",
+      "translation": "그는 어색한 분위기를 깨기 위해 농담을 했어.",
+      "options": [
+        "break",
+        "the",
+        "ice",
+        "crack",
+        "a"
+      ]
+    },
+    {
+      "text": "Let's {break} {the} {ice} {with} {introductions}.",
+      "translation": "자기소개로 어색한 분위기를 깨자.",
+      "options": [
+        "break",
+        "the",
+        "ice",
+        "with",
+        "introductions",
+        "crack",
+        "a"
+      ]
+    },
+    {
+      "text": "Someone needs to {break} {the} {ice}.",
+      "translation": "누군가 어색한 분위기를 깨야 해.",
+      "options": [
+        "break",
+        "the",
+        "ice",
+        "crack",
+        "a"
+      ]
+    }
+  ]
+}

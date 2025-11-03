@@ -1,0 +1,38 @@
+{
+  "date": "2026-01-04",
+  "pattern": "No wonder ~",
+  "pattern_korean": "~인 것도 당연해",
+  "exercises": [
+    {
+      "text": "No wonder {you're} {tired}.",
+      "translation": "네가 피곤한 것도 당연해.",
+      "options": [
+        "you're",
+        "tired",
+        "he's",
+        "sleepy"
+      ]
+    },
+    {
+      "text": "No wonder {it} {didn't} {work}.",
+      "translation": "그게 작동하지 않은 것도 당연해.",
+      "options": [
+        "it",
+        "didn't",
+        "work",
+        "they",
+        "couldn't"
+      ]
+    },
+    {
+      "text": "No wonder {she's} {upset}.",
+      "translation": "그녀가 화난 것도 당연해.",
+      "options": [
+        "she's",
+        "upset",
+        "he's",
+        "angry"
+      ]
+    }
+  ]
+}

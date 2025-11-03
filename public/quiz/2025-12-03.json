@@ -1,0 +1,36 @@
+{
+  "date": "2025-12-03",
+  "pattern": "What do you think about ~?",
+  "pattern_korean": "~에 대해 어떻게 생각해?",
+  "exercises": [
+    {
+      "text": "What do you think about {this} {idea}?",
+      "translation": "이 아이디어에 대해 어떻게 생각해?",
+      "options": [
+        "this",
+        "idea",
+        "that",
+        "plan"
+      ]
+    },
+    {
+      "text": "What do you think about {moving} {to} {Seoul}?",
+      "translation": "서울로 이사하는 것에 대해 어떻게 생각해?",
+      "options": [
+        "moving",
+        "to",
+        "Seoul",
+        "going",
+        "in"
+      ]
+    },
+    {
+      "text": "What do you think about {him}?",
+      "translation": "그에 대해 어떻게 생각해?",
+      "options": [
+        "him",
+        "her"
+      ]
+    }
+  ]
+}

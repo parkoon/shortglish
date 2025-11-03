@@ -1,0 +1,40 @@
+{
+  "date": "2025-11-13",
+  "pattern": "I'm planning to ~",
+  "pattern_korean": "~할 계획이야",
+  "exercises": [
+    {
+      "text": "I'm planning to {study} {abroad}.",
+      "translation": "유학 갈 계획이야.",
+      "options": [
+        "study",
+        "abroad",
+        "learn",
+        "overseas"
+      ]
+    },
+    {
+      "text": "I'm planning to {quit} {my} {job} {soon}.",
+      "translation": "곧 직장을 그만둘 계획이야.",
+      "options": [
+        "quit",
+        "my",
+        "job",
+        "soon",
+        "leave",
+        "the"
+      ]
+    },
+    {
+      "text": "I'm planning to {start} {exercising} {regularly}.",
+      "translation": "규칙적으로 운동을 시작할 계획이야.",
+      "options": [
+        "start",
+        "exercising",
+        "regularly",
+        "begin",
+        "working"
+      ]
+    }
+  ]
+}

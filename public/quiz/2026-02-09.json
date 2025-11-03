@@ -1,0 +1,38 @@
+{
+  "date": "2026-02-09",
+  "pattern": "It's no use ~",
+  "pattern_korean": "~해봐야 소용없어",
+  "exercises": [
+    {
+      "text": "It's no use {crying} {over} {spilt} {milk}.",
+      "translation": "엎질러진 우유를 두고 울어봐야 소용없어.",
+      "options": [
+        "crying",
+        "over",
+        "spilt",
+        "milk",
+        "weeping",
+        "on"
+      ]
+    },
+    {
+      "text": "It's no use {arguing} {with} {him}.",
+      "translation": "그와 논쟁해봐야 소용없어.",
+      "options": [
+        "arguing",
+        "with",
+        "him",
+        "fighting",
+        "to"
+      ]
+    },
+    {
+      "text": "It's no use {trying}.",
+      "translation": "시도해봐야 소용없어.",
+      "options": [
+        "trying",
+        "doing"
+      ]
+    }
+  ]
+}

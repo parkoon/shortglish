@@ -1,0 +1,45 @@
+{
+  "date": "2026-01-27",
+  "pattern": "Even though ~",
+  "pattern_korean": "~에도 불구하고",
+  "exercises": [
+    {
+      "text": "Even though {I'm} {tired}, {I'll} {help} {you}.",
+      "translation": "피곤해도 널 도와줄게.",
+      "options": [
+        "I'm",
+        "tired",
+        "I'll",
+        "help",
+        "you",
+        "you're",
+        "I"
+      ]
+    },
+    {
+      "text": "Even though {it's} {expensive}, {I} {want} {it}.",
+      "translation": "비싸도 사고 싶어.",
+      "options": [
+        "it's",
+        "expensive",
+        "I",
+        "want",
+        "it",
+        "that's",
+        "you"
+      ]
+    },
+    {
+      "text": "Even though {he} {tried}, {he} {failed}.",
+      "translation": "노력했어도 실패했어.",
+      "options": [
+        "he",
+        "tried",
+        "he",
+        "failed",
+        "she",
+        "she"
+      ]
+    }
+  ]
+}

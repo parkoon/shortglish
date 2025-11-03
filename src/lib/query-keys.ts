@@ -14,4 +14,9 @@ export const queryKeys = {
     all: ['subtitles'] as const,
     byVideo: (videoId: string) => ['subtitles', videoId] as const,
   },
+  quiz: {
+    all: ['quiz'] as const,
+    today: ['quiz', 'today'] as const,
+    byDate: (date: string) => ['quiz', 'date', date] as const,
+  },
 }

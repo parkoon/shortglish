@@ -1,0 +1,41 @@
+{
+  "date": "2025-11-05",
+  "pattern": "You should ~",
+  "pattern_korean": "~해야 해",
+  "exercises": [
+    {
+      "text": "You should {get} {some} {rest}.",
+      "translation": "좀 쉬어야 해.",
+      "options": [
+        "get",
+        "some",
+        "rest",
+        "take",
+        "a"
+      ]
+    },
+    {
+      "text": "You should {be} {more} {careful}.",
+      "translation": "더 조심해야 해.",
+      "options": [
+        "be",
+        "more",
+        "careful",
+        "stay",
+        "very"
+      ]
+    },
+    {
+      "text": "You should {listen} {to} {your} {parents}.",
+      "translation": "부모님 말씀을 들어야 해.",
+      "options": [
+        "listen",
+        "to",
+        "your",
+        "parents",
+        "hear",
+        "from"
+      ]
+    }
+  ]
+}

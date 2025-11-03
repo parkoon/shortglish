@@ -1,0 +1,39 @@
+{
+  "date": "2025-11-09",
+  "pattern": "It's time to ~",
+  "pattern_korean": "~할 시간이야",
+  "exercises": [
+    {
+      "text": "It's time to {go} {to} {bed}.",
+      "translation": "잘 시간이야.",
+      "options": [
+        "go",
+        "to",
+        "bed",
+        "get",
+        "in"
+      ]
+    },
+    {
+      "text": "It's time to {move} {on}.",
+      "translation": "이제 앞으로 나아갈 시간이야.",
+      "options": [
+        "move",
+        "on",
+        "go",
+        "forward"
+      ]
+    },
+    {
+      "text": "It's time to {face} {the} {truth}.",
+      "translation": "진실을 직시할 시간이야.",
+      "options": [
+        "face",
+        "the",
+        "truth",
+        "see",
+        "a"
+      ]
+    }
+  ]
+}

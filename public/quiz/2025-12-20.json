@@ -1,0 +1,46 @@
+{
+  "date": "2025-12-20",
+  "pattern": "Come up with ~",
+  "pattern_korean": "~을 생각해내다",
+  "exercises": [
+    {
+      "text": "Can you {come} {up} {with} {a} {better} {idea}?",
+      "translation": "더 나은 아이디어를 생각해낼 수 있어?",
+      "options": [
+        "come",
+        "up",
+        "with",
+        "a",
+        "better",
+        "idea",
+        "think",
+        "of"
+      ]
+    },
+    {
+      "text": "I {came} {up} {with} {a} {solution}.",
+      "translation": "해결책을 생각해냈어.",
+      "options": [
+        "came",
+        "up",
+        "with",
+        "a",
+        "solution",
+        "thought",
+        "of"
+      ]
+    },
+    {
+      "text": "Let's {come} {up} {with} {something}.",
+      "translation": "뭔가를 생각해내자.",
+      "options": [
+        "come",
+        "up",
+        "with",
+        "something",
+        "think",
+        "of"
+      ]
+    }
+  ]
+}

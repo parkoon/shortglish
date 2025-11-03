@@ -1,0 +1,46 @@
+{
+  "date": "2026-02-05",
+  "pattern": "No matter ~",
+  "pattern_korean": "~하든지 간에",
+  "exercises": [
+    {
+      "text": "No matter {what} {happens}, {I'll} {be} {there}.",
+      "translation": "무슨 일이 일어나든지 간에 나는 거기 있을 거야.",
+      "options": [
+        "what",
+        "happens",
+        "I'll",
+        "be",
+        "there",
+        "which",
+        "I'm"
+      ]
+    },
+    {
+      "text": "No matter {how} {hard} {it} {is}.",
+      "translation": "아무리 어렵든지 간에.",
+      "options": [
+        "how",
+        "hard",
+        "it",
+        "is",
+        "what",
+        "difficult"
+      ]
+    },
+    {
+      "text": "No matter {where} {you} {go}, {I'll} {find} {you}.",
+      "translation": "어디를 가든지 간에 너를 찾을 거야.",
+      "options": [
+        "where",
+        "you",
+        "go",
+        "I'll",
+        "find",
+        "you",
+        "when",
+        "I"
+      ]
+    }
+  ]
+}

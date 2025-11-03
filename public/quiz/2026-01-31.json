@@ -1,0 +1,48 @@
+{
+  "date": "2026-01-31",
+  "pattern": "Not only ~ but also ...",
+  "pattern_korean": "~뿐만 아니라 ...도",
+  "exercises": [
+    {
+      "text": "She's {not} {only} {smart} {but} {also} {kind}.",
+      "translation": "그녀는 똑똑할 뿐만 아니라 친절해.",
+      "options": [
+        "not",
+        "only",
+        "smart",
+        "but",
+        "also",
+        "kind",
+        "never",
+        "and"
+      ]
+    },
+    {
+      "text": "I {not} {only} {speak} {English} {but} {also} {Korean}.",
+      "translation": "나는 영어뿐만 아니라 한국어도 해.",
+      "options": [
+        "not",
+        "only",
+        "speak",
+        "English",
+        "but",
+        "also",
+        "Korean",
+        "never",
+        "and"
+      ]
+    },
+    {
+      "text": "Not only {that}, {but} {also}...",
+      "translation": "그것뿐만 아니라...",
+      "options": [
+        "that",
+        "but",
+        "also",
+        "this",
+        "and",
+        "too"
+      ]
+    }
+  ]
+}
