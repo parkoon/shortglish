@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils'
 
 type WordButtonProps = {
   word: string
-  isWrong: boolean
+  isWrong?: boolean
   isSelected: boolean
   isHint?: boolean
   onClick: () => void
