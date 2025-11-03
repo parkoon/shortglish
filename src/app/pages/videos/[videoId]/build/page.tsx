@@ -118,7 +118,7 @@ const VideoPage = () => {
     if (
       currentDialogue &&
       !isCompleted(videoId, currentDialogue.index) &&
-      currentDialogue.text !== ''
+      currentDialogue.originText !== ''
     ) {
       return
     }
@@ -180,7 +180,7 @@ const VideoPage = () => {
       const isEnded = time >= activeDialogue.endTime
 
       // 케이스 3: 대사가 없을 때 - 끝났는지만 체크
-      if (isEnded && activeDialogue.text === '') {
+      if (isEnded && activeDialogue.originText === '') {
         const foundDialogue = getCurrentDialogue(subtitles, time)
 
         if (foundDialogue) {
@@ -266,7 +266,7 @@ const VideoPage = () => {
   const isCurrentSubtitleCompleted =
     !currentDialogue || !videoId
       ? true
-      : isCompleted(videoId, currentDialogue.index) || currentDialogue.text === ''
+      : isCompleted(videoId, currentDialogue.index) || currentDialogue.originText === ''
 
   // 이전 자막이 있는지 확인
   const currentIndex = currentDialogue
@@ -299,13 +299,13 @@ const VideoPage = () => {
 
       <SubtitleProgressBar current={currentDialogue?.index ?? 0} total={subtitles.length} />
 
-      {currentDialogue?.text === '' && <EmptySubtitle />}
+      {currentDialogue?.originText === '' && <EmptySubtitle />}
       {currentDialogue && videoId && (
         <div className="p-4">
           <WordSentenceBuilder
             ref={wordSentenceBuilderRef}
             key={`${videoId}-${currentDialogue.index}`}
-            sentence={currentDialogue.text}
+            sentence={currentDialogue.originText}
             translation={currentDialogue.translation}
             onComplete={handleSubtitleComplete}
             onWrong={handleRepeat}

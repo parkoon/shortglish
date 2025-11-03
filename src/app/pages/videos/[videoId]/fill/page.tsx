@@ -12,7 +12,8 @@ import { useSubtitles } from '@/features/video/hooks/use-subtitles'
 import { useVideoProgressStore } from '@/features/video/store/video-progress-store'
 import { analytics } from '@/lib/analytics'
 import { useGlobalModal } from '@/stores/modal-store'
-import { extractBlankedSentence, normalizeText, speakText } from '@/utils/fill'
+import { normalizeText, speakText } from '@/utils/fill'
+import { extractBlankWords, parseText } from '@/utils/text'
 
 const FillPage = () => {
   const { videoId } = useParams<{ videoId: string }>()
@@ -22,9 +23,13 @@ const FillPage = () => {
 
   const { data: allSubtitles, isLoading } = useSubtitles(videoId)
 
-  // blankedWords가 있는 것만 필터링
+  // blankedText가 있는 것만 필터링 (빈칸이 있는 문장만)
   const subtitles = useMemo(
-    () => (allSubtitles || []).filter(sub => sub.blankedWords && sub.blankedWords.length > 0),
+    () =>
+      (allSubtitles || []).filter(sub => {
+        const blankWords = extractBlankWords(sub.blankedText)
+        return blankWords.length > 0
+      }),
     [allSubtitles],
   )
 
@@ -56,10 +61,18 @@ const FillPage = () => {
   }
 
   const currentSubtitle = subtitles[currentIndex]
-  const { displayWords, blankedPositions } = extractBlankedSentence(
-    currentSubtitle.text,
-    currentSubtitle.blankedWords || [],
-  )
+
+  // blankedText를 파싱하여 displayWords와 blankedPositions 생성
+  const parsedWords = parseText(currentSubtitle.blankedText)
+  const displayWords = parsedWords.map(item => ({
+    word: item.text,
+    isBlank: item.type === 'blank',
+    prefix: item.prefix,
+    suffix: item.suffix,
+  }))
+  const blankedPositions = parsedWords
+    .map((item, index) => (item.type === 'blank' ? index : -1))
+    .filter(index => index !== -1)
 
   const handleInputChange = (position: number, value: string) => {
     setUserInputs(prev => {
@@ -197,15 +210,15 @@ const FillPage = () => {
         video_id: videoId,
         subtitle_index: currentSubtitle.index,
         step_type: 'fill',
-        text_length: currentSubtitle.text.length,
+        text_length: currentSubtitle.originText.length,
       })
     }
 
-    speakText(currentSubtitle.text)
+    speakText(currentSubtitle.originText)
   }
 
   // 현재 문장의 정답
-  const correctAnswer = currentSubtitle.text
+  const correctAnswer = currentSubtitle.originText
 
   // CTA 상태별 config
   const getCtaConfig = () => {
@@ -279,7 +292,10 @@ const FillPage = () => {
           {displayWords.map((item, index) => {
             if (item.isBlank) {
               return (
-                <div key={index} className="inline-flex">
+                <div key={index} className="inline-flex items-baseline">
+                  {item.prefix && (
+                    <span className="text-xl text-gray-700 leading-relaxed">{item.prefix}</span>
+                  )}
                   <LetterInputs
                     ref={el => {
                       blankInputRefs.current[index] = el
@@ -291,12 +307,17 @@ const FillPage = () => {
                     onMoveToPrevWord={() => handleMoveToPrevWord(index)}
                     isWrong={ctaStatus === 'error'}
                   />
+                  {item.suffix && (
+                    <span className="text-xl text-gray-700 leading-relaxed">{item.suffix}</span>
+                  )}
                 </div>
               )
             } else {
               return (
                 <span key={index} className="text-xl text-gray-700 leading-relaxed">
+                  {item.prefix}
                   {item.word}
+                  {item.suffix}
                 </span>
               )
             }

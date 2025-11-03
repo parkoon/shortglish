@@ -1,8 +1,8 @@
 import { forwardRef, useEffect, useImperativeHandle, useMemo, useState } from 'react'
 
 import { WordButton } from '@/features/video/components/word-button'
-import { extractBlankWords, parseQuizText } from '@/utils/quiz'
 import { shuffleArray } from '@/utils/sentence'
+import { extractBlankWords, parseText } from '@/utils/text'
 
 import type { QuizExercise } from '../_types/quiz'
 import { QuizSlots } from './quiz-slots'
@@ -36,7 +36,7 @@ export type QuizSentenceBuilderRef = {
 export const QuizSentenceBuilder = forwardRef<QuizSentenceBuilderRef, QuizSentenceBuilderProps>(
   ({ exercise, onComplete, onWrong, onAllFilled }, ref) => {
     // 문장 파싱
-    const words = useMemo(() => parseQuizText(exercise.text), [exercise.text])
+    const words = useMemo(() => parseText(exercise.text), [exercise.text])
 
     // 정답 단어들 추출
     const correctWords = useMemo(() => extractBlankWords(exercise.text), [exercise.text])

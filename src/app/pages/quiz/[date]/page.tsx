@@ -8,6 +8,7 @@ import { PageLayout } from '@/components/layouts/page-layout'
 import { paths } from '@/config/paths'
 import { useQuizCompletionStore } from '@/features/quiz/store/quiz-completion-store'
 import { speakText } from '@/utils/fill'
+import { removeBraces } from '@/utils/text'
 
 import {
   QuizSentenceBuilder,
@@ -50,7 +51,7 @@ const QuizDetailPage = () => {
   const isLastExercise = currentExerciseIndex === quiz.exercises.length - 1
 
   // 정답 문장 (중괄호 제거)
-  const correctAnswer = currentExercise.text.replace(/\{([^}]+)\}/g, '$1')
+  const correctAnswer = removeBraces(currentExercise.text)
 
   // 모든 빈칸이 채워졌을 때
   const handleAllFilled = () => {

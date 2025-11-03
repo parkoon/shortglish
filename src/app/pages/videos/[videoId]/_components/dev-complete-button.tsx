@@ -39,7 +39,7 @@ export const DevCompleteButton = ({
     }
 
     // 더미 완성 데이터 생성 (모든 단어를 1번에 맞춘 것으로)
-    const words = splitSentenceToWords(currentDialogue.text)
+    const words = splitSentenceToWords(currentDialogue.originText)
     const dummyWords = words.map((word, idx) => ({
       word,
       attempts: 1,

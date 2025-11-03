@@ -2,7 +2,7 @@ export type Subtitle = {
   index: number
   startTime: number
   endTime: number
-  text: string
+  originText: string
+  blankedText: string
   translation: string
-  blankedWords?: string[]
 }

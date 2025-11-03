@@ -44,7 +44,7 @@ export const FullDialogue = ({
       {dialogues.map((dialogue, index) => {
         const isActive = currentDialogue?.index === dialogue.index
         const isRepeatActive = dialogue.index === repeatDialogueIndex
-        const isEmpty = dialogue.text === ''
+        const isEmpty = dialogue.originText === ''
 
         return (
           <motion.div
@@ -78,7 +78,7 @@ export const FullDialogue = ({
                           isActive ? 'text-gray-900' : 'text-gray-800',
                         )}
                       >
-                        {dialogue.text}
+                        {dialogue.originText}
                       </p>
 
                       {/* 한글 번역 */}

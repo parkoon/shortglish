@@ -1,12 +1,12 @@
 import { cn } from '@/lib/utils'
-import type { QuizWordItem } from '@/utils/quiz'
+import type { ParsedWordItem } from '@/utils/text'
 
 type SelectedWordInfo = {
   word: string
 }
 
 type QuizSlotsProps = {
-  words: QuizWordItem[]
+  words: ParsedWordItem[]
   selectedWords: SelectedWordInfo[]
 }
 
