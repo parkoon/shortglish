@@ -85,6 +85,13 @@ const VideoPage = () => {
     repeatDialogueRef.current = repeatDialogue
   }, [repeatDialogue])
 
+  // Cleanup: 컴포넌트 unmount 시 interval 정리
+  useEffect(() => {
+    return () => {
+      stopTimeTracking()
+    }
+  }, [])
+
   const startTimeTracking = () => {
     if (intervalRef.current) {
       clearInterval(intervalRef.current)
@@ -109,16 +116,14 @@ const VideoPage = () => {
         return
       }
 
-      const 시간에따른다이얼로그 = subtitles.find(d => {
+      const currentDialogueByTime = subtitles.find(d => {
         return time >= d.startTime && time < d.endTime
       })
 
-      console.log(시간에따른다이얼로그)
-
-      if (!시간에따른다이얼로그) {
+      if (!currentDialogueByTime) {
         return
       }
-      setCurrentDialogue(시간에따른다이얼로그)
+      setCurrentDialogue(currentDialogueByTime)
     }, 100)
   }
 

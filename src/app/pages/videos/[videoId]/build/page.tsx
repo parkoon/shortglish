@@ -56,6 +56,13 @@ const VideoPage = () => {
     currentDialogueRef.current = currentDialogue
   }, [currentDialogue])
 
+  // Cleanup: 컴포넌트 unmount 시 interval 정리
+  useEffect(() => {
+    return () => {
+      stopTimeTracking()
+    }
+  }, [])
+
   const handleRepeat = () => {
     // GA 이벤트: 반복 버튼 클릭
     if (videoId && currentDialogue) {
