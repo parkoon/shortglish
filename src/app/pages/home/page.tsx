@@ -1,14 +1,12 @@
 import { PageLayout } from '@/components/layouts/page-layout'
 import { VideoFeeds } from '@/features/video/components/video-feeds'
 
-import { TodayQuizCard } from './_components/today-quiz-card'
-
 const Home = () => {
   return (
     <PageLayout>
-      <div className="px-4 mb-5">
+      {/* <div className="px-4 mb-5">
         <TodayQuizCard />
-      </div>
+      </div> */}
       {/* <VideoCategory /> */}
       <VideoFeeds />
     </PageLayout>
