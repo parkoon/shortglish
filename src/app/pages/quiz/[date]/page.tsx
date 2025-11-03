@@ -6,6 +6,7 @@ import type { CTAStatus } from '@/components/layouts/interactive-cta-layout'
 import { InteractiveCTALayout } from '@/components/layouts/interactive-cta-layout'
 import { PageLayout } from '@/components/layouts/page-layout'
 import { paths } from '@/config/paths'
+import { useQuizCompletionStore } from '@/features/quiz/store/quiz-completion-store'
 import { speakText } from '@/utils/fill'
 
 import {
@@ -18,6 +19,7 @@ const QuizDetailPage = () => {
   const { date } = useParams<{ date: string }>()
   const navigate = useNavigate()
   const quizBuilderRef = useRef<QuizSentenceBuilderRef>(null)
+  const { markQuizAsCompleted } = useQuizCompletionStore()
 
   const { data: quiz, isLoading, error } = useQuizByDate(date!)
 
@@ -74,7 +76,10 @@ const QuizDetailPage = () => {
   // 다음 문제로
   const handleNext = () => {
     if (isLastExercise) {
-      // 마지막 문제면 퀴즈 목록으로
+      // 마지막 문제면 완료 처리 후 퀴즈 목록으로
+      if (date) {
+        markQuizAsCompleted(date)
+      }
       navigate(paths.quiz.getHref())
     } else {
       // 다음 문제로
@@ -85,7 +90,7 @@ const QuizDetailPage = () => {
 
   // 다시 시도
   const handleRetry = () => {
-    // 퀴즈 상태 초기화
+    // 퀴즈 상태 초기화re
     quizBuilderRef.current?.reset()
     setCtaStatus('disabled')
   }
