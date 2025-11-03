@@ -4,12 +4,11 @@ export const paths = {
       path: '/',
       getHref: () => '/',
     },
-    bookmarks: {
-      path: '/bookmarks',
-      getHref: () => '/bookmarks',
-    },
   },
-
+  quiz: {
+    path: '/quiz',
+    getHref: () => '/quiz',
+  },
   videos: {
     entry: {
       path: '/videos/:videoId',

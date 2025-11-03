@@ -9,24 +9,24 @@ import { convert } from '@/lib/route'
 // eslint-disable-next-line react-refresh/only-export-components
 export const createAppRouter = (queryClient: QueryClient) =>
   createBrowserRouter([
-    // {
-    //   path: paths.home.root.path,
-    //   lazy: () => import('../components/layouts/tab-layout').then(convert(queryClient)),
-    //   children: [
-    //     {
-    //       index: true,
-    //       lazy: () => import('./pages/videos/page').then(convert(queryClient)),
-    //     },
-    //     {
-    //       path: paths.home.bookmarks.path,
-    //       lazy: () => import('./pages/home/bookmarks').then(convert(queryClient)),
-    //     },
-    //   ],
-    // },
     {
       path: paths.home.root.path,
-      lazy: () => import('./pages/home/page').then(convert(queryClient)),
+      lazy: () => import('../components/layouts/tab-layout').then(convert(queryClient)),
+      children: [
+        {
+          index: true,
+          lazy: () => import('./pages/home/page').then(convert(queryClient)),
+        },
+        {
+          path: paths.quiz.path,
+          lazy: () => import('./pages/quiz/page').then(convert(queryClient)),
+        },
+      ],
     },
+    // {
+    //   path: paths.home.root.path,
+    //   lazy: () => import('./pages/home/page').then(convert(queryClient)),
+    // },
     {
       path: paths.videos.entry.path,
       lazy: () => import('./pages/videos/[videoId]/entry/page').then(convert(queryClient)),
