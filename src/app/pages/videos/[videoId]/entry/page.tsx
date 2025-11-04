@@ -3,12 +3,12 @@ import { IconCheck, IconLock, IconPencil, IconPlayerPlay, IconPuzzle } from '@ta
 import { useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router'
 
+import { useVideoDetailQuery } from '@/api'
 import { CTALayout } from '@/components/layouts/cta-layout'
 import { PageLayout } from '@/components/layouts/page-layout'
 import { Button } from '@/components/ui/button'
 import { TossStepper } from '@/components/ui/stepper'
 import { paths } from '@/config/paths'
-import { useVideoDetailQuery } from '@/api'
 import { useDialogueCompletionStore } from '@/features/video/store/dialogue-completion-store'
 import { useVideoProgressStore } from '@/features/video/store/video-progress-store'
 import { analytics } from '@/lib/analytics'

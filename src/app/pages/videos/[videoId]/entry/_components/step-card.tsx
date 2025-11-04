@@ -78,7 +78,11 @@ export const StepCard = ({ icon, title, description, status, onStart, onReset }:
               <IconCheck size={32} strokeWidth={3} />
             </div>
             {onReset && (
-              <Button onClick={onReset} variant="outline" className="border-green-500 text-green-700">
+              <Button
+                onClick={onReset}
+                variant="outline"
+                className="border-green-500 text-green-700"
+              >
                 다시하기
               </Button>
             )}

@@ -2,12 +2,11 @@ import { IconChevronRight } from '@tabler/icons-react'
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router'
 
+import { useTodayQuizQuery } from '@/api'
 import { PageLayout } from '@/components/layouts/page-layout'
 import { paths } from '@/config/paths'
 import { useQuizCompletionStore } from '@/features/quiz/store/quiz-completion-store'
 import { cn } from '@/lib/utils'
-
-import { useTodayQuizQuery } from '@/api'
 
 const QuizPage = () => {
   const navigate = useNavigate()

@@ -1,10 +1,10 @@
 import { forwardRef, useEffect, useImperativeHandle, useMemo, useState } from 'react'
 
+import type { QuizExercise } from '@/api'
 import { WordButton } from '@/features/video/components/word-button'
 import { shuffleArray } from '@/utils/sentence'
 import { extractBlankWords, parseText } from '@/utils/text'
 
-import type { QuizExercise } from '@/api'
 import { QuizSlots } from './quiz-slots'
 
 type SelectedWordInfo = {

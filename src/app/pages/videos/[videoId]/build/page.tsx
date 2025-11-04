@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 
+import type { Subtitle } from '@/api'
+import { useSubtitlesQuery } from '@/api'
 import { PageLayout } from '@/components/layouts/page-layout'
 import { paths } from '@/config/paths'
 import {
@@ -16,10 +18,8 @@ import {
   YouTubePlayer,
   type YouTubePlayerRef,
 } from '@/features/video/components/youtube-player'
-import { useSubtitlesQuery } from '@/api'
 import { useDialogueCompletionStore } from '@/features/video/store/dialogue-completion-store'
 import { useVideoProgressStore } from '@/features/video/store/video-progress-store'
-import type { Subtitle } from '@/api'
 import { analytics } from '@/lib/analytics'
 import { useGlobalModal } from '@/stores/modal-store'
 

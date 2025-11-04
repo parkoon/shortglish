@@ -2,6 +2,7 @@ import { IconCheck, IconVolume, IconX } from '@tabler/icons-react'
 import { useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 
+import { useQuizByDateQuery } from '@/api'
 import type { CTAStatus } from '@/components/layouts/interactive-cta-layout'
 import { InteractiveCTALayout } from '@/components/layouts/interactive-cta-layout'
 import { PageLayout } from '@/components/layouts/page-layout'
@@ -14,7 +15,6 @@ import {
   QuizSentenceBuilder,
   type QuizSentenceBuilderRef,
 } from '../_components/quiz-sentence-builder'
-import { useQuizByDateQuery } from '@/api'
 
 const QuizDetailPage = () => {
   const { date } = useParams<{ date: string }>()
