@@ -5,7 +5,7 @@
 
 import { supabase } from '@/lib/supabase'
 
-import type { Subtitle, TodayQuiz, Video, VideoDetail } from './types'
+import type { Subtitle, TodayQuiz, Video } from './types'
 import { arrayToCamel } from './utils'
 
 // ============================================
@@ -29,16 +29,21 @@ export const fetchVideos = async (): Promise<Video[]> => {
 }
 
 /**
- * 비디오 상세 정보 조회 (Entry 페이지용)
+ * 단일 비디오 정보 조회 (Entry 페이지용)
+ * video 테이블에서만 조회
  */
-export const fetchVideoDetail = async (videoId: string): Promise<VideoDetail> => {
-  const response = await fetch(`/detail/${videoId}.json`)
+export const fetchVideoById = async (videoId: string): Promise<Video> => {
+  const { data, error } = await supabase
+    .from('video')
+    .select('id, title, thumbnail, description, duration')
+    .eq('id', videoId)
+    .single()
 
-  if (!response.ok) {
-    throw new Error(`Failed to fetch video detail: ${response.statusText}`)
+  if (error) {
+    throw new Error(`Failed to fetch video: ${error.message}`)
   }
 
-  return response.json()
+  return data
 }
 
 // ============================================

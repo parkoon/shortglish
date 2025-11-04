@@ -32,13 +32,6 @@ export type Category = {
   active?: boolean
 }
 
-export type VideoDetail = {
-  title: string
-  description: string
-  thumbnail: string
-  subtitles: Subtitle[]
-}
-
 // ============================================
 // Quiz Domain
 // ============================================

@@ -10,7 +10,7 @@ import {
   fetchQuizByDate,
   fetchSubtitles,
   fetchTodayQuiz,
-  fetchVideoDetail,
+  fetchVideoById,
   fetchVideos,
 } from './endpoints'
 import { queryKeys } from './query-keys'
@@ -35,7 +35,7 @@ export const useVideosQuery = () => {
 export const useVideoDetailQuery = (videoId: string | undefined) => {
   return useQuery({
     queryKey: queryKeys.videos.detail(videoId!),
-    queryFn: () => fetchVideoDetail(videoId!),
+    queryFn: () => fetchVideoById(videoId!),
     enabled: !!videoId,
   })
 }
