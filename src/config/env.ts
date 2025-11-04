@@ -4,6 +4,8 @@ const createEnv = () => {
   const EnvSchema = z.object({
     POSTHOG_KEY: z.string(),
     POSTHOG_HOST: z.string(),
+    SUPABASE_URL: z.string(),
+    SUPABASE_ANON_KEY: z.string(),
   })
 
   const envVars = Object.entries(import.meta.env).reduce<Record<string, string>>((acc, curr) => {

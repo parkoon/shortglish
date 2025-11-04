@@ -2,7 +2,7 @@ import { IconRepeat } from '@tabler/icons-react'
 import { motion } from 'framer-motion'
 import { useEffect, useRef } from 'react'
 
-import type { Subtitle } from '@/features/video/types'
+import type { Subtitle } from '@/api'
 import { cn } from '@/lib/utils'
 
 type FullDialogueProps = {

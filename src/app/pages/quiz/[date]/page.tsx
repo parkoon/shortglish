@@ -14,7 +14,7 @@ import {
   QuizSentenceBuilder,
   type QuizSentenceBuilderRef,
 } from '../_components/quiz-sentence-builder'
-import { useQuizByDate } from '../_hooks/use-quiz-by-date'
+import { useQuizByDateQuery } from '@/api'
 
 const QuizDetailPage = () => {
   const { date } = useParams<{ date: string }>()
@@ -22,7 +22,7 @@ const QuizDetailPage = () => {
   const quizBuilderRef = useRef<QuizSentenceBuilderRef>(null)
   const { markQuizAsCompleted } = useQuizCompletionStore()
 
-  const { data: quiz, isLoading, error } = useQuizByDate(date!)
+  const { data: quiz, isLoading, error } = useQuizByDateQuery(date!)
 
   const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0)
   const [ctaStatus, setCtaStatus] = useState<CTAStatus>('disabled')

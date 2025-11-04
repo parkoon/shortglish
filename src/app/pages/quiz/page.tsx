@@ -7,11 +7,11 @@ import { paths } from '@/config/paths'
 import { useQuizCompletionStore } from '@/features/quiz/store/quiz-completion-store'
 import { cn } from '@/lib/utils'
 
-import { useTodayQuiz } from './_hooks/use-today-quiz'
+import { useTodayQuizQuery } from '@/api'
 
 const QuizPage = () => {
   const navigate = useNavigate()
-  const todayQuiz = useTodayQuiz()
+  const todayQuiz = useTodayQuizQuery()
   const { isQuizCompleted } = useQuizCompletionStore()
 
   // 오늘 날짜 (YYYY-MM-DD 형식)

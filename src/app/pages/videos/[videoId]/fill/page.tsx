@@ -8,7 +8,7 @@ import { PageLayout } from '@/components/layouts/page-layout'
 import { paths } from '@/config/paths'
 import type { LetterInputsRef } from '@/features/video/components/letter-inputs'
 import { LetterInputs } from '@/features/video/components/letter-inputs'
-import { useSubtitles } from '@/features/video/hooks/use-subtitles'
+import { useSubtitlesQuery } from '@/api'
 import { useVideoProgressStore } from '@/features/video/store/video-progress-store'
 import { analytics } from '@/lib/analytics'
 import { useGlobalModal } from '@/stores/modal-store'
@@ -21,7 +21,7 @@ const FillPage = () => {
   const modal = useGlobalModal()
   const { markStepAsCompleted } = useVideoProgressStore()
 
-  const { data: allSubtitles, isLoading } = useSubtitles(videoId)
+  const { data: allSubtitles, isLoading } = useSubtitlesQuery(videoId)
 
   // blankedText가 있는 것만 필터링 (빈칸이 있는 문장만)
   const subtitles = useMemo(

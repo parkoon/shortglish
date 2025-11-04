@@ -8,9 +8,9 @@ import {
   YouTubePlayer,
   type YouTubePlayerRef,
 } from '@/features/video/components/youtube-player'
-import { useSubtitles } from '@/features/video/hooks/use-subtitles'
+import { useSubtitlesQuery } from '@/api'
 import { useVideoProgressStore } from '@/features/video/store/video-progress-store'
-import type { Subtitle } from '@/features/video/types'
+import type { Subtitle } from '@/api'
 import { analytics } from '@/lib/analytics'
 import { useGlobalModal } from '@/stores/modal-store'
 
@@ -22,7 +22,7 @@ const VideoPage = () => {
   const navigate = useNavigate()
   const { markStepAsCompleted } = useVideoProgressStore()
 
-  const { data: subtitles = [], isLoading: isLoadingDialogues } = useSubtitles(videoId)
+  const { data: subtitles = [], isLoading: isLoadingDialogues } = useSubtitlesQuery(videoId)
 
   const [currentDialogue, setCurrentDialogue] = useState<Subtitle | null>(null)
   const [repeatDialogue, setRepeatDialogue] = useState<Subtitle | null>(null)

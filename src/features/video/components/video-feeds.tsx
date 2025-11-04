@@ -1,15 +1,13 @@
 import { useNavigate } from 'react-router'
 
+import { useVideosQuery, type Video } from '@/api'
 import { paths } from '@/config/paths'
 import { analytics } from '@/lib/analytics'
 import { formatDuration } from '@/lib/utils'
 import { getYouTubeThumbnailUrl } from '@/utils/thumbnail'
 
-import { useVideos } from '../hooks/use-videos'
-import type { Video } from '../types'
-
 export const VideoFeeds = () => {
-  const { data: videos = [], isLoading } = useVideos()
+  const { data: videos = [], isLoading } = useVideosQuery()
 
   if (isLoading) {
     return (

@@ -1,4 +1,4 @@
-import type { Subtitle } from '@/features/video/types'
+import type { Subtitle } from '@/api'
 import { useDialogueCompletionStore } from '@/features/video/store/dialogue-completion-store'
 import { splitSentenceToWords } from '@/utils/sentence'
 

@@ -8,7 +8,7 @@ import { PageLayout } from '@/components/layouts/page-layout'
 import { Button } from '@/components/ui/button'
 import { TossStepper } from '@/components/ui/stepper'
 import { paths } from '@/config/paths'
-import { useVideoDetail } from '@/features/video/hooks/use-video-detail'
+import { useVideoDetailQuery } from '@/api'
 import { useDialogueCompletionStore } from '@/features/video/store/dialogue-completion-store'
 import { useVideoProgressStore } from '@/features/video/store/video-progress-store'
 import { analytics } from '@/lib/analytics'
@@ -47,7 +47,7 @@ const EntryPage = () => {
   const navigate = useNavigate()
   const modal = useGlobalModal()
 
-  const { data: videoDetail, isLoading } = useVideoDetail(videoId)
+  const { data: videoDetail, isLoading } = useVideoDetailQuery(videoId)
 
   const { isStepCompleted, canAccessStep, resetVideoProgress } = useVideoProgressStore()
   const { clearVideo } = useDialogueCompletionStore()
