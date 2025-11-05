@@ -11,14 +11,14 @@ import type { LetterInputsRef } from '@/features/video/components/letter-inputs'
 import { LetterInputs } from '@/features/video/components/letter-inputs'
 import { useVideoProgressStore } from '@/features/video/store/video-progress-store'
 import { analytics } from '@/lib/analytics'
-import { useGlobalModal } from '@/stores/modal-store'
+import { useModal } from '@/stores/modal-store'
 import { normalizeText, speakText } from '@/utils/fill'
 import { extractBlankWords, parseText } from '@/utils/text'
 
 const FillPage = () => {
   const { videoId } = useParams<{ videoId: string }>()
   const navigate = useNavigate()
-  const modal = useGlobalModal()
+  const modal = useModal()
   const { markStepAsCompleted } = useVideoProgressStore()
 
   const { data: allSubtitles, isLoading } = useSubtitlesQuery(videoId)

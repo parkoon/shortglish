@@ -12,7 +12,7 @@ import { paths } from '@/config/paths'
 import { useDialogueCompletionStore } from '@/features/video/store/dialogue-completion-store'
 import { useVideoProgressStore } from '@/features/video/store/video-progress-store'
 import { analytics } from '@/lib/analytics'
-import { useGlobalModal } from '@/stores/modal-store'
+import { useModal } from '@/stores/modal-store'
 
 type StepInfo = {
   label: string
@@ -45,7 +45,7 @@ const STEPS: StepInfo[] = [
 const EntryPage = () => {
   const { videoId } = useParams<{ videoId: string }>()
   const navigate = useNavigate()
-  const modal = useGlobalModal()
+  const modal = useModal()
 
   const { data: videoDetail, isLoading } = useVideoDetailQuery(videoId)
 

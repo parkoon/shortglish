@@ -1,4 +1,4 @@
-import { IconBrandYoutubeFilled, IconFileDescriptionFilled } from '@tabler/icons-react'
+import { IconBrandYoutubeFilled, IconFilePencilFilled } from '@tabler/icons-react'
 import { motion } from 'framer-motion'
 import { type FC } from 'react'
 import { NavLink, Outlet } from 'react-router'
@@ -22,10 +22,10 @@ const TAB_ITEMS: TabItem[] = [
     path: paths.home.root.getHref(),
   },
   {
-    id: 'quiz',
-    label: '퀴즈',
-    icon: IconFileDescriptionFilled,
-    path: paths.quiz.getHref(),
+    id: 'my',
+    label: '복습',
+    icon: IconFilePencilFilled,
+    path: paths.my.getHref(),
   },
 ]
 

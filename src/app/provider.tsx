@@ -4,7 +4,7 @@ import { ErrorBoundary } from 'react-error-boundary'
 import { HelmetProvider } from 'react-helmet-async'
 import { Toaster } from 'sonner'
 
-import { GlobalModal } from '@/components/global-modal'
+import { Modal } from '@/components/modal'
 import { Spinner } from '@/components/ui/spinner'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { queryConfig } from '@/lib/react-query'
@@ -56,7 +56,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
             > */}
             <TooltipProvider>
               {children}
-              <GlobalModal />
+              <Modal />
             </TooltipProvider>
             {/* </PostHogProvider> */}
           </QueryClientProvider>

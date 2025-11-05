@@ -13,6 +13,10 @@ export const paths = {
       getHref: (date: string) => `/quiz/${date}`,
     },
   },
+  my: {
+    path: '/my',
+    getHref: () => '/my',
+  },
   videos: {
     entry: {
       path: '/videos/:videoId',

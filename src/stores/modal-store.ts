@@ -78,7 +78,6 @@ export const useModalStore = create<ModalStore>(set => ({
   close: () => {
     set({
       isOpen: false,
-      config: initialConfig,
     })
   },
 }))
@@ -99,7 +98,7 @@ export const useModalStore = create<ModalStore>(set => ({
  * }
  * ```
  */
-export const useGlobalModal = () => {
+export const useModal = () => {
   const { open, close } = useModalStore()
 
   return {

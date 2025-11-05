@@ -12,13 +12,13 @@ import { useSubtitlesQuery } from '@/api'
 import { useVideoProgressStore } from '@/features/video/store/video-progress-store'
 import type { Subtitle } from '@/api'
 import { analytics } from '@/lib/analytics'
-import { useGlobalModal } from '@/stores/modal-store'
+import { useModal } from '@/stores/modal-store'
 
 import { FullDialogue } from './_components/full-dialogue'
 
 const VideoPage = () => {
   const { videoId } = useParams<{ videoId: string }>()
-  const modal = useGlobalModal()
+  const modal = useModal()
   const navigate = useNavigate()
   const { markStepAsCompleted } = useVideoProgressStore()
 

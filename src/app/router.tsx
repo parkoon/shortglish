@@ -9,24 +9,24 @@ import { convert } from '@/lib/route'
 // eslint-disable-next-line react-refresh/only-export-components
 export const createAppRouter = (queryClient: QueryClient) =>
   createBrowserRouter([
-    // {
-    //   path: paths.home.root.path,
-    //   lazy: () => import('../components/layouts/tab-layout').then(convert(queryClient)),
-    //   children: [
-    //     {
-    //       index: true,
-    //       lazy: () => import('./pages/home/page').then(convert(queryClient)),
-    //     },
-    //     {
-    //       path: paths.quiz.path,
-    //       lazy: () => import('./pages/quiz/page').then(convert(queryClient)),
-    //     },
-    //   ],
-    // },
     {
       path: paths.home.root.path,
-      lazy: () => import('./pages/home/page').then(convert(queryClient)),
+      lazy: () => import('../components/layouts/tab-layout').then(convert(queryClient)),
+      children: [
+        {
+          index: true,
+          lazy: () => import('./pages/home/page').then(convert(queryClient)),
+        },
+        {
+          path: paths.my.path,
+          lazy: () => import('./pages/my/page').then(convert(queryClient)),
+        },
+      ],
     },
+    // {
+    //   path: paths.home.root.path,
+    //   lazy: () => import('./pages/home/page').then(convert(queryClient)),
+    // },
     {
       path: paths.quiz.detail.path,
       lazy: () => import('./pages/quiz/[date]/page').then(convert(queryClient)),

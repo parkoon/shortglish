@@ -21,7 +21,7 @@ import {
 import { useDialogueCompletionStore } from '@/features/video/store/dialogue-completion-store'
 import { useVideoProgressStore } from '@/features/video/store/video-progress-store'
 import { analytics } from '@/lib/analytics'
-import { useGlobalModal } from '@/stores/modal-store'
+import { useModal } from '@/stores/modal-store'
 
 import { DevCompleteButton } from '../_components/dev-complete-button'
 import { EmptySubtitle } from '../_components/empty-subtitle'
@@ -43,7 +43,7 @@ const VideoPage = () => {
 
   const { isCompleted, markAsCompleted, getCompletedWords } = useDialogueCompletionStore()
   const { markStepAsCompleted } = useVideoProgressStore()
-  const modal = useGlobalModal()
+  const modal = useModal()
 
   const playerRef = useRef<YouTubePlayerRef>(null)
   const videoControllerRef = useRef<VideoControllerRef>(null)
