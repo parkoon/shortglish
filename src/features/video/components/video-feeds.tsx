@@ -67,7 +67,7 @@ export const VideoCard = ({ video }: VideoCardProps) => {
           {formatDuration(video.duration)}
         </div>
         <div className="flex items-center gap-1 absolute top-2 left-2 bg-gray-100 text-xs px-2 py-0.5 rounded  text-gray-900">
-          <IconKeyFilled size={14} />
+          <IconKeyFilled size={14} className="text-yellow-500" />
           <span className="text-sm font-bold">1</span>
         </div>
       </div>

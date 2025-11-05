@@ -7,7 +7,7 @@ import { useVideoDetailQuery } from '@/api'
 import { CTALayout } from '@/components/layouts/cta-layout'
 import { PageLayout } from '@/components/layouts/page-layout'
 import { Button } from '@/components/ui/button'
-import { TossStepper } from '@/components/ui/stepper'
+import { Stepper } from '@/components/ui/stepper'
 import { paths } from '@/config/paths'
 import { useDialogueCompletionStore } from '@/features/video/store/dialogue-completion-store'
 import { useVideoProgressStore } from '@/features/video/store/video-progress-store'
@@ -166,7 +166,7 @@ const EntryPage = () => {
       </div>
 
       <div className="px-4">
-        <TossStepper
+        <Stepper
           items={STEPS.map((step, index) => {
             const isCompleted = isStepCompleted(videoId, step.type)
             const canAccess = canAccessStep(videoId, step.type)
@@ -187,7 +187,7 @@ const EntryPage = () => {
             }
 
             return {
-              number: String(index + 1),
+              icon: String(index + 1),
               title: step.label,
               right: rightIcon,
               description: step.description,
