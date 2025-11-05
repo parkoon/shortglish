@@ -1,3 +1,4 @@
+import { IconKeyFilled } from '@tabler/icons-react'
 import { useNavigate } from 'react-router'
 
 import { useVideosQuery, type Video } from '@/api'
@@ -64,6 +65,10 @@ export const VideoCard = ({ video }: VideoCardProps) => {
         />
         <div className="absolute bottom-2 right-2 bg-black/80 text-white text-xs px-1 py-0.5 rounded">
           {formatDuration(video.duration)}
+        </div>
+        <div className="flex items-center gap-1 absolute top-2 left-2 bg-gray-100 text-xs px-2 py-0.5 rounded  text-gray-900">
+          <IconKeyFilled size={14} />
+          <span className="text-sm font-bold">1</span>
         </div>
       </div>
 
