@@ -1,5 +1,13 @@
 import type { Icon } from '@tabler/icons-react'
-import { IconCheck, IconLock, IconPencil, IconPlayerPlay, IconPuzzle } from '@tabler/icons-react'
+import {
+  IconCheck,
+  IconKeyFilled,
+  IconLock,
+  IconPencil,
+  IconPlayerPlay,
+  IconPlayerPlayFilled,
+  IconPuzzle,
+} from '@tabler/icons-react'
 import { useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router'
 
@@ -7,6 +15,7 @@ import { useVideoDetailQuery } from '@/api'
 import { CTALayout } from '@/components/layouts/cta-layout'
 import { PageLayout } from '@/components/layouts/page-layout'
 import { Button } from '@/components/ui/button'
+import { MotionButton } from '@/components/ui/motion-button'
 import { Stepper } from '@/components/ui/stepper'
 import { paths } from '@/config/paths'
 import { useDialogueCompletionStore } from '@/features/video/store/dialogue-completion-store'
@@ -157,6 +166,16 @@ const EntryPage = () => {
           alt={videoDetail?.title}
           className="w-full aspect-video object-cover"
         />
+        <div className="flex items-center gap-1 absolute top-2 left-2 bg-gray-100 text-xs px-2 py-0.5 rounded  text-gray-900">
+          <IconKeyFilled size={14} className="text-yellow-500" />
+          <span className="text-sm font-bold">1</span>
+        </div>
+
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full flex justify-center">
+          <MotionButton className="bg-primary/80 text-white px-5 py-2 rounded-3xl flex items-center gap-2 font-semibold border border-white">
+            <IconPlayerPlayFilled size={16} /> 2단계 빈칸 채우기
+          </MotionButton>
+        </div>
       </div>
 
       {/* 제목 */}
