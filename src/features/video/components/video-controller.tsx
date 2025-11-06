@@ -63,8 +63,8 @@ export const VideoController = forwardRef<VideoControllerRef, VideoControllerPro
           {/* 힌트 버튼 (왼쪽) */}
           <MotionButton onClick={onSpeed} className="p-2">
             <div className="flex items-center flex-col">
-              <IconBrandSpeedtest strokeWidth={1} />
-              <span className="text-xs -mb-2 -mt-1">{currentSpeed}x</span>
+              <IconBrandSpeedtest strokeWidth={1.5} />
+              <span className="text-xs -mb-2 -mt-1 font-semibold">{currentSpeed}x</span>
             </div>
           </MotionButton>
 
@@ -121,7 +121,7 @@ export const VideoController = forwardRef<VideoControllerRef, VideoControllerPro
             className={cn('p-2', !canHint && 'opacity-30 cursor-not-allowed')}
             title="힌트"
           >
-            <IconWand strokeWidth={1} />
+            <IconWand strokeWidth={1.5} />
           </MotionButton>
         </div>
       </div>
