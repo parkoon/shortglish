@@ -290,7 +290,7 @@ const VideoPage = () => {
   }
   return (
     <PageLayout className="pb-[80px]">
-      <div className="relative">
+      <div className="sticky top-0 z-10">
         <YouTubePlayer
           onStateChange={handleStateChange}
           ref={playerRef}
@@ -298,13 +298,12 @@ const VideoPage = () => {
           initialTime={subtitles[0]?.startTime ?? 0}
           autoPlay
         />
+        <SubtitleProgressBar current={currentDialogue?.index ?? 0} total={subtitles.length} />
 
         {/* {playerState === YOUTUBE_PLAYER_STATE.PAUSED && (
           <VideoRepeatOverlay onRepeat={handleRepeat} />
         )} */}
       </div>
-
-      <SubtitleProgressBar current={currentDialogue?.index ?? 0} total={subtitles.length} />
 
       {currentDialogue?.originText === '' && <EmptySubtitle />}
       {currentDialogue && videoId && (
