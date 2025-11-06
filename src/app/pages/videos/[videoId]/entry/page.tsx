@@ -204,7 +204,7 @@ const EntryPage = () => {
             if (isCompleted) {
               icon = <IconCheck className="text-green-600" size={18} />
             } else if (isInProgress) {
-              icon = <Spinner size="sm" className="text-primary" />
+              icon = <>{currentStepIndex + 1}</>
             } else if (!canAccess) {
               icon = <IconLock className="text-gray-400" size={18} />
             }
