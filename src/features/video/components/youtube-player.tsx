@@ -15,6 +15,7 @@ type YTPlayer = {
   isMuted(): boolean
   setVolume(volume: number): void
   getVolume(): number
+  setPlaybackRate(rate: number): void
   destroy(): void
 }
 
@@ -35,6 +36,7 @@ export type YouTubePlayerRef = {
   getDuration: () => number
   getPlayerState: () => number
   seekTo: (seconds: number) => void
+  setPlaybackRate: (rate: number) => void
 }
 
 export const YOUTUBE_PLAYER_STATE = {
@@ -131,6 +133,7 @@ export const YouTubePlayer = forwardRef<YouTubePlayerRef, YouTubePlayerProps>(
       seekTo: (seconds: number) => playerRef.current?.seekTo(seconds, true),
       mute: () => playerRef.current?.mute(),
       unMute: () => playerRef.current?.unMute(),
+      setPlaybackRate: (rate: number) => playerRef.current?.setPlaybackRate(rate),
     }))
 
     return (

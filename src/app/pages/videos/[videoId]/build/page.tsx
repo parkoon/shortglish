@@ -26,6 +26,7 @@ import { useModal } from '@/stores/modal-store'
 import { DevCompleteButton } from '../_components/dev-complete-button'
 import { EmptySubtitle } from '../_components/empty-subtitle'
 import { SubtitleProgressBar } from '../_components/subtitle-progress-bar'
+import { VideoSpeedBottomSheet } from './_components/video-speed-bottom-sheet'
 
 type SelectedWordInfo = {
   word: string
@@ -40,6 +41,8 @@ const VideoPage = () => {
   const { data: subtitles = [], isLoading: isLoadingDialogues } = useSubtitlesQuery(videoId)
 
   const [currentDialogue, setCurrentDialogue] = useState<Subtitle | null>(null)
+  const [playbackSpeed, setPlaybackSpeed] = useState(1.0)
+  const [isSpeedBottomSheetOpen, setIsSpeedBottomSheetOpen] = useState(false)
 
   const { isCompleted, markAsCompleted, getCompletedWords } = useDialogueCompletionStore()
   const { markStepAsCompleted } = useVideoProgressStore()
@@ -269,6 +272,15 @@ const VideoPage = () => {
     videoControllerRef.current?.startBlink()
   }
 
+  const handleSpeedChange = () => {
+    setIsSpeedBottomSheetOpen(true)
+  }
+
+  const handleSpeedSelect = (speed: number) => {
+    setPlaybackSpeed(speed)
+    playerRef.current?.setPlaybackRate(speed)
+  }
+
   // 현재 자막이 완성되었는지 확인
   const isCurrentSubtitleCompleted =
     !currentDialogue || !videoId
@@ -329,6 +341,8 @@ const VideoPage = () => {
       />
 
       <VideoController
+        currentSpeed={playbackSpeed}
+        onSpeed={handleSpeedChange}
         ref={videoControllerRef}
         onRepeat={handleRepeat}
         onPrevious={handlePrevious}
@@ -338,6 +352,13 @@ const VideoPage = () => {
         canNext={isCurrentSubtitleCompleted}
         canPrevious={canGoPrevious}
         canHint={!isCurrentSubtitleCompleted}
+      />
+
+      <VideoSpeedBottomSheet
+        open={isSpeedBottomSheetOpen}
+        currentSpeed={playbackSpeed}
+        onClose={() => setIsSpeedBottomSheetOpen(false)}
+        onSelect={handleSpeedSelect}
       />
     </PageLayout>
   )
