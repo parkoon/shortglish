@@ -1,7 +1,6 @@
 import type { Icon } from '@tabler/icons-react'
 import {
   IconCheck,
-  IconKeyFilled,
   IconLock,
   IconPencil,
   IconPlayerPlay,
@@ -15,7 +14,6 @@ import { useVideoDetailQuery } from '@/api'
 import { CTALayout } from '@/components/layouts/cta-layout'
 import { PageLayout } from '@/components/layouts/page-layout'
 import { MotionButton } from '@/components/ui/motion-button'
-import { Spinner } from '@/components/ui/spinner'
 import { Stepper } from '@/components/ui/stepper'
 import { paths } from '@/config/paths'
 import { useDialogueCompletionStore } from '@/features/video/store/dialogue-completion-store'
@@ -168,10 +166,11 @@ const EntryPage = () => {
           alt={videoDetail?.title}
           className="w-full aspect-video object-cover"
         />
-        <div className="flex items-center gap-1 absolute top-2 left-2 bg-gray-100 text-xs px-2 py-0.5 rounded  text-gray-900">
+        {/* TODO. 나중에 키 작업할 때 살리기 */}
+        {/* <div className="flex items-center gap-1 absolute top-2 left-2 bg-gray-100 text-xs px-2 py-0.5 rounded  text-gray-900">
           <IconKeyFilled size={14} className="text-yellow-500" />
           <span className="text-sm font-bold">1</span>
-        </div>
+        </div> */}
 
         {currentStepInfo && !isAllCompleted && (
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full flex justify-center">

@@ -8,6 +8,8 @@ type FloatingKeyProps = {
   onClick: () => void
 }
 export const FloatingKey = ({ amount, onClick }: FloatingKeyProps) => {
+  // TODO. 나중에 키 작업할 때 살리기
+  return null
   const disabled = amount <= 0
   return (
     <div className="fixed bottom-[68px] right-3">
