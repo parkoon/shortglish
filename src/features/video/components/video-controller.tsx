@@ -51,7 +51,7 @@ export const VideoController = forwardRef<VideoControllerRef, VideoControllerPro
 
     return (
       <div
-        className="fixed bottom-0 left-0 right-0 bg-red mx-auto p-4"
+        className="fixed bottom-0 left-0 right-0 bg-red mx-auto p-4 bg-white"
         style={{ maxWidth: MAX_APP_SCREEN_WIDTH }}
       >
         <div className="relative flex items-center justify-between">
