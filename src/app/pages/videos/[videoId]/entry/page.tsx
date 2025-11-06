@@ -1,13 +1,22 @@
 import type { Icon } from '@tabler/icons-react'
-import { IconCheck, IconLock, IconPencil, IconPlayerPlay, IconPuzzle } from '@tabler/icons-react'
+import {
+  IconCheck,
+  IconKeyFilled,
+  IconLock,
+  IconPencil,
+  IconPlayerPlay,
+  IconPlayerPlayFilled,
+  IconPuzzle,
+} from '@tabler/icons-react'
 import { useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router'
 
 import { useVideoDetailQuery } from '@/api'
 import { CTALayout } from '@/components/layouts/cta-layout'
 import { PageLayout } from '@/components/layouts/page-layout'
-import { Button } from '@/components/ui/button'
-import { TossStepper } from '@/components/ui/stepper'
+import { MotionButton } from '@/components/ui/motion-button'
+import { Spinner } from '@/components/ui/spinner'
+import { Stepper } from '@/components/ui/stepper'
 import { paths } from '@/config/paths'
 import { useDialogueCompletionStore } from '@/features/video/store/dialogue-completion-store'
 import { useVideoProgressStore } from '@/features/video/store/video-progress-store'
@@ -101,6 +110,8 @@ const EntryPage = () => {
   }
 
   const nextStep = getNextStep()
+  const currentStepInfo = STEPS.find(step => step.type === nextStep.type)
+  const currentStepIndex = STEPS.findIndex(step => step.type === nextStep.type)
 
   const handleRestartLearning = () => {
     if (!videoId) return
@@ -157,6 +168,22 @@ const EntryPage = () => {
           alt={videoDetail?.title}
           className="w-full aspect-video object-cover"
         />
+        <div className="flex items-center gap-1 absolute top-2 left-2 bg-gray-100 text-xs px-2 py-0.5 rounded  text-gray-900">
+          <IconKeyFilled size={14} className="text-yellow-500" />
+          <span className="text-sm font-bold">1</span>
+        </div>
+
+        {currentStepInfo && !isAllCompleted && (
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full flex justify-center">
+            <MotionButton
+              onClick={handleButtonClick}
+              className="bg-primary/80 text-white px-5 py-2 rounded-3xl flex items-center gap-2 font-semibold border border-white"
+            >
+              <IconPlayerPlayFilled size={16} />
+              {currentStepIndex + 1}단계 {nextStep.label}
+            </MotionButton>
+          </div>
+        )}
       </div>
 
       {/* 제목 */}
@@ -166,30 +193,25 @@ const EntryPage = () => {
       </div>
 
       <div className="px-4">
-        <TossStepper
-          items={STEPS.map((step, index) => {
+        <Stepper
+          items={STEPS.map(step => {
             const isCompleted = isStepCompleted(videoId, step.type)
             const canAccess = canAccessStep(videoId, step.type)
             const isInProgress = nextStep.type === step.type && !isCompleted
 
             // 진행 상태에 따른 아이콘 결정
-            let rightIcon = null
+            let icon = null
             if (isCompleted) {
-              rightIcon = <IconCheck className="text-green-600" />
+              icon = <IconCheck className="text-green-600" size={18} />
             } else if (isInProgress) {
-              rightIcon = (
-                <Button size="xs" onClick={handleButtonClick}>
-                  시작하기
-                </Button>
-              )
+              icon = <>{currentStepIndex + 1}</>
             } else if (!canAccess) {
-              rightIcon = <IconLock className="text-gray-400" />
+              icon = <IconLock className="text-gray-400" size={18} />
             }
 
             return {
-              number: String(index + 1),
+              icon,
               title: step.label,
-              right: rightIcon,
               description: step.description,
             }
           })}

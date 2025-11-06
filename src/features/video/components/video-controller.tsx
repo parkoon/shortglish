@@ -1,4 +1,5 @@
 import {
+  IconBrandSpeedtest,
   IconPlayerSkipBackFilled,
   IconPlayerSkipForwardFilled,
   IconReload,
@@ -12,14 +13,16 @@ import { usePrimaryColor } from '@/hooks/use-primary-color'
 import { cn } from '@/lib/utils'
 
 type VideoControllerProps = {
-  onPrevious: () => void
-  onNext: () => void
-  onRepeat: () => void
-  onHint: () => void
   canRepeat: boolean
   canNext?: boolean
   canPrevious?: boolean
   canHint?: boolean
+  currentSpeed: number
+  onPrevious: () => void
+  onNext: () => void
+  onRepeat: () => void
+  onHint: () => void
+  onSpeed: () => void
 }
 
 export type VideoControllerRef = {
@@ -30,14 +33,16 @@ export type VideoControllerRef = {
 export const VideoController = forwardRef<VideoControllerRef, VideoControllerProps>(
   (
     {
-      onRepeat,
-      onPrevious,
-      onNext,
-      onHint,
       canRepeat,
       canNext = true,
       canPrevious = true,
       canHint = true,
+      currentSpeed,
+      onRepeat,
+      onPrevious,
+      onNext,
+      onHint,
+      onSpeed,
     },
     ref,
   ) => {
@@ -51,12 +56,17 @@ export const VideoController = forwardRef<VideoControllerRef, VideoControllerPro
 
     return (
       <div
-        className="fixed bottom-0 left-0 right-0 bg-red mx-auto p-4"
+        className="fixed bottom-0 left-0 right-0 bg-red mx-auto p-4 bg-white"
         style={{ maxWidth: MAX_APP_SCREEN_WIDTH }}
       >
         <div className="relative flex items-center justify-between">
           {/* 힌트 버튼 (왼쪽) */}
-          <div />
+          <MotionButton onClick={onSpeed} className="p-2">
+            <div className="flex items-center flex-col">
+              <IconBrandSpeedtest strokeWidth={1.5} />
+              <span className="text-xs -mb-2 -mt-1 font-semibold">{currentSpeed}x</span>
+            </div>
+          </MotionButton>
 
           <div className="flex items-center gap-4 absolute left-1/2 -translate-x-1/2">
             <MotionButton
@@ -111,7 +121,7 @@ export const VideoController = forwardRef<VideoControllerRef, VideoControllerPro
             className={cn('p-2', !canHint && 'opacity-30 cursor-not-allowed')}
             title="힌트"
           >
-            <IconWand />
+            <IconWand strokeWidth={1.5} />
           </MotionButton>
         </div>
       </div>

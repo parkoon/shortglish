@@ -46,6 +46,7 @@ declare namespace YT {
     setVolume(volume: number): void
     getVolume(): number
     destroy(): void
+    setPlaybackRate(rate: number): void
   }
 
   const PlayerState: {

@@ -4,7 +4,7 @@ import { type ReactNode } from 'react'
 import { cn } from '@/lib/utils'
 
 type StepItem = {
-  number: string
+  icon?: string | ReactNode
   title: string
   description?: string
   right?: ReactNode
@@ -13,10 +13,11 @@ type StepItem = {
 type StepperProps = {
   items: StepItem[]
   animated?: boolean
+  animationDelay?: number
   className?: string
 }
 
-const Stepper = ({ items, animated = true, className }: StepperProps) => {
+const Stepper = ({ items, animated = true, animationDelay = 0, className }: StepperProps) => {
   return (
     <div className={cn('flex flex-col', className)}>
       {items.map((item, index) => {
@@ -29,16 +30,16 @@ const Stepper = ({ items, animated = true, className }: StepperProps) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{
               duration: 0.3,
-              delay: index * 0.1,
+              delay: index * 0.1 + animationDelay,
               ease: 'easeOut',
             }}
           >
             <div className="flex">
-              {/* Left: Number Icon */}
+              {/* Left: Icon */}
               <div className="flex flex-col items-center pr-4">
-                <NumberIcon value={Number(item.number)} />
+                <IconRenderer icon={item.icon} />
                 {/* Connector Line */}
-                {!isLast && <div className="w-[2px] flex-1 min-h-8 my-1 bg-gray-200" />}
+                {!isLast && <div className="w-[2px] flex-1 min-h-7 my-1 bg-gray-200" />}
               </div>
 
               {/* Center: Content */}
@@ -56,14 +57,22 @@ const Stepper = ({ items, animated = true, className }: StepperProps) => {
   )
 }
 
-type NumberIconProps = {
-  value: number
+type IconRendererProps = {
+  icon?: string | ReactNode
 }
 
-const NumberIcon = ({ value }: NumberIconProps) => {
+const IconRenderer = ({ icon }: IconRendererProps) => {
+  if (typeof icon !== 'string') {
+    return (
+      <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gray-100">
+        {icon}
+      </div>
+    )
+  }
+
   return (
     <div className="flex items-center justify-center w-8 h-8 rounded-full font-semibold text-sm bg-gray-100">
-      {value}
+      {icon}
     </div>
   )
 }
@@ -82,5 +91,5 @@ const StepContent = ({ title, description }: StepContentProps) => {
   )
 }
 
-export { Stepper as TossStepper }
-export type { StepItem, StepperProps as TossStepperProps }
+export { Stepper }
+export type { StepItem, StepperProps }
