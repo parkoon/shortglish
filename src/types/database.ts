@@ -20,6 +20,7 @@ export type Database = {
           description: string | null
           duration: number
           id: string
+          status: 'published' | 'draft' | null
           thumbnail: string
           title: string
           updated_at: string | null
@@ -29,6 +30,7 @@ export type Database = {
           description?: string | null
           duration: number
           id: string
+          status?: 'published' | 'draft' | null
           thumbnail: string
           title: string
           updated_at?: string | null
@@ -38,6 +40,7 @@ export type Database = {
           description?: string | null
           duration?: number
           id?: string
+          status?: 'published' | 'draft' | null
           thumbnail?: string
           title?: string
           updated_at?: string | null

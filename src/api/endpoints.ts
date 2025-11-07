@@ -19,6 +19,7 @@ export const fetchVideos = async (): Promise<Video[]> => {
   const { data, error } = await supabase
     .from('video')
     .select('id, title, thumbnail, description, duration')
+    .eq('status', 'published') // published인 것만 조회
     .order('created_at', { ascending: false })
 
   if (error) {
@@ -37,6 +38,7 @@ export const fetchVideoById = async (videoId: string): Promise<Video> => {
     .from('video')
     .select('id, title, thumbnail, description, duration')
     .eq('id', videoId)
+    .eq('status', 'published') // published인 것만 조회
     .single()
 
   if (error) {
