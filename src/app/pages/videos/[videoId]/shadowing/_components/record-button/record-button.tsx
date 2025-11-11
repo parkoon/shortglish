@@ -3,8 +3,8 @@
  *
  * 3가지 상태를 가집니다:
  * 1. idle: 녹음 전 (버튼만 표시)
- * 2. recording: 녹음 중 (웨이브폼 애니메이션 + 녹음 버튼)
- * 3. recorded: 녹음 후 (진행 바 + 시간 표시 + 재생 버튼)
+ * 2. recording: 녹음 중 (웨이브폼 애니메이션 + 정지 버튼)
+ * 3. recorded: 녹음 후 (진행 바 + 시간 표시 + 재생/정지 버튼 + 다시 녹음 버튼)
  */
 
 import { IconPlayerPause, IconPlayerPlay } from '@tabler/icons-react'
@@ -12,9 +12,9 @@ import { useEffect, useRef, useState } from 'react'
 
 import { MotionButton } from '@/components/ui/motion-button'
 
-import { DurationDisplay } from './_sub-components/duration-display'
-import { ProgressBar } from './_sub-components/progress-bar'
-import { WaveformAnimation } from './_sub-components/waveform-animation'
+import { DurationDisplay } from './duration-display'
+import { ProgressBar } from './progress-bar'
+import { WaveformAnimation } from './waveform-animation'
 
 type RecordStatus = 'idle' | 'recording' | 'recorded'
 
@@ -33,6 +33,8 @@ export const RecordButton = ({ onRecordComplete }: RecordButtonProps) => {
   const [durationMs, setDurationMs] = useState(0)
   const [audioUrl, setAudioUrl] = useState<string | null>(null)
   const [isPlaying, setIsPlaying] = useState(false)
+  const [audioStream, setAudioStream] = useState<MediaStream | null>(null)
+  const [playbackProgress, setPlaybackProgress] = useState(0) // 0 ~ 1
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null)
   const audioChunksRef = useRef<Blob[]>([])
@@ -55,6 +57,7 @@ export const RecordButton = ({ onRecordComplete }: RecordButtonProps) => {
 
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+      setAudioStream(stream)
       const mediaRecorder = new MediaRecorder(stream)
       mediaRecorderRef.current = mediaRecorder
       audioChunksRef.current = []
@@ -72,6 +75,7 @@ export const RecordButton = ({ onRecordComplete }: RecordButtonProps) => {
 
         // 스트림 정리
         stream.getTracks().forEach(track => track.stop())
+        setAudioStream(null)
       }
 
       mediaRecorder.start()
@@ -90,30 +94,37 @@ export const RecordButton = ({ onRecordComplete }: RecordButtonProps) => {
       const duration = Date.now() - startTimeRef.current
       setDurationMs(duration)
       setStatus('recorded')
+      setPlaybackProgress(0)
       onRecordComplete?.()
     }
   }
 
   // 재생/정지 토글
   const handlePlayPause = () => {
-    if (!audioRef.current || !audioUrl) return
+    const audio = audioRef.current
+    if (!audio || !audioUrl) return
 
     if (isPlaying) {
-      audioRef.current.pause()
-      setIsPlaying(false)
+      audio.pause()
     } else {
-      audioRef.current.play()
-      setIsPlaying(true)
+      audio.play().catch(error => {
+        console.error('재생 실패:', error)
+      })
     }
   }
 
-  // 오디오 이벤트 핸들러
+  // 오디오 이벤트 리스너 설정
   useEffect(() => {
     const audio = audioRef.current
-    if (!audio) return
+    if (!audio || !audioUrl) {
+      return
+    }
 
-    const handleEnded = () => {
-      setIsPlaying(false)
+    const handleTimeUpdate = () => {
+      if (audio.duration && audio.duration > 0) {
+        const progress = audio.currentTime / audio.duration
+        setPlaybackProgress(progress)
+      }
     }
 
     const handlePlay = () => {
@@ -124,38 +135,43 @@ export const RecordButton = ({ onRecordComplete }: RecordButtonProps) => {
       setIsPlaying(false)
     }
 
-    audio.addEventListener('ended', handleEnded)
+    const handleEnded = () => {
+      setIsPlaying(false)
+    }
+
+    audio.addEventListener('timeupdate', handleTimeUpdate)
     audio.addEventListener('play', handlePlay)
     audio.addEventListener('pause', handlePause)
+    audio.addEventListener('ended', handleEnded)
 
     return () => {
-      audio.removeEventListener('ended', handleEnded)
+      audio.removeEventListener('timeupdate', handleTimeUpdate)
       audio.removeEventListener('play', handlePlay)
       audio.removeEventListener('pause', handlePause)
+      audio.removeEventListener('ended', handleEnded)
     }
   }, [audioUrl])
 
-  // 정리
+  // 컴포넌트 언마운트 시 정리
   useEffect(() => {
     return () => {
       if (audioUrl) {
         URL.revokeObjectURL(audioUrl)
       }
-      if (audioRef.current) {
-        audioRef.current.pause()
-        audioRef.current = null
+      if (audioStream) {
+        audioStream.getTracks().forEach(track => track.stop())
       }
     }
-  }, [audioUrl])
+  }, [audioUrl, audioStream])
 
   return (
     <div className="flex flex-col items-center gap-3">
       {/* 웨이브폼 애니메이션 또는 진행 바 */}
       <div className="w-full">
         {status === 'recording' ? (
-          <WaveformAnimation isActive={true} />
+          <WaveformAnimation isActive={true} audioStream={audioStream} />
         ) : status === 'recorded' ? (
-          <ProgressBar progress={1} />
+          <ProgressBar progress={playbackProgress} />
         ) : null}
       </div>
 
@@ -164,7 +180,7 @@ export const RecordButton = ({ onRecordComplete }: RecordButtonProps) => {
 
       {/* 버튼 영역 */}
       <div className="flex items-center justify-center gap-4">
-        {/* 녹음 버튼 */}
+        {/* idle 상태: 녹음 버튼 */}
         {status === 'idle' && (
           <MotionButton
             onClick={handleStartRecording}
@@ -175,6 +191,7 @@ export const RecordButton = ({ onRecordComplete }: RecordButtonProps) => {
           </MotionButton>
         )}
 
+        {/* recording 상태: 정지 버튼 */}
         {status === 'recording' && (
           <MotionButton
             onClick={handleStopRecording}
@@ -185,7 +202,7 @@ export const RecordButton = ({ onRecordComplete }: RecordButtonProps) => {
           </MotionButton>
         )}
 
-        {/* 녹음 후: 녹음 버튼 + 재생/정지 버튼 */}
+        {/* recorded 상태: 다시 녹음 버튼 + 재생/정지 버튼 */}
         {status === 'recorded' && (
           <>
             <MotionButton
@@ -206,10 +223,12 @@ export const RecordButton = ({ onRecordComplete }: RecordButtonProps) => {
                 <IconPlayerPlay size={16} className="text-gray-700 ml-0.5" />
               )}
             </MotionButton>
-            {audioUrl && <audio ref={audioRef} src={audioUrl} className="hidden" />}
           </>
         )}
       </div>
+
+      {/* 오디오 요소: audioUrl이 있을 때만 렌더링 */}
+      {audioUrl && <audio ref={audioRef} src={audioUrl} className="hidden" preload="metadata" />}
     </div>
   )
 }
