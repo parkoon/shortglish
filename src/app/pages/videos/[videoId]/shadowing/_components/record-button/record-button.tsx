@@ -8,15 +8,14 @@
  */
 
 import { IconPlayerPause, IconPlayerPlay } from '@tabler/icons-react'
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 
 import { MotionButton } from '@/components/ui/motion-button'
 
 import { DurationDisplay } from './duration-display'
 import { ProgressBar } from './progress-bar'
+import { usePlayback, useRecording } from './use-record-audio'
 import { WaveformAnimation } from './waveform-animation'
-
-type RecordStatus = 'idle' | 'recording' | 'recorded'
 
 interface RecordButtonProps {
   /**
@@ -29,150 +28,58 @@ interface RecordButtonProps {
  * 녹음 버튼 컴포넌트
  */
 export const RecordButton = ({ onRecordComplete }: RecordButtonProps) => {
-  const [status, setStatus] = useState<RecordStatus>('idle')
-  const [durationMs, setDurationMs] = useState(0)
-  const [audioUrl, setAudioUrl] = useState<string | null>(null)
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [audioStream, setAudioStream] = useState<MediaStream | null>(null)
-  const [playbackProgress, setPlaybackProgress] = useState(0) // 0 ~ 1
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
-  const mediaRecorderRef = useRef<MediaRecorder | null>(null)
-  const audioChunksRef = useRef<Blob[]>([])
-  const startTimeRef = useRef<number>(0)
-  const audioRef = useRef<HTMLAudioElement | null>(null)
+  const {
+    status,
+    durationMs,
+    audioUrl,
+    getAudioStream,
+    startRecording: startRecordingHook,
+    stopRecording,
+    cleanup,
+  } = useRecording(onRecordComplete)
 
-  // 녹음 시작
+  const { isPlaying, playbackProgress, playPause, stop, audioRef } = usePlayback(audioUrl)
+
+  /**
+   * 녹음 시작 핸들러
+   * 재생 중이면 먼저 정지하고 녹음을 시작합니다.
+   */
   const handleStartRecording = async () => {
     // 재생 중이면 정지
-    if (audioRef.current && isPlaying) {
-      audioRef.current.pause()
-      setIsPlaying(false)
+    if (isPlaying) {
+      stop()
     }
 
-    // 기존 오디오 URL 정리
-    if (audioUrl) {
-      URL.revokeObjectURL(audioUrl)
-      setAudioUrl(null)
-    }
+    // 기존 녹음 정리
+    cleanup()
 
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
-      setAudioStream(stream)
-      const mediaRecorder = new MediaRecorder(stream)
-      mediaRecorderRef.current = mediaRecorder
-      audioChunksRef.current = []
-
-      mediaRecorder.ondataavailable = event => {
-        if (event.data.size > 0) {
-          audioChunksRef.current.push(event.data)
-        }
-      }
-
-      mediaRecorder.onstop = () => {
-        const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' })
-        const url = URL.createObjectURL(audioBlob)
-        setAudioUrl(url)
-
-        // 스트림 정리
-        stream.getTracks().forEach(track => track.stop())
-        setAudioStream(null)
-      }
-
-      mediaRecorder.start()
-      startTimeRef.current = Date.now()
-      setStatus('recording')
+      await startRecordingHook()
+      setErrorMessage(null)
     } catch (error) {
+      const message = error instanceof Error ? error.message : '마이크 권한이 필요합니다.'
+      setErrorMessage(message)
       console.error('녹음 시작 실패:', error)
-      alert('마이크 권한이 필요합니다.')
     }
   }
-
-  // 녹음 중지
-  const handleStopRecording = () => {
-    if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
-      mediaRecorderRef.current.stop()
-      const duration = Date.now() - startTimeRef.current
-      setDurationMs(duration)
-      setStatus('recorded')
-      setPlaybackProgress(0)
-      onRecordComplete?.()
-    }
-  }
-
-  // 재생/정지 토글
-  const handlePlayPause = () => {
-    const audio = audioRef.current
-    if (!audio || !audioUrl) return
-
-    if (isPlaying) {
-      audio.pause()
-    } else {
-      audio.play().catch(error => {
-        console.error('재생 실패:', error)
-      })
-    }
-  }
-
-  // 오디오 이벤트 리스너 설정
-  useEffect(() => {
-    const audio = audioRef.current
-    if (!audio || !audioUrl) {
-      return
-    }
-
-    const handleTimeUpdate = () => {
-      if (audio.duration && audio.duration > 0) {
-        const progress = audio.currentTime / audio.duration
-        setPlaybackProgress(progress)
-      }
-    }
-
-    const handlePlay = () => {
-      setIsPlaying(true)
-    }
-
-    const handlePause = () => {
-      setIsPlaying(false)
-    }
-
-    const handleEnded = () => {
-      setIsPlaying(false)
-    }
-
-    audio.addEventListener('timeupdate', handleTimeUpdate)
-    audio.addEventListener('play', handlePlay)
-    audio.addEventListener('pause', handlePause)
-    audio.addEventListener('ended', handleEnded)
-
-    return () => {
-      audio.removeEventListener('timeupdate', handleTimeUpdate)
-      audio.removeEventListener('play', handlePlay)
-      audio.removeEventListener('pause', handlePause)
-      audio.removeEventListener('ended', handleEnded)
-    }
-  }, [audioUrl])
-
-  // 컴포넌트 언마운트 시 정리
-  useEffect(() => {
-    return () => {
-      if (audioUrl) {
-        URL.revokeObjectURL(audioUrl)
-      }
-      if (audioStream) {
-        audioStream.getTracks().forEach(track => track.stop())
-      }
-    }
-  }, [audioUrl, audioStream])
 
   return (
     <div className="flex flex-col items-center gap-3">
+      {/* 에러 메시지 */}
+      {errorMessage && (
+        <div className="text-sm text-red-500 text-center px-4 py-2 bg-red-50 rounded-md">
+          {errorMessage}
+        </div>
+      )}
+
       {/* 웨이브폼 애니메이션 또는 진행 바 */}
       <div className="w-full">
-        {status === 'recording' ? (
-          <WaveformAnimation isActive={true} audioStream={audioStream} />
-        ) : status === 'recorded' ? (
-          <ProgressBar progress={playbackProgress} />
-        ) : null}
+        {status === 'recording' && (
+          <WaveformAnimation isActive={true} audioStream={getAudioStream()} />
+        )}
+        {status === 'recorded' && <ProgressBar progress={playbackProgress} />}
       </div>
 
       {/* 녹음 후 시간 표시 */}
@@ -194,7 +101,7 @@ export const RecordButton = ({ onRecordComplete }: RecordButtonProps) => {
         {/* recording 상태: 정지 버튼 */}
         {status === 'recording' && (
           <MotionButton
-            onClick={handleStopRecording}
+            onClick={stopRecording}
             whileTap={{ scale: 0.9 }}
             className="w-16 h-16 rounded-full bg-red-500 border-2 border-gray-300 flex items-center justify-center"
           >
@@ -213,7 +120,7 @@ export const RecordButton = ({ onRecordComplete }: RecordButtonProps) => {
               <div className="w-6 h-6 bg-red-500 rounded-full" />
             </MotionButton>
             <MotionButton
-              onClick={handlePlayPause}
+              onClick={playPause}
               whileTap={{ scale: 0.9 }}
               className="w-12 h-12 rounded-full bg-white border-2 border-gray-300 hover:border-gray-400 flex items-center justify-center"
             >
