@@ -9,7 +9,10 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "preview": "vite preview",
     "format": "prettier --write .",
-    "deploy": "ait deploy"
+    "deploy": "ait deploy",
+    "dev:web": "vite",
+    "build:web": "vite build",
+    "preview:web": "vite preview"
   },
   "dependencies": {
     "@apps-in-toss/web-framework": "^1.4.2",
