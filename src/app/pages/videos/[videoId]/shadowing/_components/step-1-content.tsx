@@ -28,7 +28,7 @@ export const Step1Content = ({ isActive }: Step1ContentProps) => {
 
   return (
     <>
-      <div className="bg-gray-50 rounded-xl p-4 mb-3 min-h-[100px] flex items-center justify-center">
+      <div className="rounded-xl mb-2 py-4 flex items-center justify-center">
         <div className="flex items-center gap-2 flex-wrap">
           {STEP_1_CONTENT.stressWords.map((word, index) => {
             const isHighlighted = highlightedIndex === index
@@ -50,7 +50,7 @@ export const Step1Content = ({ isActive }: Step1ContentProps) => {
           })}
         </div>
       </div>
-      <div className="bg-white border border-gray-200 rounded-xl p-3 mb-3">
+      <div className="bg-gray-50  rounded-xl p-3">
         <div className="inline-block bg-blue-50 text-blue-500 px-2 py-0.5 rounded-md text-xs font-semibold mb-1.5">
           TIP
         </div>

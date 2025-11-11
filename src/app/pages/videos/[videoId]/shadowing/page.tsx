@@ -174,20 +174,17 @@ const ShadowingPage = () => {
   return (
     <PageLayout className="pb-20">
       {/* 헤더 - 유튜브 영상 및 자막 */}
-      <div className="sticky top-0 z-10 bg-white">
-        <section className="aspect-video bg-gray-800 flex items-center justify-center text-white text-2xl font-bold">
-          비디오 영역
-        </section>
-        <div className="bg-white border-b border-gray-200 px-4 py-2 text-gray-600">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi in, quam cum iusto
-          assumenda vero ipsum, est,
-        </div>
+      <section className="aspect-video bg-gray-800 flex items-center justify-center text-white text-xl font-semibold">
+        비디오 영역
+      </section>
+      <section className="h-[56px] bg-gray-600 flex items-center justify-center text-white text-xl font-semibold">
+        컨트롤러 영역
+      </section>
+      <div className="bg-white border-b border-gray-200 px-4 py-2 text-gray-600 mb-2">
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi in, quam cum iusto assumenda
+        vero ipsum, est,
       </div>
-
-      {/* 메인 콘텐츠 */}
-      <div className="px-3 py-2 overflow-y-auto">
-        <ShadowingAccordion steps={steps} currentStep={currentStep} />
-      </div>
+      <ShadowingAccordion steps={steps} currentStep={currentStep} />
 
       {/* 하단 버튼 */}
       <div className="fixed bottom-0 left-0 right-0 bg-gray-100 p-3">

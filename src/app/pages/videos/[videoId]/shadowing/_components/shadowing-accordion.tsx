@@ -4,6 +4,7 @@
  */
 
 import { IconCheck } from '@tabler/icons-react'
+import { useEffect, useRef } from 'react'
 
 import { Accordion, AccordionContent, AccordionItem } from '@/components/ui/accordion'
 import { cn } from '@/lib/utils'
@@ -23,6 +24,29 @@ type ShadowingAccordionProps = {
 
 export const ShadowingAccordion = ({ steps, currentStep }: ShadowingAccordionProps) => {
   const currentValue = `step-${currentStep}`
+  const itemRefs = useRef<Map<number, HTMLDivElement>>(new Map())
+
+  // currentStep이 변경될 때 해당 섹션으로 스크롤
+  useEffect(() => {
+    const currentItemRef = itemRefs.current.get(currentStep)
+    if (currentItemRef) {
+      // 약간의 딜레이를 주어 아코디언이 열린 후 스크롤
+      setTimeout(() => {
+        currentItemRef.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        })
+      }, 100)
+    }
+  }, [currentStep])
+
+  const setItemRef = (step: number, element: HTMLDivElement | null) => {
+    if (element) {
+      itemRefs.current.set(step, element)
+    } else {
+      itemRefs.current.delete(step)
+    }
+  }
 
   return (
     <Accordion
@@ -41,10 +65,13 @@ export const ShadowingAccordion = ({ steps, currentStep }: ShadowingAccordionPro
           <AccordionItem
             key={step.step}
             value={stepValue}
-            className="bg-white  rounded-xl overflow-hidden transition-all border-b-0"
+            className="bg-white  overflow-hidden transition-all border-b-0"
           >
             {/* 헤더 (AccordionTrigger 대신 일반 div 사용) */}
-            <div className="p-3 flex items-center gap-3 relative bg-white">
+            <div
+              ref={el => setItemRef(step.step, el)}
+              className="p-3 flex items-center gap-3 relative bg-white"
+            >
               {/* 단계 원 */}
               <div
                 className={cn(
