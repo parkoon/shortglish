@@ -9,6 +9,8 @@ export const queryKeys = {
   videos: {
     all: ['videos'] as const,
     detail: (videoId: string) => ['videos', 'detail', videoId] as const,
+    infinite: (category?: string) =>
+      category ? (['videos', 'infinite', category] as const) : (['videos', 'infinite'] as const),
   },
   subtitles: {
     all: ['subtitles'] as const,

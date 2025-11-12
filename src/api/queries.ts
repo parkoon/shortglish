@@ -4,7 +4,7 @@
  * 모든 useQuery 훅을 도메인별로 관리
  */
 
-import { useQuery } from '@tanstack/react-query'
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
 
 import {
   fetchQuizByDate,
@@ -23,12 +23,26 @@ const ONE_HOUR = 1000 * 60 * 60
 // ============================================
 
 /**
- * 비디오 목록 조회 hook
+ * 비디오 목록 조회 hook (기존 - 모든 데이터 한 번에)
+ * @deprecated infinite scroll을 위해 useInfiniteVideosQuery 사용 권장
  */
 export const useVideosQuery = () => {
   return useQuery({
     queryKey: queryKeys.videos.all,
-    queryFn: fetchVideos,
+    queryFn: () => fetchVideos().then(result => result.data),
+  })
+}
+
+/**
+ * 비디오 목록 조회 hook (infinite scroll)
+ * @param category - 카테고리 필터 (향후 확장용)
+ */
+export const useInfiniteVideosQuery = (category?: string) => {
+  return useInfiniteQuery({
+    queryKey: queryKeys.videos.infinite(category),
+    queryFn: ({ pageParam }: { pageParam: string | undefined }) => fetchVideos(pageParam, 10),
+    initialPageParam: undefined as string | undefined,
+    getNextPageParam: lastPage => lastPage.nextCursor,
   })
 }
 

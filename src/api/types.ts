@@ -15,6 +15,7 @@ export type Video = {
   thumbnail: string
   description: string | null
   duration: number
+  createdAt: string // created_at이 camelCase로 변환됨
 }
 
 export type Subtitle = {

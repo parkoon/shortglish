@@ -1,7 +1,8 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
+import { useInView } from 'react-intersection-observer'
 import { useNavigate } from 'react-router'
 
-import { useVideosQuery, type Video } from '@/api'
+import { useInfiniteVideosQuery, type Video } from '@/api'
 import { paths } from '@/config/paths'
 import { analytics } from '@/lib/analytics'
 import { formatDuration } from '@/lib/utils'
@@ -10,21 +11,33 @@ import { getYouTubeThumbnailUrl } from '@/utils/thumbnail'
 import { DEFAULT_VIDEO_CATEGORY, useVideoCategoryFilter } from '../hooks/use-video-category-filter'
 
 export const VideoFeeds = () => {
-  const { data: videos = [], isLoading } = useVideosQuery()
   const { currentCategory } = useVideoCategoryFilter()
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError } =
+    useInfiniteVideosQuery(currentCategory === DEFAULT_VIDEO_CATEGORY ? undefined : currentCategory)
 
+  // 모든 페이지의 비디오를 평탄화
+  const videos = useMemo(() => {
+    return data?.pages.flatMap(page => page.data) ?? []
+  }, [data])
+
+  console.log('🚀 ~ VideoFeeds ~ hasNextPage:', hasNextPage, videos.length > 0)
   // category 필터링 (현재 Video 타입에 categories 필드가 없어서 일단 전체 표시)
   // TODO: Video 타입에 categories 필드 추가 후 필터링 로직 활성화
-  const filteredVideos = useMemo(() => {
-    if (currentCategory === DEFAULT_VIDEO_CATEGORY) {
-      return videos
+
+  // 하단 감지용 sentinel 요소
+  const { ref, inView } = useInView({
+    threshold: 0.1, // 화면의 10% 지점에서 로드
+    triggerOnce: false, // 여러 번 트리거 가능하도록
+  })
+
+  // 하단에 도달하면 다음 페이지 로드
+  useEffect(() => {
+    if (inView && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage()
     }
+  }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage])
 
-    // Video 타입에 categories 필드가 추가되면 아래 주석 해제
-    // return videos.filter(video => video.categories?.includes(currentCategory))
-    return videos
-  }, [videos, currentCategory])
-
+  // 초기 로딩
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -33,7 +46,17 @@ export const VideoFeeds = () => {
     )
   }
 
-  if (filteredVideos.length === 0) {
+  // 에러 상태
+  if (isError) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <p className="text-gray-500">비디오를 불러오는 중 오류가 발생했습니다.</p>
+      </div>
+    )
+  }
+
+  // 데이터가 없을 때
+  if (videos.length === 0) {
     return (
       <div className="flex items-center justify-center h-64">
         <p className="text-gray-500">비디오가 없습니다.</p>
@@ -43,9 +66,19 @@ export const VideoFeeds = () => {
 
   return (
     <div className="flex flex-col gap-8 pb-6">
-      {filteredVideos.map(video => (
+      {videos.map(video => (
         <VideoCard key={video.id} video={video} />
       ))}
+
+      {/* 하단 감지용 sentinel 요소 */}
+      <div ref={ref} className="h-20 flex items-center justify-center bg-red-500">
+        {isFetchingNextPage && (
+          <p className="text-gray-500 text-sm">더 많은 비디오를 불러오는 중...</p>
+        )}
+        {!hasNextPage && videos.length > 0 && (
+          <p className="text-gray-400 text-sm">모든 비디오를 불러왔습니다.</p>
+        )}
+      </div>
     </div>
   )
 }

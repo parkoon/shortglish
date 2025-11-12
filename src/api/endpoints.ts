@@ -6,27 +6,57 @@
 import { supabase } from '@/lib/supabase'
 
 import type { Subtitle, TodayQuiz, Video, VideoCategory } from './types'
-import { arrayToCamel } from './utils'
+import { arrayToCamel, objectToCamel } from './utils'
 
 // ============================================
 // Video API
 // ============================================
 
 /**
- * 비디오 목록 조회
+ * 비디오 목록 조회 (cursor 기반 페이지네이션)
+ * @param cursor - 마지막 비디오의 createdAt (ISO string). 첫 페이지는 undefined
+ * @param limit - 가져올 비디오 개수 (기본값: 10)
+ * @returns 비디오 목록과 다음 cursor
  */
-export const fetchVideos = async (): Promise<Video[]> => {
-  const { data, error } = await supabase
+export const fetchVideos = async (
+  cursor?: string,
+  limit: number = 10,
+): Promise<{ data: Video[]; nextCursor: string | null }> => {
+  let query = supabase
     .from('video')
-    .select('id, title, thumbnail, description, duration')
-    .eq('status', 'published') // published인 것만 조회
+    .select('id, title, thumbnail, description, duration, created_at')
+    .eq('status', 'published')
     .order('created_at', { ascending: false })
+    .limit(limit + 1) // 다음 페이지 존재 여부 확인을 위해 +1
+
+  // cursor가 있으면 해당 시점 이전의 데이터만 조회
+  if (cursor) {
+    query = query.lt('created_at', cursor)
+  }
+
+  const { data, error } = await query
+  console.log('🚀 ~ fetchVideos ~ data:', data)
 
   if (error) {
     throw new Error(`Failed to fetch videos: ${error.message}`)
   }
 
-  return data
+  // DB의 snake_case → 도메인의 camelCase 자동 변환
+  const camelData = arrayToCamel<Video>(data)
+
+  // 다음 페이지 존재 여부 확인
+  const hasNextPage = camelData.length > limit
+  const videos = hasNextPage ? camelData.slice(0, limit) : camelData
+  console.log('🚀 ~ fetchVideos ~ videos:', videos)
+
+  // 다음 cursor는 마지막 비디오의 createdAt
+  const nextCursor = videos.length > 0 ? videos[videos.length - 1].createdAt : null
+  console.log('🚀 ~ fetchVideos ~ nextCursor:', nextCursor)
+
+  return {
+    data: videos,
+    nextCursor: hasNextPage ? nextCursor : null,
+  }
 }
 
 /**
@@ -36,7 +66,7 @@ export const fetchVideos = async (): Promise<Video[]> => {
 export const fetchVideoById = async (videoId: string): Promise<Video> => {
   const { data, error } = await supabase
     .from('video')
-    .select('id, title, thumbnail, description, duration')
+    .select('id, title, thumbnail, description, duration, created_at')
     .eq('id', videoId)
     .eq('status', 'published') // published인 것만 조회
     .single()
@@ -45,7 +75,8 @@ export const fetchVideoById = async (videoId: string): Promise<Video> => {
     throw new Error(`Failed to fetch video: ${error.message}`)
   }
 
-  return data
+  // DB의 snake_case → 도메인의 camelCase 자동 변환
+  return objectToCamel<Video>(data)
 }
 
 /**
