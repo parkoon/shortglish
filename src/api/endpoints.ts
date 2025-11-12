@@ -13,15 +13,27 @@ import { arrayToCamel, objectToCamel } from './utils'
 // ============================================
 
 /**
+ * fetchVideos 함수 파라미터
+ */
+export type FetchVideosParams = {
+  cursor?: VideoCursor
+  limit?: number
+  categoryId?: string
+}
+
+/**
  * 비디오 목록 조회 (cursor 기반 페이지네이션)
- * @param cursor - 마지막 비디오의 { createdAt, id }. 첫 페이지는 undefined
- * @param limit - 가져올 비디오 개수 (기본값: 10)
+ * @param params - 쿼리 파라미터
+ * @param params.cursor - 마지막 비디오의 { createdAt, id }
+ * @param params.limit - 가져올 비디오 개수 (기본값: 10)
+ * @param params.categoryId - 카테고리 필터 (선택사항)
  * @returns 비디오 목록과 다음 cursor
  */
-export const fetchVideos = async (
-  cursor?: VideoCursor,
-  limit: number = 10,
-): Promise<{ data: Video[]; nextCursor: VideoCursor | null }> => {
+export const fetchVideos = async ({
+  cursor,
+  limit = 10,
+  categoryId,
+}: FetchVideosParams = {}): Promise<{ data: Video[]; nextCursor: VideoCursor | null }> => {
   let query = supabase
     .from('video')
     .select('id, title, thumbnail, description, duration, created_at')
@@ -29,6 +41,11 @@ export const fetchVideos = async (
     .order('created_at', { ascending: false })
     .order('id', { ascending: false }) // 같은 created_at일 때 id로 정렬
     .limit(limit + 1) // 다음 페이지 존재 여부 확인을 위해 +1
+
+  // 카테고리 필터링
+  if (categoryId) {
+    query = query.eq('category_id', categoryId)
+  }
 
   // cursor가 있으면 복합 조건 적용
   // (created_at < cursor.createdAt) OR (created_at = cursor.createdAt AND id < cursor.id)

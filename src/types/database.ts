@@ -10,6 +10,7 @@ export type Database = {
     Tables: {
       video: {
         Row: {
+          category_id: string | null
           created_at: string | null
           description: string | null
           duration: number
@@ -20,6 +21,7 @@ export type Database = {
           updated_at: string | null
         }
         Insert: {
+          category_id?: string | null
           created_at?: string | null
           description?: string | null
           duration: number
@@ -30,6 +32,7 @@ export type Database = {
           updated_at?: string | null
         }
         Update: {
+          category_id?: string | null
           created_at?: string | null
           description?: string | null
           duration?: number
@@ -39,7 +42,15 @@ export type Database = {
           title?: string
           updated_at?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: 'video_category_id_fkey'
+            columns: ['category_id']
+            isOneToOne: false
+            referencedRelation: 'video_category'
+            referencedColumns: ['id']
+          },
+        ]
       }
       video_subtitle: {
         Row: {

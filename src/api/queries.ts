@@ -30,18 +30,23 @@ const ONE_HOUR = 1000 * 60 * 60
 export const useVideosQuery = () => {
   return useQuery({
     queryKey: queryKeys.videos.all,
-    queryFn: () => fetchVideos().then(result => result.data),
+    queryFn: () => fetchVideos({}).then(result => result.data),
   })
 }
 
 /**
  * 비디오 목록 조회 hook (infinite scroll)
- * @param category - 카테고리 필터 (향후 확장용)
+ * @param category - 카테고리 필터
  */
-export const useInfiniteVideosQuery = (category?: string) => {
+export const useInfiniteVideosQuery = (categoryId?: string) => {
   return useInfiniteQuery({
-    queryKey: queryKeys.videos.infinite(category),
-    queryFn: ({ pageParam }: { pageParam: VideoCursor | undefined }) => fetchVideos(pageParam, 2),
+    queryKey: queryKeys.videos.infinite(categoryId),
+    queryFn: ({ pageParam }: { pageParam: VideoCursor | undefined }) =>
+      fetchVideos({
+        cursor: pageParam,
+        limit: 10,
+        categoryId,
+      }),
     initialPageParam: undefined as VideoCursor | undefined,
     getNextPageParam: lastPage => lastPage.nextCursor,
   })
