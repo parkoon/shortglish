@@ -52,7 +52,6 @@ const STEPS: StepInfo[] = [
 
 const EntryPage = () => {
   const { videoId } = useParams<{ videoId: string }>()
-  console.log('🚀 ~ EntryPage ~ videoId:', videoId)
   const navigate = useNavigate()
   const modal = useModal()
 
