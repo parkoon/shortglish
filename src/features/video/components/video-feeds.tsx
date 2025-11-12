@@ -2,7 +2,7 @@ import { useEffect, useMemo } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { useNavigate } from 'react-router'
 
-import { useInfiniteVideosQuery, type Video } from '@/api'
+import { useInfiniteVideosQuery, useVideoCategoriesQuery, type Video } from '@/api'
 import { Spinner } from '@/components/ui/spinner'
 import { paths } from '@/config/paths'
 import { analytics } from '@/lib/analytics'
@@ -10,6 +10,7 @@ import { formatDuration } from '@/lib/utils'
 import { getYouTubeThumbnailUrl } from '@/utils/thumbnail'
 
 import { DEFAULT_VIDEO_CATEGORY, useVideoCategoryFilter } from '../hooks/use-video-category-filter'
+import { getDifficultyInfo } from '../utils/difficulty'
 
 export const VideoFeeds = () => {
   const { currentCategory } = useVideoCategoryFilter()
@@ -81,6 +82,7 @@ type VideoCardProps = {
 
 export const VideoCard = ({ video }: VideoCardProps) => {
   const navigate = useNavigate()
+  const { data: categories = [] } = useVideoCategoriesQuery()
 
   const handleClick = () => {
     // GA 이벤트: 비디오 클릭
@@ -91,6 +93,13 @@ export const VideoCard = ({ video }: VideoCardProps) => {
 
     navigate(paths.videos.entry.getHref(video.id))
   }
+
+  const difficultyInfo = getDifficultyInfo(video.difficulty)
+
+  // 카테고리 정보 매칭
+  const category = video.categoryId
+    ? categories.find(cat => Number(cat.id) === video.categoryId)
+    : null
 
   return (
     <div className="flex flex-col" onClick={handleClick}>
@@ -106,11 +115,23 @@ export const VideoCard = ({ video }: VideoCardProps) => {
         <div className="absolute bottom-2 right-2 bg-black/80 text-white text-xs px-1 py-0.5 rounded">
           {formatDuration(video.duration)}
         </div>
-        {/* TODO. 나중에 키 작업할 때 살리기 */}
-        {/* <div className="flex items-center gap-1 absolute top-2 left-2 bg-gray-100 text-xs px-2 py-0.5 rounded  text-gray-900">
-          <IconKeyFilled size={14} className="text-yellow-500" />
-          <span className="text-sm font-bold">1</span>
-        </div> */}
+        {/* Difficulty & Category 배지 - 좌측 상단 가로 정렬 */}
+        {(difficultyInfo || category) && (
+          <div className="absolute top-2 left-2 flex items-center gap-1.5">
+            {difficultyInfo && (
+              <div
+                className={`${difficultyInfo.color} text-white text-xs font-semibold px-2 py-1 rounded border border-white`}
+              >
+                {difficultyInfo.label}
+              </div>
+            )}
+            {category && (
+              <div className="bg-gray-800 text-white text-xs px-2 py-1 rounded font-semibold border border-white">
+                {category.name}
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       <div className="mt-3 flex flex-col gap-1 px-4">

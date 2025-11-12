@@ -10,7 +10,7 @@ import {
 import { useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router'
 
-import { useVideoDetailQuery } from '@/api'
+import { useVideoCategoriesQuery, useVideoDetailQuery } from '@/api'
 import { CTALayout } from '@/components/layouts/cta-layout'
 import { PageLayout } from '@/components/layouts/page-layout'
 import { MotionButton } from '@/components/ui/motion-button'
@@ -18,6 +18,7 @@ import { Stepper } from '@/components/ui/stepper'
 import { paths } from '@/config/paths'
 import { useDialogueCompletionStore } from '@/features/video/store/dialogue-completion-store'
 import { useVideoProgressStore } from '@/features/video/store/video-progress-store'
+import { getDifficultyInfo } from '@/features/video/utils/difficulty'
 import { analytics } from '@/lib/analytics'
 import { useModal } from '@/stores/modal-store'
 
@@ -55,6 +56,7 @@ const EntryPage = () => {
   const modal = useModal()
 
   const { data: videoDetail, isLoading, isError } = useVideoDetailQuery(videoId)
+  const { data: categories = [] } = useVideoCategoriesQuery()
 
   const { isStepCompleted, canAccessStep, resetVideoProgress } = useVideoProgressStore()
   const { clearVideo } = useDialogueCompletionStore()
@@ -168,6 +170,13 @@ const EntryPage = () => {
 
   const isAllCompleted = nextStep.type === 'completed'
 
+  const difficultyInfo = getDifficultyInfo(videoDetail?.difficulty ?? null)
+
+  // 카테고리 정보 매칭
+  const category = videoDetail?.categoryId
+    ? categories.find(cat => Number(cat.id) === videoDetail.categoryId)
+    : null
+
   const content = (
     <>
       {/* 썸네일 */}
@@ -198,6 +207,23 @@ const EntryPage = () => {
 
       {/* 제목 */}
       <div className="px-4 py-6 mb-4">
+        {/* Difficulty & Category 배지 - 제목 위 */}
+        {(difficultyInfo || category) && (
+          <div className="flex items-center gap-1.5 mb-1">
+            {difficultyInfo && (
+              <div
+                className={`${difficultyInfo.color} text-white text-xs font-semibold px-2 py-1 rounded`}
+              >
+                {difficultyInfo.label}
+              </div>
+            )}
+            {category && (
+              <div className="bg-gray-800 text-white text-xs px-2 py-1 rounded font-semibold">
+                {category.name}
+              </div>
+            )}
+          </div>
+        )}
         <h1 className="text-xl font-bold text-gray-900 leading-tight">{videoDetail?.title}</h1>
         <p className="text-sm text-gray-500 leading-tight">{videoDetail?.description}</p>
       </div>

@@ -15,6 +15,8 @@ export type Video = {
   thumbnail: string
   description: string | null
   duration: number
+  difficulty: number | null // 1~5 단계
+  categoryId: number | null
   createdAt: string // created_at이 camelCase로 변환됨
 }
 

@@ -36,7 +36,7 @@ export const fetchVideos = async ({
 }: FetchVideosParams = {}): Promise<{ data: Video[]; nextCursor: VideoCursor | null }> => {
   let query = supabase
     .from('video')
-    .select('id, title, thumbnail, description, duration, created_at, difficulty')
+    .select('id, title, thumbnail, description, duration, created_at, difficulty, category_id')
     .eq('status', 'published')
     .order('created_at', { ascending: false })
     .order('id', { ascending: false }) // 같은 created_at일 때 id로 정렬
@@ -89,7 +89,7 @@ export const fetchVideos = async ({
 export const fetchVideoById = async (videoId: string): Promise<Video> => {
   const { data, error } = await supabase
     .from('video')
-    .select('id, title, thumbnail, description, duration, created_at')
+    .select('id, title, thumbnail, description, duration, created_at, difficulty, category_id')
     .eq('id', videoId)
     .eq('status', 'published') // published인 것만 조회
     .single()
