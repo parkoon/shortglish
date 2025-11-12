@@ -52,6 +52,7 @@ const STEPS: StepInfo[] = [
 
 const EntryPage = () => {
   const { videoId } = useParams<{ videoId: string }>()
+  console.log('🚀 ~ EntryPage ~ videoId:', videoId)
   const navigate = useNavigate()
   const modal = useModal()
 
@@ -75,7 +76,7 @@ const EntryPage = () => {
     return (
       <PageLayout>
         <div className="flex items-center justify-center h-64">
-          <p className="text-gray-500">비디오를 찾을 수 없습니다.</p>
+          <p className="text-gray-500">비디오를 찾을 수 없습니다zz.</p>
         </div>
       </PageLayout>
     )
@@ -84,15 +85,20 @@ const EntryPage = () => {
   if (isLoading) {
     return (
       <PageLayout>
-        <div className="flex items-center justify-center h-64">
-          <p className="text-gray-500">로딩 중...</p>
+        {/* Skeleton UI */}
+        <div className="flex flex-col gap-4">
+          <div className="w-full aspect-video bg-gray-200 rounded" />
+          <div className="w-full h-4 bg-gray-200 rounded" />
+          <div className="w-full h-4 bg-gray-200 rounded" />
+          <div className="w-full h-4 bg-gray-200 rounded" />
+          <div className="w-full h-4 bg-gray-200 rounded" />
         </div>
       </PageLayout>
     )
   }
 
   // 에러 처리: draft 비디오나 존재하지 않는 비디오 접근 시
-  if (isError || !videoDetail) {
+  if (isError) {
     return (
       <PageLayout>
         <div className="flex items-center justify-center h-64">
