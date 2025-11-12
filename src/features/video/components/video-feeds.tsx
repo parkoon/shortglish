@@ -3,6 +3,7 @@ import { useInView } from 'react-intersection-observer'
 import { useNavigate } from 'react-router'
 
 import { useInfiniteVideosQuery, type Video } from '@/api'
+import { Spinner } from '@/components/ui/spinner'
 import { paths } from '@/config/paths'
 import { analytics } from '@/lib/analytics'
 import { formatDuration } from '@/lib/utils'
@@ -19,10 +20,6 @@ export const VideoFeeds = () => {
   const videos = useMemo(() => {
     return data?.pages.flatMap(page => page.data) ?? []
   }, [data])
-
-  console.log('🚀 ~ VideoFeeds ~ hasNextPage:', hasNextPage, videos.length > 0)
-  // category 필터링 (현재 Video 타입에 categories 필드가 없어서 일단 전체 표시)
-  // TODO: Video 타입에 categories 필드 추가 후 필터링 로직 활성화
 
   // 하단 감지용 sentinel 요소
   const { ref, inView } = useInView({
@@ -65,19 +62,14 @@ export const VideoFeeds = () => {
   }
 
   return (
-    <div className="flex flex-col gap-8 pb-6">
+    <div className="flex flex-col gap-8">
       {videos.map(video => (
         <VideoCard key={video.id} video={video} />
       ))}
 
       {/* 하단 감지용 sentinel 요소 */}
-      <div ref={ref} className="h-20 flex items-center justify-center bg-red-500">
-        {isFetchingNextPage && (
-          <p className="text-gray-500 text-sm">더 많은 비디오를 불러오는 중...</p>
-        )}
-        {!hasNextPage && videos.length > 0 && (
-          <p className="text-gray-400 text-sm">모든 비디오를 불러왔습니다.</p>
-        )}
+      <div ref={ref} className="flex items-center justify-center py-4">
+        {isFetchingNextPage && <Spinner size="sm" />}
       </div>
     </div>
   )

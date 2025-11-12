@@ -18,6 +18,15 @@ export type Video = {
   createdAt: string // created_at이 camelCase로 변환됨
 }
 
+/**
+ * Video Cursor (복합 커서)
+ * created_at이 동일한 비디오들을 구분하기 위해 id도 함께 사용
+ */
+export type VideoCursor = {
+  createdAt: string
+  id: string
+}
+
 export type Subtitle = {
   index: number
   startTime: number

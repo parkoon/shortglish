@@ -15,6 +15,7 @@ import {
   fetchVideos,
 } from './endpoints'
 import { queryKeys } from './query-keys'
+import type { VideoCursor } from './types'
 
 const ONE_HOUR = 1000 * 60 * 60
 
@@ -40,8 +41,8 @@ export const useVideosQuery = () => {
 export const useInfiniteVideosQuery = (category?: string) => {
   return useInfiniteQuery({
     queryKey: queryKeys.videos.infinite(category),
-    queryFn: ({ pageParam }: { pageParam: string | undefined }) => fetchVideos(pageParam, 10),
-    initialPageParam: undefined as string | undefined,
+    queryFn: ({ pageParam }: { pageParam: VideoCursor | undefined }) => fetchVideos(pageParam, 2),
+    initialPageParam: undefined as VideoCursor | undefined,
     getNextPageParam: lastPage => lastPage.nextCursor,
   })
 }
