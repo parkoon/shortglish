@@ -32,6 +32,15 @@ export type Category = {
   active?: boolean
 }
 
+/**
+ * Video Category (DB에서 가져온 형태)
+ */
+export type VideoCategory = {
+  id: string
+  name: string
+  order?: number | null
+}
+
 // ============================================
 // Quiz Domain
 // ============================================

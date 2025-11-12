@@ -5,7 +5,7 @@
 
 import { supabase } from '@/lib/supabase'
 
-import type { Subtitle, TodayQuiz, Video } from './types'
+import type { Subtitle, TodayQuiz, Video, VideoCategory } from './types'
 import { arrayToCamel } from './utils'
 
 // ============================================
@@ -46,6 +46,23 @@ export const fetchVideoById = async (videoId: string): Promise<Video> => {
   }
 
   return data
+}
+
+/**
+ * 비디오 카테고리 목록 조회
+ */
+export const fetchVideoCategories = async (): Promise<VideoCategory[]> => {
+  const { data, error } = await supabase
+    .from('video_category')
+    .select('id, name, order')
+    .order('order', { ascending: true, nullsFirst: false })
+
+  if (error) {
+    throw new Error(`Failed to fetch video categories: ${error.message}`)
+  }
+
+  // DB의 snake_case → 도메인의 camelCase 자동 변환
+  return arrayToCamel<VideoCategory>(data)
 }
 
 // ============================================

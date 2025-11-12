@@ -11,9 +11,12 @@ import {
   fetchSubtitles,
   fetchTodayQuiz,
   fetchVideoById,
+  fetchVideoCategories,
   fetchVideos,
 } from './endpoints'
 import { queryKeys } from './query-keys'
+
+const ONE_HOUR = 1000 * 60 * 60
 
 // ============================================
 // Video Queries
@@ -48,6 +51,18 @@ export const useSubtitlesQuery = (videoId: string | undefined) => {
     queryKey: queryKeys.subtitles.byVideo(videoId!),
     queryFn: () => fetchSubtitles(videoId!),
     enabled: !!videoId,
+  })
+}
+
+/**
+ * 비디오 카테고리 목록 조회 hook
+ */
+export const useVideoCategoriesQuery = () => {
+  return useQuery({
+    queryKey: queryKeys.videoCategories.all,
+    queryFn: fetchVideoCategories,
+    staleTime: ONE_HOUR,
+    gcTime: ONE_HOUR,
   })
 }
 

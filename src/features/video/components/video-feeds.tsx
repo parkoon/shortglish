@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { useNavigate } from 'react-router'
 
 import { useVideosQuery, type Video } from '@/api'
@@ -6,8 +7,23 @@ import { analytics } from '@/lib/analytics'
 import { formatDuration } from '@/lib/utils'
 import { getYouTubeThumbnailUrl } from '@/utils/thumbnail'
 
+import { DEFAULT_VIDEO_CATEGORY, useVideoCategoryFilter } from '../hooks/use-video-category-filter'
+
 export const VideoFeeds = () => {
   const { data: videos = [], isLoading } = useVideosQuery()
+  const { currentCategory } = useVideoCategoryFilter()
+
+  // category 필터링 (현재 Video 타입에 categories 필드가 없어서 일단 전체 표시)
+  // TODO: Video 타입에 categories 필드 추가 후 필터링 로직 활성화
+  const filteredVideos = useMemo(() => {
+    if (currentCategory === DEFAULT_VIDEO_CATEGORY) {
+      return videos
+    }
+
+    // Video 타입에 categories 필드가 추가되면 아래 주석 해제
+    // return videos.filter(video => video.categories?.includes(currentCategory))
+    return videos
+  }, [videos, currentCategory])
 
   if (isLoading) {
     return (
@@ -17,7 +33,7 @@ export const VideoFeeds = () => {
     )
   }
 
-  if (videos.length === 0) {
+  if (filteredVideos.length === 0) {
     return (
       <div className="flex items-center justify-center h-64">
         <p className="text-gray-500">비디오가 없습니다.</p>
@@ -27,7 +43,7 @@ export const VideoFeeds = () => {
 
   return (
     <div className="flex flex-col gap-8 pb-6">
-      {videos.map(video => (
+      {filteredVideos.map(video => (
         <VideoCard key={video.id} video={video} />
       ))}
     </div>
