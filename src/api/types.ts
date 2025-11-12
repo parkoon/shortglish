@@ -15,6 +15,18 @@ export type Video = {
   thumbnail: string
   description: string | null
   duration: number
+  difficulty: number | null // 1~5 단계
+  categoryId: number | null
+  createdAt: string // created_at이 camelCase로 변환됨
+}
+
+/**
+ * Video Cursor (복합 커서)
+ * created_at이 동일한 비디오들을 구분하기 위해 id도 함께 사용
+ */
+export type VideoCursor = {
+  createdAt: string
+  id: string
 }
 
 export type Subtitle = {
@@ -30,6 +42,15 @@ export type Category = {
   id: string
   label: string
   active?: boolean
+}
+
+/**
+ * Video Category (DB에서 가져온 형태)
+ */
+export type VideoCategory = {
+  id: string
+  name: string
+  order?: number | null
 }
 
 // ============================================

@@ -1,5 +1,5 @@
 import {
-  IconBrandSpeedtest,
+  // IconBrandSpeedtest,
   IconPlayerSkipBackFilled,
   IconPlayerSkipForwardFilled,
   IconReload,
@@ -37,12 +37,12 @@ export const VideoController = forwardRef<VideoControllerRef, VideoControllerPro
       canNext = true,
       canPrevious = true,
       canHint = true,
-      currentSpeed,
+      // currentSpeed,
       onRepeat,
       onPrevious,
       onNext,
       onHint,
-      onSpeed,
+      // onSpeed,
     },
     ref,
   ) => {
@@ -61,12 +61,13 @@ export const VideoController = forwardRef<VideoControllerRef, VideoControllerPro
       >
         <div className="relative flex items-center justify-between">
           {/* 힌트 버튼 (왼쪽) */}
-          <MotionButton onClick={onSpeed} className="p-2">
+          <div />
+          {/* <MotionButton onClick={onSpeed} className="p-2">
             <div className="flex items-center flex-col">
               <IconBrandSpeedtest strokeWidth={1.5} />
               <span className="text-xs -mb-2 -mt-1 font-semibold">{currentSpeed}x</span>
             </div>
-          </MotionButton>
+          </MotionButton> */}
 
           <div className="flex items-center gap-4 absolute left-1/2 -translate-x-1/2">
             <MotionButton

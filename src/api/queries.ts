@@ -4,28 +4,51 @@
  * 모든 useQuery 훅을 도메인별로 관리
  */
 
-import { useQuery } from '@tanstack/react-query'
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
 
 import {
   fetchQuizByDate,
   fetchSubtitles,
   fetchTodayQuiz,
   fetchVideoById,
+  fetchVideoCategories,
   fetchVideos,
 } from './endpoints'
 import { queryKeys } from './query-keys'
+import type { VideoCursor } from './types'
+
+const ONE_HOUR = 1000 * 60 * 60
 
 // ============================================
 // Video Queries
 // ============================================
 
 /**
- * 비디오 목록 조회 hook
+ * 비디오 목록 조회 hook (기존 - 모든 데이터 한 번에)
+ * @deprecated infinite scroll을 위해 useInfiniteVideosQuery 사용 권장
  */
 export const useVideosQuery = () => {
   return useQuery({
     queryKey: queryKeys.videos.all,
-    queryFn: fetchVideos,
+    queryFn: () => fetchVideos({}).then(result => result.data),
+  })
+}
+
+/**
+ * 비디오 목록 조회 hook (infinite scroll)
+ * @param category - 카테고리 필터
+ */
+export const useInfiniteVideosQuery = (categoryId?: string) => {
+  return useInfiniteQuery({
+    queryKey: queryKeys.videos.infinite(categoryId),
+    queryFn: ({ pageParam }: { pageParam: VideoCursor | undefined }) =>
+      fetchVideos({
+        cursor: pageParam,
+        limit: 10,
+        categoryId,
+      }),
+    initialPageParam: undefined as VideoCursor | undefined,
+    getNextPageParam: lastPage => lastPage.nextCursor,
   })
 }
 
@@ -48,6 +71,18 @@ export const useSubtitlesQuery = (videoId: string | undefined) => {
     queryKey: queryKeys.subtitles.byVideo(videoId!),
     queryFn: () => fetchSubtitles(videoId!),
     enabled: !!videoId,
+  })
+}
+
+/**
+ * 비디오 카테고리 목록 조회 hook
+ */
+export const useVideoCategoriesQuery = () => {
+  return useQuery({
+    queryKey: queryKeys.videoCategories.all,
+    queryFn: fetchVideoCategories,
+    staleTime: ONE_HOUR,
+    gcTime: ONE_HOUR,
   })
 }
 

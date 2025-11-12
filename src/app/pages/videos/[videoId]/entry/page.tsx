@@ -10,7 +10,7 @@ import {
 import { useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router'
 
-import { useVideoDetailQuery } from '@/api'
+import { useVideoCategoriesQuery, useVideoDetailQuery } from '@/api'
 import { CTALayout } from '@/components/layouts/cta-layout'
 import { PageLayout } from '@/components/layouts/page-layout'
 import { MotionButton } from '@/components/ui/motion-button'
@@ -18,6 +18,7 @@ import { Stepper } from '@/components/ui/stepper'
 import { paths } from '@/config/paths'
 import { useDialogueCompletionStore } from '@/features/video/store/dialogue-completion-store'
 import { useVideoProgressStore } from '@/features/video/store/video-progress-store'
+import { getDifficultyInfo } from '@/features/video/utils/difficulty'
 import { analytics } from '@/lib/analytics'
 import { useModal } from '@/stores/modal-store'
 
@@ -51,10 +52,12 @@ const STEPS: StepInfo[] = [
 
 const EntryPage = () => {
   const { videoId } = useParams<{ videoId: string }>()
+  console.log('🚀 ~ EntryPage ~ videoId:', videoId)
   const navigate = useNavigate()
   const modal = useModal()
 
   const { data: videoDetail, isLoading, isError } = useVideoDetailQuery(videoId)
+  const { data: categories = [] } = useVideoCategoriesQuery()
 
   const { isStepCompleted, canAccessStep, resetVideoProgress } = useVideoProgressStore()
   const { clearVideo } = useDialogueCompletionStore()
@@ -73,7 +76,7 @@ const EntryPage = () => {
     return (
       <PageLayout>
         <div className="flex items-center justify-center h-64">
-          <p className="text-gray-500">비디오를 찾을 수 없습니다.</p>
+          <p className="text-gray-500">비디오를 찾을 수 없습니다zz.</p>
         </div>
       </PageLayout>
     )
@@ -82,15 +85,20 @@ const EntryPage = () => {
   if (isLoading) {
     return (
       <PageLayout>
-        <div className="flex items-center justify-center h-64">
-          <p className="text-gray-500">로딩 중...</p>
+        {/* Skeleton UI */}
+        <div className="flex flex-col gap-4">
+          <div className="w-full aspect-video bg-gray-200 rounded" />
+          <div className="w-full h-4 bg-gray-200 rounded" />
+          <div className="w-full h-4 bg-gray-200 rounded" />
+          <div className="w-full h-4 bg-gray-200 rounded" />
+          <div className="w-full h-4 bg-gray-200 rounded" />
         </div>
       </PageLayout>
     )
   }
 
   // 에러 처리: draft 비디오나 존재하지 않는 비디오 접근 시
-  if (isError || !videoDetail) {
+  if (isError) {
     return (
       <PageLayout>
         <div className="flex items-center justify-center h-64">
@@ -168,6 +176,13 @@ const EntryPage = () => {
 
   const isAllCompleted = nextStep.type === 'completed'
 
+  const difficultyInfo = getDifficultyInfo(videoDetail?.difficulty ?? null)
+
+  // 카테고리 정보 매칭
+  const category = videoDetail?.categoryId
+    ? categories.find(cat => Number(cat.id) === videoDetail.categoryId)
+    : null
+
   const content = (
     <>
       {/* 썸네일 */}
@@ -198,6 +213,23 @@ const EntryPage = () => {
 
       {/* 제목 */}
       <div className="px-4 py-6 mb-4">
+        {/* Difficulty & Category 배지 - 제목 위 */}
+        {(difficultyInfo || category) && (
+          <div className="flex items-center gap-1.5 mb-1">
+            {difficultyInfo && (
+              <div
+                className={`${difficultyInfo.color} text-white text-xs font-semibold px-2 py-1 rounded`}
+              >
+                {difficultyInfo.label}
+              </div>
+            )}
+            {category && (
+              <div className="bg-gray-800 text-white text-xs px-2 py-1 rounded font-semibold">
+                {category.name}
+              </div>
+            )}
+          </div>
+        )}
         <h1 className="text-xl font-bold text-gray-900 leading-tight">{videoDetail?.title}</h1>
         <p className="text-sm text-gray-500 leading-tight">{videoDetail?.description}</p>
       </div>

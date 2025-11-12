@@ -5,28 +5,81 @@
 
 import { supabase } from '@/lib/supabase'
 
-import type { Subtitle, TodayQuiz, Video } from './types'
-import { arrayToCamel } from './utils'
+import type { Subtitle, TodayQuiz, Video, VideoCategory, VideoCursor } from './types'
+import { arrayToCamel, objectToCamel } from './utils'
 
 // ============================================
 // Video API
 // ============================================
 
 /**
- * 비디오 목록 조회
+ * fetchVideos 함수 파라미터
  */
-export const fetchVideos = async (): Promise<Video[]> => {
-  const { data, error } = await supabase
+export type FetchVideosParams = {
+  cursor?: VideoCursor
+  limit?: number
+  categoryId?: string
+}
+
+/**
+ * 비디오 목록 조회 (cursor 기반 페이지네이션)
+ * @param params - 쿼리 파라미터
+ * @param params.cursor - 마지막 비디오의 { createdAt, id }
+ * @param params.limit - 가져올 비디오 개수 (기본값: 10)
+ * @param params.categoryId - 카테고리 필터 (선택사항)
+ * @returns 비디오 목록과 다음 cursor
+ */
+export const fetchVideos = async ({
+  cursor,
+  limit = 10,
+  categoryId,
+}: FetchVideosParams = {}): Promise<{ data: Video[]; nextCursor: VideoCursor | null }> => {
+  let query = supabase
     .from('video')
-    .select('id, title, thumbnail, description, duration')
-    .eq('status', 'published') // published인 것만 조회
+    .select('id, title, thumbnail, description, duration, created_at, difficulty, category_id')
+    .eq('status', 'published')
     .order('created_at', { ascending: false })
+    .order('id', { ascending: false }) // 같은 created_at일 때 id로 정렬
+    .limit(limit + 1) // 다음 페이지 존재 여부 확인을 위해 +1
+
+  // 카테고리 필터링
+  if (categoryId) {
+    query = query.eq('category_id', Number(categoryId))
+  }
+
+  // cursor가 있으면 복합 조건 적용
+  // (created_at < cursor.createdAt) OR (created_at = cursor.createdAt AND id < cursor.id)
+  if (cursor) {
+    query = query.or(
+      `created_at.lt.${cursor.createdAt},and(created_at.eq.${cursor.createdAt},id.lt.${cursor.id})`,
+    )
+  }
+
+  const { data, error } = await query
 
   if (error) {
     throw new Error(`Failed to fetch videos: ${error.message}`)
   }
 
-  return data
+  // DB의 snake_case → 도메인의 camelCase 자동 변환
+  const camelData = arrayToCamel<Video>(data)
+
+  // 다음 페이지 존재 여부 확인
+  const hasNextPage = camelData.length > limit
+  const videos = hasNextPage ? camelData.slice(0, limit) : camelData
+
+  // 다음 cursor는 마지막 비디오의 { createdAt, id } (다음 페이지가 있을 때만)
+  const nextCursor = hasNextPage
+    ? {
+        createdAt: videos[videos.length - 1].createdAt,
+        id: videos[videos.length - 1].id,
+      }
+    : null
+
+  return {
+    data: videos,
+    nextCursor,
+  }
 }
 
 /**
@@ -36,7 +89,7 @@ export const fetchVideos = async (): Promise<Video[]> => {
 export const fetchVideoById = async (videoId: string): Promise<Video> => {
   const { data, error } = await supabase
     .from('video')
-    .select('id, title, thumbnail, description, duration')
+    .select('id, title, thumbnail, description, duration, created_at, difficulty, category_id')
     .eq('id', videoId)
     .eq('status', 'published') // published인 것만 조회
     .single()
@@ -45,7 +98,25 @@ export const fetchVideoById = async (videoId: string): Promise<Video> => {
     throw new Error(`Failed to fetch video: ${error.message}`)
   }
 
-  return data
+  // DB의 snake_case → 도메인의 camelCase 자동 변환
+  return objectToCamel<Video>(data)
+}
+
+/**
+ * 비디오 카테고리 목록 조회
+ */
+export const fetchVideoCategories = async (): Promise<VideoCategory[]> => {
+  const { data, error } = await supabase
+    .from('video_category')
+    .select('id, name, order')
+    .order('order', { ascending: true, nullsFirst: false })
+
+  if (error) {
+    throw new Error(`Failed to fetch video categories: ${error.message}`)
+  }
+
+  // DB의 snake_case → 도메인의 camelCase 자동 변환
+  return arrayToCamel<VideoCategory>(data)
 }
 
 // ============================================

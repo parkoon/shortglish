@@ -12,7 +12,8 @@
     "deploy": "ait deploy",
     "dev:web": "vite",
     "build:web": "vite build",
-    "preview:web": "vite preview"
+    "preview:web": "vite preview",
+    "db:types": "npx supabase gen types typescript --project-id guuzamgogpvihafgwhdn > src/types/database.ts"
   },
   "dependencies": {
     "@apps-in-toss/web-framework": "^1.4.2",
@@ -36,6 +37,7 @@
     "react-dom": "^19.1.0",
     "react-error-boundary": "^6.0.0",
     "react-helmet-async": "^2.0.5",
+    "react-intersection-observer": "^10.0.0",
     "react-markdown": "^10.1.0",
     "react-router": "^7.6.2",
     "remark-gfm": "^4.0.1",
