@@ -3,7 +3,6 @@
  */
 
 import { Button } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
 
 type CompleteModalProps = {
   isOpen: boolean
@@ -40,4 +39,3 @@ export const CompleteModal = ({ isOpen, onClose, onConfirm }: CompleteModalProps
     </div>
   )
 }
-

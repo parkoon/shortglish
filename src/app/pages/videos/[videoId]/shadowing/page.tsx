@@ -2,21 +2,12 @@
  * 쉐도잉 연습 페이지
  */
 
-import { useEffect, useRef, useState } from 'react'
-import { useParams } from 'react-router'
+import { useState } from 'react'
 
-import type { Subtitle } from '@/api'
-import { useSubtitlesQuery } from '@/api'
 import { PageLayout } from '@/components/layouts/page-layout'
 import { Button } from '@/components/ui/button'
-import {
-  YOUTUBE_PLAYER_STATE,
-  YouTubePlayer,
-  type YouTubePlayerRef,
-} from '@/features/video/components/youtube-player'
 import { cn } from '@/lib/utils'
 
-import { SubtitleProgressBar } from '../_components/subtitle-progress-bar'
 import { CompleteModal } from './_components/complete-modal'
 import { ShadowingAccordion } from './_components/shadowing-accordion'
 import { Step1Content } from './_components/step-1-content'
@@ -24,70 +15,14 @@ import { Step2Content } from './_components/step-2-content'
 import { Step3Content } from './_components/step-3-content'
 
 const ShadowingPage = () => {
-  const { videoId } = useParams<{ videoId: string }>()
-  const { data: subtitles = [], isLoading: isLoadingDialogues } = useSubtitlesQuery(videoId)
+  // const { videoId } = useParams<{ videoId: string }>()
 
   const [currentStep, setCurrentStep] = useState(1)
   const [completedSteps, setCompletedSteps] = useState<number[]>([])
   const [hasRecorded, setHasRecorded] = useState(false)
   const [showCompleteModal, setShowCompleteModal] = useState(false)
-  const [currentDialogue, setCurrentDialogue] = useState<Subtitle | null>(null)
-
-  const playerRef = useRef<YouTubePlayerRef>(null)
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
-  const currentDialogueRef = useRef(currentDialogue)
 
   const totalSteps = 3
-
-  useEffect(() => {
-    currentDialogueRef.current = currentDialogue
-  }, [currentDialogue])
-
-  // Cleanup: 컴포넌트 unmount 시 interval 정리
-  useEffect(() => {
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current)
-      }
-    }
-  }, [])
-
-  const getCurrentDialogue = (time: number): Subtitle | null => {
-    return subtitles.find(d => time >= d.startTime && time < d.endTime) ?? null
-  }
-
-  const startTimeTracking = () => {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current)
-    }
-
-    intervalRef.current = setInterval(() => {
-      if (!playerRef.current) return
-
-      const time = playerRef.current.getCurrentTime()
-      const foundDialogue = getCurrentDialogue(time)
-
-      if (foundDialogue && foundDialogue.index !== currentDialogueRef.current?.index) {
-        setCurrentDialogue(foundDialogue)
-      }
-    }, 100)
-  }
-
-  const stopTimeTracking = () => {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current)
-      intervalRef.current = null
-    }
-  }
-
-  const handleStateChange = (state: number) => {
-    if (state === YOUTUBE_PLAYER_STATE.PLAYING) {
-      startTimeTracking()
-      return
-    }
-
-    stopTimeTracking()
-  }
 
   const handleNext = () => {
     // 3단계에서 다음 버튼 클릭 시
@@ -152,24 +87,8 @@ const ShadowingPage = () => {
     },
   ]
 
-  if (!videoId) {
-    return (
-      <PageLayout>
-        <div className="p-4">비디오를 찾을 수 없습니다.</div>
-      </PageLayout>
-    )
-  }
-
-  if (isLoadingDialogues) {
-    return (
-      <PageLayout>
-        <div className="p-4">비디오를 불러오는 중입니다.</div>
-      </PageLayout>
-    )
-  }
-
   // 현재 자막 문장 (없으면 첫 번째 자막 사용)
-  const currentSentence = currentDialogue?.originText || subtitles[0]?.originText || ''
+  // const currentSentence = currentDialogue?.originText || subtitles[0]?.originText || ''
 
   return (
     <PageLayout className="pb-20">

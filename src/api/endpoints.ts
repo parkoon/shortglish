@@ -36,7 +36,7 @@ export const fetchVideos = async ({
 }: FetchVideosParams = {}): Promise<{ data: Video[]; nextCursor: VideoCursor | null }> => {
   let query = supabase
     .from('video')
-    .select('id, title, thumbnail, description, duration, created_at')
+    .select('id, title, thumbnail, description, duration, created_at, difficulty')
     .eq('status', 'published')
     .order('created_at', { ascending: false })
     .order('id', { ascending: false }) // 같은 created_at일 때 id로 정렬
@@ -44,7 +44,7 @@ export const fetchVideos = async ({
 
   // 카테고리 필터링
   if (categoryId) {
-    query = query.eq('category_id', categoryId)
+    query = query.eq('category_id', Number(categoryId))
   }
 
   // cursor가 있으면 복합 조건 적용

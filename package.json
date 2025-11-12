@@ -13,7 +13,7 @@
     "dev:web": "vite",
     "build:web": "vite build",
     "preview:web": "vite preview",
-    "db:types": "supabase gen types typescript --project-id <your-project-id> > src/types/database.ts"
+    "db:types": "npx supabase gen types typescript --project-id guuzamgogpvihafgwhdn > src/types/database.ts"
   },
   "dependencies": {
     "@apps-in-toss/web-framework": "^1.4.2",
