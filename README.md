@@ -1,106 +1,112 @@
-# React + TypeScript + Vite
+# Shortglish
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+숏폼으로 배우는 영어 학습 앱
 
-Currently, two official plugins are available:
+## 프로젝트 구조
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## eslint + prettier 설정
-
-### 패키지 설치
+이 프로젝트는 모노레포 구조로 구성되어 있습니다:
 
 ```
-npm install -D eslint prettier eslint-config-prettier eslint-plugin-prettier eslint-plugin-import eslint-plugin-simple-import-sort
-
+shortglish/
+├── client/          # 프론트엔드 (React + Vite)
+├── server/          # 백엔드 (Express + TypeScript)
+└── shared/          # 공통 타입 및 유틸리티
 ```
 
-### ESLint 설정 (eslint.config.js 예시)
+## 시작하기
 
-```
-import js from '@eslint/js';
-import globals from 'globals';
-import reactHooks from 'eslint-plugin-react-hooks';
-import reactRefresh from 'eslint-plugin-react-refresh';
-import tseslint from 'typescript-eslint';
-import prettier from 'eslint-config-prettier';
-import importPlugin from 'eslint-plugin-import';
-import simpleImportSort from 'eslint-plugin-simple-import-sort';
+### 전체 의존성 설치
 
-export default tseslint.config(
-  { ignores: ['dist'] },
-  {
-    extends: [
-      js.configs.recommended,
-      ...tseslint.configs.recommended,
-      prettier, // prettier 설정은 항상 마지막에
-    ],
-    files: ['**/*.{ts,tsx}'],
-    languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
-    },
-    plugins: {
-      'react-hooks': reactHooks,
-      'react-refresh': reactRefresh,
-      import: importPlugin,
-      'simple-import-sort': simpleImportSort,
-    },
-    rules: {
-      ...reactHooks.configs.recommended.rules,
-
-      // React Refresh
-      'react-refresh/only-export-components': [
-        'warn',
-        { allowConstantExport: true },
-      ],
-
-      // Import 정렬
-      'simple-import-sort/imports': 'error',
-      'simple-import-sort/exports': 'error',
-
-      // import 관련 기본 권장 규칙
-      'import/order': 'off', // 충돌 방지: 대신 simple-import-sort 사용
-      'import/newline-after-import': 'warn',
-      'import/no-duplicates': 'warn',
-    },
-  },
-);
+```bash
+yarn install
 ```
 
-### 3. Prettier 설정 (.prettierrc 예시)
+### 개발 서버 실행
 
-```
-{
-  "singleQuote": true,
-  "semi": false,
-  "printWidth": 100,
-  "trailingComma": "all",
-  "arrowParens": "avoid"
-}
+**프론트엔드:**
+
+```bash
+yarn dev:client
+# 또는
+yarn dev  # 기본값은 client
 ```
 
-### 4. 실행 스크립트 추가
+**백엔드:**
 
-```
-{
-  "scripts": {
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "format": "prettier --write ."
-  }
-}
+```bash
+yarn dev:server
 ```
 
-### 5. VSCode 추천 설정 (선택)
+### 빌드
 
-```
-{
-  "editor.formatOnSave": true,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "always",
-    "source.organizeImports": "never"
-  }
-}
+**전체 빌드:**
 
+```bash
+yarn build
 ```
+
+**개별 빌드:**
+
+```bash
+yarn build:client
+yarn build:server
+```
+
+## 환경 변수 설정
+
+### 프론트엔드 (`client/.env`)
+
+```env
+VITE_APP_POSTHOG_KEY=your_posthog_key
+VITE_APP_POSTHOG_HOST=your_posthog_host
+VITE_APP_SUPABASE_URL=your_supabase_url
+VITE_APP_SUPABASE_ANON_KEY=your_supabase_anon_key
+VITE_APP_API_BASE_URL=http://localhost:4000
+VITE_APP_TOSS_DECRYPT_KEY=your_decrypt_key
+VITE_APP_TOSS_AAD=TOSS
+```
+
+### 백엔드 (`server/.env`)
+
+```env
+PORT=4000
+NODE_ENV=development
+ALLOWED_ORIGINS=http://localhost:5173,http://localhost:5174
+TOSS_API_BASE_URL=https://apps-in-toss-api.toss.im
+TOSS_CLIENT_CERT_PATH=./certs/client-cert.pem
+TOSS_CLIENT_KEY_PATH=./certs/client-key.pem
+TOSS_DECRYPT_KEY=your_decrypt_key
+TOSS_AAD=TOSS
+```
+
+## 주요 기능
+
+- 토스 로그인 연동
+- 영어 학습 콘텐츠
+- 퀴즈 및 학습 진도 관리
+- 비디오 기반 학습
+
+## 기술 스택
+
+### 프론트엔드
+
+- React 19
+- TypeScript
+- Vite
+- React Router
+- Zustand
+- React Query
+- Tailwind CSS
+
+### 백엔드
+
+- Express
+- TypeScript
+- Zod
+
+## 배포
+
+자세한 배포 가이드는 각 디렉토리의 README를 참고하세요:
+
+- [백엔드 배포 가이드](./server/DEPLOYMENT.md)
+- [백엔드 설정 가이드](./BACKEND_SETUP.md)
