@@ -4,7 +4,7 @@
 
 import type { ErrorRequestHandler } from 'express'
 
-export const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
+export const errorHandler: ErrorRequestHandler = (err, _req, res, next) => {
   console.error('Error:', err)
 
   // 이미 응답이 전송된 경우
@@ -21,13 +21,12 @@ export const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
     return
   }
 
-  // 일반 에러
-  const statusCode = err.statusCode || 500
-  const message = err.message || 'Internal Server Error'
+  // API 에러 (외부 API 호출 실패)
+  const errorMessage = err.message || 'Internal Server Error'
+  const statusCode = err.statusCode || (errorMessage.includes('API Error') ? 502 : 500)
 
   res.status(statusCode).json({
-    error: message,
+    error: errorMessage,
     ...(process.env.NODE_ENV === 'development' && { stack: err.stack }),
   })
 }
-

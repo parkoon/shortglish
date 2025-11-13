@@ -8,10 +8,7 @@ import { env } from './config/env'
 import { corsMiddleware } from './middleware/cors'
 import { errorHandler } from './middleware/error-handler'
 import { apiRateLimiter, tossApiRateLimiter } from './middleware/rate-limit'
-import generateTokenRouter from './routes/toss/generate-token'
-import loginMeRouter from './routes/toss/login-me'
-import refreshTokenRouter from './routes/toss/refresh-token'
-import unlinkRouter from './routes/toss/unlink'
+import tossRoutes from './routes/toss.routes'
 
 const app = express()
 
@@ -21,21 +18,18 @@ app.use(corsMiddleware)
 app.use(apiRateLimiter)
 
 // Health check
-app.get('/health', (req, res) => {
+app.get('/health', (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() })
 })
 
 // 토스 API 라우트
-app.use('/api/toss/generate-token', tossApiRateLimiter, generateTokenRouter)
-app.use('/api/toss/refresh-token', tossApiRateLimiter, refreshTokenRouter)
-app.use('/api/toss/login-me', tossApiRateLimiter, loginMeRouter)
-app.use('/api/toss/unlink', tossApiRateLimiter, unlinkRouter)
+app.use('/api/toss', tossApiRateLimiter, tossRoutes)
 
 // 에러 핸들링
 app.use(errorHandler)
 
 // 404 핸들러
-app.use((req, res) => {
+app.use((_req, res) => {
   res.status(404).json({ error: 'Not Found' })
 })
 
@@ -48,4 +42,3 @@ app.listen(PORT, () => {
 })
 
 export default app
-
