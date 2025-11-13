@@ -7,12 +7,10 @@ import { Button } from '@/components/ui/button'
 import { paths } from '@/config/paths'
 import { VideoCategory } from '@/features/video/components/video-category'
 import { VideoFeeds } from '@/features/video/components/video-feeds'
-import { useConsoleLogStore } from '@/stores/console-log-store'
 
 import { FloatingKeyWithBottomSheet } from './_components/floating-key-with-bottom-sheet'
 
 const Home = () => {
-  // useAppCloseConfirm()
   const navigate = useNavigate()
   return (
     <PageLayout>
