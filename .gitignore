@@ -12,11 +12,6 @@ dist
 dist-ssr
 *.local
 
-# Client
-client/dist
-client/dist-ssr
-client/.granite
-
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -34,18 +29,6 @@ client/.granite
 .env.production.local
 .env.development.local
 .env.test.local
-
-# Client
-client/.env
-client/.env.local
-
-# Server
-server/.env
-server/.env.local
-server/certs/*.pem
-server/certs/*.key
-server/certs/*.crt
-server/dist
 
 .granite
 .cursor

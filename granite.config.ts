@@ -17,7 +17,6 @@ export default defineConfig({
       dev: 'vite',
       build: 'tsc -b && vite build',
     },
-    root: './',
   },
   permissions: [],
   outdir: 'dist',
