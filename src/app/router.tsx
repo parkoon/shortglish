@@ -56,10 +56,6 @@ export const createAppRouter = (queryClient: QueryClient) =>
       lazy: () => import('./pages/videos/[videoId]/shadowing/page').then(convert(queryClient)),
     },
     {
-      path: paths.auth.tossLogin.path,
-      lazy: () => import('./pages/auth/toss-login/page').then(convert(queryClient)),
-    },
-    {
       path: '*',
       lazy: () => import('./pages/not-found').then(convert(queryClient)),
     },

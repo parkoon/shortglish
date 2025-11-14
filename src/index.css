@@ -113,7 +113,19 @@
     }
   }
 
-  .tab-in {
-    animation: fadeIn 0.3s ease-out;
+  @keyframes dot-pulse {
+    0%, 80%, 100% {
+      opacity: 0.3;
+      transform: scale(0.8);
+    }
+    40% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+
+  .dot-pulse {
+    animation: dot-pulse 1s ease-in-out infinite;
   }
 }

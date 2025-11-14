@@ -13,15 +13,6 @@ export const paths = {
     path: '/my',
     getHref: () => '/my',
   },
-  auth: {
-    tossLogin: {
-      path: '/auth/toss-login',
-      getHref: (redirectTo?: string) => {
-        const params = redirectTo ? `?redirectTo=${encodeURIComponent(redirectTo)}` : ''
-        return `/auth/toss-login${params}`
-      },
-    },
-  },
   videos: {
     entry: {
       path: '/videos/:videoId',
