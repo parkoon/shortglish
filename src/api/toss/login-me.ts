@@ -2,35 +2,20 @@
  * 사용자 정보 조회 API
  */
 
-import { env } from '@/config/env'
+import { apiRequest } from '@/lib/api-client'
 
-import type { LoginMeResponse } from './types'
+import type { DecryptedUserInfo } from './types'
 
 /**
- * AccessToken으로 사용자 정보 조회
+ * AccessToken으로 사용자 정보 조회 (복호화된 상태)
+ * 서버에서 자동으로 복호화하여 반환합니다.
  */
-export const loginMe = async (accessToken: string): Promise<LoginMeResponse['success']> => {
-  const response = await fetch(`${env.API_BASE_URL}/api/toss/login-me`, {
+export const getUserInfo = async (accessToken: string): Promise<DecryptedUserInfo> => {
+  return apiRequest<DecryptedUserInfo>({
     method: 'GET',
+    url: '/api/toss/user/me/decrypted',
     headers: {
-      'Content-Type': 'application/json',
       Authorization: `Bearer ${accessToken}`,
     },
   })
-
-  if (!response.ok) {
-    let errorMessage = `Failed to get user info: ${response.statusText}`
-    try {
-      const errorData = await response.json()
-      errorMessage = errorData.error || errorMessage
-    } catch {
-      // JSON 파싱 실패 시 기본 메시지 사용
-    }
-    throw new Error(errorMessage)
-  }
-
-  const data = await response.json()
-
-  // 백엔드에서 직접 success 객체를 반환하므로 바로 반환
-  return data
 }

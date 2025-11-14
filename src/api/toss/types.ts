@@ -33,17 +33,6 @@ export interface GenerateTokenResponse {
 }
 
 /**
- * AccessToken 발급 실패 응답
- */
-export interface GenerateTokenErrorResponse {
-  error?: string | {
-    errorCode: string
-    reason: string
-  }
-  resultType?: 'FAIL'
-}
-
-/**
  * RefreshToken 요청
  */
 export interface RefreshTokenRequest {
@@ -65,47 +54,19 @@ export interface RefreshTokenResponse {
 }
 
 /**
- * RefreshToken 실패 응답
+ * 복호화된 사용자 정보 (서버에서 복호화하여 반환)
  */
-export interface RefreshTokenErrorResponse {
-  errorCode?: string
-  reason?: string
-  resultType?: 'FAIL'
-  error?: {
-    errorCode: string
-    reason: string
-  }
-}
-
-/**
- * 사용자 정보 조회 응답
- */
-export interface LoginMeResponse {
-  resultType: 'SUCCESS'
-  success: {
-    userKey: number
-    scope: string
-    agreedTerms: string[]
-    name: string | null
-    phone: string | null
-    birthday: string | null
-    ci: string | null
-    di: null
-    gender: string | null
-    nationality: string | null
-    email: string | null
-  }
-}
-
-/**
- * 사용자 정보 조회 실패 응답
- */
-export interface LoginMeErrorResponse {
-  error?: string | {
-    errorCode: string
-    reason?: string
-  }
-  resultType?: 'FAIL'
+export interface DecryptedUserInfo {
+  userKey: number
+  scope: string
+  agreedTerms: string[]
+  name?: string
+  phone?: string
+  birthday?: string // yyyyMMdd 형식
+  ci?: string
+  gender?: 'MALE' | 'FEMALE'
+  nationality?: 'LOCAL' | 'FOREIGNER'
+  email?: string | null
 }
 
 /**
@@ -124,18 +85,3 @@ export interface UnlinkResponse {
     userKey: number
   }
 }
-
-/**
- * 복호화된 사용자 정보
- */
-export interface DecryptedUserInfo {
-  userKey: number
-  name: string | null
-  phone: string | null
-  birthday: string | null
-  ci: string | null
-  gender: 'MALE' | 'FEMALE' | null
-  nationality: 'LOCAL' | 'FOREIGNER' | null
-  email: string | null
-}
-

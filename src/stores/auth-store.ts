@@ -3,9 +3,9 @@
  */
 
 import { create } from 'zustand'
-import type { User } from '@supabase/supabase-js'
-
-import { supabase } from '@/lib/supabase'
+import { getCurrentUser } from '@/api/users'
+import type { User } from '@/api/users/types'
+import { getAccessToken, hasValidToken } from '@/lib/toss-token'
 
 type AuthState = {
   user: User | null
@@ -18,6 +18,7 @@ type AuthActions = {
   setLoading: (isLoading: boolean) => void
   initialize: () => Promise<void>
   signOut: () => Promise<void>
+  refreshUser: () => Promise<void>
 }
 
 type AuthStore = AuthState & AuthActions
@@ -42,43 +43,50 @@ export const useAuthStore = create<AuthStore>(set => ({
     try {
       set({ isLoading: true })
 
-      // 현재 세션 확인
-      const {
-        data: { session },
-        error,
-      } = await supabase.auth.getSession()
-
-      if (error) {
-        console.error('Failed to get session:', error)
+      // 토스 토큰이 있는지 확인
+      if (!hasValidToken()) {
         set({ user: null, isLoading: false, isInitialized: true })
         return
       }
 
-      set({
-        user: session?.user ?? null,
-        isLoading: false,
-        isInitialized: true,
-      })
-
-      // 인증 상태 변경 리스너 등록
-      supabase.auth.onAuthStateChange((_event, session) => {
-        set({
-          user: session?.user ?? null,
-        })
-      })
+      // 백엔드 API로 사용자 정보 조회
+      try {
+        const user = await getCurrentUser()
+        set({ user, isLoading: false, isInitialized: true })
+      } catch (error) {
+        // 토큰이 유효하지 않거나 사용자가 없는 경우
+        console.error('Failed to get user:', error)
+        set({ user: null, isLoading: false, isInitialized: true })
+      }
     } catch (error) {
       console.error('Failed to initialize auth:', error)
       set({ user: null, isLoading: false, isInitialized: true })
     }
   },
 
+  refreshUser: async () => {
+    try {
+      if (!hasValidToken()) {
+        set({ user: null })
+        return
+      }
+
+      const user = await getCurrentUser()
+      set({ user })
+    } catch (error) {
+      console.error('Failed to refresh user:', error)
+      set({ user: null })
+    }
+  },
+
   signOut: async () => {
     try {
       set({ isLoading: true })
-      const { error } = await supabase.auth.signOut()
-      if (error) {
-        throw error
-      }
+
+      // 토스 토큰 제거
+      const { clearTokens } = await import('@/lib/toss-token')
+      clearTokens()
+
       set({ user: null, isLoading: false })
     } catch (error) {
       console.error('Failed to sign out:', error)
@@ -92,15 +100,16 @@ export const useAuthStore = create<AuthStore>(set => ({
  * 인증 상태를 쉽게 사용할 수 있는 헬퍼 훅
  */
 export const useAuth = () => {
-  const { user, isLoading, isInitialized, initialize, signOut } = useAuthStore()
+  const { user, isLoading, isInitialized, initialize, signOut, refreshUser } = useAuthStore()
 
   return {
     user,
     isLoading,
     isInitialized,
-    isAuthenticated: !!user,
+    isAuthenticated: !!user && hasValidToken(),
     initialize,
     signOut,
+    refreshUser,
   }
 }
 

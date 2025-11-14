@@ -3,7 +3,7 @@
  */
 
 export * from './generate-token'
-export * from './login-me'
+export { getUserInfo } from './login-me'
 export * from './refresh-token'
 export * from './types'
 export * from './unlink'

@@ -2,7 +2,7 @@
  * 로그인 연결 끊기 API
  */
 
-import { env } from '@/config/env'
+import { apiRequest } from '@/lib/api-client'
 
 import type { UnlinkByUserKeyRequest, UnlinkResponse } from './types'
 
@@ -10,17 +10,13 @@ import type { UnlinkByUserKeyRequest, UnlinkResponse } from './types'
  * AccessToken으로 로그인 연결 끊기
  */
 export const unlinkByAccessToken = async (accessToken: string): Promise<void> => {
-  const response = await fetch(`${env.API_BASE_URL}/api/toss/unlink/access-token`, {
+  return apiRequest<void>({
     method: 'POST',
+    url: '/api/toss/auth/remove-by-access-token',
     headers: {
-      'Content-Type': 'application/json',
       Authorization: `Bearer ${accessToken}`,
     },
   })
-
-  if (!response.ok) {
-    throw new Error(`Failed to unlink: ${response.statusText}`)
-  }
 }
 
 /**
@@ -30,29 +26,13 @@ export const unlinkByUserKey = async (
   accessToken: string,
   request: UnlinkByUserKeyRequest,
 ): Promise<UnlinkResponse['success']> => {
-  const response = await fetch(`${env.API_BASE_URL}/api/toss/unlink/user-key`, {
+  return apiRequest<UnlinkResponse['success']>({
     method: 'POST',
+    url: '/api/toss/auth/remove-by-user-key',
     headers: {
-      'Content-Type': 'application/json',
       Authorization: `Bearer ${accessToken}`,
     },
-    body: JSON.stringify(request),
+    data: request,
   })
-
-  if (!response.ok) {
-    let errorMessage = `Failed to unlink: ${response.statusText}`
-    try {
-      const errorData = await response.json()
-      errorMessage = errorData.error || errorMessage
-    } catch {
-      // JSON 파싱 실패 시 기본 메시지 사용
-    }
-    throw new Error(errorMessage)
-  }
-
-  const data = await response.json()
-
-  // 백엔드에서 직접 success 객체를 반환하므로 바로 반환
-  return data
 }
 
