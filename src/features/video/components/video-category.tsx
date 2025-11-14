@@ -71,13 +71,13 @@ export const VideoCategory = () => {
     >
       <div className="flex gap-3 px-4 py-3 overflow-x-auto scrollbar-hide">
         {categories.map(category => {
-          const isActive = isActiveCategory(category.id)
+          const isActive = isActiveCategory(category.id.toString())
 
           return (
             <button
               key={category.id}
               ref={isActive ? activeButtonRef : null}
-              onClick={() => handleCategoryClick(category.id, category.name)}
+              onClick={() => handleCategoryClick(category.id.toString(), category.name)}
               className={cn(
                 'px-3 py-1.5 rounded text-sm font-semibold whitespace-nowrap transition-colors',
                 isActive ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-700',

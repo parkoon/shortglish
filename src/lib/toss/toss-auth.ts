@@ -15,16 +15,18 @@ import { saveTokens } from '@/lib/toss/toss-token'
  */
 export async function signInWithToss(): Promise<{ user: User; tossUserKey: number }> {
   // 1. 토스 SDK를 통해 인가 코드 받기
+  alert('before requestTossLogin')
   const { authorizationCode, referrer } = await requestTossLogin()
 
+  alert(authorizationCode)
+  alert('before generateToken')
   // 2. 인가 코드로 AccessToken 발급
   const tokenData = await generateToken({
     authorizationCode,
     referrer,
   })
 
-  alert(tokenData)
-
+  alert(JSON.stringify(tokenData, null, 2))
   // 3. 토큰 저장
   saveTokens({
     accessToken: tokenData.accessToken,
@@ -32,10 +34,11 @@ export async function signInWithToss(): Promise<{ user: User; tossUserKey: numbe
     expiresIn: tokenData.expiresIn,
   })
 
+  alert('before getCurrentUser')
   // 4. 백엔드 API로 사용자 정보 조회 (자동 생성/업데이트)
   const user = await getCurrentUser()
 
-  alert(JSON.stringify(user))
+  alert(JSON.stringify(user, null, 2))
 
   // 토스 userKey 추출 (externalUserId에서)
   const tossUserKey = parseInt(user.externalUserId, 10)

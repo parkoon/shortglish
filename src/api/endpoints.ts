@@ -69,12 +69,14 @@ export const fetchVideos = async ({
   const videos = hasNextPage ? camelData.slice(0, limit) : camelData
 
   // 다음 cursor는 마지막 비디오의 { createdAt, id } (다음 페이지가 있을 때만)
-  const nextCursor = hasNextPage
-    ? {
-        createdAt: videos[videos.length - 1].createdAt,
-        id: videos[videos.length - 1].id,
-      }
-    : null
+  const lastVideo = videos[videos.length - 1]
+  const nextCursor: VideoCursor | null =
+    hasNextPage && lastVideo && lastVideo.createdAt
+      ? {
+          createdAt: lastVideo.createdAt,
+          id: lastVideo.id,
+        }
+      : null
 
   return {
     data: videos,

@@ -28,8 +28,12 @@ export const createAppRouter = (queryClient: QueryClient) =>
       lazy: () => import('./pages/home/page').then(convert(queryClient)),
     },
     {
-      path: paths.quiz.detail.path,
-      lazy: () => import('./pages/quiz/[date]/page').then(convert(queryClient)),
+      path: paths.onboarding.path,
+      lazy: () => import('./pages/onboarding/page').then(convert(queryClient)),
+    },
+    {
+      path: paths.my.path,
+      lazy: () => import('./pages/my/page').then(convert(queryClient)),
     },
     {
       path: paths.videos.entry.path,

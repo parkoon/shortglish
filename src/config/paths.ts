@@ -5,13 +5,9 @@ export const paths = {
       getHref: () => '/',
     },
   },
-  quiz: {
-    path: '/quiz',
-    getHref: () => '/quiz',
-    detail: {
-      path: '/quiz/:date',
-      getHref: (date: string) => `/quiz/${date}`,
-    },
+  onboarding: {
+    path: '/onboarding',
+    getHref: () => '/onboarding',
   },
   my: {
     path: '/my',

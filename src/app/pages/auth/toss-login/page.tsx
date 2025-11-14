@@ -25,6 +25,7 @@ const TossLoginPage = () => {
       setIsLoading(true)
       setError(null)
 
+      alert(1)
       // 토스 로그인 플로우 실행
       const { user } = await signInWithToss()
 
@@ -34,6 +35,7 @@ const TossLoginPage = () => {
       // 리다이렉트
       navigate(redirectTo, { replace: true })
     } catch (err) {
+      alert(JSON.stringify(err, null, 2))
       console.error('토스 로그인 실패:', err)
       setError(err instanceof Error ? err.message : '로그인 중 오류가 발생했습니다.')
       setIsLoading(false)
