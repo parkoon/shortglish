@@ -6,7 +6,7 @@ import { generateToken } from '@/api/toss'
 import { getCurrentUser } from '@/api/users'
 import type { User } from '@/api/users/types'
 import { requestTossLogin } from '@/lib/toss'
-import { saveTokens } from '@/lib/toss-token'
+import { saveTokens } from '@/lib/toss/toss-token'
 
 /**
  * 토스 로그인 플로우를 실행하고 사용자 정보를 조회합니다.

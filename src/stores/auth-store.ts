@@ -3,9 +3,10 @@
  */
 
 import { create } from 'zustand'
+
 import { getCurrentUser } from '@/api/users'
 import type { User } from '@/api/users/types'
-import { getAccessToken, hasValidToken } from '@/lib/toss-token'
+import { hasValidToken } from '@/lib/toss/toss-token'
 
 type AuthState = {
   user: User | null
@@ -84,7 +85,7 @@ export const useAuthStore = create<AuthStore>(set => ({
       set({ isLoading: true })
 
       // 토스 토큰 제거
-      const { clearTokens } = await import('@/lib/toss-token')
+      const { clearTokens } = await import('@/lib/toss/toss-token')
       clearTokens()
 
       set({ user: null, isLoading: false })
@@ -112,4 +113,3 @@ export const useAuth = () => {
     refreshUser,
   }
 }
-

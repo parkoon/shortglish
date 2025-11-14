@@ -8,7 +8,7 @@ import { useNavigate, useSearchParams } from 'react-router'
 import { PageLayout } from '@/components/layouts/page-layout'
 import { Button } from '@/components/ui/button'
 import { Spinner } from '@/components/ui/spinner'
-import { signInWithToss } from '@/lib/toss-auth'
+import { signInWithToss } from '@/lib/toss/toss-auth'
 import { useAuthStore } from '@/stores/auth-store'
 
 const TossLoginPage = () => {

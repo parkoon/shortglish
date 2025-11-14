@@ -4,7 +4,7 @@
  */
 
 import { refreshToken } from '@/api/toss/refresh-token'
-import { getAccessToken, getRefreshToken, hasValidToken, saveTokens } from '@/lib/toss-token'
+import { getAccessToken, getRefreshToken, hasValidToken, saveTokens } from '@/lib/toss/toss-token'
 
 /**
  * AccessToken을 가져오고, 만료되었으면 자동으로 갱신합니다.

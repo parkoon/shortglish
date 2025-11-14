@@ -24,7 +24,7 @@ export const apiClient: AxiosInstance = axios.create({
 apiClient.interceptors.request.use(
   async config => {
     // 토스 AccessToken이 있으면 자동으로 추가
-    const { getAccessToken, hasValidToken } = await import('./toss-token')
+    const { getAccessToken, hasValidToken } = await import('./toss/toss-token')
 
     if (hasValidToken()) {
       const token = getAccessToken()
