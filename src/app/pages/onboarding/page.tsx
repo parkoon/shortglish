@@ -49,7 +49,7 @@ const OnboardingPage = () => {
             },
             {
               icon: <IconMoodBoy />,
-              title: '실제로 영어로 말하게 되요.',
+              title: '실제로 영어로 말하게 돼요.',
             },
           ]}
         />
