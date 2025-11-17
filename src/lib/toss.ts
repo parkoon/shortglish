@@ -54,10 +54,8 @@ export const requestTossLogin = async (): Promise<TossAuthorizationResponse> => 
   }
 
   try {
-    alert('before appLogin')
     const result = await module.appLogin()
 
-    alert(JSON.stringify(result, null, 2))
     return {
       authorizationCode: result.authorizationCode,
       referrer: result.referrer as 'sandbox' | 'DEFAULT',

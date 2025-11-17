@@ -30,6 +30,10 @@ export const paths = {
       path: '/videos/:videoId/review',
       getHref: (videoId: string) => `/videos/${videoId}/review`,
     },
+    listen: {
+      path: '/videos/:videoId/listen',
+      getHref: (videoId: string) => `/videos/${videoId}/listen`,
+    },
     shadowing: {
       path: '/videos/:videoId/shadowing',
       getHref: (videoId: string) => `/videos/${videoId}/shadowing`,
