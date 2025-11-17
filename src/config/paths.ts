@@ -5,15 +5,16 @@ export const paths = {
       getHref: () => '/',
     },
   },
-  onboarding: {
-    path: '/onboarding',
-    getHref: () => '/onboarding',
-  },
   my: {
     path: '/my',
     getHref: () => '/my',
   },
+
   videos: {
+    root: {
+      path: '/videos',
+      getHref: () => '/videos',
+    },
     entry: {
       path: '/videos/:videoId',
       getHref: (videoId: string) => `/videos/${videoId}`,
