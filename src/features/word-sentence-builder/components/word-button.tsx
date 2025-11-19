@@ -1,7 +1,28 @@
-import { motion } from 'framer-motion'
+import { motion, type Variant } from 'framer-motion'
 import { useEffect, useState } from 'react'
 
 import { cn } from '@/lib/utils'
+
+// 힌트 애니메이션 설정
+const HINT_ANIMATION: Variant = {
+  y: [0, -20, 0],
+  transition: {
+    duration: 0.5,
+    repeat: 4,
+    repeatDelay: 0.1,
+    ease: [0.34, 1.56, 0.64, 1],
+    times: [0, 0.4, 1],
+  },
+}
+
+// 오답 애니메이션 설정
+const WRONG_ANIMATION: Variant = {
+  x: [-10, 10, -10, 10, 0],
+  transition: {
+    duration: 0.4,
+    ease: 'easeInOut',
+  },
+}
 
 type WordButtonProps = {
   word: string
@@ -29,12 +50,12 @@ export const WordButton = ({
   onClick,
   onHintComplete,
 }: WordButtonProps) => {
-  const [shouldAnimate, setShouldAnimate] = useState(false)
+  const [shouldAnimateWrong, setShouldAnimateWrong] = useState(false)
 
   // isWrong이 true로 변경될 때 애니메이션 트리거
   useEffect(() => {
     if (isWrong) {
-      setShouldAnimate(true)
+      setShouldAnimateWrong(true)
     }
   }, [isWrong])
 
@@ -69,31 +90,10 @@ export const WordButton = ({
         !isWrong && 'cursor-pointer',
         isWrong && 'line-through opacity-50 cursor-not-allowed shadow-none hover:translate-y-0',
       )}
-      animate={
-        shouldAnimate && isWrong
-          ? {
-              x: [-10, 10, -10, 10, 0],
-              transition: {
-                duration: 0.4,
-                ease: 'easeInOut',
-              },
-            }
-          : isHint
-            ? {
-                y: [0, -20, 0],
-                transition: {
-                  duration: 0.5,
-                  repeat: 4,
-                  repeatDelay: 0.1,
-                  ease: [0.34, 1.56, 0.64, 1],
-                  times: [0, 0.4, 1],
-                },
-              }
-            : {}
-      }
+      animate={shouldAnimateWrong && isWrong ? WRONG_ANIMATION : isHint ? HINT_ANIMATION : {}}
       onAnimationComplete={() => {
-        if (shouldAnimate && isWrong) {
-          setShouldAnimate(false)
+        if (shouldAnimateWrong && isWrong) {
+          setShouldAnimateWrong(false)
         }
         if (isHint) {
           onHintComplete()

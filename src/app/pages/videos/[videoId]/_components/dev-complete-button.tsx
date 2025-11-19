@@ -1,12 +1,7 @@
 import type { Subtitle } from '@/api'
 import { useDialogueCompletionStore } from '@/features/video/store/dialogue-completion-store'
+import type { SelectedWordInfo } from '@/features/word-sentence-builder'
 import { splitSentenceToWords } from '@/utils/sentence'
-
-type SelectedWordInfo = {
-  word: string
-  attempts: number
-  id: number
-}
 
 interface DevCompleteButtonProps {
   videoId: string

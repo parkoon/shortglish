@@ -1,10 +1,8 @@
 import { cn } from '@/lib/utils'
 import type { WordWithPunctuation } from '@/utils/sentence'
 
-type SelectedWordInfo = {
-  word: string
-  attempts: number
-}
+import type { SelectedWordInfo } from '../types'
+import { getSlotBorderColor, getSlotTextColor } from '../utils/get-slot-color'
 
 type WordSlotsProps = {
   wordsWithPunctuation: WordWithPunctuation[]
@@ -26,14 +24,10 @@ export const WordSlots = ({ wordsWithPunctuation, selectedWords }: WordSlotsProp
       {wordsWithPunctuation.map((wordInfo, index) => {
         const isSelected = index < selectedWords.length
         const selectedWordInfo = selectedWords[index]
-        const attempts = selectedWordInfo?.attempts || 0
+        const attempts = selectedWordInfo?.attempts ?? 1
 
-        // 시도 횟수에 따른 색상
-        const textColor = isSelected
-          ? attempts === 1
-            ? 'text-green-600' // 한 번에 맞춤
-            : 'text-red-500' // 틀렸다가 맞춤
-          : 'text-transparent'
+        const textColor = getSlotTextColor({ attempts, isSelected })
+        const borderColor = getSlotBorderColor({ attempts, isSelected })
 
         return (
           <div key={`slot-${index}`} className="inline-flex items-baseline">
@@ -41,17 +35,7 @@ export const WordSlots = ({ wordsWithPunctuation, selectedWords }: WordSlotsProp
             {wordInfo.prefix && <span className="text-2xl text-gray-700">{wordInfo.prefix}</span>}
 
             {/* 단어 슬롯 */}
-            <span
-              className={cn(
-                'text-2xl border-b-2 leading-tight px-1',
-                textColor,
-                isSelected
-                  ? attempts === 1
-                    ? 'border-green-600'
-                    : 'border-red-500'
-                  : 'border-gray-400',
-              )}
-            >
+            <span className={cn('text-2xl border-b-2 leading-tight px-1', textColor, borderColor)}>
               {wordInfo.word}
             </span>
 

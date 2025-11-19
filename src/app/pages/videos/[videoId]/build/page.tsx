@@ -16,7 +16,7 @@ import {
 } from '@/features/video/components/youtube-player'
 import { useDialogueCompletionStore } from '@/features/video/store/dialogue-completion-store'
 import { useVideoProgressStore } from '@/features/video/store/video-progress-store'
-import { WordSentenceBuilder } from '@/features/word-sentence-builder'
+import { type SelectedWordInfo, WordSentenceBuilder } from '@/features/word-sentence-builder'
 import { analytics } from '@/lib/analytics'
 import { useModal } from '@/stores/modal-store'
 
@@ -24,12 +24,6 @@ import { DevCompleteButton } from '../_components/dev-complete-button'
 import { EmptySubtitle } from '../_components/empty-subtitle'
 import { SubtitleProgressBar } from '../_components/subtitle-progress-bar'
 import { VideoSpeedBottomSheet } from './_components/video-speed-bottom-sheet'
-
-type SelectedWordInfo = {
-  word: string
-  attempts: number
-  id: number
-}
 
 const VideoPage = () => {
   const { videoId } = useParams<{ videoId: string }>()

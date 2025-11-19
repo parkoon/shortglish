@@ -1,11 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
-type SelectedWordInfo = {
-  word: string
-  attempts: number
-  id: number
-}
+import type { SelectedWordInfo } from '@/features/word-sentence-builder'
 
 type CompletionState = {
   // videoId → subtitleIndex → SelectedWordInfo[]

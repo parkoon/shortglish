@@ -3,16 +3,14 @@ import { useEffect, useMemo, useState } from 'react'
 
 import { MotionButton } from '@/components/ui/motion-button'
 import { cn } from '@/lib/utils'
-import { extractWords, parseWordsWithPunctuation, shuffleArray } from '@/utils/sentence'
+import { extractWords, parseWordsWithPunctuation } from '@/utils/sentence'
 
+import type { SelectedWordInfo } from '../types'
+import { calculateAttempts } from '../utils/calculate-attempts'
+import { createWordsWithId } from '../utils/create-word-with-id'
+import { findCorrectWordForHint } from '../utils/find-correct-word'
 import { WordButton } from './word-button'
 import { WordSlots } from './word-slots'
-
-type SelectedWordInfo = {
-  word: string
-  attempts: number
-  id: number
-}
 
 type WordSentenceBuilderProps = {
   sentence: string
@@ -49,17 +47,8 @@ export const WordSentenceBuilder = ({
   // 순수 단어만 추출 (버튼용)
   const words = useMemo(() => extractWords(wordsWithPunctuation), [wordsWithPunctuation])
 
-  // 각 단어에 원래 인덱스와 고유 ID 부여
-  const wordsWithIndices = useMemo(() => {
-    const wordObjs = words.map((word, index) => ({
-      word,
-      originalIndex: index,
-      id: index,
-    }))
-    const shuffled = shuffleArray(wordObjs)
-    // 셔플 후 새로운 고유 ID 부여
-    return shuffled.map((obj, idx) => ({ ...obj, id: idx }))
-  }, [words])
+  // 각 단어에 원래 인덱스와 고유 ID 부여 (셔플 포함)
+  const wordsWithIndices = useMemo(() => createWordsWithId(words), [words])
 
   // 선택된 단어 정보 (단어 + 시도 횟수)
   const [selectedWords, setSelectedWords] = useState<SelectedWordInfo[]>([])
@@ -71,14 +60,18 @@ export const WordSentenceBuilder = ({
   // 힌트 표시
   const showHint = () => {
     const expectedWord = words[currentPosition]
-    const correctWord = wordsWithIndices.find(
-      w => w.word === expectedWord && !selectedWords.some(sw => sw.id === w.id),
-    )
-    if (correctWord) {
-      setHintWordId(correctWord.id)
-      // GA 이벤트 콜백 호출
-      onHint?.()
-    }
+    if (!expectedWord) return
+
+    const correctWord = findCorrectWordForHint({
+      expectedWord,
+      wordsWithIndices,
+      selectedWords,
+    })
+    if (!correctWord) return
+
+    setHintWordId(correctWord.id)
+    // GA 이벤트 콜백 호출 (힌트 표시 여부와 무관하게 이벤트 발생)
+    onHint?.()
   }
 
   // 힌트 애니메이션 완료
@@ -91,53 +84,42 @@ export const WordSentenceBuilder = ({
     if (!clickedWord) return
 
     const expectedWord = words[currentPosition]
+    if (!expectedWord) return
 
-    // 정답인 경우
-    if (clickedWord.word === expectedWord) {
-      // 틀린 적이 있으면 시도 횟수 증가, 없으면 1로 설정
-      const attempts = wrongWordIndices.size > 0 ? wrongWordIndices.size + 1 : 1
-
-      setSelectedWords(prev => [
-        ...prev,
-        {
-          word: clickedWord.word,
-          attempts,
-          id: clickedWord.id,
-        },
-      ])
-
-      // 정답을 맞추면 틀린 단어들의 취소선을 풀어줌 (다시 시도 가능)
-      setWrongWordIndices(new Set())
-
-      // 힌트 즉시 제거
-      setHintWordId(null)
-
-      // 마지막 단어를 맞췄을 때 바로 onComplete 호출
-      if (currentPosition + 1 === words.length) {
-        const finalWords = [
-          ...selectedWords,
-          {
-            word: clickedWord.word,
-            attempts,
-            id: clickedWord.id,
-          },
-        ]
-        onComplete(finalWords)
-      }
-
+    // 오답인 경우
+    if (clickedWord.word !== expectedWord) {
+      setWrongWordIndices(prev => new Set(prev).add(id))
+      onWrong()
       return
     }
 
-    // 오답인 경우
-    setWrongWordIndices(prev => new Set(prev).add(id))
+    // 정답인 경우
+    const attempts = calculateAttempts({ wrongAttemptsCount: wrongWordIndices.size })
+    const newSelectedWord: SelectedWordInfo = {
+      word: clickedWord.word,
+      attempts,
+      id: clickedWord.id,
+    }
 
-    // 오답 콜백 호출
-    onWrong()
+    const updatedSelectedWords = [...selectedWords, newSelectedWord]
+    setSelectedWords(updatedSelectedWords)
+
+    // 정답을 맞추면 틀린 단어들의 취소선을 풀어줌 (다시 시도 가능)
+    setWrongWordIndices(new Set())
+
+    // 힌트 즉시 제거
+    setHintWordId(null)
+
+    // 마지막 단어를 맞췄을 때 바로 onComplete 호출
+    if (updatedSelectedWords.length === words.length) {
+      onComplete(updatedSelectedWords)
+    }
   }
 
   // sentence가 바뀌면 게임 상태 리셋
   useEffect(() => {
-    setSelectedWords(completedWords && isCompleted ? completedWords : [])
+    const shouldUseCompletedWords = isCompleted && completedWords
+    setSelectedWords(shouldUseCompletedWords ? completedWords : [])
     setWrongWordIndices(new Set())
     setHintWordId(null)
   }, [sentence, completedWords, isCompleted])
