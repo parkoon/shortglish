@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router'
 import type { Subtitle } from '@/api'
 import { useSubtitlesQuery } from '@/api'
 import { PageLayout } from '@/components/layouts/page-layout'
-import { Spinner } from '@/components/ui/spinner'
+import { Skeleton } from '@/components/ui/skeleton'
 import { paths } from '@/config/paths'
 import {
   VideoController,
@@ -290,9 +290,19 @@ const VideoPage = () => {
 
   if (isLoadingDialogues) {
     return (
-      <>
-        <Spinner />
-      </>
+      <PageLayout>
+        <Skeleton className="w-full aspect-video rounded-none" />
+        <VideoController
+          canRepeat={false}
+          onNext={() => {}}
+          onPrevious={() => {}}
+          onRepeat={() => {}}
+          currentSpeed={1.0}
+          onSpeed={() => {}}
+          canNext={false}
+          canPrevious={false}
+        />
+      </PageLayout>
     )
   }
 
