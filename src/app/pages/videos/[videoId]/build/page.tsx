@@ -9,10 +9,7 @@ import {
   VideoController,
   type VideoControllerRef,
 } from '@/features/video/components/video-controller'
-import {
-  WordSentenceBuilder,
-  type WordSentenceBuilderRef,
-} from '@/features/video/components/word-sentence-builder'
+import { WordSentenceBuilder } from '@/features/video/components/word-sentence-builder'
 import {
   YOUTUBE_PLAYER_STATE,
   YouTubePlayer,
@@ -50,7 +47,6 @@ const VideoPage = () => {
 
   const playerRef = useRef<YouTubePlayerRef>(null)
   const videoControllerRef = useRef<VideoControllerRef>(null)
-  const wordSentenceBuilderRef = useRef<WordSentenceBuilderRef>(null)
 
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const currentDialogueRef = useRef(currentDialogue)
@@ -83,6 +79,17 @@ const VideoPage = () => {
       playerRef.current?.seekTo(0)
     }
     playerRef.current?.play()
+  }
+
+  const handleHint = () => {
+    // GA 이벤트: 힌트 사용
+    if (videoId && currentDialogue) {
+      analytics.useHint({
+        video_id: videoId,
+        subtitle_index: currentDialogue.index,
+        step_type: 'build',
+      })
+    }
   }
 
   const handlePrevious = () => {
@@ -150,19 +157,6 @@ const VideoPage = () => {
       // 다음 자막으로 이동하면 깜빡임 중지
       videoControllerRef.current?.stopBlink()
     }
-  }
-
-  const handleHint = () => {
-    // GA 이벤트: 힌트 사용
-    if (videoId && currentDialogue) {
-      analytics.useHint({
-        video_id: videoId,
-        subtitle_index: currentDialogue.index,
-        step_type: 'build',
-      })
-    }
-
-    wordSentenceBuilderRef.current?.showHint()
   }
 
   const startTimeTracking = () => {
@@ -312,6 +306,18 @@ const VideoPage = () => {
         />
         <SubtitleProgressBar current={currentDialogue?.index ?? 0} total={subtitles.length} />
 
+        <VideoController
+          currentSpeed={playbackSpeed}
+          onSpeed={handleSpeedChange}
+          ref={videoControllerRef}
+          onRepeat={handleRepeat}
+          onPrevious={handlePrevious}
+          onNext={handleNext}
+          canRepeat={!!currentDialogue}
+          canNext={isCurrentSubtitleCompleted}
+          canPrevious={canGoPrevious}
+        />
+
         {/* {playerState === YOUTUBE_PLAYER_STATE.PAUSED && (
           <VideoRepeatOverlay onRepeat={handleRepeat} />
         )} */}
@@ -321,12 +327,12 @@ const VideoPage = () => {
       {currentDialogue && videoId && (
         <div className="p-4">
           <WordSentenceBuilder
-            ref={wordSentenceBuilderRef}
             key={`${videoId}-${currentDialogue.index}`}
             sentence={currentDialogue.originText}
             translation={currentDialogue.translation}
             onComplete={handleSubtitleComplete}
             onWrong={handleRepeat}
+            onHint={handleHint}
             isCompleted={isCompleted(videoId, currentDialogue.index)}
             completedWords={getCompletedWords(videoId, currentDialogue.index)}
           />
@@ -338,20 +344,6 @@ const VideoPage = () => {
         currentDialogue={currentDialogue}
         isCompleted={isCurrentSubtitleCompleted}
         onComplete={handleSubtitleComplete}
-      />
-
-      <VideoController
-        currentSpeed={playbackSpeed}
-        onSpeed={handleSpeedChange}
-        ref={videoControllerRef}
-        onRepeat={handleRepeat}
-        onPrevious={handlePrevious}
-        onNext={handleNext}
-        onHint={handleHint}
-        canRepeat={!!currentDialogue}
-        canNext={isCurrentSubtitleCompleted}
-        canPrevious={canGoPrevious}
-        canHint={!isCurrentSubtitleCompleted}
       />
 
       <VideoSpeedBottomSheet
