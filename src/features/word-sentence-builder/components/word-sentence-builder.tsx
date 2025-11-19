@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from 'react'
 
 import { MotionButton } from '@/components/ui/motion-button'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import { cn } from '@/lib/utils'
 import { extractWords, parseWordsWithPunctuation } from '@/utils/sentence'
 
 import type { SelectedWordInfo } from '../types'
@@ -134,26 +135,27 @@ export const WordSentenceBuilder = ({
 
   return (
     <div className="bg-white border border-gray-200 rounded-xl px-4 pt-2 pb-6">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between mb-2">
         <div className="text-gray-500">
           <span className="font-semibold text-gray-900">1</span>
           <span>/</span>
           <span>10</span>
         </div>
 
-        {canShowHint && (
-          <Tooltip open={showHintTooltip}>
-            <TooltipContent side="left">힌트를 사용해보세요.</TooltipContent>
-            <TooltipTrigger>
-              <MotionButton
-                onClick={showHint}
-                className="text-sm flex items-center font-semibold gap-1 border py-1 px-3 rounded-4xl text-yellow-600"
-              >
-                <IconWand className="size-5" strokeWidth={1.5} />
-              </MotionButton>
-            </TooltipTrigger>
-          </Tooltip>
-        )}
+        <Tooltip open={showHintTooltip}>
+          <TooltipContent side="left">힌트를 사용해보세요.</TooltipContent>
+          <TooltipTrigger>
+            <MotionButton
+              onClick={showHint}
+              className={cn(
+                'text-sm flex items-center font-semibold gap-1 border py-1 px-3 rounded-4xl text-yellow-600',
+                !canShowHint && 'opacity-30 pointer-events-none',
+              )}
+            >
+              <IconWand className="size-5" strokeWidth={1.5} />
+            </MotionButton>
+          </TooltipTrigger>
+        </Tooltip>
       </div>
       {/* 단어 슬롯 영역 */}
       <div className="space-y-4 mb-8">
