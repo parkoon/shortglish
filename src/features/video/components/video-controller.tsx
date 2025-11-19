@@ -63,7 +63,7 @@ export const VideoController = forwardRef<VideoControllerRef, VideoControllerPro
             onClick={onRepeat}
             disabled={!canRepeat}
             className={cn(
-              'p-2 px-4 rounded-full bg-primary text-white',
+              'p-2 px-4 rounded-full text-primary border border-primary',
               !canRepeat && 'opacity-30 pointer-events-none',
             )}
           >
