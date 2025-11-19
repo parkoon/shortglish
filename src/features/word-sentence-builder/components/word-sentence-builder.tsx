@@ -21,6 +21,8 @@ type WordSentenceBuilderProps = {
   sentence: string
   isCompleted?: boolean
   translation: string
+  currentDialogueIndex: number
+  totalDialogueCount: number
   onComplete: (selectedWords: SelectedWordInfo[]) => void
   onWrong: () => void
   onHint?: () => void
@@ -40,11 +42,13 @@ type WordSentenceBuilderProps = {
 export const WordSentenceBuilder = ({
   sentence,
   translation,
+  completedWords,
+  currentDialogueIndex,
+  totalDialogueCount,
+  isCompleted = false,
   onComplete,
   onWrong,
   onHint,
-  isCompleted = false,
-  completedWords,
 }: WordSentenceBuilderProps) => {
   // 구두점 포함 파싱
   const wordsWithPunctuation = useMemo(() => parseWordsWithPunctuation(sentence), [sentence])
@@ -165,10 +169,10 @@ export const WordSentenceBuilder = ({
   return (
     <section>
       <div className="flex items-center justify-between mb-2">
-        <div className="text-gray-500">
-          <span className="font-semibold text-gray-900">1</span>
+        <div className="text-gray-400">
+          <span className="text-gray-900">{currentDialogueIndex + 1}</span>
           <span>/</span>
-          <span>10</span>
+          <span>{totalDialogueCount}</span>
         </div>
 
         <Tooltip open={showHintTooltip}>

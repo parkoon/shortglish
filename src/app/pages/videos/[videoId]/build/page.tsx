@@ -340,6 +340,8 @@ const VideoPage = () => {
               translation={currentDialogue.translation}
               isCompleted={isCompleted(videoId, currentDialogue.index)}
               completedWords={getCompletedWords(videoId, currentDialogue.index)}
+              currentDialogueIndex={currentDialogue.index}
+              totalDialogueCount={subtitles.length}
               onComplete={handleSubtitleComplete}
               onWrong={handleRepeat}
               onHint={handleHint}
