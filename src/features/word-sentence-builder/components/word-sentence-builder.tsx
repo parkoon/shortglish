@@ -14,6 +14,7 @@ import { WordButton } from './word-button'
 import { WordSlots } from './word-slots'
 
 const SHOW_HINT_TOOLTIP_COUNT = 2
+const MAX_VISIBLE_WORDS = 7
 
 type WordSentenceBuilderProps = {
   sentence: string
@@ -56,7 +57,6 @@ export const WordSentenceBuilder = ({
   // 선택된 단어 정보 (단어 + 시도 횟수)
   const [selectedWords, setSelectedWords] = useState<SelectedWordInfo[]>([])
   const [wrongWordIndices, setWrongWordIndices] = useState<Set<number>>(new Set())
-  console.log('🚀 ~ WordSentenceBuilder ~ wrongWordIndices:', wrongWordIndices.size)
   const [hintWordId, setHintWordId] = useState<number | null>(null)
 
   const currentPosition = selectedWords.length
@@ -86,6 +86,10 @@ export const WordSentenceBuilder = ({
   const handleWordClick = (id: number) => {
     const clickedWord = wordsWithIndices.find(w => w.id === id)
     if (!clickedWord) return
+
+    // 블러 처리된 버튼 클릭 방지 (이중 방어)
+    const maxActiveWords = MAX_VISIBLE_WORDS + selectedWords.length
+    if (clickedWord.originalIndex >= maxActiveWords) return
 
     const expectedWord = words[currentPosition]
     if (!expectedWord) return
@@ -166,12 +170,15 @@ export const WordSentenceBuilder = ({
 
       {/* 단어 버튼 영역 - 완성되면 숨김 */}
       {!isCompleted && (
-        <div className="flex flex-wrap gap-3 justify-center">
+        <div className="flex flex-wrap gap-3">
           {wordsWithIndices.map(item => {
             const isWrong = wrongWordIndices.has(item.id)
             // 이미 선택한 버튼인지 확인
             const isSelected = selectedWords.some(sw => sw.id === item.id)
             const isHint = hintWordId === item.id
+
+            const maxActiveWords = MAX_VISIBLE_WORDS + selectedWords.length
+            const isBlur = item.originalIndex >= maxActiveWords
 
             return (
               <WordButton
@@ -180,6 +187,7 @@ export const WordSentenceBuilder = ({
                 isWrong={isWrong}
                 isSelected={isSelected}
                 isHint={isHint}
+                isBlur={isBlur}
                 onClick={() => handleWordClick(item.id)}
                 onHintComplete={handleHintComplete}
               />

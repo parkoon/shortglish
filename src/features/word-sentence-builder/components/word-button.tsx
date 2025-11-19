@@ -29,6 +29,7 @@ type WordButtonProps = {
   isWrong?: boolean
   isSelected: boolean
   isHint?: boolean
+  isBlur?: boolean
   onClick: () => void
   onHintComplete: () => void
 }
@@ -47,6 +48,7 @@ export const WordButton = ({
   isWrong,
   isSelected,
   isHint = false,
+  isBlur = false,
   onClick,
   onHintComplete,
 }: WordButtonProps) => {
@@ -60,7 +62,7 @@ export const WordButton = ({
   }, [isWrong])
 
   const handleClick = () => {
-    if (isWrong || isSelected) return
+    if (isWrong || isSelected || isBlur) return
     onClick()
   }
 
@@ -82,13 +84,14 @@ export const WordButton = ({
   return (
     <motion.button
       onClick={handleClick}
-      disabled={isWrong}
+      disabled={isWrong || isBlur}
       className={cn(
         'px-4 py-1.5 text-lg font-medium rounded transition-all',
         'bg-white border-1 border-gray-300 text-gray-900',
         'shadow-md',
-        !isWrong && 'cursor-pointer',
+        !isWrong && !isBlur && 'cursor-pointer',
         isWrong && 'line-through opacity-50 cursor-not-allowed shadow-none hover:translate-y-0',
+        isBlur && 'opacity-40 cursor-not-allowed pointer-events-none',
       )}
       animate={shouldAnimateWrong && isWrong ? WRONG_ANIMATION : isHint ? HINT_ANIMATION : {}}
       onAnimationComplete={() => {
@@ -100,7 +103,7 @@ export const WordButton = ({
         }
       }}
     >
-      {word}
+      <span className={cn(isBlur && 'blur-sm')}>{word}</span>
     </motion.button>
   )
 }

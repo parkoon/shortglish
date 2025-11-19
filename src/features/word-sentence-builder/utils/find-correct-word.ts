@@ -1,9 +1,5 @@
 import type { SelectedWordInfo } from '../types'
-
-type WordWithId = {
-  word: string
-  id: number
-}
+import type { WordWithId } from './create-word-with-id'
 
 type FindCorrectWordParams = {
   expectedWord: string
@@ -31,4 +27,3 @@ export const findCorrectWordForHint = ({
     ) || null
   )
 }
-
