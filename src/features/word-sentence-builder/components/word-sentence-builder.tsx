@@ -2,7 +2,7 @@ import { IconWand } from '@tabler/icons-react'
 import { useEffect, useMemo, useState } from 'react'
 
 import { MotionButton } from '@/components/ui/motion-button'
-import { cn } from '@/lib/utils'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { extractWords, parseWordsWithPunctuation } from '@/utils/sentence'
 
 import type { SelectedWordInfo } from '../types'
@@ -11,6 +11,8 @@ import { createWordsWithId } from '../utils/create-word-with-id'
 import { findCorrectWordForHint } from '../utils/find-correct-word'
 import { WordButton } from './word-button'
 import { WordSlots } from './word-slots'
+
+const SHOW_HINT_TOOLTIP_COUNT = 2
 
 type WordSentenceBuilderProps = {
   sentence: string
@@ -53,6 +55,7 @@ export const WordSentenceBuilder = ({
   // 선택된 단어 정보 (단어 + 시도 횟수)
   const [selectedWords, setSelectedWords] = useState<SelectedWordInfo[]>([])
   const [wrongWordIndices, setWrongWordIndices] = useState<Set<number>>(new Set())
+  console.log('🚀 ~ WordSentenceBuilder ~ wrongWordIndices:', wrongWordIndices.size)
   const [hintWordId, setHintWordId] = useState<number | null>(null)
 
   const currentPosition = selectedWords.length
@@ -127,20 +130,36 @@ export const WordSentenceBuilder = ({
   // 힌트 버튼 활성화 여부 (완성되지 않았고, 아직 선택할 단어가 남아있을 때)
   const canShowHint = !isCompleted && currentPosition < words.length
 
+  const showHintTooltip = wrongWordIndices.size >= SHOW_HINT_TOOLTIP_COUNT
+
   return (
-    <div className="space-y-8">
-      {/* 단어 슬롯 영역 */}
-      <div className="space-y-4">
-        <WordSlots wordsWithPunctuation={wordsWithPunctuation} selectedWords={selectedWords} />
-        <div className="flex items-center justify-between">
-          <span className="text-gray-600">{translation}</span>
-          {/* 힌트 버튼 */}
-          {canShowHint && (
-            <MotionButton onClick={showHint} className={cn('p-2')} title="힌트">
-              <IconWand strokeWidth={1.5} />
-            </MotionButton>
-          )}
+    <div className="bg-white border border-gray-200 rounded-xl px-4 pt-2 pb-6">
+      <div className="flex items-center justify-between">
+        <div className="text-gray-500">
+          <span className="font-semibold text-gray-900">1</span>
+          <span>/</span>
+          <span>10</span>
         </div>
+
+        {canShowHint && (
+          <Tooltip open={showHintTooltip}>
+            <TooltipContent side="left">힌트를 사용해보세요.</TooltipContent>
+            <TooltipTrigger>
+              <MotionButton
+                onClick={showHint}
+                className="text-sm flex items-center font-semibold gap-1 border py-1 px-3 rounded-4xl text-yellow-600"
+              >
+                <IconWand className="size-5" strokeWidth={1.5} />
+              </MotionButton>
+            </TooltipTrigger>
+          </Tooltip>
+        )}
+      </div>
+      {/* 단어 슬롯 영역 */}
+      <div className="space-y-4 mb-8">
+        <WordSlots wordsWithPunctuation={wordsWithPunctuation} selectedWords={selectedWords} />
+
+        <span className="text-gray-600">{translation}</span>
       </div>
 
       {/* 단어 버튼 영역 - 완성되면 숨김 */}
