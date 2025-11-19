@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router'
 import type { Subtitle } from '@/api'
 import { useSubtitlesQuery } from '@/api'
 import { PageLayout } from '@/components/layouts/page-layout'
+import { Spinner } from '@/components/ui/spinner'
 import { paths } from '@/config/paths'
 import {
   VideoController,
@@ -285,6 +286,14 @@ const VideoPage = () => {
 
   if (!videoId) {
     return <div className="p-4">비디오를 찾을 수 없습니다.</div>
+  }
+
+  if (isLoadingDialogues) {
+    return (
+      <>
+        <Spinner />
+      </>
+    )
   }
 
   return (
