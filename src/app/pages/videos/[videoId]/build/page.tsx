@@ -281,64 +281,61 @@ const VideoPage = () => {
     : -1
   const canGoPrevious = currentIndex > 0
 
+  const showBuilder = currentDialogue && currentDialogue.originText !== '' && videoId
+
   if (!videoId) {
     return <div className="p-4">비디오를 찾을 수 없습니다.</div>
   }
 
-  if (isLoadingDialogues) {
-    return <div>비디오를 가지고 오는 중입니다.</div>
-  }
   return (
     <PageLayout className="pb-[80px]">
-      <div className="sticky top-0 z-10">
-        <YouTubePlayer
-          onStateChange={handleStateChange}
-          ref={playerRef}
-          videoId={videoId}
-          initialTime={subtitles[0]?.startTime ?? 0}
-          autoPlay
-        />
-        <SubtitleProgressBar current={currentDialogue?.index ?? 0} total={subtitles.length} />
+      <YouTubePlayer
+        onStateChange={handleStateChange}
+        ref={playerRef}
+        videoId={videoId}
+        initialTime={subtitles[0]?.startTime ?? 0}
+        autoPlay
+      />
+      <SubtitleProgressBar current={currentDialogue?.index ?? 0} total={subtitles.length} />
 
-        <VideoController
-          currentSpeed={playbackSpeed}
-          onSpeed={handleSpeedChange}
-          ref={videoControllerRef}
-          onRepeat={handleRepeat}
-          onPrevious={handlePrevious}
-          onNext={handleNext}
-          canRepeat={!!currentDialogue}
-          canNext={isCurrentSubtitleCompleted}
-          canPrevious={canGoPrevious}
-        />
-
-        {/* {playerState === YOUTUBE_PLAYER_STATE.PAUSED && (
+      {/* {playerState === YOUTUBE_PLAYER_STATE.PAUSED && (
           <VideoRepeatOverlay onRepeat={handleRepeat} />
         )} */}
-      </div>
-
-      {currentDialogue?.originText === '' && <EmptySubtitle />}
-      {currentDialogue && currentDialogue.originText !== '' && videoId && (
-        <div className="p-4">
-          <WordSentenceBuilder
-            key={`${videoId}-${currentDialogue.index}`}
-            sentence={currentDialogue.originText}
-            translation={currentDialogue.translation}
-            isCompleted={isCompleted(videoId, currentDialogue.index)}
-            completedWords={getCompletedWords(videoId, currentDialogue.index)}
-            onComplete={handleSubtitleComplete}
-            onWrong={handleRepeat}
-            onHint={handleHint}
-          />
-        </div>
-      )}
-
-      <DevCompleteButton
-        videoId={videoId}
-        currentDialogue={currentDialogue}
-        isCompleted={isCurrentSubtitleCompleted}
-        onComplete={handleSubtitleComplete}
+      <VideoController
+        currentSpeed={playbackSpeed}
+        onSpeed={handleSpeedChange}
+        ref={videoControllerRef}
+        onRepeat={handleRepeat}
+        onPrevious={handlePrevious}
+        onNext={handleNext}
+        canRepeat={!!currentDialogue}
+        canNext={isCurrentSubtitleCompleted}
+        canPrevious={canGoPrevious}
       />
+      <div className="bg-white px-4 pt-2 pb-6 mt-2">
+        {showBuilder ? (
+          <>
+            <WordSentenceBuilder
+              key={`${videoId}-${currentDialogue.index}`}
+              sentence={currentDialogue.originText}
+              translation={currentDialogue.translation}
+              isCompleted={isCompleted(videoId, currentDialogue.index)}
+              completedWords={getCompletedWords(videoId, currentDialogue.index)}
+              onComplete={handleSubtitleComplete}
+              onWrong={handleRepeat}
+              onHint={handleHint}
+            />
+            <DevCompleteButton
+              videoId={videoId}
+              currentDialogue={currentDialogue}
+              isCompleted={isCurrentSubtitleCompleted}
+              onComplete={handleSubtitleComplete}
+            />
+          </>
+        ) : (
+          <EmptySubtitle />
+        )}
+      </div>
 
       <VideoSpeedBottomSheet
         open={isSpeedBottomSheetOpen}
