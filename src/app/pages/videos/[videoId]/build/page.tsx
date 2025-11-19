@@ -324,11 +324,11 @@ const VideoPage = () => {
             key={`${videoId}-${currentDialogue.index}`}
             sentence={currentDialogue.originText}
             translation={currentDialogue.translation}
+            isCompleted={isCompleted(videoId, currentDialogue.index)}
+            completedWords={getCompletedWords(videoId, currentDialogue.index)}
             onComplete={handleSubtitleComplete}
             onWrong={handleRepeat}
             onHint={handleHint}
-            isCompleted={isCompleted(videoId, currentDialogue.index)}
-            completedWords={getCompletedWords(videoId, currentDialogue.index)}
           />
         </div>
       )}
