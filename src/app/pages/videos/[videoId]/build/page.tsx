@@ -318,7 +318,7 @@ const VideoPage = () => {
       </div>
 
       {currentDialogue?.originText === '' && <EmptySubtitle />}
-      {currentDialogue && videoId && (
+      {currentDialogue && currentDialogue.originText !== '' && videoId && (
         <div className="p-4">
           <WordSentenceBuilder
             key={`${videoId}-${currentDialogue.index}`}
