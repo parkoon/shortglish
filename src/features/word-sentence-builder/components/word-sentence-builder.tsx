@@ -1,6 +1,7 @@
 import { IconWand } from '@tabler/icons-react'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
+import ringSound from '@/assets/ring.mp3'
 import { MotionButton } from '@/components/ui/motion-button'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { cn } from '@/lib/utils'
@@ -59,6 +60,9 @@ export const WordSentenceBuilder = ({
   const [wrongWordIndices, setWrongWordIndices] = useState<Set<number>>(new Set())
   const [hintWordId, setHintWordId] = useState<number | null>(null)
 
+  // 오디오 재생을 위한 ref
+  const audioRef = useRef<HTMLAudioElement | null>(null)
+
   const currentPosition = selectedWords.length
 
   // 힌트 표시
@@ -83,7 +87,7 @@ export const WordSentenceBuilder = ({
     setHintWordId(null)
   }
 
-  const handleWordClick = (id: number) => {
+  const handleWordClick = async (id: number) => {
     const clickedWord = wordsWithIndices.find(w => w.id === id)
     if (!clickedWord) return
 
@@ -118,11 +122,32 @@ export const WordSentenceBuilder = ({
     // 힌트 즉시 제거
     setHintWordId(null)
 
-    // 마지막 단어를 맞췄을 때 바로 onComplete 호출
+    // 마지막 단어를 맞췄을 때 바로 onComplete 호출 및 오디오 재생
     if (updatedSelectedWords.length === words.length) {
-      onComplete(updatedSelectedWords)
+      if (audioRef.current) {
+        audioRef.current.currentTime = 0 // 처음부터 재생
+
+        try {
+          await audioRef.current.play()
+        } finally {
+          onComplete(updatedSelectedWords)
+        }
+      }
     }
   }
+
+  // 오디오 객체 초기화
+  useEffect(() => {
+    audioRef.current = new Audio(ringSound)
+    audioRef.current.preload = 'auto'
+
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause()
+        audioRef.current = null
+      }
+    }
+  }, [])
 
   // sentence가 바뀌면 게임 상태 리셋
   useEffect(() => {
