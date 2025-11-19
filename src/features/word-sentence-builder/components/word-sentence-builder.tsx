@@ -134,7 +134,7 @@ export const WordSentenceBuilder = ({
   const showHintTooltip = wrongWordIndices.size >= SHOW_HINT_TOOLTIP_COUNT
 
   return (
-    <div className="bg-white border border-gray-200 rounded-xl px-4 pt-2 pb-6">
+    <section>
       <div className="flex items-center justify-between mb-2">
         <div className="text-gray-500">
           <span className="font-semibold text-gray-900">1</span>
@@ -187,6 +187,6 @@ export const WordSentenceBuilder = ({
           })}
         </div>
       )}
-    </div>
+    </section>
   )
 }
