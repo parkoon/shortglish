@@ -9,7 +9,6 @@ import {
   VideoController,
   type VideoControllerRef,
 } from '@/features/video/components/video-controller'
-import { WordSentenceBuilder } from '@/features/video/components/word-sentence-builder'
 import {
   YOUTUBE_PLAYER_STATE,
   YouTubePlayer,
@@ -17,6 +16,7 @@ import {
 } from '@/features/video/components/youtube-player'
 import { useDialogueCompletionStore } from '@/features/video/store/dialogue-completion-store'
 import { useVideoProgressStore } from '@/features/video/store/video-progress-store'
+import { WordSentenceBuilder } from '@/features/word-sentence-builder'
 import { analytics } from '@/lib/analytics'
 import { useModal } from '@/stores/modal-store'
 
