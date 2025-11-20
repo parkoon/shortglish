@@ -3,6 +3,7 @@ import {
   IconPlayerPlay,
   IconPlayerSkipBackFilled,
   IconPlayerSkipForwardFilled,
+  IconRepeat,
 } from '@tabler/icons-react'
 
 import { MotionButton } from '@/components/ui/motion-button'
@@ -11,6 +12,7 @@ import { cn } from '@/lib/utils'
 type PlayerControllerProps = {
   canNext?: boolean
   canPrevious?: boolean
+  canRepeat?: boolean
   isPlaying: boolean
   isRepeatActive?: boolean
   onNext: () => void
@@ -22,11 +24,12 @@ type PlayerControllerProps = {
 export const PlayerController = ({
   canNext = true,
   canPrevious = true,
+  canRepeat = true,
   isPlaying,
-  // isRepeatActive,
+  isRepeatActive = false,
   onNext,
   onPrevious,
-  // onRepeatToggle,
+  onRepeatToggle,
   onStartStop,
 }: PlayerControllerProps) => {
   return (
@@ -35,7 +38,7 @@ export const PlayerController = ({
         <MotionButton
           onClick={onPrevious}
           disabled={!canPrevious}
-          className={cn('p-2', !canPrevious && 'opacity-30 cursor-not-allowed')}
+          className={cn('p-2', !canPrevious && 'opacity-30 pointer-events-none')}
         >
           <IconPlayerSkipBackFilled />
         </MotionButton>
@@ -47,17 +50,24 @@ export const PlayerController = ({
           {isPlaying ? <IconPlayerPause /> : <IconPlayerPlay />}
         </MotionButton>
 
-        {/* <MotionButton
-          onClick={onRepeatToggle}
-          className={cn('p-2 absolute left-1/2 translate-x-12.5', isRepeatActive && 'text-primary')}
-        >
-          <IconRepeat />
-        </MotionButton> */}
+        {onRepeatToggle && (
+          <MotionButton
+            onClick={onRepeatToggle}
+            disabled={!canRepeat}
+            className={cn(
+              'p-2 absolute left-1/2 translate-x-12.5',
+              isRepeatActive && 'text-primary',
+              !canRepeat && 'opacity-30 pointer-events-none',
+            )}
+          >
+            <IconRepeat />
+          </MotionButton>
+        )}
 
         <MotionButton
           onClick={onNext}
           disabled={!canNext}
-          className={cn('p-2', !canNext && 'opacity-30 cursor-not-allowed')}
+          className={cn('p-2', !canNext && 'opacity-30 pointer-events-none')}
         >
           <IconPlayerSkipForwardFilled />
         </MotionButton>

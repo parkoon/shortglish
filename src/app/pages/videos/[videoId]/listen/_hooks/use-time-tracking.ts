@@ -40,8 +40,9 @@ export const useTimeTracking = ({
 
       // 현재 자막 상태 추적
       const status = getSubtitleInfo({ subtitles, player: playerRef.current })
-      onSubtitleChange(status.currentSubtitle)
       onTimeUpdate?.(status.time)
+
+      onSubtitleChange(status.currentSubtitle)
 
       if (status.isAllSubtitlesEnded) {
         stopTimeTracking()
