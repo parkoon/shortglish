@@ -1,12 +1,11 @@
-import { useEffect, useRef, useState } from 'react'
-import { useNavigate, useParams } from 'react-router'
+import { Suspense, useRef, useState } from 'react'
+import { Await, useLoaderData, useNavigate, useParams } from 'react-router'
 
 import type { Subtitle } from '@/api'
-import { useSubtitlesQuery } from '@/api'
 import { PageLayout } from '@/components/layouts/page-layout'
 import { Skeleton } from '@/components/ui/skeleton'
 import { paths } from '@/config/paths'
-import { getCurrentSubtitleFromPlayer } from '@/features/player/utils/subtitle'
+import { getNextSubtitle, getPreviousSubtitle } from '@/features/player/utils/subtitle'
 import {
   VideoController,
   type VideoControllerRef,
@@ -26,14 +25,14 @@ import { DevCompleteButton } from '../_components/dev-complete-button'
 import { EmptySubtitle } from '../_components/empty-subtitle'
 import { SubtitleProgressBar } from '../_components/subtitle-progress-bar'
 import { VideoSpeedBottomSheet } from './_components/video-speed-bottom-sheet'
+import { useBuildTimeTracking } from './_hooks/use-build-time-tracking'
+import { clientLoader } from './loader'
 
-const VideoPage = () => {
+const BuildPageContent = ({ subtitles }: { subtitles: Subtitle[] }) => {
   const { videoId } = useParams<{ videoId: string }>()
   const navigate = useNavigate()
 
-  const { data: subtitles = [], isLoading: isLoadingDialogues } = useSubtitlesQuery(videoId)
-
-  const [currentDialogue, setCurrentDialogue] = useState<Subtitle | null>(null)
+  const [currentDialogue, setCurrentDialogue] = useState<Subtitle | null>(subtitles[0] ?? null)
   const [playbackSpeed, setPlaybackSpeed] = useState(1.0)
   const [isSpeedBottomSheetOpen, setIsSpeedBottomSheetOpen] = useState(false)
 
@@ -44,19 +43,14 @@ const VideoPage = () => {
   const playerRef = useRef<YouTubePlayerRef>(null)
   const videoControllerRef = useRef<VideoControllerRef>(null)
 
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
-  const currentDialogueRef = useRef(currentDialogue)
-
-  useEffect(() => {
-    currentDialogueRef.current = currentDialogue
-  }, [currentDialogue])
-
-  // Cleanup: 컴포넌트 unmount 시 interval 정리
-  useEffect(() => {
-    return () => {
-      stopTimeTracking()
-    }
-  }, [])
+  const { startTimeTracking, stopTimeTracking } = useBuildTimeTracking({
+    subtitles,
+    playerRef,
+    currentDialogue,
+    onSubtitleFound: foundDialogue => {
+      setCurrentDialogue(foundDialogue)
+    },
+  })
 
   const handleRepeat = () => {
     // GA 이벤트: 반복 버튼 클릭
@@ -89,9 +83,7 @@ const VideoPage = () => {
   }
 
   const handlePrevious = () => {
-    const currentIndex = subtitles.findIndex(d => d.index === currentDialogue?.index)
-    const prevIndex = currentIndex - 1
-    const prevDialogue = subtitles[prevIndex]
+    const prevDialogue = getPreviousSubtitle({ subtitles, currentSubtitle: currentDialogue })
 
     // 이전 다이얼로그가 없음
     if (!prevDialogue) {
@@ -99,7 +91,7 @@ const VideoPage = () => {
     }
 
     // GA 이벤트: 이전 버튼 클릭
-    if (videoId && prevDialogue) {
+    if (videoId) {
       analytics.clickPrevious({
         video_id: videoId,
         subtitle_index: prevDialogue.index,
@@ -107,12 +99,10 @@ const VideoPage = () => {
       })
     }
 
-    if (playerRef) {
-      setCurrentDialogue(prevDialogue)
-      playerRef.current?.seekTo(prevDialogue.startTime)
-      // 이전 자막으로 이동하면 깜빡임 중지
-      videoControllerRef.current?.stopBlink()
-    }
+    setCurrentDialogue(prevDialogue)
+    playerRef.current?.seekTo(prevDialogue.startTime)
+    // 이전 자막으로 이동하면 깜빡임 중지
+    videoControllerRef.current?.stopBlink()
   }
 
   const handleNext = () => {
@@ -137,7 +127,7 @@ const VideoPage = () => {
     }
 
     // GA 이벤트: 다음 버튼 클릭
-    if (videoId && nextDialogue) {
+    if (videoId) {
       analytics.clickNext({
         video_id: videoId,
         subtitle_index: nextDialogue.index,
@@ -145,64 +135,11 @@ const VideoPage = () => {
       })
     }
 
-    if (playerRef) {
-      setCurrentDialogue(nextDialogue)
-
-      playerRef.current?.seekTo(nextDialogue.startTime)
-      playerRef.current?.play()
-      // 다음 자막으로 이동하면 깜빡임 중지
-      videoControllerRef.current?.stopBlink()
-    }
-  }
-
-  const startTimeTracking = () => {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current)
-    }
-
-    // 100ms마다 현재 시간 업데이트 (더 부드러운 추적)
-    intervalRef.current = setInterval(() => {
-      if (!playerRef.current) return
-
-      const time = playerRef.current.getCurrentTime()
-      const activeDialogue = currentDialogueRef.current
-
-      // 케이스 1: 대사가 없을 때 (첫 지점) - 현재 시간에 맞는 대사 찾아서 설정
-      if (!activeDialogue) {
-        const foundDialogue = getCurrentSubtitleFromPlayer(subtitles, playerRef.current)
-
-        if (foundDialogue) {
-          setCurrentDialogue(foundDialogue)
-        }
-        return
-      }
-
-      const isEnded = time >= activeDialogue.endTime
-
-      // 케이스 3: 대사가 없을 때 - 끝났는지만 체크
-      if (isEnded && activeDialogue.originText === '') {
-        const foundDialogue = getCurrentSubtitleFromPlayer(subtitles, playerRef.current)
-
-        if (foundDialogue) {
-          setCurrentDialogue(foundDialogue)
-        }
-
-        return
-      }
-
-      // 케이스 2: 대사가 있을 때 - 끝났는지만 체크
-      if (isEnded) {
-        playerRef.current.pause()
-        playerRef.current.seekTo(activeDialogue.startTime)
-      }
-    }, 100)
-  }
-
-  const stopTimeTracking = () => {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current)
-      intervalRef.current = null
-    }
+    setCurrentDialogue(nextDialogue)
+    playerRef.current?.seekTo(nextDialogue.startTime)
+    playerRef.current?.play()
+    // 다음 자막으로 이동하면 깜빡임 중지
+    videoControllerRef.current?.stopBlink()
   }
 
   const handleStateChange = (state: number) => {
@@ -230,7 +167,7 @@ const VideoPage = () => {
     // store에 저장
     markAsCompleted(videoId, currentDialogue.index, selectedWords)
 
-    const nextDialogue = getNextDialogue(subtitles, currentDialogue)
+    const nextDialogue = getNextSubtitle({ subtitles, currentSubtitle: currentDialogue })
     // 다음 자막이 없으면, 학습 종료
     if (!nextDialogue) {
       // GA 이벤트: Build 모드 전체 완료
@@ -274,7 +211,7 @@ const VideoPage = () => {
   // 현재 자막이 완성되었는지 확인
   const isCurrentSubtitleCompleted =
     !currentDialogue || !videoId
-      ? true
+      ? false
       : isCompleted(videoId, currentDialogue.index) || currentDialogue.originText === ''
 
   // 이전 자막이 있는지 확인
@@ -289,23 +226,7 @@ const VideoPage = () => {
     return <div className="p-4">비디오를 찾을 수 없습니다.</div>
   }
 
-  if (isLoadingDialogues) {
-    return (
-      <PageLayout>
-        <Skeleton className="w-full aspect-video rounded-none" />
-        <VideoController
-          canRepeat={false}
-          onNext={() => {}}
-          onPrevious={() => {}}
-          onRepeat={() => {}}
-          currentSpeed={1.0}
-          onSpeed={() => {}}
-          canNext={false}
-          canPrevious={false}
-        />
-      </PageLayout>
-    )
-  }
+  console.log(subtitles, currentDialogue.index)
 
   return (
     <PageLayout className="pb-[80px]">
@@ -369,8 +290,40 @@ const VideoPage = () => {
   )
 }
 
-const getNextDialogue = (subtitles: Subtitle[], currentDialogue: Subtitle): Subtitle | null => {
-  return subtitles.find(d => d.index === currentDialogue.index + 1) ?? null
+const BuildPage = () => {
+  const { videoId } = useParams<{ videoId: string }>()
+  const data = useLoaderData<{ subtitles: Promise<Subtitle[]> }>()
+
+  if (!videoId) {
+    return <div className="p-4">비디오를 찾을 수 없습니다.</div>
+  }
+
+  return (
+    <Suspense
+      fallback={
+        <PageLayout>
+          <Skeleton className="w-full aspect-video rounded-none" />
+          <VideoController
+            canRepeat={false}
+            onNext={() => {}}
+            onPrevious={() => {}}
+            onRepeat={() => {}}
+            currentSpeed={1.0}
+            onSpeed={() => {}}
+            canNext={false}
+            canPrevious={false}
+          />
+        </PageLayout>
+      }
+    >
+      <Await resolve={data.subtitles}>
+        {subtitles => <BuildPageContent subtitles={subtitles} />}
+      </Await>
+    </Suspense>
+  )
 }
 
-export default VideoPage
+// eslint-disable-next-line react-refresh/only-export-components
+export { clientLoader }
+
+export default BuildPage
