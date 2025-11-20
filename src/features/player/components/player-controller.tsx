@@ -3,7 +3,6 @@ import {
   IconPlayerPlay,
   IconPlayerSkipBackFilled,
   IconPlayerSkipForwardFilled,
-  IconRepeat,
 } from '@tabler/icons-react'
 
 import { MotionButton } from '@/components/ui/motion-button'
@@ -13,10 +12,10 @@ type PlayerControllerProps = {
   canNext?: boolean
   canPrevious?: boolean
   isPlaying: boolean
-  isRepeatActive: boolean
+  isRepeatActive?: boolean
   onNext: () => void
   onPrevious: () => void
-  onRepeatToggle: () => void
+  onRepeatToggle?: () => void
   onStartStop: () => void
 }
 
@@ -24,10 +23,10 @@ export const PlayerController = ({
   canNext = true,
   canPrevious = true,
   isPlaying,
-  isRepeatActive,
+  // isRepeatActive,
   onNext,
   onPrevious,
-  onRepeatToggle,
+  // onRepeatToggle,
   onStartStop,
 }: PlayerControllerProps) => {
   return (
@@ -48,12 +47,12 @@ export const PlayerController = ({
           {isPlaying ? <IconPlayerPause /> : <IconPlayerPlay />}
         </MotionButton>
 
-        <MotionButton
+        {/* <MotionButton
           onClick={onRepeatToggle}
           className={cn('p-2 absolute left-1/2 translate-x-12.5', isRepeatActive && 'text-primary')}
         >
           <IconRepeat />
-        </MotionButton>
+        </MotionButton> */}
 
         <MotionButton
           onClick={onNext}

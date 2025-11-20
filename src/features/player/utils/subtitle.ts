@@ -62,3 +62,56 @@ export const getSubtitleInfo = ({ subtitles, player }: GetSubtitleInfoParams): S
     time,
   }
 }
+
+type GetSubtitleNavigationParams = {
+  subtitles: Subtitle[]
+  currentSubtitle: Subtitle | null
+}
+
+/**
+ * 다음 유효한 자막을 반환하는 함수
+ * originText가 비어있지 않은 자막만 대상으로 함
+ *
+ * @param params - 자막 네비게이션 파라미터
+ * @returns 다음 유효한 자막 또는 null
+ */
+export const getNextSubtitle = ({
+  subtitles,
+  currentSubtitle,
+}: GetSubtitleNavigationParams): Subtitle | null => {
+  if (!currentSubtitle) return null
+
+  // originText가 있는 자막들만 필터링
+  const validSubtitles = subtitles.filter(s => s.originText !== '')
+  const currentIndex = validSubtitles.findIndex(s => s.index === currentSubtitle.index)
+
+  if (currentIndex < validSubtitles.length - 1) {
+    return validSubtitles[currentIndex + 1]
+  }
+
+  return null
+}
+
+/**
+ * 이전 유효한 자막을 반환하는 함수
+ * originText가 비어있지 않은 자막만 대상으로 함
+ *
+ * @param params - 자막 네비게이션 파라미터
+ * @returns 이전 유효한 자막 또는 null
+ */
+export const getPreviousSubtitle = ({
+  subtitles,
+  currentSubtitle,
+}: GetSubtitleNavigationParams): Subtitle | null => {
+  if (!currentSubtitle) return null
+
+  // originText가 있는 자막들만 필터링
+  const validSubtitles = subtitles.filter(s => s.originText !== '')
+  const currentIndex = validSubtitles.findIndex(s => s.index === currentSubtitle.index)
+
+  if (currentIndex > 0) {
+    return validSubtitles[currentIndex - 1]
+  }
+
+  return null
+}

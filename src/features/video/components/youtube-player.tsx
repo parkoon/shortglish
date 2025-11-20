@@ -86,7 +86,7 @@ export const YouTubePlayer = forwardRef<YouTubePlayerRef, YouTubePlayerProps>(
             fs: 0,
             iv_load_policy: 3,
             rel: 0,
-            autoplay: 1,
+            // autoplay: 1,
             showinfo: 0,
             autohide: 1,
             modestbranding: 1,
