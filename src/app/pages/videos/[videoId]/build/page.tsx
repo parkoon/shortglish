@@ -226,8 +226,6 @@ const BuildPageContent = ({ subtitles }: { subtitles: Subtitle[] }) => {
     return <div className="p-4">비디오를 찾을 수 없습니다.</div>
   }
 
-  console.log(subtitles, currentDialogue.index)
-
   return (
     <PageLayout className="pb-[80px]">
       <YouTubePlayer
