@@ -5,6 +5,7 @@ import type { Subtitle } from '@/api'
 import { useSubtitlesQuery } from '@/api'
 import { PageLayout } from '@/components/layouts/page-layout'
 import { paths } from '@/config/paths'
+import { getSubtitleInfo } from '@/features/player/utils/subtitle'
 import {
   YOUTUBE_PLAYER_STATE,
   YouTubePlayer,
@@ -101,29 +102,25 @@ const VideoPage = () => {
     intervalRef.current = setInterval(() => {
       if (!playerRef.current) return
 
-      const time = playerRef.current.getCurrentTime()
+      const status = getSubtitleInfo({ subtitles, player: playerRef.current })
 
-      if (isDialogueEnded(time, subtitles)) {
+      // 모든 자막이 끝났으면 종료
+      if (status.isAllSubtitlesEnded) {
         endVideo()
         return
       }
 
       const isInRepeatMode = repeatDialogueRef.current !== null
 
-      if (isInRepeatMode && time >= repeatDialogueRef.current!.endTime!) {
+      if (isInRepeatMode && status.time >= repeatDialogueRef.current!.endTime!) {
         // Loop back to start
         playerRef.current?.seekTo(repeatDialogueRef.current!.startTime)
         return
       }
 
-      const currentDialogueByTime = subtitles.find(d => {
-        return time >= d.startTime && time < d.endTime
-      })
-
-      if (!currentDialogueByTime) {
-        return
+      if (status.currentSubtitle) {
+        setCurrentDialogue(status.currentSubtitle)
       }
-      setCurrentDialogue(currentDialogueByTime)
     }, 100)
   }
 
@@ -183,7 +180,7 @@ const VideoPage = () => {
           onStateChange={handleStateChange}
           ref={playerRef}
           videoId={videoId}
-          initialTime={0}
+          initialTime={subtitles[0]?.startTime ?? 0}
           autoPlay
         />
       </div>
@@ -197,9 +194,4 @@ const VideoPage = () => {
     </PageLayout>
   )
 }
-const isDialogueEnded = (time: number, subtitles: Subtitle[]) => {
-  const lastDialogue = subtitles[subtitles.length - 1]
-  return time >= lastDialogue.endTime
-}
-
 export default VideoPage

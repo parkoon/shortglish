@@ -6,6 +6,7 @@ import { useSubtitlesQuery } from '@/api'
 import { PageLayout } from '@/components/layouts/page-layout'
 import { Skeleton } from '@/components/ui/skeleton'
 import { paths } from '@/config/paths'
+import { getCurrentSubtitleFromPlayer } from '@/features/player/utils/subtitle'
 import {
   VideoController,
   type VideoControllerRef,
@@ -168,7 +169,7 @@ const VideoPage = () => {
 
       // 케이스 1: 대사가 없을 때 (첫 지점) - 현재 시간에 맞는 대사 찾아서 설정
       if (!activeDialogue) {
-        const foundDialogue = getCurrentDialogue(subtitles, time)
+        const foundDialogue = getCurrentSubtitleFromPlayer(subtitles, playerRef.current)
 
         if (foundDialogue) {
           setCurrentDialogue(foundDialogue)
@@ -180,7 +181,7 @@ const VideoPage = () => {
 
       // 케이스 3: 대사가 없을 때 - 끝났는지만 체크
       if (isEnded && activeDialogue.originText === '') {
-        const foundDialogue = getCurrentDialogue(subtitles, time)
+        const foundDialogue = getCurrentSubtitleFromPlayer(subtitles, playerRef.current)
 
         if (foundDialogue) {
           setCurrentDialogue(foundDialogue)
@@ -365,14 +366,6 @@ const VideoPage = () => {
         onSelect={handleSpeedSelect}
       />
     </PageLayout>
-  )
-}
-
-const getCurrentDialogue = (subtitles: Subtitle[], time: number): Subtitle | null => {
-  return (
-    subtitles.find(d => {
-      return time >= d.startTime && time < d.endTime
-    }) ?? null
   )
 }
 
