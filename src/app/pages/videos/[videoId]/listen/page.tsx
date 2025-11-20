@@ -72,19 +72,10 @@ const ListenPageContent = ({ subtitles }: { subtitles: Subtitle[] }) => {
       okText: '다음 단계로',
       cancelText: '나중에',
       onCancel: () => {
-        navigate(paths.videos.entry.getHref(videoId ?? ''), { replace: true })
+        navigate(paths.videos.entry.getHref(videoId!), { replace: true })
       },
       onOk: () => {
-        // GA 이벤트: Review 다시보기
-        if (videoId) {
-          analytics.reviewRewatch({
-            video_id: videoId,
-          })
-        }
-
-        playerRef.current?.seekTo(0)
-        playerRef.current?.play()
-        timeTracking.startTimeTracking()
+        navigate(paths.videos.build.getHref(videoId!), { replace: true })
       },
     })
   }
