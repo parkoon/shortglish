@@ -61,7 +61,7 @@ const VideoPage = () => {
       okText: '다시보기',
       cancelText: '홈으로',
       onCancel: () => {
-        navigate(paths.home.root.getHref())
+        navigate(paths.videos.root.getHref())
       },
       onOk: () => {
         // GA 이벤트: Review 다시보기
