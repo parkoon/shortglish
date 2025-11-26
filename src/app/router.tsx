@@ -60,6 +60,10 @@ export const createAppRouter = (queryClient: QueryClient) =>
       lazy: () => import('./pages/videos/[videoId]/shadowing/page').then(convert(queryClient)),
     },
     {
+      path: paths.videos.speak.path,
+      lazy: () => import('./pages/videos/[videoId]/speak/page').then(convert(queryClient)),
+    },
+    {
       path: '*',
       lazy: () => import('./pages/not-found').then(convert(queryClient)),
     },

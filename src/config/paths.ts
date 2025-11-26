@@ -39,5 +39,9 @@ export const paths = {
       path: '/videos/:videoId/shadowing',
       getHref: (videoId: string) => `/videos/${videoId}/shadowing`,
     },
+    speak: {
+      path: '/videos/:videoId/speak',
+      getHref: (videoId: string) => `/videos/${videoId}/speak`,
+    },
   },
 } as const
