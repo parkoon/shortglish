@@ -11,14 +11,14 @@ import { usePrimaryColor } from '@/hooks/use-primary-color'
 import { cn } from '@/lib/utils'
 
 type VideoControllerProps = {
-  canRepeat: boolean
+  canRepeat?: boolean
   canNext?: boolean
   canPrevious?: boolean
-  currentSpeed: number
-  onPrevious: () => void
-  onNext: () => void
-  onRepeat: () => void
-  onSpeed: () => void
+  currentSpeed?: number
+  onPrevious?: () => void
+  onNext?: () => void
+  onRepeat?: () => void
+  onSpeed?: () => void
 }
 
 export type VideoControllerRef = {

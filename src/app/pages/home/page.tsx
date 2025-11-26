@@ -1,6 +1,6 @@
 import { IconDeviceTvOldFilled, IconMoodBoy, IconSunset2Filled } from '@tabler/icons-react'
 import { useState } from 'react'
-import { useNavigate } from 'react-router'
+import { useNavigate, useSearchParams } from 'react-router'
 
 import { CTALayout } from '@/components/layouts/cta-layout'
 import { Stepper } from '@/components/ui/stepper'
@@ -10,6 +10,7 @@ import { useAuthStore } from '@/stores/auth-store'
 
 const OnboardingPage = () => {
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
   const [isLoading, setIsLoading] = useState(false)
   const setUser = useAuthStore(state => state.setUser)
 
@@ -21,7 +22,19 @@ const OnboardingPage = () => {
 
       setUser(user)
 
-      navigate(paths.videos.root.getHref(), { replace: true })
+      // 쿼리 파라미터 test 값에 따라 경로 분기
+      const testParam = searchParams.get('test')
+      let targetPath = paths.videos.root.getHref()
+
+      if (testParam === 'a') {
+        targetPath = paths.test.a.getHref()
+      } else if (testParam === 'b') {
+        targetPath = paths.test.b.getHref()
+      } else if (testParam === 'c') {
+        targetPath = paths.test.c.getHref()
+      }
+
+      navigate(targetPath, { replace: true })
     } catch (err) {
       console.error('토스 로그인 실패:', err)
       setIsLoading(false)

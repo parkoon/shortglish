@@ -44,4 +44,18 @@ export const paths = {
       getHref: (videoId: string) => `/videos/${videoId}/speak`,
     },
   },
+  test: {
+    a: {
+      path: '/test/a',
+      getHref: () => '/test/a',
+    },
+    b: {
+      path: '/test/b',
+      getHref: () => '/test/b',
+    },
+    c: {
+      path: '/test/c',
+      getHref: () => '/test/c',
+    },
+  },
 } as const

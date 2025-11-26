@@ -302,6 +302,18 @@ export const analytics = {
     })
   },
 
+  // ==================== 알림 ====================
+
+  /**
+   * 알림 구독 요청
+   */
+  subscribeNotification: (params?: { video_id?: string; source?: string }) => {
+    trackEvent('subscribe_notification', {
+      video_id: params?.video_id || '',
+      source: params?.source || '',
+    })
+  },
+
   // ==================== 기타 ====================
 
   /**

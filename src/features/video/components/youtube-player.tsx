@@ -1,5 +1,7 @@
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react'
 
+import { cn } from '@/lib/utils'
+
 // YouTube iframe API 타입 정의
 type YTPlayer = {
   playVideo(): void
@@ -24,7 +26,8 @@ type YouTubePlayerProps = {
   initialTime?: number
   autoPlay?: boolean
   disabled?: boolean
-  onStateChange: (state: number) => void
+  onStateChange?: (state: number) => void
+  className?: string
 }
 
 export type YouTubePlayerRef = {
@@ -49,7 +52,10 @@ export const YOUTUBE_PLAYER_STATE = {
 } as const
 
 export const YouTubePlayer = forwardRef<YouTubePlayerRef, YouTubePlayerProps>(
-  ({ videoId, initialTime = 0, autoPlay = false, disabled = false, onStateChange }, ref) => {
+  (
+    { videoId, initialTime = 0, autoPlay = false, disabled = false, className, onStateChange },
+    ref,
+  ) => {
     const [showPlayer, setShowPlayer] = useState(false)
     const [isPlayerReady, setIsPlayerReady] = useState(false)
     const playerRef = useRef<YTPlayer | null>(null)
@@ -86,7 +92,7 @@ export const YouTubePlayer = forwardRef<YouTubePlayerRef, YouTubePlayerProps>(
             fs: 0,
             iv_load_policy: 3,
             rel: 0,
-            // autoplay: 1,
+            autoplay: 1,
             showinfo: 0,
             autohide: 1,
             modestbranding: 1,
@@ -138,7 +144,11 @@ export const YouTubePlayer = forwardRef<YouTubePlayerRef, YouTubePlayerProps>(
 
     return (
       <div
-        className={`relative w-full aspect-video bg-black ${disabled ? 'pointer-events-none' : ''}`}
+        className={cn(
+          'relative w-full aspect-video bg-black',
+          disabled ? 'pointer-events-none' : '',
+          className,
+        )}
       >
         {/* 플레이어 로딩 오버레이 */}
         <div className={`absolute inset-0 flex flex-col items-center justify-center`}>

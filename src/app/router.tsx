@@ -64,6 +64,18 @@ export const createAppRouter = (queryClient: QueryClient) =>
       lazy: () => import('./pages/videos/[videoId]/speak/page').then(convert(queryClient)),
     },
     {
+      path: paths.test.a.path,
+      lazy: () => import('./pages/test/a/page').then(convert(queryClient)),
+    },
+    {
+      path: paths.test.b.path,
+      lazy: () => import('./pages/test/b/page').then(convert(queryClient)),
+    },
+    {
+      path: paths.test.c.path,
+      lazy: () => import('./pages/test/c/page').then(convert(queryClient)),
+    },
+    {
       path: '*',
       lazy: () => import('./pages/not-found').then(convert(queryClient)),
     },

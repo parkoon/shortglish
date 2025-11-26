@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils'
 
 type BottomSheetProps = {
   title?: React.ReactNode
+  description?: React.ReactNode
   className?: string
   children?: React.ReactNode
   open?: boolean
@@ -24,13 +25,14 @@ export const BottomSheet = ({
   open,
   className,
   children,
-  onClose,
+  description,
   height = 'fit-content',
   hideCloseButton = false,
   maskClosable = true,
   dismissible = true,
+  onClose,
 }: BottomSheetProps) => {
-  const showHeader = title || !hideCloseButton
+  const showHeader = title || description || !hideCloseButton
   return (
     <Drawer.Root open={open} onClose={onClose} noBodyStyles dismissible={dismissible}>
       <Drawer.Portal>
@@ -50,10 +52,11 @@ export const BottomSheet = ({
           }}
         >
           {showHeader && (
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col gap-1 justify-between relative">
               <h2 className="text-lg font-bold">{title}</h2>
+              <p className="text-sm text-gray-500">{description}</p>
               {!hideCloseButton && (
-                <button onClick={onClose}>
+                <button onClick={onClose} className="absolute top-0 right-0">
                   <IconX className="w-5 h-5" />
                 </button>
               )}
