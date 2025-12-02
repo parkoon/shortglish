@@ -170,7 +170,7 @@ export const WordSentenceBuilder = ({
     <section>
       <div className="flex items-center justify-between mb-2">
         <div className="text-gray-400">
-          <span className="text-gray-900">{currentDialogueIndex}</span>
+          <span className="text-gray-900">{currentDialogueIndex + 1}</span>
           <span>/</span>
           <span>{totalDialogueCount}</span>
         </div>

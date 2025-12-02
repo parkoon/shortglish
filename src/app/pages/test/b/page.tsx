@@ -16,7 +16,7 @@ import {
 import { useKeyboardRefresh } from '@/hooks/use-keyboard-refresh'
 import { useAuthStore } from '@/stores/auth-store'
 
-const VIDEO_ID = 'i-r6ccTx2-g'
+const VIDEO_ID = 'wlY5W5uILFY'
 
 const TestBPage = () => {
   const [showOverlay, setShowOverlay] = useState(true)
@@ -80,8 +80,8 @@ const TestBPage = () => {
       />
 
       <BottomSheet
-        title="Did you(지쥬) 영상 알림받기"
-        description="원어민의 발음을 이해해야 나도 원어민처럼 말할 수 있어요."
+        title="다음 문장 쉐도잉 알림받기"
+        description="쉐도잉으로 내것으로 만들어요."
         open={showBottomSheet}
         onClose={handleCloseBottomSheet}
       >

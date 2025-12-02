@@ -29,7 +29,7 @@ import { SubtitleProgressBar } from '../../videos/[videoId]/_components/subtitle
 import { useBuildTimeTracking } from '../../videos/[videoId]/build/_hooks/use-build-time-tracking'
 import { clientLoader } from './loader'
 
-export const TEST_A_VIDEO_ID = 'eLSk4uxXdvU'
+export const TEST_A_VIDEO_ID = 'aAkMkVFwAoo'
 
 const BuildPageContent = ({ subtitles }: { subtitles: Subtitle[] }) => {
   const navigate = useNavigate()
@@ -269,8 +269,8 @@ const BuildPageContent = ({ subtitles }: { subtitles: Subtitle[] }) => {
       </div>
 
       <BottomSheet
-        title="Did you(지쥬) 영상 알림받기"
-        description="원어민의 발음을 이해해야 나도 원어민처럼 말할 수 있어요."
+        title="새로운 영상 알림받기"
+        description="매일 한문장씩으로 자막없이 미드 달성해요."
         open={showBottomSheet}
         onClose={handleCloseBottomSheet}
       >
@@ -314,7 +314,7 @@ const BuildPage = () => {
       }
     >
       <Await resolve={data.subtitles}>
-        {subtitles => <BuildPageContent subtitles={subtitles} />}
+        {subtitles => <BuildPageContent subtitles={subtitles.slice(0, 4)} />}
       </Await>
     </Suspense>
   )
