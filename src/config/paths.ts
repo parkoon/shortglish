@@ -19,6 +19,10 @@ export const paths = {
       path: '/videos/:videoId',
       getHref: (videoId: string) => `/videos/${videoId}`,
     },
+    watch: {
+      path: '/videos/:videoId/watch',
+      getHref: (videoId: string) => `/videos/${videoId}/watch`,
+    },
     build: {
       path: '/videos/:videoId/build',
       getHref: (videoId: string) => `/videos/${videoId}/build`,
@@ -42,6 +46,16 @@ export const paths = {
     speak: {
       path: '/videos/:videoId/speak',
       getHref: (videoId: string) => `/videos/${videoId}/speak`,
+    },
+  },
+  class: {
+    root: {
+      path: '/class',
+      getHref: () => '/class',
+    },
+    detail: {
+      path: '/class/:classId',
+      getHref: (classId: string) => `/class/${classId}`,
     },
   },
   test: {

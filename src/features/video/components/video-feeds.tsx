@@ -116,7 +116,7 @@ export const VideoCard = ({ video }: VideoCardProps) => {
         <img
           src={getYouTubeThumbnailUrl(video.id)}
           alt={video.title}
-          className="w-full aspect-video object-cover"
+          className="w-full aspect-video object-cover rounded-xl"
           onError={e => {
             e.currentTarget.src = video.thumbnail
           }}
