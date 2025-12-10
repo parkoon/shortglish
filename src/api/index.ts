@@ -22,3 +22,6 @@ export * from './types'
 // Utils
 export * from './utils'
 
+// Storage
+export * from './storage'
+

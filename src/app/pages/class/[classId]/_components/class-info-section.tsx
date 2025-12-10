@@ -1,23 +1,6 @@
-import { motion } from 'framer-motion'
-import { useNavigate } from 'react-router'
-
-import { paths } from '@/config/paths'
-
-const HARD_CODED_CLASS_ID = '550e8400-e29b-41d4-a716-446655440000'
-
-export const ClassEntryPoint = () => {
-  const navigate = useNavigate()
-
-  const handleClick = () => {
-    navigate(paths.class.detail.getHref(HARD_CODED_CLASS_ID))
-  }
-
+export const ClassInfoSection = () => {
   return (
-    <motion.div
-      whileTap={{ scale: 0.95 }}
-      onClick={handleClick}
-      className="relative rounded-xl px-4 py-5 bg-gray-800"
-    >
+    <div className="px-4 py-5 bg-gray-800">
       <div className="flex items-center gap-4">
         <div className="text-white">
           <h2 className="text-lg mb-1 font-semibold">TED-Ed로 배우는 흥미진진한 영어</h2>
@@ -29,6 +12,6 @@ export const ClassEntryPoint = () => {
           <span className="text-white font-semibold text-lg">Ed</span>
         </div>
       </div>
-    </motion.div>
+    </div>
   )
 }

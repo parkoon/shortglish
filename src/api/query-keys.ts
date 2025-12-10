@@ -24,4 +24,8 @@ export const queryKeys = {
     today: ['quiz', 'today'] as const,
     byDate: (date: string) => ['quiz', 'date', date] as const,
   },
+  classes: {
+    all: ['classes'] as const,
+    detail: (classId: string) => ['classes', 'detail', classId] as const,
+  },
 }

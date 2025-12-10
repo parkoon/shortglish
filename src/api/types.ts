@@ -29,13 +29,54 @@ export type ApiResponse<T = unknown> = ApiSuccessResponse<T> | ApiErrorResponse
 // ============================================
 
 /**
- * 비디오 정보 타입
+ * 비디오 콘텐츠 자막 타입
+ */
+export type VideoContentSubtitle = {
+  original: string
+  translation: string
+  vocabulary?: Array<{
+    word: string
+    meaning: string
+  }>
+  grammar?: Array<{
+    pattern: string
+    explanation: string
+    example?: string
+  }>
+  pronunciation?: string[]
+  nativeComments?: string[]
+  timestamps: {
+    from: string
+    to: string
+  }
+  offsets: {
+    from: number
+    to: number
+  }
+}
+
+/**
+ * 비디오 콘텐츠 타입 (Storage에서 가져오는 전체 데이터)
+ */
+export type VideoContent = {
+  id: string
+  videoId: string
+  title: string
+  description: string
+  thumbnail: string
+  duration: number
+  subtitles: VideoContentSubtitle[]
+}
+
+/**
+ * 비디오 정보 타입 (API에서 가져오는 기본 정보)
  */
 export interface Video {
   id: string
+  videoId?: string // Storage에서 가져오는 경우에만 존재
   title: string
+  description: string
   thumbnail: string
-  description: string | null
   duration: number
   createdAt: string | null
   difficulty: number | null
@@ -68,6 +109,39 @@ export type VideoCursor = {
  * (src/types/subtitle.ts에서 재export)
  */
 export type { Subtitle } from '@/types/subtitle'
+
+// ============================================
+// Class Types
+// ============================================
+
+/**
+ * 클래스 피드 정보 타입
+ */
+export interface ClassFeed {
+  id: string
+  title: string
+  description: string | null
+  duration: number
+  difficulty: number | null
+}
+
+/**
+ * 클래스 정보 타입 (목록용)
+ */
+export interface Class {
+  id: string
+  title: string
+  thumbnail: string
+  description: string | null
+  difficulty: number | null
+}
+
+/**
+ * 클래스 상세 정보 타입
+ */
+export interface ClassDetail extends Class {
+  feeds: ClassFeed[]
+}
 
 // ============================================
 // Quiz Types

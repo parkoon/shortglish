@@ -5,7 +5,15 @@
 
 import { supabase } from '@/lib/supabase'
 
-import type { Subtitle, TodayQuiz, Video, VideoCategory, VideoCursor } from './types'
+import type {
+  Class,
+  ClassDetail,
+  Subtitle,
+  TodayQuiz,
+  Video,
+  VideoCategory,
+  VideoCursor,
+} from './types'
 import { arrayToCamel, objectToCamel } from './utils'
 
 // ============================================
@@ -121,6 +129,35 @@ export const fetchVideoCategories = async (): Promise<VideoCategory[]> => {
   return arrayToCamel<VideoCategory>(data)
 }
 
+/**
+ * 클래스의 피드 목록 조회 (클래스 피드 ID로 비디오 조회)
+ * @param feedIds - 클래스 피드 ID 배열
+ * @returns 비디오 목록 (feedIds 순서대로 정렬)
+ */
+export const fetchVideosByFeedIds = async (feedIds: string[]): Promise<Video[]> => {
+  if (feedIds.length === 0) {
+    return []
+  }
+
+  // class_feed의 id는 video의 id와 동일하다고 가정
+  const { data, error } = await supabase
+    .from('video')
+    .select('id, title, thumbnail, description, duration, created_at, difficulty, category_id')
+    .in('id', feedIds)
+    .eq('status', 'published')
+
+  if (error) {
+    throw new Error(`Failed to fetch videos: ${error.message}`)
+  }
+
+  // DB의 snake_case → 도메인의 camelCase 자동 변환
+  const camelData = arrayToCamel<Video>(data)
+
+  // feedIds 순서대로 정렬
+  const videoMap = new Map(camelData.map(video => [video.id, video]))
+  return feedIds.map(id => videoMap.get(id)).filter((video): video is Video => !!video)
+}
+
 // ============================================
 // Subtitle API
 // ============================================
@@ -173,4 +210,81 @@ export const fetchTodayQuiz = async (): Promise<TodayQuiz> => {
   const dateString = `${year}-${month}-${day}`
 
   return fetchQuizByDate(dateString)
+}
+
+// ============================================
+// Class API
+// ============================================
+
+/**
+ * 클래스 목록 조회
+ */
+export const fetchClasses = async (): Promise<Class[]> => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data, error } = await (supabase as any)
+    .from('class')
+    .select('id, title, thumbnail, description, difficulty')
+    .order('created_at', { ascending: false })
+
+  if (error) {
+    throw new Error(`Failed to fetch classes: ${error.message}`)
+  }
+
+  // DB의 snake_case → 도메인의 camelCase 자동 변환
+  return arrayToCamel<Class>(data)
+}
+
+/**
+ * 클래스 상세 정보 조회
+ */
+export const fetchClassById = async (classId: string): Promise<ClassDetail> => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data, error } = await (supabase as any)
+    .from('class')
+    .select(
+      `
+      id, title, thumbnail, description, difficulty,
+      class_feed (
+        id, title, description, duration, difficulty
+      )
+    `,
+    )
+    .eq('id', classId)
+    .single()
+
+  if (error) {
+    throw new Error(`Failed to fetch class: ${error.message}`)
+  }
+
+  // DB의 snake_case → 도메인의 camelCase 자동 변환
+  const camelData = objectToCamel<{
+    id: string
+    title: string
+    thumbnail: string
+    description: string | null
+    difficulty: number | null
+    classFeed: Array<{
+      id: string
+      title: string
+      description: string | null
+      duration: number
+      difficulty: number | null
+    }>
+  }>(data)
+
+  // classFeed를 feeds로 변환
+  return {
+    id: camelData.id,
+    title: camelData.title,
+    thumbnail: camelData.thumbnail,
+    description: camelData.description,
+    difficulty: camelData.difficulty,
+    feeds: (camelData.classFeed || []).map(feed => ({
+      id: feed.id,
+      title: feed.title,
+      description: feed.description,
+      duration: feed.duration,
+      difficulty: feed.difficulty,
+    })),
+  }
 }

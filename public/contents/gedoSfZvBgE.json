@@ -1,0 +1,2516 @@
+{
+  "id": "gedoSfZvBgE",
+  "videoId": "gedoSfZvBgE",
+  "title": "숙면의 효과 - Shai Marcu",
+  "description": "벼락치기보다 잠이 낫다고? 수면이 기억력에 미치는 놀라운 효과를 과학적으로 파헤친다.",
+  "thumbnail": "https://i.ytimg.com/vi_webp/gedoSfZvBgE/maxresdefault.webp",
+  "duration": 345,
+  "subtitles": [
+    {
+      "original": "It's 4 a.m., and the big test is in eight hours, followed by a piano recital.",
+      "translation": "새벽 4시이고, 중요한 시험이 8시간 후에 있고, 그 다음에 피아노 연주회가 있다.",
+      "vocabulary": [
+        {
+          "word": "followed by",
+          "meaning": "~에 이어서, ~다음에"
+        },
+        {
+          "word": "recital",
+          "meaning": "연주회, 발표회"
+        }
+      ],
+      "grammar": [
+        {
+          "pattern": "in + 시간",
+          "explanation": "~후에 (미래 시점)",
+          "example": "in eight hours = 8시간 후에"
+        }
+      ],
+      "pronunciation": [
+        "'followed by'는 연음돼서 '팔로웃 바이'처럼 자연스럽게 이어져요.",
+        "'eight hours'에서 t는 거의 묵음! '에잇 아워즈'보다 '에이 타워즈'에 가까워요."
+      ],
+      "nativeComments": [
+        "'the big test'는 그냥 시험이 아니라 정말 중요한 시험이라는 뉘앙스예요. 기말고사나 수능 같은 느낌!",
+        "전형적인 '벼락치기 학생'의 상황을 묘사하는 문장이에요."
+      ],
+      "timestamps": {
+        "from": "00:00:00,000",
+        "to": "00:00:15,980"
+      },
+      "offsets": {
+        "from": 0,
+        "to": 15980
+      }
+    },
+    {
+      "original": "You've been studying and playing for days, but you still don't feel ready for either.",
+      "translation": "며칠 동안 공부하고 연습해왔지만, 여전히 둘 다 준비가 안 된 것 같다.",
+      "vocabulary": [
+        {
+          "word": "for days",
+          "meaning": "며칠 동안"
+        },
+        {
+          "word": "feel ready",
+          "meaning": "준비가 된 것 같다"
+        },
+        {
+          "word": "either",
+          "meaning": "둘 중 어느 것도"
+        }
+      ],
+      "grammar": [
+        {
+          "pattern": "have been ~ing",
+          "explanation": "현재완료 진행형 - 과거부터 지금까지 계속해온 행동",
+          "example": "You've been studying = 계속 공부해왔다"
+        }
+      ],
+      "pronunciation": [
+        "'You've been'은 '유브 빈'으로 빠르게 연음돼요.",
+        "'either'는 미국식 '이더', 영국식 '아이더' 둘 다 맞아요."
+      ],
+      "nativeComments": [
+        "'for days'는 정확히 며칠인지 모르지만 꽤 오래 됐다는 느낌을 줘요.",
+        "'either'를 문장 끝에 쓰면 '둘 다 아니다'라는 부정의 의미가 강조돼요."
+      ],
+      "timestamps": {
+        "from": "00:00:15,980",
+        "to": "00:00:22,080"
+      },
+      "offsets": {
+        "from": 15980,
+        "to": 22080
+      }
+    },
+    {
+      "original": "So what can you do?",
+      "translation": "그래서 어떻게 해야 할까?",
+      "vocabulary": [],
+      "grammar": [],
+      "pronunciation": [],
+      "nativeComments": [
+        "청중의 관심을 끌기 위한 수사적 질문이에요. 다음에 해결책이 나올 거라는 신호죠."
+      ],
+      "timestamps": {
+        "from": "00:00:22,080",
+        "to": "00:00:23,620"
+      },
+      "offsets": {
+        "from": 22080,
+        "to": 23620
+      }
+    },
+    {
+      "original": "Well, you can drink another cup of coffee and spend the next few hours cramming and practicing,",
+      "translation": "뭐, 커피 한 잔 더 마시고 남은 몇 시간 동안 벼락치기하고 연습할 수도 있죠,",
+      "vocabulary": [
+        {
+          "word": "another",
+          "meaning": "또 하나의, 한 잔 더"
+        },
+        {
+          "word": "cramming",
+          "meaning": "벼락치기, 단기간에 집중 암기"
+        }
+      ],
+      "grammar": [
+        {
+          "pattern": "spend + 시간 + ~ing",
+          "explanation": "시간을 ~하는 데 쓰다",
+          "example": "spend the next few hours cramming = 몇 시간을 벼락치기하며 보내다"
+        }
+      ],
+      "pronunciation": ["'cramming'은 '크래밍'으로 a 발음을 짧고 강하게 해요."],
+      "nativeComments": [
+        "'cramming'은 시험 직전에 무리해서 공부하는 걸 말해요. 약간 부정적인 뉘앙스가 있어요.",
+        "'Well'로 시작하면 '음, 글쎄...' 느낌으로 다음에 반전이 올 수 있다는 암시예요."
+      ],
+      "timestamps": {
+        "from": "00:00:23,620",
+        "to": "00:00:28,320"
+      },
+      "offsets": {
+        "from": 23620,
+        "to": 28320
+      }
+    },
+    {
+      "original": "but believe it or not, you might be better off closing the books,",
+      "translation": "하지만 믿기 힘들겠지만, 책을 덮는 게 더 나을 수도 있어요,",
+      "vocabulary": [
+        {
+          "word": "believe it or not",
+          "meaning": "믿거나 말거나, 믿기 힘들겠지만"
+        },
+        {
+          "word": "be better off",
+          "meaning": "~하는 게 더 낫다"
+        }
+      ],
+      "grammar": [
+        {
+          "pattern": "be better off + ~ing",
+          "explanation": "~하는 편이 더 낫다",
+          "example": "be better off closing = 닫는 게 더 낫다"
+        }
+      ],
+      "pronunciation": [
+        "'believe it or not'은 빠르게 '빌리빗 오어 낫'처럼 발음돼요.",
+        "'better off'는 연음돼서 '베러 오프'로 들려요."
+      ],
+      "nativeComments": [
+        "'believe it or not'은 놀라운 사실을 말할 때 쓰는 표현이에요.",
+        "'be better off'는 일상에서 정말 자주 쓰는 표현이에요!"
+      ],
+      "timestamps": {
+        "from": "00:00:28,320",
+        "to": "00:00:32,340"
+      },
+      "offsets": {
+        "from": 28320,
+        "to": 32340
+      }
+    },
+    {
+      "original": "putting away the music, and going to sleep.",
+      "translation": "악보를 치우고, 잠을 자는 게요.",
+      "vocabulary": [
+        {
+          "word": "put away",
+          "meaning": "치우다, 정리하다"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": ["'putting away'는 '푸팅 어웨이'로 t가 d처럼 부드럽게 발음돼요."],
+      "nativeComments": [
+        "'the music'은 여기서 악보를 의미해요. 문맥에 따라 다양하게 해석될 수 있어요."
+      ],
+      "timestamps": {
+        "from": "00:00:32,340",
+        "to": "00:00:35,920"
+      },
+      "offsets": {
+        "from": 32340,
+        "to": 35920
+      }
+    },
+    {
+      "original": "Sleep occupies nearly a third of our lives,",
+      "translation": "수면은 우리 삶의 거의 3분의 1을 차지하지만,",
+      "vocabulary": [
+        {
+          "word": "occupy",
+          "meaning": "차지하다, 점유하다"
+        },
+        {
+          "word": "a third",
+          "meaning": "3분의 1"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": ["'occupy'는 '아큐파이'로 첫 음절에 강세가 와요."],
+      "nativeComments": ["통계적 사실로 시작해서 신뢰감을 주는 전형적인 교육 영상 도입부예요."],
+      "timestamps": {
+        "from": "00:00:35,920",
+        "to": "00:00:38,660"
+      },
+      "offsets": {
+        "from": 35920,
+        "to": 38660
+      }
+    },
+    {
+      "original": "but many of us give surprisingly little attention and care to it.",
+      "translation": "우리 중 많은 사람들이 놀라울 정도로 관심과 신경을 거의 쓰지 않는다.",
+      "vocabulary": [
+        {
+          "word": "surprisingly",
+          "meaning": "놀랍게도"
+        },
+        {
+          "word": "give attention to",
+          "meaning": "~에 관심을 기울이다"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": ["'surprisingly'는 '서프라이징리'로 두 번째 음절에 강세가 와요."],
+      "nativeComments": [
+        "'give little attention'은 '거의 신경 쓰지 않는다'는 뜻이에요. 'little'이 부정적 의미를 강조해요."
+      ],
+      "timestamps": {
+        "from": "00:00:38,660",
+        "to": "00:00:43,240"
+      },
+      "offsets": {
+        "from": 38660,
+        "to": 43240
+      }
+    },
+    {
+      "original": "This neglect is often the result of a major misunderstanding.",
+      "translation": "이러한 소홀함은 종종 큰 오해에서 비롯된다.",
+      "vocabulary": [
+        {
+          "word": "neglect",
+          "meaning": "소홀함, 방치"
+        },
+        {
+          "word": "misunderstanding",
+          "meaning": "오해"
+        }
+      ],
+      "grammar": [
+        {
+          "pattern": "the result of",
+          "explanation": "~의 결과",
+          "example": "the result of a misunderstanding = 오해의 결과"
+        }
+      ],
+      "pronunciation": ["'neglect'는 '니글렉트'로 두 번째 음절에 강세가 와요."],
+      "nativeComments": ["문제의 원인을 제시하면서 본론으로 들어가는 전환 문장이에요."],
+      "timestamps": {
+        "from": "00:00:43,240",
+        "to": "00:00:47,000"
+      },
+      "offsets": {
+        "from": 43240,
+        "to": 47000
+      }
+    },
+    {
+      "original": "Sleep isn't lost time, or just a way to rest when all our important work is done.",
+      "translation": "수면은 낭비되는 시간이 아니고, 중요한 일이 끝났을 때 쉬는 방법만도 아니다.",
+      "vocabulary": [
+        {
+          "word": "lost time",
+          "meaning": "낭비된 시간, 허비된 시간"
+        }
+      ],
+      "grammar": [
+        {
+          "pattern": "isn't A, or just B",
+          "explanation": "A도 아니고, 단지 B도 아니다",
+          "example": "isn't lost time, or just a way = 낭비되는 시간도, 단지 방법도 아니다"
+        }
+      ],
+      "pronunciation": [],
+      "nativeComments": [
+        "사람들이 흔히 가지는 잘못된 생각을 먼저 부정하는 방식으로 논점을 제시해요."
+      ],
+      "timestamps": {
+        "from": "00:00:47,000",
+        "to": "00:00:52,620"
+      },
+      "offsets": {
+        "from": 47000,
+        "to": 52620
+      }
+    },
+    {
+      "original": "Instead, it's a critical function,",
+      "translation": "오히려, 수면은 매우 중요한 기능이에요,",
+      "vocabulary": [
+        {
+          "word": "critical",
+          "meaning": "매우 중요한, 결정적인"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": ["'critical'은 '크리티컬'로 첫 음절에 강세가 와요."],
+      "nativeComments": [
+        "'Instead'로 시작하면 앞의 내용을 부정하고 새로운 관점을 제시한다는 신호예요."
+      ],
+      "timestamps": {
+        "from": "00:00:52,620",
+        "to": "00:00:54,840"
+      },
+      "offsets": {
+        "from": 52620,
+        "to": 54840
+      }
+    },
+    {
+      "original": "during which your body balances and regulates its vital systems,",
+      "translation": "그 동안 우리 몸이 중요한 시스템들의 균형을 맞추고 조절하는,",
+      "vocabulary": [
+        {
+          "word": "regulate",
+          "meaning": "조절하다, 규제하다"
+        },
+        {
+          "word": "vital",
+          "meaning": "필수적인, 생명 유지에 중요한"
+        }
+      ],
+      "grammar": [
+        {
+          "pattern": "during which",
+          "explanation": "관계부사 - 그 동안에",
+          "example": "during which your body balances = 그 동안 몸이 균형을 맞추는"
+        }
+      ],
+      "pronunciation": ["'vital'은 '바이틀'로 첫 음절에 강세가 와요."],
+      "nativeComments": [
+        "'during which'는 격식체에서 자주 쓰는 관계부사예요. 학술적인 글에서 많이 볼 수 있어요."
+      ],
+      "timestamps": {
+        "from": "00:00:54,840",
+        "to": "00:00:59,160"
+      },
+      "offsets": {
+        "from": 54840,
+        "to": 59160
+      }
+    },
+    {
+      "original": "effecting respiration and regulating everything from circulation",
+      "translation": "호흡에 영향을 주고, 혈액순환부터",
+      "vocabulary": [
+        {
+          "word": "effect",
+          "meaning": "(동사) 영향을 주다, 초래하다"
+        },
+        {
+          "word": "respiration",
+          "meaning": "호흡"
+        },
+        {
+          "word": "circulation",
+          "meaning": "혈액순환, 순환"
+        }
+      ],
+      "grammar": [
+        {
+          "pattern": "from A to B",
+          "explanation": "A부터 B까지",
+          "example": "from circulation to growth = 순환부터 성장까지"
+        }
+      ],
+      "pronunciation": ["'respiration'은 '레스퍼레이션'으로 세 번째 음절에 강세가 와요."],
+      "nativeComments": [
+        "'effect'가 동사로 쓰이면 'affect'와 비슷하지만, '실현시키다'의 뉘앙스가 더 강해요."
+      ],
+      "timestamps": {
+        "from": "00:00:59,160",
+        "to": "00:01:03,020"
+      },
+      "offsets": {
+        "from": 59160,
+        "to": 63020
+      }
+    },
+    {
+      "original": "to growth and immune response.",
+      "translation": "성장과 면역 반응까지 모든 것을 조절한다.",
+      "vocabulary": [
+        {
+          "word": "immune response",
+          "meaning": "면역 반응"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": ["'immune'은 '이뮨'으로 두 번째 음절에 강세가 와요."],
+      "nativeComments": ["'immune response'는 의학/과학 분야에서 자주 쓰이는 전문 용어예요."],
+      "timestamps": {
+        "from": "00:01:03,020",
+        "to": "00:01:06,200"
+      },
+      "offsets": {
+        "from": 63020,
+        "to": 66200
+      }
+    },
+    {
+      "original": "That's great, but you can worry about all those things after this test, right?",
+      "translation": "그거 좋긴 한데, 그런 건 시험 끝나고 걱정해도 되잖아요, 안 그래요?",
+      "vocabulary": [
+        {
+          "word": "worry about",
+          "meaning": "~에 대해 걱정하다"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": ["'right?'는 문장 끝에서 '롸잇?'으로 올라가는 억양이에요."],
+      "nativeComments": [
+        "청자가 가질 수 있는 반론을 먼저 대신 말해주는 화법이에요. 설득력을 높이는 기술이죠.",
+        "문장 끝의 'right?'는 동의를 구하는 태그 질문이에요."
+      ],
+      "timestamps": {
+        "from": "00:01:06,200",
+        "to": "00:01:10,860"
+      },
+      "offsets": {
+        "from": 66200,
+        "to": 70860
+      }
+    },
+    {
+      "original": "Well, not so fast.",
+      "translation": "글쎄요, 그리 간단하지 않아요.",
+      "vocabulary": [
+        {
+          "word": "not so fast",
+          "meaning": "잠깐만, 그리 빠르지 않게"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": [],
+      "nativeComments": [
+        "'Not so fast'는 상대의 성급한 결론을 제지할 때 쓰는 표현이에요. '잠깐, 그건 아니지' 느낌!"
+      ],
+      "timestamps": {
+        "from": "00:01:10,860",
+        "to": "00:01:12,560"
+      },
+      "offsets": {
+        "from": 70860,
+        "to": 72560
+      }
+    },
+    {
+      "original": "It turns out that sleep is also crucial for your brain,",
+      "translation": "알고 보니 수면은 뇌에도 매우 중요해요,",
+      "vocabulary": [
+        {
+          "word": "it turns out",
+          "meaning": "알고 보니, 밝혀진 바로는"
+        },
+        {
+          "word": "crucial",
+          "meaning": "결정적인, 매우 중요한"
+        }
+      ],
+      "grammar": [
+        {
+          "pattern": "It turns out that ~",
+          "explanation": "~라는 것이 밝혀지다",
+          "example": "It turns out that sleep is crucial = 수면이 중요하다는 것이 밝혀졌다"
+        }
+      ],
+      "pronunciation": ["'crucial'은 '크루셜'로 첫 음절에 강세가 와요."],
+      "nativeComments": [
+        "'It turns out'은 새로운 사실이나 놀라운 발견을 소개할 때 정말 많이 써요!"
+      ],
+      "timestamps": {
+        "from": "00:01:12,560",
+        "to": "00:01:16,040"
+      },
+      "offsets": {
+        "from": 72560,
+        "to": 76040
+      }
+    },
+    {
+      "original": "with a fifth of your body's circulatory blood being channeled to it as you drift off.",
+      "translation": "잠들 때 신체 혈액의 5분의 1이 뇌로 보내지거든요.",
+      "vocabulary": [
+        {
+          "word": "a fifth",
+          "meaning": "5분의 1"
+        },
+        {
+          "word": "circulatory",
+          "meaning": "순환의, 혈액순환의"
+        },
+        {
+          "word": "channel",
+          "meaning": "(동사) 보내다, 전달하다"
+        },
+        {
+          "word": "drift off",
+          "meaning": "잠들다, 스르르 잠에 빠지다"
+        }
+      ],
+      "grammar": [
+        {
+          "pattern": "with + 명사 + being p.p.",
+          "explanation": "~가 ~되면서 (부대상황)",
+          "example": "with blood being channeled = 피가 보내지면서"
+        }
+      ],
+      "pronunciation": ["'drift off'는 '드리프 토프'로 연음돼서 부드럽게 발음돼요."],
+      "nativeComments": [
+        "'drift off'는 '스르르 잠들다'라는 느낌이에요. 천천히 의식이 사라지는 모습을 표현해요."
+      ],
+      "timestamps": {
+        "from": "00:01:16,040",
+        "to": "00:01:21,200"
+      },
+      "offsets": {
+        "from": 76040,
+        "to": 81200
+      }
+    },
+    {
+      "original": "And what goes on in your brain while you sleep",
+      "translation": "그리고 잠자는 동안 뇌에서 일어나는 일은",
+      "vocabulary": [
+        {
+          "word": "go on",
+          "meaning": "일어나다, 진행되다"
+        }
+      ],
+      "grammar": [
+        {
+          "pattern": "what goes on",
+          "explanation": "무슨 일이 일어나는지",
+          "example": "what goes on in your brain = 뇌에서 무슨 일이 일어나는지"
+        }
+      ],
+      "pronunciation": [],
+      "nativeComments": ["'what goes on'은 'what happens'보다 더 캐주얼하고 일상적인 표현이에요."],
+      "timestamps": {
+        "from": "00:01:21,200",
+        "to": "00:01:23,600"
+      },
+      "offsets": {
+        "from": 81200,
+        "to": 83600
+      }
+    },
+    {
+      "original": "is an intensely active period of restructuring",
+      "translation": "매우 활발한 재구조화의 시간이에요",
+      "vocabulary": [
+        {
+          "word": "intensely",
+          "meaning": "강렬하게, 매우"
+        },
+        {
+          "word": "restructuring",
+          "meaning": "재구조화, 재편성"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": ["'intensely'는 '인텐슬리'로 두 번째 음절에 강세가 와요."],
+      "nativeComments": [
+        "'intensely active'라고 해서 수면이 단순히 쉬는 게 아니라는 점을 강조해요."
+      ],
+      "timestamps": {
+        "from": "00:01:23,600",
+        "to": "00:01:26,640"
+      },
+      "offsets": {
+        "from": 83600,
+        "to": 86640
+      }
+    },
+    {
+      "original": "that's crucial for how our memory works.",
+      "translation": "기억이 작동하는 방식에 결정적인 역할을 해요.",
+      "vocabulary": [],
+      "grammar": [
+        {
+          "pattern": "how + 주어 + 동사",
+          "explanation": "~가 어떻게 ~하는지",
+          "example": "how our memory works = 우리 기억이 어떻게 작동하는지"
+        }
+      ],
+      "pronunciation": [],
+      "nativeComments": ["드디어 영상의 핵심 주제인 '수면과 기억의 관계'가 나와요!"],
+      "timestamps": {
+        "from": "00:01:26,640",
+        "to": "00:01:29,620"
+      },
+      "offsets": {
+        "from": 86640,
+        "to": 89620
+      }
+    },
+    {
+      "original": "At first glance, our ability to remember things doesn't seem very impressive at all.",
+      "translation": "언뜻 보기에, 우리의 기억 능력은 그다지 인상적이지 않아 보인다.",
+      "vocabulary": [
+        {
+          "word": "at first glance",
+          "meaning": "언뜻 보기에, 첫눈에"
+        },
+        {
+          "word": "impressive",
+          "meaning": "인상적인"
+        }
+      ],
+      "grammar": [
+        {
+          "pattern": "doesn't seem + 형용사",
+          "explanation": "~해 보이지 않다",
+          "example": "doesn't seem impressive = 인상적으로 보이지 않다"
+        }
+      ],
+      "pronunciation": ["'at first glance'는 '앳 퍼스트 글랜스'로 빠르게 발음해요."],
+      "nativeComments": [
+        "'at first glance'는 '겉으로 보기에는'이라는 뜻이에요. 나중에 반전이 올 거라는 암시죠!"
+      ],
+      "timestamps": {
+        "from": "00:01:29,620",
+        "to": "00:01:34,520"
+      },
+      "offsets": {
+        "from": 89620,
+        "to": 94520
+      }
+    },
+    {
+      "original": "19th century psychologist Hermann Ebbinghaus demonstrated",
+      "translation": "19세기 심리학자 헤르만 에빙하우스는 증명했는데,",
+      "vocabulary": [
+        {
+          "word": "psychologist",
+          "meaning": "심리학자"
+        },
+        {
+          "word": "demonstrate",
+          "meaning": "증명하다, 입증하다"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": [
+        "'Ebbinghaus'는 독일 이름으로 '에빙하우스'라고 읽어요.",
+        "'psychologist'는 '사이콜로지스트'로 p가 묵음이에요."
+      ],
+      "nativeComments": [
+        "권위 있는 출처를 인용해서 신뢰도를 높이는 전형적인 학술 영상 스타일이에요."
+      ],
+      "timestamps": {
+        "from": "00:01:34,520",
+        "to": "00:01:37,920"
+      },
+      "offsets": {
+        "from": 94520,
+        "to": 97920
+      }
+    },
+    {
+      "original": "that we normally forget 40% of new material within the first 20 minutes,",
+      "translation": "우리가 보통 새로운 내용의 40%를 처음 20분 내에 잊어버린다는 것을,",
+      "vocabulary": [
+        {
+          "word": "material",
+          "meaning": "자료, 내용, 학습 내용"
+        },
+        {
+          "word": "within",
+          "meaning": "~이내에"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": ["'material'은 '머티리얼'로 두 번째 음절에 강세가 와요."],
+      "nativeComments": ["구체적인 숫자(40%, 20분)를 제시해서 충격을 주는 표현법이에요."],
+      "timestamps": {
+        "from": "00:01:37,920",
+        "to": "00:01:43,480"
+      },
+      "offsets": {
+        "from": 97920,
+        "to": 103480
+      }
+    },
+    {
+      "original": "a phenomenon known as the forgetting curve.",
+      "translation": "이것이 바로 망각 곡선이라고 알려진 현상이다.",
+      "vocabulary": [
+        {
+          "word": "phenomenon",
+          "meaning": "현상"
+        },
+        {
+          "word": "forgetting curve",
+          "meaning": "망각 곡선"
+        }
+      ],
+      "grammar": [
+        {
+          "pattern": "known as",
+          "explanation": "~로 알려진",
+          "example": "known as the forgetting curve = 망각 곡선으로 알려진"
+        }
+      ],
+      "pronunciation": ["'phenomenon'은 '피나머넌'으로 두 번째 음절에 강세가 와요."],
+      "nativeComments": [
+        "'forgetting curve'는 심리학 용어예요. 시간이 지남에 따라 기억이 감소하는 패턴을 그래프로 나타낸 거예요."
+      ],
+      "timestamps": {
+        "from": "00:01:43,480",
+        "to": "00:01:47,200"
+      },
+      "offsets": {
+        "from": 103480,
+        "to": 107200
+      }
+    },
+    {
+      "original": "But this loss can be prevented through memory consolidation,",
+      "translation": "하지만 이러한 손실은 기억 강화를 통해 예방할 수 있다,",
+      "vocabulary": [
+        {
+          "word": "loss",
+          "meaning": "손실, 상실"
+        },
+        {
+          "word": "prevent",
+          "meaning": "예방하다, 막다"
+        },
+        {
+          "word": "consolidation",
+          "meaning": "강화, 통합, 공고화"
+        }
+      ],
+      "grammar": [
+        {
+          "pattern": "through + 명사",
+          "explanation": "~을 통해",
+          "example": "through memory consolidation = 기억 강화를 통해"
+        }
+      ],
+      "pronunciation": ["'consolidation'은 '컨솔리데이션'으로 네 번째 음절에 강세가 와요."],
+      "nativeComments": [
+        "'memory consolidation'은 이 영상의 핵심 개념이에요! 기억을 장기화하는 과정을 말해요."
+      ],
+      "timestamps": {
+        "from": "00:01:47,200",
+        "to": "00:01:50,900"
+      },
+      "offsets": {
+        "from": 107200,
+        "to": 110900
+      }
+    },
+    {
+      "original": "a process by which information is moved from our fleeting short-term memory",
+      "translation": "정보가 덧없는 단기 기억에서",
+      "vocabulary": [
+        {
+          "word": "fleeting",
+          "meaning": "덧없는, 순간적인"
+        },
+        {
+          "word": "short-term memory",
+          "meaning": "단기 기억"
+        }
+      ],
+      "grammar": [
+        {
+          "pattern": "by which",
+          "explanation": "그것에 의해 (관계대명사)",
+          "example": "a process by which = ~하는 과정"
+        }
+      ],
+      "pronunciation": ["'fleeting'은 '플리팅'으로 ee를 길게 발음해요."],
+      "nativeComments": [
+        "'fleeting'은 '금방 사라지는'이라는 뜻이에요. 단기 기억의 특성을 잘 표현하는 형용사예요."
+      ],
+      "timestamps": {
+        "from": "00:01:50,900",
+        "to": "00:01:55,840"
+      },
+      "offsets": {
+        "from": 110900,
+        "to": 115840
+      }
+    },
+    {
+      "original": "to our more durable long-term memory.",
+      "translation": "더 오래 지속되는 장기 기억으로 옮겨지는 과정이다.",
+      "vocabulary": [
+        {
+          "word": "durable",
+          "meaning": "내구성 있는, 오래 지속되는"
+        },
+        {
+          "word": "long-term memory",
+          "meaning": "장기 기억"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": ["'durable'은 '듀러블'로 첫 음절에 강세가 와요."],
+      "nativeComments": ["'fleeting'과 'durable'을 대조시켜서 단기/장기 기억의 차이를 강조해요."],
+      "timestamps": {
+        "from": "00:01:55,840",
+        "to": "00:01:59,000"
+      },
+      "offsets": {
+        "from": 115840,
+        "to": 119000
+      }
+    },
+    {
+      "original": "This consolidation occurs with the help of a major part of the brain,",
+      "translation": "이 강화 과정은 뇌의 주요 부분의 도움으로 일어나는데,",
+      "vocabulary": [
+        {
+          "word": "occur",
+          "meaning": "일어나다, 발생하다"
+        },
+        {
+          "word": "with the help of",
+          "meaning": "~의 도움으로"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": ["'occur'는 '어커'로 두 번째 음절에 강세가 와요."],
+      "nativeComments": ["새로운 개념(해마)을 소개하기 전에 기대감을 높이는 문장이에요."],
+      "timestamps": {
+        "from": "00:01:59,000",
+        "to": "00:02:02,620"
+      },
+      "offsets": {
+        "from": 119000,
+        "to": 122620
+      }
+    },
+    {
+      "original": "known as the hippocampus.",
+      "translation": "그것이 바로 해마다.",
+      "vocabulary": [
+        {
+          "word": "hippocampus",
+          "meaning": "해마 (뇌의 부위)"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": ["'hippocampus'는 '히포캠퍼스'로 세 번째 음절에 강세가 와요."],
+      "nativeComments": [
+        "'hippocampus'는 그리스어로 '해마(바다 생물)'라는 뜻이에요. 모양이 비슷해서 붙은 이름이죠!"
+      ],
+      "timestamps": {
+        "from": "00:02:02,620",
+        "to": "00:02:05,440"
+      },
+      "offsets": {
+        "from": 122620,
+        "to": 125440
+      }
+    },
+    {
+      "original": "Its role in long-term memory formation was demonstrated in the 1950s",
+      "translation": "장기 기억 형성에서 해마의 역할은 1950년대에 증명되었는데,",
+      "vocabulary": [
+        {
+          "word": "formation",
+          "meaning": "형성"
+        },
+        {
+          "word": "demonstrate",
+          "meaning": "증명하다, 입증하다"
+        }
+      ],
+      "grammar": [
+        {
+          "pattern": "was demonstrated",
+          "explanation": "수동태 - 증명되었다",
+          "example": "was demonstrated in the 1950s = 1950년대에 증명되었다"
+        }
+      ],
+      "pronunciation": [],
+      "nativeComments": ["역사적 배경을 제시하면서 신뢰도를 높이는 학술적 표현이에요."],
+      "timestamps": {
+        "from": "00:02:05,440",
+        "to": "00:02:09,960"
+      },
+      "offsets": {
+        "from": 125440,
+        "to": 129960
+      }
+    },
+    {
+      "original": "by Brenda Milner in her research with a patient known as HM.",
+      "translation": "브렌다 밀너가 HM이라고 알려진 환자를 연구하면서였다.",
+      "vocabulary": [
+        {
+          "word": "research",
+          "meaning": "연구"
+        },
+        {
+          "word": "patient",
+          "meaning": "환자"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": ["'Milner'는 '밀너'로 발음해요."],
+      "nativeComments": ["HM(Henry Molaison)은 신경과학 역사상 가장 유명한 환자 중 한 명이에요."],
+      "timestamps": {
+        "from": "00:02:09,960",
+        "to": "00:02:15,000"
+      },
+      "offsets": {
+        "from": 129960,
+        "to": 135000
+      }
+    },
+    {
+      "original": "After having his hippocampus removed,",
+      "translation": "해마가 제거된 후,",
+      "vocabulary": [
+        {
+          "word": "remove",
+          "meaning": "제거하다"
+        }
+      ],
+      "grammar": [
+        {
+          "pattern": "After having + p.p.",
+          "explanation": "~한 후에 (완료형 분사구문)",
+          "example": "After having his hippocampus removed = 해마가 제거된 후"
+        }
+      ],
+      "pronunciation": [],
+      "nativeComments": ["'have something done' 구조로 '무언가가 (남에 의해) 되다'를 표현해요."],
+      "timestamps": {
+        "from": "00:02:15,000",
+        "to": "00:02:17,240"
+      },
+      "offsets": {
+        "from": 135000,
+        "to": 137240
+      }
+    },
+    {
+      "original": "HM's ability to form new short-term memories was damaged,",
+      "translation": "HM의 새로운 단기 기억을 형성하는 능력이 손상되었지만,",
+      "vocabulary": [
+        {
+          "word": "ability",
+          "meaning": "능력"
+        },
+        {
+          "word": "damage",
+          "meaning": "손상시키다"
+        }
+      ],
+      "grammar": [
+        {
+          "pattern": "ability to + 동사",
+          "explanation": "~하는 능력",
+          "example": "ability to form memories = 기억을 형성하는 능력"
+        }
+      ],
+      "pronunciation": [],
+      "nativeComments": [],
+      "timestamps": {
+        "from": "00:02:17,240",
+        "to": "00:02:21,780"
+      },
+      "offsets": {
+        "from": 137240,
+        "to": 141780
+      }
+    },
+    {
+      "original": "but he was able to learn physical tasks through repetition.",
+      "translation": "그는 반복을 통해 신체적 과제를 배울 수 있었다.",
+      "vocabulary": [
+        {
+          "word": "physical task",
+          "meaning": "신체적 과제"
+        },
+        {
+          "word": "repetition",
+          "meaning": "반복"
+        }
+      ],
+      "grammar": [
+        {
+          "pattern": "be able to",
+          "explanation": "~할 수 있다",
+          "example": "was able to learn = 배울 수 있었다"
+        }
+      ],
+      "pronunciation": ["'repetition'은 '레퍼티션'으로 세 번째 음절에 강세가 와요."],
+      "nativeComments": ["이 발견이 선언적 기억과 절차적 기억이 다른 시스템이라는 걸 보여줬어요."],
+      "timestamps": {
+        "from": "00:02:21,780",
+        "to": "00:02:26,020"
+      },
+      "offsets": {
+        "from": 141780,
+        "to": 146020
+      }
+    },
+    {
+      "original": "Due to the removal of his hippocampus,",
+      "translation": "해마가 제거되었기 때문에,",
+      "vocabulary": [
+        {
+          "word": "due to",
+          "meaning": "~ 때문에"
+        },
+        {
+          "word": "removal",
+          "meaning": "제거"
+        }
+      ],
+      "grammar": [
+        {
+          "pattern": "Due to + 명사",
+          "explanation": "~ 때문에 (원인)",
+          "example": "Due to the removal = 제거 때문에"
+        }
+      ],
+      "pronunciation": [],
+      "nativeComments": ["'Due to'는 격식체에서 'because of' 대신 자주 쓰여요."],
+      "timestamps": {
+        "from": "00:02:26,020",
+        "to": "00:02:28,080"
+      },
+      "offsets": {
+        "from": 146020,
+        "to": 148080
+      }
+    },
+    {
+      "original": "HM's ability to form long-term memories was also damaged.",
+      "translation": "HM의 장기 기억 형성 능력도 손상되었다.",
+      "vocabulary": [],
+      "grammar": [],
+      "pronunciation": [],
+      "nativeComments": ["단기 기억과 장기 기억 모두에 해마가 중요하다는 걸 보여주는 결과예요."],
+      "timestamps": {
+        "from": "00:02:28,080",
+        "to": "00:02:32,440"
+      },
+      "offsets": {
+        "from": 148080,
+        "to": 152440
+      }
+    },
+    {
+      "original": "What this case revealed, among other things,",
+      "translation": "이 사례가 밝혀낸 것 중 하나는,",
+      "vocabulary": [
+        {
+          "word": "reveal",
+          "meaning": "밝히다, 드러내다"
+        },
+        {
+          "word": "among other things",
+          "meaning": "무엇보다도, 특히"
+        }
+      ],
+      "grammar": [
+        {
+          "pattern": "What + 주어 + 동사",
+          "explanation": "~가 ~한 것",
+          "example": "What this case revealed = 이 사례가 밝혀낸 것"
+        }
+      ],
+      "pronunciation": [],
+      "nativeComments": [
+        "'among other things'는 '다른 것들 중에서도'라는 뜻으로, 여러 발견 중 하나를 강조할 때 써요."
+      ],
+      "timestamps": {
+        "from": "00:02:32,440",
+        "to": "00:02:34,800"
+      },
+      "offsets": {
+        "from": 152440,
+        "to": 154800
+      }
+    },
+    {
+      "original": "was that the hippocampus was specifically involved",
+      "translation": "해마가 특별히 관여한다는 것인데,",
+      "vocabulary": [
+        {
+          "word": "specifically",
+          "meaning": "특별히, 구체적으로"
+        },
+        {
+          "word": "involved",
+          "meaning": "관여하는, 관련된"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": ["'specifically'는 '스퍼시피컬리'로 두 번째 음절에 강세가 와요."],
+      "nativeComments": [
+        "'specifically'를 써서 해마의 역할이 일반적이 아니라 특정한 것임을 강조해요."
+      ],
+      "timestamps": {
+        "from": "00:02:34,800",
+        "to": "00:02:37,720"
+      },
+      "offsets": {
+        "from": 154800,
+        "to": 157720
+      }
+    },
+    {
+      "original": "in the consolidation of long-term declarative memory,",
+      "translation": "장기 서술적 기억의 강화에,",
+      "vocabulary": [
+        {
+          "word": "declarative memory",
+          "meaning": "서술적/선언적 기억 (사실과 사건에 대한 기억)"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": ["'declarative'는 '디클래러티브'로 두 번째 음절에 강세가 와요."],
+      "nativeComments": [
+        "'declarative memory'는 '선언할 수 있는 기억'이라는 뜻이에요. 말로 설명할 수 있는 지식이죠."
+      ],
+      "timestamps": {
+        "from": "00:02:37,720",
+        "to": "00:02:42,080"
+      },
+      "offsets": {
+        "from": 157720,
+        "to": 162080
+      }
+    },
+    {
+      "original": "such as the facts and concepts you need to remember for that test,",
+      "translation": "시험을 위해 기억해야 할 사실과 개념 같은,",
+      "vocabulary": [
+        {
+          "word": "concept",
+          "meaning": "개념"
+        }
+      ],
+      "grammar": [
+        {
+          "pattern": "such as",
+          "explanation": "~와 같은 (예시)",
+          "example": "such as facts and concepts = 사실과 개념 같은"
+        }
+      ],
+      "pronunciation": [],
+      "nativeComments": ["앞서 언급한 시험 상황과 연결시켜서 실용적인 의미를 부여해요."],
+      "timestamps": {
+        "from": "00:02:42,080",
+        "to": "00:02:45,320"
+      },
+      "offsets": {
+        "from": 162080,
+        "to": 165320
+      }
+    },
+    {
+      "original": "rather than procedural memory,",
+      "translation": "절차적 기억이 아니라,",
+      "vocabulary": [
+        {
+          "word": "rather than",
+          "meaning": "~보다는, ~이 아니라"
+        },
+        {
+          "word": "procedural memory",
+          "meaning": "절차적 기억 (기술과 동작에 대한 기억)"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": ["'procedural'은 '프로시저럴'로 두 번째 음절에 강세가 와요."],
+      "nativeComments": ["'procedural memory'는 자전거 타기처럼 몸이 기억하는 것들이에요."],
+      "timestamps": {
+        "from": "00:02:45,320",
+        "to": "00:02:47,320"
+      },
+      "offsets": {
+        "from": 165320,
+        "to": 167320
+      }
+    },
+    {
+      "original": "such as the finger movements you need to master for that recital.",
+      "translation": "연주회를 위해 익혀야 할 손가락 움직임 같은 것 말이다.",
+      "vocabulary": [
+        {
+          "word": "master",
+          "meaning": "숙달하다, 완전히 익히다"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": [],
+      "nativeComments": ["도입부의 피아노 연주회 상황과 다시 연결! 스토리텔링이 잘 된 영상이에요."],
+      "timestamps": {
+        "from": "00:02:47,320",
+        "to": "00:02:51,820"
+      },
+      "offsets": {
+        "from": 167320,
+        "to": 171820
+      }
+    },
+    {
+      "original": "Milner's findings, along with work by Eric Kandel in the '90s,",
+      "translation": "밀너의 발견과 90년대 에릭 캔델의 연구는,",
+      "vocabulary": [
+        {
+          "word": "findings",
+          "meaning": "발견, 연구 결과"
+        },
+        {
+          "word": "along with",
+          "meaning": "~와 함께"
+        }
+      ],
+      "grammar": [
+        {
+          "pattern": "along with",
+          "explanation": "~와 함께, ~와 더불어",
+          "example": "along with work by Eric Kandel = 에릭 캔델의 연구와 함께"
+        }
+      ],
+      "pronunciation": ["'Kandel'은 '캔델'로 발음해요."],
+      "nativeComments": ["에릭 캔델은 기억 연구로 2000년 노벨상을 받은 신경과학자예요!"],
+      "timestamps": {
+        "from": "00:02:51,820",
+        "to": "00:02:55,800"
+      },
+      "offsets": {
+        "from": 171820,
+        "to": 175800
+      }
+    },
+    {
+      "original": "have given us our current model of how this consolidation process works.",
+      "translation": "기억 강화 과정이 어떻게 작동하는지에 대한 현재 모델을 제시해줬다.",
+      "vocabulary": [
+        {
+          "word": "current",
+          "meaning": "현재의"
+        },
+        {
+          "word": "model",
+          "meaning": "모델, 모형"
+        }
+      ],
+      "grammar": [
+        {
+          "pattern": "have given us",
+          "explanation": "현재완료 - 우리에게 주었다 (현재까지 영향)",
+          "example": "have given us our current model = 현재 모델을 제시해줬다"
+        }
+      ],
+      "pronunciation": [],
+      "nativeComments": ["'current model'이라고 해서 과학이 계속 발전하고 있다는 뉘앙스를 줘요."],
+      "timestamps": {
+        "from": "00:02:55,800",
+        "to": "00:03:00,960"
+      },
+      "offsets": {
+        "from": 175800,
+        "to": 180960
+      }
+    },
+    {
+      "original": "Sensory data is initially transcribed",
+      "translation": "감각 데이터는 처음에 기록되고",
+      "vocabulary": [
+        {
+          "word": "sensory",
+          "meaning": "감각의"
+        },
+        {
+          "word": "transcribe",
+          "meaning": "기록하다, 옮겨 쓰다"
+        },
+        {
+          "word": "initially",
+          "meaning": "처음에"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": ["'sensory'는 '센서리'로 첫 음절에 강세가 와요."],
+      "nativeComments": [
+        "'transcribe'는 원래 '필사하다'라는 뜻인데, 뇌가 정보를 기록하는 것에 비유한 거예요."
+      ],
+      "timestamps": {
+        "from": "00:03:00,960",
+        "to": "00:03:03,120"
+      },
+      "offsets": {
+        "from": 180960,
+        "to": 183120
+      }
+    },
+    {
+      "original": "and temporarily recorded in the neurons as short-term memory.",
+      "translation": "단기 기억으로 뉴런에 임시 저장된다.",
+      "vocabulary": [
+        {
+          "word": "temporarily",
+          "meaning": "임시로, 일시적으로"
+        },
+        {
+          "word": "neuron",
+          "meaning": "뉴런, 신경 세포"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": [
+        "'temporarily'는 '템퍼레릴리'로 첫 음절에 강세가 와요.",
+        "'neuron'은 '뉴런' 또는 '뉴론'으로 발음해요."
+      ],
+      "nativeComments": ["컴퓨터의 RAM처럼 뇌의 단기 저장소를 설명하는 거예요."],
+      "timestamps": {
+        "from": "00:03:03,120",
+        "to": "00:03:07,140"
+      },
+      "offsets": {
+        "from": 183120,
+        "to": 187140
+      }
+    },
+    {
+      "original": "From there, it travels to the hippocampus,",
+      "translation": "거기서부터 해마로 이동하고,",
+      "vocabulary": [
+        {
+          "word": "travel",
+          "meaning": "이동하다"
+        }
+      ],
+      "grammar": [
+        {
+          "pattern": "From there",
+          "explanation": "거기서부터",
+          "example": "From there, it travels = 거기서 이동한다"
+        }
+      ],
+      "pronunciation": [],
+      "nativeComments": ["'travel'을 써서 정보가 뇌 안에서 물리적으로 이동하는 것처럼 표현했어요."],
+      "timestamps": {
+        "from": "00:03:07,140",
+        "to": "00:03:09,660"
+      },
+      "offsets": {
+        "from": 187140,
+        "to": 189660
+      }
+    },
+    {
+      "original": "which strengthens and enhances the neurons in that cortical area.",
+      "translation": "해마는 그 피질 영역의 뉴런을 강화하고 향상시킨다.",
+      "vocabulary": [
+        {
+          "word": "strengthen",
+          "meaning": "강화하다"
+        },
+        {
+          "word": "enhance",
+          "meaning": "향상시키다"
+        },
+        {
+          "word": "cortical",
+          "meaning": "피질의"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": ["'cortical'은 '코티컬'로 첫 음절에 강세가 와요."],
+      "nativeComments": [
+        "'strengthen'과 'enhance'를 같이 써서 두 가지 다른 방식의 강화를 표현해요."
+      ],
+      "timestamps": {
+        "from": "00:03:09,660",
+        "to": "00:03:13,320"
+      },
+      "offsets": {
+        "from": 189660,
+        "to": 193320
+      }
+    },
+    {
+      "original": "Thanks to the phenomenon of neuroplasticity,",
+      "translation": "신경가소성이라는 현상 덕분에,",
+      "vocabulary": [
+        {
+          "word": "thanks to",
+          "meaning": "~ 덕분에"
+        },
+        {
+          "word": "neuroplasticity",
+          "meaning": "신경가소성 (뇌가 변화하는 능력)"
+        }
+      ],
+      "grammar": [
+        {
+          "pattern": "Thanks to + 명사",
+          "explanation": "~ 덕분에",
+          "example": "Thanks to neuroplasticity = 신경가소성 덕분에"
+        }
+      ],
+      "pronunciation": ["'neuroplasticity'는 '뉴로플라스티시티'로 네 번째 음절에 강세가 와요."],
+      "nativeComments": [
+        "'neuroplasticity'는 뇌가 새로운 연결을 만들 수 있다는 희망적인 개념이에요!"
+      ],
+      "timestamps": {
+        "from": "00:03:13,320",
+        "to": "00:03:15,680"
+      },
+      "offsets": {
+        "from": 193320,
+        "to": 195680
+      }
+    },
+    {
+      "original": "new synaptic buds are formed,",
+      "translation": "새로운 시냅스 싹이 형성되고,",
+      "vocabulary": [
+        {
+          "word": "synaptic",
+          "meaning": "시냅스의"
+        },
+        {
+          "word": "bud",
+          "meaning": "싹, 눈"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": ["'synaptic'은 '시냅틱'으로 두 번째 음절에 강세가 와요."],
+      "nativeComments": [
+        "'bud'는 식물의 '싹'이라는 뜻인데, 뉴런의 새로운 연결이 자라는 것에 비유한 거예요."
+      ],
+      "timestamps": {
+        "from": "00:03:15,680",
+        "to": "00:03:18,360"
+      },
+      "offsets": {
+        "from": 195680,
+        "to": 198360
+      }
+    },
+    {
+      "original": "allowing new connections between neurons",
+      "translation": "뉴런 사이에 새로운 연결이 가능해지고",
+      "vocabulary": [
+        {
+          "word": "allow",
+          "meaning": "허용하다, 가능하게 하다"
+        },
+        {
+          "word": "connection",
+          "meaning": "연결"
+        }
+      ],
+      "grammar": [
+        {
+          "pattern": "allowing + 명사",
+          "explanation": "~을 가능하게 하면서 (분사구문)",
+          "example": "allowing new connections = 새로운 연결을 가능하게 하면서"
+        }
+      ],
+      "pronunciation": [],
+      "nativeComments": [],
+      "timestamps": {
+        "from": "00:03:18,360",
+        "to": "00:03:20,640"
+      },
+      "offsets": {
+        "from": 198360,
+        "to": 200640
+      }
+    },
+    {
+      "original": "and strengthening the neural network,",
+      "translation": "신경망이 강화되어,",
+      "vocabulary": [
+        {
+          "word": "neural network",
+          "meaning": "신경망"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": ["'neural'은 '뉴럴'로 첫 음절에 강세가 와요."],
+      "nativeComments": ["'neural network'는 AI에서도 쓰는 용어죠! 원래는 뇌과학 용어예요."],
+      "timestamps": {
+        "from": "00:03:20,640",
+        "to": "00:03:22,440"
+      },
+      "offsets": {
+        "from": 200640,
+        "to": 202440
+      }
+    },
+    {
+      "original": "where the information will be returned as long-term memory.",
+      "translation": "정보가 장기 기억으로 저장되는 곳이다.",
+      "vocabulary": [
+        {
+          "word": "return",
+          "meaning": "돌아오다, 반환되다"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": [],
+      "nativeComments": ["'return'을 써서 정보가 원래 있던 피질로 '돌아온다'는 느낌을 줘요."],
+      "timestamps": {
+        "from": "00:03:22,440",
+        "to": "00:03:26,000"
+      },
+      "offsets": {
+        "from": 202440,
+        "to": 206000
+      }
+    },
+    {
+      "original": "So why do we remember some things and not others?",
+      "translation": "그렇다면 왜 우리는 어떤 것은 기억하고 어떤 것은 못할까?",
+      "vocabulary": [],
+      "grammar": [],
+      "pronunciation": [],
+      "nativeComments": ["새로운 질문을 던지면서 다음 주제로 자연스럽게 전환하는 화법이에요."],
+      "timestamps": {
+        "from": "00:03:26,000",
+        "to": "00:03:29,000"
+      },
+      "offsets": {
+        "from": 206000,
+        "to": 209000
+      }
+    },
+    {
+      "original": "Well, there are a few ways to influence the extent and effectiveness",
+      "translation": "글쎄요, 기억 유지의 범위와 효과에 영향을 주는",
+      "vocabulary": [
+        {
+          "word": "influence",
+          "meaning": "영향을 주다"
+        },
+        {
+          "word": "extent",
+          "meaning": "범위, 정도"
+        },
+        {
+          "word": "effectiveness",
+          "meaning": "효과, 효율성"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": ["'influence'는 '인플루언스'로 첫 음절에 강세가 와요."],
+      "nativeComments": ["'a few ways'라고 해서 실용적인 팁이 나올 거라는 기대를 줘요."],
+      "timestamps": {
+        "from": "00:03:29,000",
+        "to": "00:03:32,600"
+      },
+      "offsets": {
+        "from": 209000,
+        "to": 212600
+      }
+    },
+    {
+      "original": "of memory retention.",
+      "translation": "몇 가지 방법이 있다.",
+      "vocabulary": [
+        {
+          "word": "retention",
+          "meaning": "유지, 보유"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": ["'retention'은 '리텐션'으로 두 번째 음절에 강세가 와요."],
+      "nativeComments": ["'memory retention'은 '기억 유지'라는 뜻의 학술 용어예요."],
+      "timestamps": {
+        "from": "00:03:32,600",
+        "to": "00:03:34,400"
+      },
+      "offsets": {
+        "from": 212600,
+        "to": 214400
+      }
+    },
+    {
+      "original": "For example, memories that are formed in times of heightened feeling,",
+      "translation": "예를 들어, 감정이 고조된 시기에 형성된 기억은,",
+      "vocabulary": [
+        {
+          "word": "heightened",
+          "meaning": "고조된, 강화된"
+        }
+      ],
+      "grammar": [
+        {
+          "pattern": "memories that are formed",
+          "explanation": "형성되는 기억들 (관계절)",
+          "example": "memories that are formed = 형성된 기억들"
+        }
+      ],
+      "pronunciation": ["'heightened'는 '하이튼드'로 발음해요."],
+      "nativeComments": ["감정적인 순간을 더 잘 기억하는 이유를 설명하기 시작해요."],
+      "timestamps": {
+        "from": "00:03:34,400",
+        "to": "00:03:38,600"
+      },
+      "offsets": {
+        "from": 214400,
+        "to": 218600
+      }
+    },
+    {
+      "original": "or even stress, will be better recorded.",
+      "translation": "심지어 스트레스 상황에서도, 더 잘 기록된다.",
+      "vocabulary": [
+        {
+          "word": "record",
+          "meaning": "기록하다"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": [],
+      "nativeComments": [
+        "'even stress'라고 해서 스트레스도 기억에 도움이 될 수 있다는 의외의 사실을 알려줘요."
+      ],
+      "timestamps": {
+        "from": "00:03:38,600",
+        "to": "00:03:41,680"
+      },
+      "offsets": {
+        "from": 218600,
+        "to": 221680
+      }
+    },
+    {
+      "original": "They're linked to the hippocampus' link with emotion.",
+      "translation": "이것은 해마가 감정과 연결되어 있기 때문이다.",
+      "vocabulary": [
+        {
+          "word": "link",
+          "meaning": "연결, 연결되다"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": [],
+      "nativeComments": ["해마가 감정 처리 중추인 편도체와 가까이 있어서 감정과 기억이 연결돼요."],
+      "timestamps": {
+        "from": "00:03:41,680",
+        "to": "00:03:44,800"
+      },
+      "offsets": {
+        "from": 221680,
+        "to": 224800
+      }
+    },
+    {
+      "original": "But one of the major factors contributing to memory consolidation is,",
+      "translation": "하지만 기억 강화에 기여하는 주요 요인 중 하나는,",
+      "vocabulary": [
+        {
+          "word": "factor",
+          "meaning": "요인"
+        },
+        {
+          "word": "contribute to",
+          "meaning": "~에 기여하다"
+        }
+      ],
+      "grammar": [
+        {
+          "pattern": "one of the + 복수명사",
+          "explanation": "~중 하나",
+          "example": "one of the major factors = 주요 요인 중 하나"
+        }
+      ],
+      "pronunciation": [],
+      "nativeComments": ["드디어 영상의 핵심 메시지가 나올 거라는 신호예요!"],
+      "timestamps": {
+        "from": "00:03:44,800",
+        "to": "00:03:49,360"
+      },
+      "offsets": {
+        "from": 224800,
+        "to": 229360
+      }
+    },
+    {
+      "original": "you guessed it, a good night's sleep.",
+      "translation": "짐작하셨겠지만, 바로 숙면이다.",
+      "vocabulary": [
+        {
+          "word": "you guessed it",
+          "meaning": "짐작하셨겠지만"
+        },
+        {
+          "word": "a good night's sleep",
+          "meaning": "숙면, 충분한 수면"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": ["'a good night's sleep'은 자연스럽게 '어 굿 나잇츠 슬립'으로 이어져요."],
+      "nativeComments": ["'you guessed it'은 청중과의 유대감을 형성하는 친근한 표현이에요."],
+      "timestamps": {
+        "from": "00:03:49,360",
+        "to": "00:03:52,040"
+      },
+      "offsets": {
+        "from": 229360,
+        "to": 232040
+      }
+    },
+    {
+      "original": "Sleep is composed of four stages,",
+      "translation": "수면은 네 단계로 구성되어 있는데,",
+      "vocabulary": [
+        {
+          "word": "be composed of",
+          "meaning": "~로 구성되다"
+        },
+        {
+          "word": "stage",
+          "meaning": "단계"
+        }
+      ],
+      "grammar": [
+        {
+          "pattern": "be composed of",
+          "explanation": "~로 구성되다",
+          "example": "is composed of four stages = 네 단계로 구성되다"
+        }
+      ],
+      "pronunciation": [],
+      "nativeComments": ["'consist of'와 같은 뜻이지만 좀 더 격식체예요."],
+      "timestamps": {
+        "from": "00:03:52,040",
+        "to": "00:03:54,520"
+      },
+      "offsets": {
+        "from": 232040,
+        "to": 234520
+      }
+    },
+    {
+      "original": "the deepest of which are known as slow wave sleep and rapid eye movement.",
+      "translation": "그중 가장 깊은 단계가 서파수면과 빠른 안구 운동이다.",
+      "vocabulary": [
+        {
+          "word": "slow wave sleep",
+          "meaning": "서파수면 (깊은 수면)"
+        },
+        {
+          "word": "rapid eye movement",
+          "meaning": "빠른 안구 운동 (REM 수면)"
+        }
+      ],
+      "grammar": [
+        {
+          "pattern": "the deepest of which",
+          "explanation": "그것들 중 가장 깊은 것 (관계절)",
+          "example": "the deepest of which are = 그중 가장 깊은 것들은"
+        }
+      ],
+      "pronunciation": ["'rapid'는 '래피드'로 첫 음절에 강세가 와요."],
+      "nativeComments": [
+        "REM은 'rapid eye movement'의 약자예요. 꿈을 꿀 때 눈이 빠르게 움직이거든요!"
+      ],
+      "timestamps": {
+        "from": "00:03:54,520",
+        "to": "00:03:59,640"
+      },
+      "offsets": {
+        "from": 234520,
+        "to": 239640
+      }
+    },
+    {
+      "original": "EEG machines monitoring people during these stages",
+      "translation": "이 단계에서 사람들을 모니터링하는 뇌파 측정기(EEG)는",
+      "vocabulary": [
+        {
+          "word": "EEG",
+          "meaning": "뇌전도, 뇌파 측정기"
+        },
+        {
+          "word": "monitor",
+          "meaning": "모니터링하다, 감시하다"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": ["'EEG'는 '이이지'로 각 글자를 따로 발음해요."],
+      "nativeComments": [
+        "EEG는 electroencephalogram의 약자로, 뇌의 전기 활동을 측정하는 기계예요."
+      ],
+      "timestamps": {
+        "from": "00:03:59,640",
+        "to": "00:04:02,720"
+      },
+      "offsets": {
+        "from": 239640,
+        "to": 242720
+      }
+    },
+    {
+      "original": "have shown electrical impulses moving between the brainstem,",
+      "translation": "뇌간 사이를 이동하는 전기 신호를 보여줬다,",
+      "vocabulary": [
+        {
+          "word": "impulse",
+          "meaning": "충격, 자극, 신호"
+        },
+        {
+          "word": "brainstem",
+          "meaning": "뇌간"
+        }
+      ],
+      "grammar": [
+        {
+          "pattern": "have shown + 목적어 + ~ing",
+          "explanation": "~가 ~하는 것을 보여줬다",
+          "example": "have shown impulses moving = 신호가 이동하는 것을 보여줬다"
+        }
+      ],
+      "pronunciation": ["'impulse'는 '임펄스'로 첫 음절에 강세가 와요."],
+      "nativeComments": [],
+      "timestamps": {
+        "from": "00:04:02,720",
+        "to": "00:04:06,480"
+      },
+      "offsets": {
+        "from": 242720,
+        "to": 246480
+      }
+    },
+    {
+      "original": "hippocampus, thalamus, and cortex,",
+      "translation": "해마, 시상, 그리고 피질,",
+      "vocabulary": [
+        {
+          "word": "thalamus",
+          "meaning": "시상 (뇌의 부위)"
+        },
+        {
+          "word": "cortex",
+          "meaning": "피질 (대뇌피질)"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": [
+        "'thalamus'는 '탈러머스'로 첫 음절에 강세가 와요.",
+        "'cortex'는 '코텍스'로 첫 음절에 강세가 와요."
+      ],
+      "nativeComments": ["뇌의 여러 부위 이름이 나열돼요. 이들이 서로 소통한다는 게 핵심이에요."],
+      "timestamps": {
+        "from": "00:04:06,480",
+        "to": "00:04:09,840"
+      },
+      "offsets": {
+        "from": 246480,
+        "to": 249840
+      }
+    },
+    {
+      "original": "which serve as relay stations of memory formation.",
+      "translation": "이들은 기억 형성의 중계소 역할을 한다.",
+      "vocabulary": [
+        {
+          "word": "serve as",
+          "meaning": "~역할을 하다"
+        },
+        {
+          "word": "relay station",
+          "meaning": "중계소"
+        }
+      ],
+      "grammar": [
+        {
+          "pattern": "serve as",
+          "explanation": "~역할을 하다",
+          "example": "serve as relay stations = 중계소 역할을 하다"
+        }
+      ],
+      "pronunciation": ["'relay'는 '릴레이'로 두 번째 음절에 강세가 와요."],
+      "nativeComments": [
+        "'relay station'은 정보가 전달되는 중간 기지라는 비유예요. 이해하기 쉽게 설명하네요!"
+      ],
+      "timestamps": {
+        "from": "00:04:09,840",
+        "to": "00:04:13,800"
+      },
+      "offsets": {
+        "from": 249840,
+        "to": 253800
+      }
+    },
+    {
+      "original": "And the different stages of sleep have been shown",
+      "translation": "그리고 수면의 다른 단계들이",
+      "vocabulary": [],
+      "grammar": [
+        {
+          "pattern": "have been shown to",
+          "explanation": "~한다는 것이 밝혀졌다",
+          "example": "have been shown to help = 도움이 된다는 것이 밝혀졌다"
+        }
+      ],
+      "pronunciation": [],
+      "nativeComments": [],
+      "timestamps": {
+        "from": "00:04:13,800",
+        "to": "00:04:16,040"
+      },
+      "offsets": {
+        "from": 253800,
+        "to": 256040
+      }
+    },
+    {
+      "original": "to help consolidate different types of memories.",
+      "translation": "다른 유형의 기억을 강화하는 데 도움이 된다는 것이 밝혀졌다.",
+      "vocabulary": [
+        {
+          "word": "consolidate",
+          "meaning": "강화하다, 통합하다"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": [],
+      "nativeComments": [
+        "각 수면 단계가 서로 다른 종류의 기억에 도움이 된다는 흥미로운 발견이에요!"
+      ],
+      "timestamps": {
+        "from": "00:04:16,040",
+        "to": "00:04:19,480"
+      },
+      "offsets": {
+        "from": 256040,
+        "to": 259480
+      }
+    },
+    {
+      "original": "During the non-REM slow wave sleep,",
+      "translation": "비렘 서파수면 동안,",
+      "vocabulary": [
+        {
+          "word": "non-REM",
+          "meaning": "비렘 (REM이 아닌 수면 단계)"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": ["'non-REM'은 '논렘'으로 발음해요."],
+      "nativeComments": ["수면은 크게 REM과 non-REM으로 나뉘어요. non-REM이 더 깊은 잠이에요."],
+      "timestamps": {
+        "from": "00:04:19,480",
+        "to": "00:04:22,960"
+      },
+      "offsets": {
+        "from": 259480,
+        "to": 262960
+      }
+    },
+    {
+      "original": "declarative memory is encoded into a temporary store",
+      "translation": "서술적 기억이 임시 저장소에 인코딩되고",
+      "vocabulary": [
+        {
+          "word": "encode",
+          "meaning": "암호화하다, 인코딩하다"
+        },
+        {
+          "word": "temporary",
+          "meaning": "임시의"
+        },
+        {
+          "word": "store",
+          "meaning": "저장소"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": ["'encode'는 '인코드'로 두 번째 음절에 강세가 와요."],
+      "nativeComments": ["컴퓨터 용어인 'encode'를 써서 뇌의 작동을 설명해요."],
+      "timestamps": {
+        "from": "00:04:22,960",
+        "to": "00:04:26,600"
+      },
+      "offsets": {
+        "from": 262960,
+        "to": 266600
+      }
+    },
+    {
+      "original": "in the anterior part of the hippocampus.",
+      "translation": "해마의 전방 부분에.",
+      "vocabulary": [
+        {
+          "word": "anterior",
+          "meaning": "앞쪽의, 전방의"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": ["'anterior'는 '앤티리어'로 두 번째 음절에 강세가 와요."],
+      "nativeComments": [
+        "'anterior'는 의학 용어로 '앞쪽'이라는 뜻이에요. 반대말은 'posterior(뒤쪽)'이에요."
+      ],
+      "timestamps": {
+        "from": "00:04:26,600",
+        "to": "00:04:29,640"
+      },
+      "offsets": {
+        "from": 266600,
+        "to": 269640
+      }
+    },
+    {
+      "original": "Through a continuing dialogue between the cortex and hippocampus,",
+      "translation": "피질과 해마 사이의 지속적인 대화를 통해,",
+      "vocabulary": [
+        {
+          "word": "dialogue",
+          "meaning": "대화"
+        },
+        {
+          "word": "continuing",
+          "meaning": "지속적인"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": ["'dialogue'는 '다이얼로그'로 첫 음절에 강세가 와요."],
+      "nativeComments": [
+        "'dialogue'라고 표현해서 뇌의 두 부분이 서로 '대화'하는 것처럼 묘사했어요."
+      ],
+      "timestamps": {
+        "from": "00:04:29,640",
+        "to": "00:04:33,240"
+      },
+      "offsets": {
+        "from": 269640,
+        "to": 273240
+      }
+    },
+    {
+      "original": "it is then repeatedly reactivated,",
+      "translation": "기억이 반복적으로 재활성화되고,",
+      "vocabulary": [
+        {
+          "word": "repeatedly",
+          "meaning": "반복적으로"
+        },
+        {
+          "word": "reactivate",
+          "meaning": "재활성화하다"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": ["'reactivate'는 '리액티베이트'로 두 번째 음절에 강세가 와요."],
+      "nativeComments": [
+        "기억이 강화되려면 반복적으로 '재생'되어야 한다는 거예요. 복습의 과학적 근거죠!"
+      ],
+      "timestamps": {
+        "from": "00:04:33,240",
+        "to": "00:04:35,800"
+      },
+      "offsets": {
+        "from": 273240,
+        "to": 275800
+      }
+    },
+    {
+      "original": "driving its gradual redistribution to long-term storage in the cortex.",
+      "translation": "피질의 장기 저장소로 점진적으로 재분배된다.",
+      "vocabulary": [
+        {
+          "word": "drive",
+          "meaning": "이끌다, 추진하다"
+        },
+        {
+          "word": "gradual",
+          "meaning": "점진적인"
+        },
+        {
+          "word": "redistribution",
+          "meaning": "재분배"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": ["'gradual'은 '그래주얼'로 첫 음절에 강세가 와요."],
+      "nativeComments": ["'gradual'이라고 해서 기억 강화가 하룻밤에 끝나지 않는다는 걸 알려줘요."],
+      "timestamps": {
+        "from": "00:04:35,800",
+        "to": "00:04:41,080"
+      },
+      "offsets": {
+        "from": 275800,
+        "to": 281080
+      }
+    },
+    {
+      "original": "REM sleep, on the other hand, with its similarity to waking brain activity,",
+      "translation": "반면에 REM 수면은 깨어있을 때의 뇌 활동과 비슷해서,",
+      "vocabulary": [
+        {
+          "word": "on the other hand",
+          "meaning": "반면에"
+        },
+        {
+          "word": "similarity",
+          "meaning": "유사성"
+        },
+        {
+          "word": "waking",
+          "meaning": "깨어있는"
+        }
+      ],
+      "grammar": [
+        {
+          "pattern": "on the other hand",
+          "explanation": "반면에, 다른 한편으로는",
+          "example": "REM sleep, on the other hand = 반면에 REM 수면은"
+        }
+      ],
+      "pronunciation": [],
+      "nativeComments": ["REM 수면 때 뇌가 깨어있을 때처럼 활발하다는 게 흥미로운 사실이에요!"],
+      "timestamps": {
+        "from": "00:04:41,080",
+        "to": "00:04:45,200"
+      },
+      "offsets": {
+        "from": 281080,
+        "to": 285200
+      }
+    },
+    {
+      "original": "is associated with the consolidation of procedural memory.",
+      "translation": "절차적 기억의 강화와 관련이 있다.",
+      "vocabulary": [
+        {
+          "word": "be associated with",
+          "meaning": "~와 관련되다"
+        }
+      ],
+      "grammar": [
+        {
+          "pattern": "be associated with",
+          "explanation": "~와 관련되다",
+          "example": "is associated with procedural memory = 절차적 기억과 관련되다"
+        }
+      ],
+      "pronunciation": [],
+      "nativeComments": ["그래서 피아노 연습 후에는 REM 수면이 특히 중요해요!"],
+      "timestamps": {
+        "from": "00:04:45,200",
+        "to": "00:04:49,000"
+      },
+      "offsets": {
+        "from": 285200,
+        "to": 289000
+      }
+    },
+    {
+      "original": "So based on the studies,",
+      "translation": "그래서 연구 결과에 따르면,",
+      "vocabulary": [
+        {
+          "word": "based on",
+          "meaning": "~에 기초하여"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": [],
+      "nativeComments": ["드디어 실용적인 결론이 나올 거라는 신호예요!"],
+      "timestamps": {
+        "from": "00:04:49,000",
+        "to": "00:04:50,440"
+      },
+      "offsets": {
+        "from": 289000,
+        "to": 290440
+      }
+    },
+    {
+      "original": "going to sleep three hours after memorizing your formulas",
+      "translation": "공식을 암기한 후 3시간 후에 자고",
+      "vocabulary": [
+        {
+          "word": "memorize",
+          "meaning": "암기하다"
+        },
+        {
+          "word": "formula",
+          "meaning": "공식"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": ["'formula'의 복수형 'formulas'는 '포뮬러즈'로 발음해요."],
+      "nativeComments": ["구체적인 숫자(3시간)를 제시해서 실용적인 팁을 줘요."],
+      "timestamps": {
+        "from": "00:04:50,440",
+        "to": "00:04:53,760"
+      },
+      "offsets": {
+        "from": 290440,
+        "to": 293760
+      }
+    },
+    {
+      "original": "and one hour after practicing your scales would be the most ideal.",
+      "translation": "스케일 연습 후 1시간 후에 자는 게 가장 이상적일 것이다.",
+      "vocabulary": [
+        {
+          "word": "scales",
+          "meaning": "음계 (피아노 연습)"
+        },
+        {
+          "word": "ideal",
+          "meaning": "이상적인"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": ["'ideal'은 '아이디얼'로 두 번째 음절에 강세가 와요."],
+      "nativeComments": [
+        "선언적 기억(공식)은 3시간 후, 절차적 기억(연주)은 1시간 후라는 구체적 조언이에요!"
+      ],
+      "timestamps": {
+        "from": "00:04:53,760",
+        "to": "00:04:58,640"
+      },
+      "offsets": {
+        "from": 293760,
+        "to": 298640
+      }
+    },
+    {
+      "original": "So hopefully you can see now that skimping on sleep",
+      "translation": "이제 수면을 아끼는 것이",
+      "vocabulary": [
+        {
+          "word": "hopefully",
+          "meaning": "바라건대"
+        },
+        {
+          "word": "skimp on",
+          "meaning": "~을 아끼다, ~에 인색하다"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": ["'skimping'은 '스킴핑'으로 발음해요."],
+      "nativeComments": [
+        "'skimp on'은 돈이나 시간을 아끼다라는 뜻이에요. 여기선 잠을 줄인다는 의미로 썼어요."
+      ],
+      "timestamps": {
+        "from": "00:04:58,640",
+        "to": "00:05:01,320"
+      },
+      "offsets": {
+        "from": 298640,
+        "to": 301320
+      }
+    },
+    {
+      "original": "not only harms your long-term health,",
+      "translation": "장기적인 건강에 해로울 뿐만 아니라,",
+      "vocabulary": [
+        {
+          "word": "harm",
+          "meaning": "해치다"
+        }
+      ],
+      "grammar": [
+        {
+          "pattern": "not only A but also B",
+          "explanation": "A뿐만 아니라 B도",
+          "example": "not only harms health = 건강을 해칠 뿐만 아니라"
+        }
+      ],
+      "pronunciation": [],
+      "nativeComments": [],
+      "timestamps": {
+        "from": "00:05:01,320",
+        "to": "00:05:03,680"
+      },
+      "offsets": {
+        "from": 301320,
+        "to": 303680
+      }
+    },
+    {
+      "original": "but actually makes it less likely that you'll retain",
+      "translation": "실제로 유지할 가능성도 낮아진다는 것을",
+      "vocabulary": [
+        {
+          "word": "retain",
+          "meaning": "유지하다, 기억하다"
+        },
+        {
+          "word": "less likely",
+          "meaning": "덜 가능성이 있는"
+        }
+      ],
+      "grammar": [
+        {
+          "pattern": "make it less likely that",
+          "explanation": "~할 가능성을 낮추다",
+          "example": "makes it less likely that you'll retain = 유지할 가능성을 낮춘다"
+        }
+      ],
+      "pronunciation": [],
+      "nativeComments": [],
+      "timestamps": {
+        "from": "00:05:03,680",
+        "to": "00:05:06,080"
+      },
+      "offsets": {
+        "from": 303680,
+        "to": 306080
+      }
+    },
+    {
+      "original": "all that knowledge and practice from the previous night,",
+      "translation": "전날 밤의 모든 지식과 연습을",
+      "vocabulary": [
+        {
+          "word": "previous",
+          "meaning": "이전의"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": ["'previous'는 '프리비어스'로 첫 음절에 강세가 와요."],
+      "nativeComments": [
+        "도입부의 상황과 다시 연결! 밤새 공부한 게 헛수고가 될 수 있다는 경고예요."
+      ],
+      "timestamps": {
+        "from": "00:05:06,080",
+        "to": "00:05:09,360"
+      },
+      "offsets": {
+        "from": 306080,
+        "to": 309360
+      }
+    },
+    {
+      "original": "all of which just goes to affirm the wisdom of the phrase \"sleep on it.\"",
+      "translation": "이 모든 것이 '하룻밤 자고 생각해봐'라는 말의 지혜를 확인시켜준다.",
+      "vocabulary": [
+        {
+          "word": "affirm",
+          "meaning": "확인하다, 긍정하다"
+        },
+        {
+          "word": "wisdom",
+          "meaning": "지혜"
+        },
+        {
+          "word": "sleep on it",
+          "meaning": "하룻밤 자고 결정하다"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": ["'affirm'은 '어펌'으로 두 번째 음절에 강세가 와요."],
+      "nativeComments": [
+        "'sleep on it'은 중요한 결정 전에 하룻밤 자면서 생각하라는 영어 관용구예요. 과학적 근거가 있었네요!"
+      ],
+      "timestamps": {
+        "from": "00:05:09,360",
+        "to": "00:05:13,640"
+      },
+      "offsets": {
+        "from": 309360,
+        "to": 313640
+      }
+    },
+    {
+      "original": "When you think about all the internal restructuring",
+      "translation": "내부 재구조화와",
+      "vocabulary": [
+        {
+          "word": "internal",
+          "meaning": "내부의"
+        },
+        {
+          "word": "restructuring",
+          "meaning": "재구조화"
+        }
+      ],
+      "grammar": [
+        {
+          "pattern": "When you think about",
+          "explanation": "~에 대해 생각해보면",
+          "example": "When you think about restructuring = 재구조화에 대해 생각해보면"
+        }
+      ],
+      "pronunciation": [],
+      "nativeComments": [],
+      "timestamps": {
+        "from": "00:05:13,640",
+        "to": "00:05:16,120"
+      },
+      "offsets": {
+        "from": 313640,
+        "to": 316120
+      }
+    },
+    {
+      "original": "and forming of new connections that occurs while you slumber,",
+      "translation": "자는 동안 일어나는 새로운 연결 형성에 대해 생각해보면,",
+      "vocabulary": [
+        {
+          "word": "slumber",
+          "meaning": "잠, 수면 (문학적 표현)"
+        }
+      ],
+      "grammar": [],
+      "pronunciation": ["'slumber'는 '슬럼버'로 첫 음절에 강세가 와요."],
+      "nativeComments": [
+        "'slumber'는 'sleep'보다 시적이고 문학적인 표현이에요. 마무리에 어울리는 단어 선택이네요."
+      ],
+      "timestamps": {
+        "from": "00:05:16,120",
+        "to": "00:05:19,840"
+      },
+      "offsets": {
+        "from": 316120,
+        "to": 319840
+      }
+    },
+    {
+      "original": "you could even say that proper sleep will have you waking up every morning",
+      "translation": "적절한 수면을 취하면 매일 아침 일어날 때",
+      "vocabulary": [
+        {
+          "word": "proper",
+          "meaning": "적절한, 올바른"
+        }
+      ],
+      "grammar": [
+        {
+          "pattern": "have + 목적어 + ~ing",
+          "explanation": "~가 ~하게 만들다",
+          "example": "have you waking up = 당신이 일어나게 하다"
+        }
+      ],
+      "pronunciation": [],
+      "nativeComments": [],
+      "timestamps": {
+        "from": "00:05:19,840",
+        "to": "00:05:23,600"
+      },
+      "offsets": {
+        "from": 319840,
+        "to": 323600
+      }
+    },
+    {
+      "original": "with a new and improved brain, ready to face the challenges ahead.",
+      "translation": "새롭고 향상된 뇌로 앞으로의 도전을 맞이할 준비가 되어 있다고 말할 수 있다.",
+      "vocabulary": [
+        {
+          "word": "improved",
+          "meaning": "향상된"
+        },
+        {
+          "word": "face",
+          "meaning": "맞서다, 직면하다"
+        },
+        {
+          "word": "challenge",
+          "meaning": "도전"
+        }
+      ],
+      "grammar": [
+        {
+          "pattern": "ready to + 동사",
+          "explanation": "~할 준비가 된",
+          "example": "ready to face the challenges = 도전을 맞이할 준비가 된"
+        }
+      ],
+      "pronunciation": [],
+      "nativeComments": [
+        "희망적이고 긍정적인 메시지로 영상을 마무리해요. 수면의 가치를 다시 한번 강조하네요!"
+      ],
+      "timestamps": {
+        "from": "00:05:23,600",
+        "to": "00:05:28,040"
+      },
+      "offsets": {
+        "from": 323600,
+        "to": 328040
+      }
+    }
+  ]
+}

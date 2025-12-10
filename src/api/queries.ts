@@ -7,6 +7,8 @@
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
 
 import {
+  fetchClassById,
+  fetchClasses,
   fetchQuizByDate,
   fetchSubtitles,
   fetchTodayQuiz,
@@ -15,6 +17,7 @@ import {
   fetchVideos,
 } from './endpoints'
 import { queryKeys } from './query-keys'
+import { downloadVideoContent } from './storage'
 import type { VideoCursor } from './types'
 
 const ONE_HOUR = 1000 * 60 * 60
@@ -96,5 +99,42 @@ export const useQuizByDateQuery = (date: string) => {
   return useQuery({
     queryKey: queryKeys.quiz.byDate(date),
     queryFn: () => fetchQuizByDate(date),
+  })
+}
+
+// ============================================
+// Class Queries
+// ============================================
+
+/**
+ * 클래스 목록 조회 hook
+ */
+export const useClassesQuery = () => {
+  return useQuery({
+    queryKey: queryKeys.classes.all,
+    queryFn: fetchClasses,
+  })
+}
+
+/**
+ * 클래스 상세 정보 조회 hook
+ */
+export const useClassDetailQuery = (classId: string | undefined) => {
+  return useQuery({
+    queryKey: queryKeys.classes.detail(classId!),
+    queryFn: () => fetchClassById(classId!),
+    enabled: !!classId,
+  })
+}
+
+/**
+ * 비디오 콘텐츠 JSON 조회 hook
+ * @param videoId - 비디오 ID
+ */
+export const useVideoContentQuery = <T = unknown>(videoId: string | undefined) => {
+  return useQuery({
+    queryKey: ['contents', videoId],
+    queryFn: () => downloadVideoContent<T>(videoId!),
+    enabled: !!videoId,
   })
 }
